@@ -85,6 +85,8 @@ half the frame height and sits where the reference has it.
   the viewport meanwhile.
 
 ## 6. Compare and review
+A reference card without frames: if the pack is installed, capture it like your own effect (`vfx-find` section 3,
+`P.batch` + `stills.py --follow`) into `<effect>/ref`, same camera and times.
 ```bash
 python3 -I "ROOT/kit/scripts/gallery_frames.py" "ROOT/gallery/effects/<type>/<id>.jpg" --out <effect>/ref   # library reference
 python3 -I "ROOT/kit/scripts/compare.py" --ref <effect>/ref|<ref.mp4> --ours <effect>/vN \

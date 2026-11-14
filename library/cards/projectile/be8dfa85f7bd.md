@@ -3,7 +3,7 @@
 - Category: **projectile**; tags: dark, flash, impact, projectile, star
 - Layers: 11 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/CoolOrb (2).rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/CoolOrb (2).rbxm" --ref 0 --out <studio content>/vfxlib/fx_be8dfa85f7bd.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/CoolOrb (2).rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id be8dfa85f7bd --studio`, then `P.load("fx_be8dfa85f7bd")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -11,7 +11,7 @@ studied ~1,900 real open-source effects: their exact layer values, their timing,
 | **Knowledge** | 11 effect-type studies with anatomy tables, timing, technique recipes and mistakes, plus a starting recipe each; cross-effect rules; texture ids by role ([`knowledge/`](knowledge/)) |
 | **Skills** | `vfx` (router), `vfx-make` (build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
 | **Kit** | effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
-| **Pack** | the cleaned open-source pack itself: release download (~580 files), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md) |
+| **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
 ## Install (Claude Code)
 ```
@@ -65,7 +65,7 @@ category studies in [`knowledge/categories/`](knowledge/categories/).
 ## For people (no AI)
 - Browse [`gallery/effects/`](gallery/effects/) and read [`knowledge/categories/`](knowledge/categories/) for your
   effect type; the cards in [`library/cards/`](library/cards/) list every value of each effect.
-- Download the pack and drag a `.rbxm` into Studio. Most effects play with:
+- [Download the pack](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1), read [`SECURITY.md`](SECURITY.md), and drag a `.rbxm` into Studio. Most effects play with:
 ```lua
 -- fire every emitter the way most open-source VFX expect (attributes EmitCount / EmitDelay / EmitDuration)
 local function play(effect: Instance)

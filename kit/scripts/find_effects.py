@@ -96,6 +96,15 @@ def main():
         recs = [r for r in recs if r['category'] == a.category]
     if a.frames_only:
         recs = [r for r in recs if r.get('sheet')]
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import get_pack
+    pk = get_pack.find_pack()
+    if pk:
+        print('pack: installed (%s). Watch any result in Studio: rbxcut.py --id <id> --studio, then P.load("fx_<id>")\n' % pk)
+    else:
+        print('pack: not installed (optional; cards and frames below work without it). To watch effects that have no '
+              'frames: get_pack.py (ask the user first, ~%d MB) or get_pack.py --link <folder>\n' % (get_pack.META['bytes'] // 10**6))
     for words in parts(a.query):
         terms = [expand(w) for w in words]
         cats = {CAT_OF[k] for k, _ in terms if k in CAT_OF}

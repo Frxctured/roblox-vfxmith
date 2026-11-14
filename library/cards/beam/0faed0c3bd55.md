@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, fire, flash, lightning, shockwave, star, water
 - Layers: 46 emitters, 2 beams, 13 trails, 20 mesh parts, 0 lights; estimated length 10.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 54845): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl" --ref 54845 --out <studio content>/vfxlib/fx_0faed0c3bd55.rbxmx`
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 54845). Watch it in Studio: `kit/scripts/rbxcut.py --id 0faed0c3bd55 --studio`, then `P.load("fx_0faed0c3bd55")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

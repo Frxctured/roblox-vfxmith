@@ -3,7 +3,7 @@
 - Category: **icewater**; tags: smoke, star, water
 - Layers: 26 emitters, 36 beams, 0 trails, 192 mesh parts, 0 lights; estimated length 5.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `2026 OS Mar-April/aquatic.rbxl` (instance referent 42): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/aquatic.rbxl" --ref 42 --out <studio content>/vfxlib/fx_cf8cc91ca7f6.rbxmx`
+- Pack file: `2026 OS Mar-April/aquatic.rbxl` (instance referent 42). Watch it in Studio: `kit/scripts/rbxcut.py --id cf8cc91ca7f6 --studio`, then `P.load("fx_cf8cc91ca7f6")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

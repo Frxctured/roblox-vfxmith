@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, dash, impact, portal, shockwave, star
 - Layers: 0 emitters, 16 beams, 0 trails, 0 mesh parts, 0 lights; estimated length None s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `2026 OS Mar-April/WukongSpinRushVFXos.rbxl` (instance referent 24936): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/WukongSpinRushVFXos.rbxl" --ref 24936 --out <studio content>/vfxlib/fx_e39bfbcbe25f.rbxmx`
+- Pack file: `2026 OS Mar-April/WukongSpinRushVFXos.rbxl` (instance referent 24936). Watch it in Studio: `kit/scripts/rbxcut.py --id e39bfbcbe25f --studio`, then `P.load("fx_e39bfbcbe25f")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **beam**; tags: aura, beam, impact, lightning, projectile, shockwave, smoke, star
 - Layers: 51 emitters, 12 beams, 1 trails, 7 mesh parts, 3 lights; estimated length 1.2 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 5737): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Ranked.rbxl" --ref 5737 --out <studio content>/vfxlib/fx_4ceddbdb2fa4.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 5737). Watch it in Studio: `kit/scripts/rbxcut.py --id 4ceddbdb2fa4 --studio`, then `P.load("fx_4ceddbdb2fa4")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

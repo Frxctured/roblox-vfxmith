@@ -3,7 +3,7 @@
 - Category: **slash**; tags: fire, shockwave, slash, star
 - Layers: 7 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.5 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 6001): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 6001 --out <studio content>/vfxlib/fx_5ffb85f8d7da.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 6001). Watch it in Studio: `kit/scripts/rbxcut.py --id 5ffb85f8d7da --studio`, then `P.load("fx_5ffb85f8d7da")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

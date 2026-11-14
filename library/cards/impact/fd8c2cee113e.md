@@ -3,7 +3,7 @@
 - Category: **impact**; tags: impact
 - Layers: 4 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.65 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/OnGoob.rbxm` (instance referent 4148): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/OnGoob.rbxm" --ref 4148 --out <studio content>/vfxlib/fx_fd8c2cee113e.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/OnGoob.rbxm` (instance referent 4148). Watch it in Studio: `kit/scripts/rbxcut.py --id fd8c2cee113e --studio`, then `P.load("fx_fd8c2cee113e")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

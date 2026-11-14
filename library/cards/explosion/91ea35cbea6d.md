@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: aura, explosion, fire
 - Layers: 24 emitters, 2 beams, 0 trails, 4 mesh parts, 0 lights; estimated length 7.74 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/errything.rbxm` (instance referent 32442): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/errything.rbxm" --ref 32442 --out <studio content>/vfxlib/fx_91ea35cbea6d.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/errything.rbxm` (instance referent 32442). Watch it in Studio: `kit/scripts/rbxcut.py --id 91ea35cbea6d --studio`, then `P.load("fx_91ea35cbea6d")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

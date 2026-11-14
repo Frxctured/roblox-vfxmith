@@ -3,7 +3,7 @@
 - Category: **lightning**; tags: impact, lightning, smoke
 - Layers: 12 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.96 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/LightingPillar.rbxm` (instance referent 147): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/LightingPillar.rbxm" --ref 147 --out <studio content>/vfxlib/fx_86fdbff7fd1f.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/LightingPillar.rbxm` (instance referent 147). Watch it in Studio: `kit/scripts/rbxcut.py --id 86fdbff7fd1f --studio`, then `P.load("fx_86fdbff7fd1f")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

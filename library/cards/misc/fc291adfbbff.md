@@ -3,7 +3,7 @@
 - Category: **misc**; tags: aura
 - Layers: 21 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.15 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm` (instance referent 1): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm" --ref 1 --out <studio content>/vfxlib/fx_fc291adfbbff.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm` (instance referent 1). Watch it in Studio: `kit/scripts/rbxcut.py --id fc291adfbbff --studio`, then `P.load("fx_fc291adfbbff")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/misc/fc291adfbbff.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

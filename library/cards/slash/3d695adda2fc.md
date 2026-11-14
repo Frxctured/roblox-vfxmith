@@ -3,7 +3,7 @@
 - Category: **slash**; tags: dark, fire, slash, smoke
 - Layers: 78 emitters, 0 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 1.55 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl` (instance referent 3421): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl" --ref 3421 --out <studio content>/vfxlib/fx_3d695adda2fc.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl` (instance referent 3421). Watch it in Studio: `kit/scripts/rbxcut.py --id 3d695adda2fc --studio`, then `P.load("fx_3d695adda2fc")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

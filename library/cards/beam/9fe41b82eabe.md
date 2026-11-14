@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, impact
 - Layers: 0 emitters, 4 beams, 0 trails, 0 mesh parts, 0 lights; estimated length None s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Beams.rbxm` (instance referent 10): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Beams.rbxm" --ref 10 --out <studio content>/vfxlib/fx_9fe41b82eabe.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Beams.rbxm` (instance referent 10). Watch it in Studio: `kit/scripts/rbxcut.py --id 9fe41b82eabe --studio`, then `P.load("fx_9fe41b82eabe")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

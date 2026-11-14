@@ -3,7 +3,7 @@
 - Category: **slash**; tags: fire, floor, portal, projectile, slash, star, water
 - Layers: 7 emitters, 2 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 1.5 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 9): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl" --ref 9 --out <studio content>/vfxlib/fx_ebcddb7d861e.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 9). Watch it in Studio: `kit/scripts/rbxcut.py --id ebcddb7d861e --studio`, then `P.load("fx_ebcddb7d861e")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

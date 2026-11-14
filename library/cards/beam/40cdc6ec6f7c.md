@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam
 - Layers: 17 emitters, 3 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 10.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/summon os (ca co).rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/summon os (ca co).rbxm" --ref 0 --out <studio content>/vfxlib/fx_40cdc6ec6f7c.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/summon os (ca co).rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 40cdc6ec6f7c --studio`, then `P.load("fx_40cdc6ec6f7c")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

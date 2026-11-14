@@ -3,7 +3,7 @@
 - Category: **impact**; tags: floor, impact, lightning, star
 - Layers: 5 emitters, 0 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 3.0 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Goro_-_Thunder_Wrath_Skill.rbxl` (instance referent 9153): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Goro_-_Thunder_Wrath_Skill.rbxl" --ref 9153 --out <studio content>/vfxlib/fx_dbabf5952aba.rbxmx`
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Goro_-_Thunder_Wrath_Skill.rbxl` (instance referent 9153). Watch it in Studio: `kit/scripts/rbxcut.py --id dbabf5952aba --studio`, then `P.load("fx_dbabf5952aba")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

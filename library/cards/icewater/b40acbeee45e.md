@@ -3,7 +3,7 @@
 - Category: **icewater**; tags: star, water
 - Layers: 2 emitters, 2 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.85 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `2026 OS Mar-April/1ss_island.rbxl` (instance referent 3): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/1ss_island.rbxl" --ref 3 --out <studio content>/vfxlib/fx_b40acbeee45e.rbxmx`
+- Pack file: `2026 OS Mar-April/1ss_island.rbxl` (instance referent 3). Watch it in Studio: `kit/scripts/rbxcut.py --id b40acbeee45e --studio`, then `P.load("fx_b40acbeee45e")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

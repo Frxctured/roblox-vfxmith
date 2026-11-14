@@ -3,7 +3,7 @@
 - Category: **aura**; tags: aura, dark, explosion, fire, flash, shockwave, smoke, star
 - Layers: 38 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.96 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/Sukuna Aura.rbxm` (instance referent 5100): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/Sukuna Aura.rbxm" --ref 5100 --out <studio content>/vfxlib/fx_ca02a0ef8c5a.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/Sukuna Aura.rbxm` (instance referent 5100). Watch it in Studio: `kit/scripts/rbxcut.py --id ca02a0ef8c5a --studio`, then `P.load("fx_ca02a0ef8c5a")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/aura/ca02a0ef8c5a.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

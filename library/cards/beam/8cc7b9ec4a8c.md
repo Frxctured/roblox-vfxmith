@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, flash, ice, impact, projectile, shockwave, smoke, star
 - Layers: 50 emitters, 0 beams, 8 trails, 1 mesh parts, 4 lights; estimated length 8.0 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Missile Sequence.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Missile Sequence.rbxm" --ref 0 --out <studio content>/vfxlib/fx_8cc7b9ec4a8c.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Missile Sequence.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 8cc7b9ec4a8c --studio`, then `P.load("fx_8cc7b9ec4a8c")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

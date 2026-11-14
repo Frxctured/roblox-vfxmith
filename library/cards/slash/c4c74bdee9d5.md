@@ -3,7 +3,7 @@
 - Category: **slash**; tags: beam, flash, lightning, portal, shockwave, slash, star
 - Layers: 37 emitters, 28 beams, 0 trails, 1 mesh parts, 0 lights; estimated length 4.4 s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `2026 OS Mar-April/excalibur morgan stuff.rbxl` (instance referent 571): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/excalibur morgan stuff.rbxl" --ref 571 --out <studio content>/vfxlib/fx_c4c74bdee9d5.rbxmx`
+- Pack file: `2026 OS Mar-April/excalibur morgan stuff.rbxl` (instance referent 571). Watch it in Studio: `kit/scripts/rbxcut.py --id c4c74bdee9d5 --studio`, then `P.load("fx_c4c74bdee9d5")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

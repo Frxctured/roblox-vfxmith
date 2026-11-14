@@ -3,7 +3,7 @@
 - Category: **impact**; tags: beam, shockwave
 - Layers: 69 emitters, 8 beams, 15 trails, 28 mesh parts, 0 lights; estimated length 10.0 s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 51263): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl" --ref 51263 --out <studio content>/vfxlib/fx_f1fe43cbad17.rbxmx`
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 51263). Watch it in Studio: `kit/scripts/rbxcut.py --id f1fe43cbad17 --studio`, then `P.load("fx_f1fe43cbad17")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

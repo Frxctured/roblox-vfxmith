@@ -1,0 +1,15 @@
+{
+  "name": "Roblox VFX open-source pack",
+  "tag": "pack-v1",
+  "url": "https://github.com/Frxctured/roblox-vfxmith/releases/download/pack-v1/roblox-vfx-open-source-pack.zip",
+  "page": "https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1",
+  "bytes": 406028099,
+  "sha256": "7a90a70ec4c49a2a2dae8ef93d7794200e1cf8a2ee53cdbdf00760cf80e4ff0b",
+  "root": "Roblox VFX open-source pack",
+  "folders": [
+    "190 OS (Oct 2024-Mar 2026)",
+    "2026 OS Jan-April (part 2)",
+    "2026 OS Mar-April",
+    "Older OS (2025 and older)"
+  ]
+}

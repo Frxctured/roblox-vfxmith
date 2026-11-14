@@ -1,6 +1,6 @@
 # The pack: what is in it
 
-Download: the release archive **Roblox VFX open-source pack** (462 MB unpacked). Folder layout is the original collection's (by the month the files were shared). Full per-file list: `pack_manifest.csv` (path, size, status, number of effects found, VFX Forge use, notes).
+Download: the release archive **Roblox VFX open-source pack** ([release `pack-v1`](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1), 462 MB unpacked). Agents and scripts get it with `python3 kit/scripts/get_pack.py` (downloads, checks the SHA-256 and unpacks; `--link <folder>` uses a copy you already have). Folder layout is the original collection's (by the month the files were shared). Full per-file list: `pack_manifest.csv` (path, size, status, number of effects found, VFX Forge use, notes).
 
 | | Files |
 |---|---|
@@ -11,7 +11,7 @@ Download: the release archive **Roblox VFX open-source pack** (462 MB unpacked).
 
 By type: .rbxm 359, .rbxl 119, .png 85, .blend 8, .obj 3, .luau 1, .rbxmx 1.
 
-The Roblox files hold about 1,900 distinct effects (emitter/beam/trail groups); `catalog/effects.csv` lists them with tags and layer counts, and `gallery/effects/` shows 77 of them frame by frame; `library/cards/` describes about 1,200 layer by layer.
+The Roblox files hold about 1,900 distinct effects (emitter/beam/trail groups); `catalog/effects.csv` lists them with tags and layer counts, and `gallery/effects/` shows 75 of them frame by frame; `library/cards/` describes about 1,200 layer by layer (`kit/scripts/rbxcut.py --id <card id> --studio` cuts any of them, scripts removed, into Studio to watch).
 
 ## How to use the files safely
 - Open a `.rbxm` by dragging it into Studio (or Model > Import), a `.rbxl` with File > Open. Do not press Play in a place you have not checked; read `SECURITY.md` first.
@@ -98,6 +98,7 @@ The Roblox files hold about 1,900 distinct effects (emitter/beam/trail groups); 
 | File | Note |
 |---|---|
 | 2026 OS Jan-April (part 2)/BloodifyPlugin.rbxmx | a Studio plugin (plugins get full Studio access; it only loadstrings its own settings script) |
+| 2026 OS Jan-April (part 2)/GreatswordAnimPack(CREATION).rbxm | renamed for Windows (original name: GreatswordAnimPack(CREATION?).rbxm) |
 | 2026 OS Jan-April (part 2)/PacketPlus.rbxm | PackageLink with AutoUpdate on (Studio may pull newer versions published by the package owner) |
 | Older OS (2025 and older)/November 2023/some back normal combat stuff.rbxl | contains HD Admin: its loader runs require(3239236979) (the official HD Admin module, remote code that updates itself) |
 

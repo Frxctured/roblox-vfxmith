@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: fire
 - Layers: 46 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.15 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/November 2023/last_everything.rbxm` (instance referent 331): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/last_everything.rbxm" --ref 331 --out <studio content>/vfxlib/fx_c6e3dcf09cd3.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/last_everything.rbxm` (instance referent 331). Watch it in Studio: `kit/scripts/rbxcut.py --id c6e3dcf09cd3 --studio`, then `P.load("fx_c6e3dcf09cd3")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

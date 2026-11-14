@@ -3,7 +3,7 @@
 - Category: **fire**; tags: fire
 - Layers: 3 emitters, 0 beams, 0 trails, 1 mesh parts, 0 lights; estimated length 2.0 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl` (instance referent 3573): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl" --ref 3573 --out <studio content>/vfxlib/fx_3cfe44ce6ba4.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/yinandchang.rbxl` (instance referent 3573). Watch it in Studio: `kit/scripts/rbxcut.py --id 3cfe44ce6ba4 --studio`, then `P.load("fx_3cfe44ce6ba4")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

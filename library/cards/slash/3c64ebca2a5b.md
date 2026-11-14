@@ -3,7 +3,7 @@
 - Category: **slash**; tags: fire, flash, projectile, shockwave, slash, water
 - Layers: 28 emitters, 0 beams, 0 trails, 1 mesh parts, 0 lights; estimated length 2.1 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Elemental Orbs OS.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Elemental Orbs OS.rbxm" --ref 0 --out <studio content>/vfxlib/fx_3c64ebca2a5b.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Elemental Orbs OS.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 3c64ebca2a5b --studio`, then `P.load("fx_3c64ebca2a5b")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

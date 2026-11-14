@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, star
 - Layers: 3 emitters, 1 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.1 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Star or Constellation Trail Effect.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Star or Constellation Trail Effect.rbxm" --ref 0 --out <studio content>/vfxlib/fx_af9c0dc4d1f0.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Star or Constellation Trail Effect.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id af9c0dc4d1f0 --studio`, then `P.load("fx_af9c0dc4d1f0")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

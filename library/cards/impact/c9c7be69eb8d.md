@@ -3,7 +3,7 @@
 - Category: **impact**; tags: shockwave, smoke, star
 - Layers: 7 emitters, 16 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.3 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/wallcomboos (1).rbxl` (instance referent 3223): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/wallcomboos (1).rbxl" --ref 3223 --out <studio content>/vfxlib/fx_c9c7be69eb8d.rbxmx`
+- Pack file: `2026 OS Mar-April/wallcomboos (1).rbxl` (instance referent 3223). Watch it in Studio: `kit/scripts/rbxcut.py --id c9c7be69eb8d --studio`, then `P.load("fx_c9c7be69eb8d")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

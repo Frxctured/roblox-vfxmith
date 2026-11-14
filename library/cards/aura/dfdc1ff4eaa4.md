@@ -3,7 +3,7 @@
 - Category: **aura**; tags: aura, beam
 - Layers: 21 emitters, 16 beams, 1 trails, 0 mesh parts, 2 lights; estimated length 1.8 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/tatsumakirip.rbxl` (instance referent 468): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/tatsumakirip.rbxl" --ref 468 --out <studio content>/vfxlib/fx_dfdc1ff4eaa4.rbxmx`
+- Pack file: `2026 OS Mar-April/tatsumakirip.rbxl` (instance referent 468). Watch it in Studio: `kit/scripts/rbxcut.py --id dfdc1ff4eaa4 --studio`, then `P.load("fx_dfdc1ff4eaa4")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/aura/dfdc1ff4eaa4.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **fire**; tags: fire
 - Layers: 20 emitters, 0 beams, 0 trails, 0 mesh parts, 2 lights; estimated length 3.4 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/RoVfx Flame Slop.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/RoVfx Flame Slop.rbxm" --ref 0 --out <studio content>/vfxlib/fx_818f3ffd4aef.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/RoVfx Flame Slop.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 818f3ffd4aef --studio`, then `P.load("fx_818f3ffd4aef")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/fire/818f3ffd4aef.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **slash**; tags: beam, dark, slash
 - Layers: 16 emitters, 5 beams, 0 trails, 1 mesh parts, 1 lights; estimated length 1.2 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/Demon Sword (Goldx made this).rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/Demon Sword (Goldx made this).rbxm" --ref 0 --out <studio content>/vfxlib/fx_7c3aea50ccf6.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/Demon Sword (Goldx made this).rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 7c3aea50ccf6 --studio`, then `P.load("fx_7c3aea50ccf6")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, fire, star
 - Layers: 4 emitters, 5 beams, 0 trails, 38 mesh parts, 2 lights; estimated length 1.2 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 4165): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 4165 --out <studio content>/vfxlib/fx_c2ba4fdadf2b.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 4165). Watch it in Studio: `kit/scripts/rbxcut.py --id c2ba4fdadf2b --studio`, then `P.load("fx_c2ba4fdadf2b")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

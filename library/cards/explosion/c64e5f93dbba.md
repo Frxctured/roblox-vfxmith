@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: beam, explosion, fire, flash, floor, ice, impact, lightning, projectile, shockwave, slash, smoke, star
 - Layers: 83 emitters, 0 beams, 2 trails, 0 mesh parts, 0 lights; estimated length 2.0 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/ArtemisArrowRainOS (2).rbxl` (instance referent 822): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/ArtemisArrowRainOS (2).rbxl" --ref 822 --out <studio content>/vfxlib/fx_c64e5f93dbba.rbxmx`
+- Pack file: `2026 OS Mar-April/ArtemisArrowRainOS (2).rbxl` (instance referent 822). Watch it in Studio: `kit/scripts/rbxcut.py --id c64e5f93dbba --studio`, then `P.load("fx_c64e5f93dbba")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

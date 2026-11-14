@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: explosion, fire, lightning, portal, projectile, shockwave, slash, smoke, star
 - Layers: 70 emitters, 0 beams, 0 trails, 8 mesh parts, 0 lights; estimated length 2.22 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/excalibur morgan stuff.rbxl` (instance referent 386): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/excalibur morgan stuff.rbxl" --ref 386 --out <studio content>/vfxlib/fx_f9ef4f62abcb.rbxmx`
+- Pack file: `2026 OS Mar-April/excalibur morgan stuff.rbxl` (instance referent 386). Watch it in Studio: `kit/scripts/rbxcut.py --id f9ef4f62abcb --studio`, then `P.load("fx_f9ef4f62abcb")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/explosion/f9ef4f62abcb.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

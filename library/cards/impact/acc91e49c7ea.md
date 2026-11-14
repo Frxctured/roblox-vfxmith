@@ -3,7 +3,7 @@
 - Category: **impact**; tags: impact
 - Layers: 14 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.5 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/Almighty Push.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/Almighty Push.rbxm" --ref 0 --out <studio content>/vfxlib/fx_acc91e49c7ea.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/Almighty Push.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id acc91e49c7ea --studio`, then `P.load("fx_acc91e49c7ea")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

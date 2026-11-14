@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, blood, ice, projectile
 - Layers: 37 emitters, 87 beams, 0 trails, 381 mesh parts, 2 lights; estimated length 7.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/bloody orbs.rbxl` (instance referent 326): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/bloody orbs.rbxl" --ref 326 --out <studio content>/vfxlib/fx_8eeeefde61cb.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/bloody orbs.rbxl` (instance referent 326). Watch it in Studio: `kit/scripts/rbxcut.py --id 8eeeefde61cb --studio`, then `P.load("fx_8eeeefde61cb")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

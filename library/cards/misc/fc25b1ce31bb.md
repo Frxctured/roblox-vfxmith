@@ -3,7 +3,7 @@
 - Category: **misc**; tags: aura, dark, fire, flash, smoke, star
 - Layers: 26 emitters, 0 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 13.72 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/WrathPumpHalloween.rbxm` (instance referent 9): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/WrathPumpHalloween.rbxm" --ref 9 --out <studio content>/vfxlib/fx_fc25b1ce31bb.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/WrathPumpHalloween.rbxm` (instance referent 9). Watch it in Studio: `kit/scripts/rbxcut.py --id fc25b1ce31bb --studio`, then `P.load("fx_fc25b1ce31bb")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/misc/fc25b1ce31bb.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

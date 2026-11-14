@@ -15,6 +15,7 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 | `library/` | ~1,200 real effects: one card each with exact layer values (`library/cards/<type>/<id>.md`); search with `kit/scripts/find_effects.py` |
 | `gallery/effects/<type>/<id>.jpg` | real effects frozen at t = 0.03, 0.1, 0.2 ... s: what good looks like |
 | `kit/` | the runtime, Studio modules (capture, playback of library effects), scripts (search, compare, capture, pack tools) |
+| the pack (optional) | the cleaned open-source files the cards come from, a separate ~410 MB download: `kit/scripts/get_pack.py` gets it (ask the user first), then `kit/scripts/rbxcut.py --id <card id> --studio` puts any card's effect into Studio to watch. Everything else works without it. |
 | `skills/*/SKILL.md` | the detailed workflows below, as plain instructions any agent can follow |
 
 ## What the user wants -> what to do

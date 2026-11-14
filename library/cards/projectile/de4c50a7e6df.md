@@ -3,7 +3,7 @@
 - Category: **projectile**; tags: fire, holy, projectile, smoke, star
 - Layers: 4 emitters, 0 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 3.25 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 201): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl" --ref 201 --out <studio content>/vfxlib/fx_de4c50a7e6df.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 201). Watch it in Studio: `kit/scripts/rbxcut.py --id de4c50a7e6df --studio`, then `P.load("fx_de4c50a7e6df")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

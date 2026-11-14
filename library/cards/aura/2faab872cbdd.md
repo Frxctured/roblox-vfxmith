@@ -3,7 +3,7 @@
 - Category: **aura**; tags: aura, floor, shockwave
 - Layers: 4 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.0 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/soul punisher + blue transformation (1).rbxl` (instance referent 5872): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/soul punisher + blue transformation (1).rbxl" --ref 5872 --out <studio content>/vfxlib/fx_2faab872cbdd.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/soul punisher + blue transformation (1).rbxl` (instance referent 5872). Watch it in Studio: `kit/scripts/rbxcut.py --id 2faab872cbdd --studio`, then `P.load("fx_2faab872cbdd")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

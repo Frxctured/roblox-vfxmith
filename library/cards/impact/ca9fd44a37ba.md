@@ -3,7 +3,7 @@
 - Category: **impact**; tags: portal, shockwave, star
 - Layers: 13 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 4.0 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/DoomSlayer.rbxl` (instance referent 3108): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/DoomSlayer.rbxl" --ref 3108 --out <studio content>/vfxlib/fx_ca9fd44a37ba.rbxmx`
+- Pack file: `2026 OS Mar-April/DoomSlayer.rbxl` (instance referent 3108). Watch it in Studio: `kit/scripts/rbxcut.py --id ca9fd44a37ba --studio`, then `P.load("fx_ca9fd44a37ba")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

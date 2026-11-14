@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam, fire, lightning, shockwave
 - Layers: 37 emitters, 3 beams, 1 trails, 3 mesh parts, 3 lights; estimated length 7.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 50040): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl" --ref 50040 --out <studio content>/vfxlib/fx_b9319fccafb2.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 50040). Watch it in Studio: `kit/scripts/rbxcut.py --id b9319fccafb2 --studio`, then `P.load("fx_b9319fccafb2")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

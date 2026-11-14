@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: aura, beam, explosion, flash, floor, ice, impact, lightning, portal, projectile, shockwave, slash, smoke, star
 - Layers: 146 emitters, 2 beams, 0 trails, 16 mesh parts, 0 lights; estimated length 3.7 s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `2026 OS Jan-April (part 2)/ThinIceBreaker.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/ThinIceBreaker.rbxm" --ref 0 --out <studio content>/vfxlib/fx_cf52bd1bd54d.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/ThinIceBreaker.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id cf52bd1bd54d --studio`, then `P.load("fx_cf52bd1bd54d")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

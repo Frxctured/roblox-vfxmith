@@ -3,7 +3,7 @@
 - Category: **beam**; tags: aura, beam, fire, lightning, star
 - Layers: 79 emitters, 16 beams, 0 trails, 14 mesh parts, 1 lights; estimated length 3.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/ANINE FX.rbxl` (instance referent 1998): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/ANINE FX.rbxl" --ref 1998 --out <studio content>/vfxlib/fx_bfd97bb0a67b.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/ANINE FX.rbxl` (instance referent 1998). Watch it in Studio: `kit/scripts/rbxcut.py --id bfd97bb0a67b --studio`, then `P.load("fx_bfd97bb0a67b")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

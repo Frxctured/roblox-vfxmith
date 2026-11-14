@@ -3,7 +3,7 @@
 - Category: **projectile**; tags: fire, floor, portal, projectile, shockwave, star
 - Layers: 4 emitters, 0 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 1.25 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 215): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl" --ref 215 --out <studio content>/vfxlib/fx_c7e5a1ec1f8f.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 215). Watch it in Studio: `kit/scripts/rbxcut.py --id c7e5a1ec1f8f --studio`, then `P.load("fx_c7e5a1ec1f8f")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

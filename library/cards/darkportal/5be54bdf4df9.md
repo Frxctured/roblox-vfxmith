@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: dark, star
 - Layers: 13 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.25 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/YujiThings.rbxm` (instance referent 167): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/YujiThings.rbxm" --ref 167 --out <studio content>/vfxlib/fx_5be54bdf4df9.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/YujiThings.rbxm` (instance referent 167). Watch it in Studio: `kit/scripts/rbxcut.py --id 5be54bdf4df9 --studio`, then `P.load("fx_5be54bdf4df9")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: explosion, fire, flash, floor, ice, shockwave, smoke, star
 - Layers: 29 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.0 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Chara Giveaway.rbxm` (instance referent 5862): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Chara Giveaway.rbxm" --ref 5862 --out <studio content>/vfxlib/fx_4af454fadfa3.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Chara Giveaway.rbxm` (instance referent 5862). Watch it in Studio: `kit/scripts/rbxcut.py --id 4af454fadfa3 --studio`, then `P.load("fx_4af454fadfa3")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

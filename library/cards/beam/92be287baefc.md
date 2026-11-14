@@ -3,7 +3,7 @@
 - Category: **beam**; tags: beam
 - Layers: 0 emitters, 16 beams, 0 trails, 0 mesh parts, 0 lights; estimated length None s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm` (instance referent 1239): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm" --ref 1239 --out <studio content>/vfxlib/fx_92be287baefc.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm` (instance referent 1239). Watch it in Studio: `kit/scripts/rbxcut.py --id 92be287baefc --studio`, then `P.load("fx_92be287baefc")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -34,14 +34,19 @@ layer is: `shockwave`, `flare`, `crack`, `smoke`), or list a category: `ls "ROOT
 Summarise for the build: per part, 2-3 chosen references with ids, the layer roles you will copy (with their numbers)
 and what to avoid (the category's "mistakes").
 
-## 3. See an effect that has no frames yet (optional, needs Studio + the pack download)
-The cards come from the open-source pack (release download "Roblox VFX open-source pack", see `PACK.md`). To watch one:
+## 3. See an effect that has no frames yet (optional, needs Studio + the pack)
+The cards come from the cleaned open-source pack, a separate download (`PACK.md`). The first line `find_effects.py`
+prints says whether it is installed. If it is not and the user wants to watch references, ask them first (about
+410 MB download, 490 MB unpacked), then:
 ```bash
-python3 -I "ROOT/kit/scripts/rbxcut.py" "<pack folder>/<file from the card>" --ref <referent from the card> \
-    --out "<Studio content folder>/vfxlib/fx_<id>.rbxmx"      # every script removed by construction
+python3 -I "ROOT/kit/scripts/get_pack.py"                   # download, check the SHA-256, unpack (~/.vfxmith/pack)
+python3 -I "ROOT/kit/scripts/get_pack.py" --link <folder>   # or: use a copy they already have
 ```
-(`python3 -I "ROOT/kit/scripts/rbx_assets.py" local --help` shows how the content folder is found.) In Studio (MCP
-`execute_luau`, Edit), with the kit installed (`vfx-make` section 3):
+To watch one effect, cut it into Studio's content folder (every script removed by construction):
+```bash
+python3 -I "ROOT/kit/scripts/rbxcut.py" --id <card id> --studio      # writes <content>/vfxlib/fx_<id>.rbxmx
+```
+In Studio (MCP `execute_luau`, Edit), with the kit installed (`vfx-make` section 3):
 ```lua
 local P = require(game.ServerStorage.VFXDev.VFXLibPlayer:Clone())
 P.stage("grey"); P.load("fx_<id>"); P.frame(); P.play()

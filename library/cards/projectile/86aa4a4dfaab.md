@@ -3,7 +3,7 @@
 - Category: **projectile**; tags: fire, impact, projectile, shockwave, smoke, star, water
 - Layers: 13 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.5 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/FireballSPEEDRUN.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/FireballSPEEDRUN.rbxm" --ref 0 --out <studio content>/vfxlib/fx_86aa4a4dfaab.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/FireballSPEEDRUN.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 86aa4a4dfaab --studio`, then `P.load("fx_86aa4a4dfaab")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **beam**; tags: aura, beam, fire, lightning, smoke, star
 - Layers: 7 emitters, 5 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 0.8 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 23053): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl" --ref 23053 --out <studio content>/vfxlib/fx_50fe58eb2aee.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 23053). Watch it in Studio: `kit/scripts/rbxcut.py --id 50fe58eb2aee --studio`, then `P.load("fx_50fe58eb2aee")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

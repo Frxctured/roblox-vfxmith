@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: star
 - Layers: 3 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 12.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Space made by tuf.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Space made by tuf.rbxm" --ref 0 --out <studio content>/vfxlib/fx_9c3d1ea1ecf1.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Space made by tuf.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 9c3d1ea1ecf1 --studio`, then `P.load("fx_9c3d1ea1ecf1")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

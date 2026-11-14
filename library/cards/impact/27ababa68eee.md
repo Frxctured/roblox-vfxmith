@@ -3,7 +3,7 @@
 - Category: **impact**; tags: dark, flash, floor, impact, portal, shockwave, slash, smoke, star
 - Layers: 92 emitters, 0 beams, 0 trails, 3 mesh parts, 0 lights; estimated length 5.18 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Jan-April (part 2)/SlammerHammerOS.rbxm` (instance referent 0): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/SlammerHammerOS.rbxm" --ref 0 --out <studio content>/vfxlib/fx_27ababa68eee.rbxmx`
+- Pack file: `2026 OS Jan-April (part 2)/SlammerHammerOS.rbxm` (instance referent 0). Watch it in Studio: `kit/scripts/rbxcut.py --id 27ababa68eee --studio`, then `P.load("fx_27ababa68eee")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

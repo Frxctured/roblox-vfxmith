@@ -3,7 +3,7 @@
 - Category: **lightning**; tags: fire, lightning, projectile, star
 - Layers: 16 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 2001): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 2001 --out <studio content>/vfxlib/fx_6f9bd28ec7ac.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 2001). Watch it in Studio: `kit/scripts/rbxcut.py --id 6f9bd28ec7ac --studio`, then `P.load("fx_6f9bd28ec7ac")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

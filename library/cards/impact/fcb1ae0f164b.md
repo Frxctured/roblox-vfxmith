@@ -3,7 +3,7 @@
 - Category: **impact**; tags: flash, floor, shockwave, slash, smoke, star
 - Layers: 29 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.0 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/king goku is the best cutscene.rbxm` (instance referent 13379): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/king goku is the best cutscene.rbxm" --ref 13379 --out <studio content>/vfxlib/fx_fcb1ae0f164b.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/king goku is the best cutscene.rbxm` (instance referent 13379). Watch it in Studio: `kit/scripts/rbxcut.py --id fcb1ae0f164b --studio`, then `P.load("fx_fcb1ae0f164b")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

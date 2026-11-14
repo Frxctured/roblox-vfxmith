@@ -3,7 +3,7 @@
 - Category: **projectile**; tags: dark, projectile, shockwave, star
 - Layers: 26 emitters, 0 beams, 3 trails, 0 mesh parts, 0 lights; estimated length 2.2 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/christmaswowwowow.rbxl` (instance referent 11): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/christmaswowwowow.rbxl" --ref 11 --out <studio content>/vfxlib/fx_4dbd242adaf5.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/christmaswowwowow.rbxl` (instance referent 11). Watch it in Studio: `kit/scripts/rbxcut.py --id 4dbd242adaf5 --studio`, then `P.load("fx_4dbd242adaf5")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: `gallery/effects/projectile/4dbd242adaf5.jpg`
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

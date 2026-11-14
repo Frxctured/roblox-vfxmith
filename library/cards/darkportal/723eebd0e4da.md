@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: fire, holy, star
 - Layers: 5 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 2398): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 2398 --out <studio content>/vfxlib/fx_723eebd0e4da.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 2398). Watch it in Studio: `kit/scripts/rbxcut.py --id 723eebd0e4da --studio`, then `P.load("fx_723eebd0e4da")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

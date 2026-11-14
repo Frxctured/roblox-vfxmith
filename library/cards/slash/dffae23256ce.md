@@ -3,7 +3,7 @@
 - Category: **slash**; tags: fire, flash, floor, impact, lightning, projectile, shockwave, slash, smoke, star
 - Layers: 15 emitters, 2 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 2.5 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 76): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl" --ref 76 --out <studio content>/vfxlib/fx_dffae23256ce.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/VFX__trash_fireball_1_month_and_1_week_progression.rbxl` (instance referent 76). Watch it in Studio: `kit/scripts/rbxcut.py --id dffae23256ce --studio`, then `P.load("fx_dffae23256ce")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

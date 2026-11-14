@@ -3,7 +3,7 @@
 - Category: **impact**; tags: aura, flash, lightning, portal, shockwave
 - Layers: 60 emitters, 0 beams, 2 trails, 2 mesh parts, 9 lights; estimated length 4.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 44689): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl" --ref 44689 --out <studio content>/vfxlib/fx_fb8cabedd3e6.rbxmx`
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 44689). Watch it in Studio: `kit/scripts/rbxcut.py --id fb8cabedd3e6 --studio`, then `P.load("fx_fb8cabedd3e6")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,6 +3,8 @@
 
     python3 -I rbxcut.py <file> --ref <referent> --out effect.rbxmx      (referent from vfx_catalog's effects.jsonl)
     python3 -I rbxcut.py <file> --path "Workspace/VFX/Boom" --out ...    (first match by name path)
+    python3 -I rbxcut.py --id <card id> --studio                          (a library effect, straight into Studio's
+                                                                           content folder; needs the pack: get_pack.py)
 
 Why: a downloaded place can hide backdoor scripts anywhere (inside a rig attachment, under Terrain). The cut file holds
 only the effect's own instances, so nothing from the original scripts can ever reach Studio. Load the result in Studio
@@ -194,17 +196,55 @@ def cut(path, ref=None, name_path=None):
     return "\n".join(out), len(keep), dropped
 
 
+def from_catalog(eid):
+    """(pack file, referent) of a library/catalogue effect id; exits with how to get the pack if it is missing."""
+    import gzip
+    import json
+    import get_pack
+    root = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+    rec = None
+    with gzip.open(os.path.join(root, "catalog", "effects.jsonl.gz"), "rt") as fh:
+        for line in fh:
+            e = json.loads(line)
+            if e["id"] == eid:
+                rec = e
+                break
+    if rec is None:
+        sys.exit("no effect with id %s in catalog/effects.jsonl.gz" % eid)
+    pack = get_pack.find_pack()
+    if not pack:
+        sys.exit(get_pack.missing_text())
+    return os.path.join(pack, rec["file"]), rec["ref"]
+
+
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("file")
+    ap = argparse.ArgumentParser(description="Cut one effect out of a pack file into a clean .rbxmx (no scripts).")
+    ap.add_argument("file", nargs="?", help="a .rbxm/.rbxl/.rbxmx (not needed with --id)")
+    ap.add_argument("--id", help="a library card / catalogue effect id: file and referent come from the catalogue")
     ap.add_argument("--ref")
     ap.add_argument("--path")
-    ap.add_argument("--out", required=True)
+    ap.add_argument("--out", help="output .rbxmx")
+    ap.add_argument("--studio", action="store_true",
+                    help="write into Studio's content folder as vfxlib/fx_<id>.rbxmx (load with VFXLibPlayer P.load)")
     a = ap.parse_args()
-    ref = int(a.ref) if a.ref and a.ref.lstrip("-").isdigit() else a.ref
+    if a.id:
+        a.file, a.ref = from_catalog(a.id)
+    if not a.file:
+        ap.error("give a file, or --id <effect id>")
+    name = "fx_" + (a.id or os.path.splitext(os.path.basename(a.out or a.file))[0])
+    if a.studio:
+        from rbx_assets import content_dir
+        d = os.path.join(content_dir(), "vfxlib")
+        os.makedirs(d, exist_ok=True)
+        a.out = os.path.join(d, name + ".rbxmx")
+    if not a.out:
+        ap.error("give --out <file.rbxmx> or --studio")
+    ref = int(a.ref) if a.ref and str(a.ref).lstrip("-").isdigit() else a.ref
     xml, n, dropped = cut(a.file, ref, a.path)
     open(a.out, "w").write(xml)
     print("wrote", a.out, n, "instances,", dropped, "scripts dropped")
+    if a.studio:
+        print('Studio: P.load("%s")  (VFXLibPlayer)   or   game:GetObjects("rbxasset://vfxlib/%s.rbxmx")[1]' % (name, name))
 
 
 if __name__ == "__main__":

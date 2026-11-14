@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: dark
 - Layers: 6 emitters, 0 beams, 0 trails, 19 mesh parts, 0 lights; estimated length 5.0 s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 53653): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl" --ref 53653 --out <studio content>/vfxlib/fx_51bea9f7acdf.rbxmx`
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 53653). Watch it in Studio: `kit/scripts/rbxcut.py --id 51bea9f7acdf --studio`, then `P.load("fx_51bea9f7acdf")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

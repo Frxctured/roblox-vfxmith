@@ -3,7 +3,7 @@
 - Category: **impact**; tags: fire, impact, shockwave, star
 - Layers: 19 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.5 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 130): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 130 --out <studio content>/vfxlib/fx_dee66df85a0a.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 130). Watch it in Studio: `kit/scripts/rbxcut.py --id dee66df85a0a --studio`, then `P.load("fx_dee66df85a0a")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

@@ -3,7 +3,7 @@
 - Category: **explosion**; tags: aura, beam, impact, shockwave, star
 - Layers: 11 emitters, 56 beams, 0 trails, 0 mesh parts, 1 lights; estimated length 6.8 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/CidIAmAtomic.rbxl` (instance referent 24258): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/CidIAmAtomic.rbxl" --ref 24258 --out <studio content>/vfxlib/fx_06fed5b0f4ce.rbxmx`
+- Pack file: `2026 OS Mar-April/CidIAmAtomic.rbxl` (instance referent 24258). Watch it in Studio: `kit/scripts/rbxcut.py --id 06fed5b0f4ce --studio`, then `P.load("fx_06fed5b0f4ce")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

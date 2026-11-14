@@ -3,7 +3,7 @@
 - Category: **impact**; tags: aura, flash, impact, lightning, shockwave, slash, star
 - Layers: 122 emitters, 0 beams, 0 trails, 1 mesh parts, 0 lights; estimated length 2.67 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/kuruhohitsugi os.rbxl` (instance referent 116): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/kuruhohitsugi os.rbxl" --ref 116 --out <studio content>/vfxlib/fx_b7fa6f5bdf22.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/kuruhohitsugi os.rbxl` (instance referent 116). Watch it in Studio: `kit/scripts/rbxcut.py --id b7fa6f5bdf22 --studio`, then `P.load("fx_b7fa6f5bdf22")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

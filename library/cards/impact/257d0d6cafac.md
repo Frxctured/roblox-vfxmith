@@ -3,7 +3,7 @@
 - Category: **impact**; tags: dark, dash, floor, star
 - Layers: 5 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.12 s
 - Fired by: EmitCount attributes
-- Pack file: `2026 OS Mar-April/Voidflare.rbxl` (instance referent 3146): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/Voidflare.rbxl" --ref 3146 --out <studio content>/vfxlib/fx_257d0d6cafac.rbxmx`
+- Pack file: `2026 OS Mar-April/Voidflare.rbxl` (instance referent 3146). Watch it in Studio: `kit/scripts/rbxcut.py --id 257d0d6cafac --studio`, then `P.load("fx_257d0d6cafac")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

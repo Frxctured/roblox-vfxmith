@@ -3,7 +3,7 @@
 - Category: **darkportal**; tags: fire, impact, star
 - Layers: 10 emitters, 0 beams, 0 trails, 1 mesh parts, 0 lights; estimated length 1.0 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 1572): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 1572 --out <studio content>/vfxlib/fx_5abd66e17efb.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 1572). Watch it in Studio: `kit/scripts/rbxcut.py --id 5abd66e17efb --studio`, then `P.load("fx_5abd66e17efb")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

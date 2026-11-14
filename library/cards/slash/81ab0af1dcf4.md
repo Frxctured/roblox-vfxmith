@@ -3,7 +3,7 @@
 - Category: **slash**; tags: beam, flash, lightning, portal, shockwave, slash, smoke, star
 - Layers: 24 emitters, 3 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.1 s
 - Fired by: EmitCount attributes
-- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 2440): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Ranked.rbxl" --ref 2440 --out <studio content>/vfxlib/fx_81ab0af1dcf4.rbxmx`
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 2440). Watch it in Studio: `kit/scripts/rbxcut.py --id 81ab0af1dcf4 --studio`, then `P.load("fx_81ab0af1dcf4")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

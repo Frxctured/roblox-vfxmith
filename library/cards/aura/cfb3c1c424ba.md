@@ -3,7 +3,7 @@
 - Category: **aura**; tags: aura, dark, fire, lightning
 - Layers: 24 emitters, 0 beams, 0 trails, 26 mesh parts, 1 lights; estimated length 3.5 s
 - Fired by: saved running (Enabled + Rate)
-- Pack file: `Older OS (2025 and older)/November 2023/more_errything.rbxm` (instance referent 180): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/more_errything.rbxm" --ref 180 --out <studio content>/vfxlib/fx_cfb3c1c424ba.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/more_errything.rbxm` (instance referent 180). Watch it in Studio: `kit/scripts/rbxcut.py --id cfb3c1c424ba --studio`, then `P.load("fx_cfb3c1c424ba")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

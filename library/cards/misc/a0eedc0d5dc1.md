@@ -3,7 +3,7 @@
 - Category: **misc**; tags: fire
 - Layers: 0 emitters, 0 beams, 3 trails, 19 mesh parts, 0 lights; estimated length None s
 - Fired by: its own scripts (not included in the card)
-- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 50696): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl" --ref 50696 --out <studio content>/vfxlib/fx_a0eedc0d5dc1.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 50696). Watch it in Studio: `kit/scripts/rbxcut.py --id a0eedc0d5dc1 --studio`, then `P.load("fx_a0eedc0d5dc1")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

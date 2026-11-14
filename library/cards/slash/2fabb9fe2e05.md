@@ -3,7 +3,7 @@
 - Category: **slash**; tags: lightning, projectile, slash, smoke
 - Layers: 15 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.5 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/MysticSlashOs.rbxl` (instance referent 159): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/Oct 2024 - Jan 2025/MysticSlashOs.rbxl" --ref 159 --out <studio content>/vfxlib/fx_2fabb9fe2e05.rbxmx`
+- Pack file: `Older OS (2025 and older)/Oct 2024 - Jan 2025/MysticSlashOs.rbxl` (instance referent 159). Watch it in Studio: `kit/scripts/rbxcut.py --id 2fabb9fe2e05 --studio`, then `P.load("fx_2fabb9fe2e05")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)

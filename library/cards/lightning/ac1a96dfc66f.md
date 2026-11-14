@@ -3,7 +3,7 @@
 - Category: **lightning**; tags: fire, flash, impact, lightning, shockwave, star
 - Layers: 29 emitters, 0 beams, 1 trails, 7 mesh parts, 0 lights; estimated length 0.6 s
 - Fired by: EmitCount attributes
-- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 12): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl" --ref 12 --out <studio content>/vfxlib/fx_ac1a96dfc66f.rbxmx`
+- Pack file: `Older OS (2025 and older)/November 2023/oldstuff doesnt work well.rbxl` (instance referent 12). Watch it in Studio: `kit/scripts/rbxcut.py --id ac1a96dfc66f --studio`, then `P.load("fx_ac1a96dfc66f")` (needs the pack: `kit/scripts/get_pack.py`)
 - Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
 
 ## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
