@@ -20,7 +20,9 @@ Evidence (Read every image; they are your evidence):
   (crop with python PIL into strips in the same folder).
 - OURS comes in two backdrops at the same times: the void stage (black, <effect>/vN/) and daylight (the default Roblox
   baseplate under the sky, or the user's own map: <effect>/vN_day/). Each folder has sheet.jpg (all times, labelled)
-  and the full frames t<time>.jpg. Judge readability on BOTH; daylight is what players see in most games.
+  and the full frames t<time>.jpg (vN_day/ also has focus.jpg: the payoff moments at 640 px). Read the sheets
+  first, all in one message; open at most 4 single frames, only where a cell is too small to judge. Judge readability
+  on BOTH backdrops; daylight is what players see in most games.
 - <cmp>/compare.png, <cmp>/curves.png (coverage/brightness/value over time, REF yellow, OURS blue), <cmp>/metrics.json
   (per time: coverage, bright share, mean colour, hue, saturation, value, dark share, bounding box as frame fractions).
 - Reference breakdown: <reference folder>/analysis.md, full-size reference frames in .../frames/, the video

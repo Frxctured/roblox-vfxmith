@@ -13,6 +13,8 @@
 --   return C.stills("VoidRend", { times = {0.03, 0.1, ...}, hold = 2.5, gap = 0.3, lead = 8, seed = 7 })
 --     -> start epoch ms + marker pixels; then run kit/scripts/stills.py with the SAME times/hold/gap and those values
 --   C.hold("VoidRend", 0.3)                           -- ANY OS: freeze at t, then MCP screen_capture (see hold())
+--   C.update("devkit", "VoidRend", { length = 4, frame = 3.2, stage = "day", camera = {...} }) -- reload + check +
+--                                                     -- one framing frame, in ONE call per version
 --   C.plan("VoidRend", { times = {...}, stage = "day" }) then `return C.next()` + screen_capture until "done"
 --                                                     -- the cheap loop the vfx-capturer helper agent runs
 --   C.clear()                                         -- remove the stage, restore the camera
@@ -396,6 +398,40 @@ function VFXCapture.next()
 	local t = p.times[p.i]
 	VFXCapture.hold(p.name, t, p.opts)
 	return string.format("t=%.2f (%d/%d)", t, p.i, #p.times)
+end
+
+-- One call per version (after the first install): reloads every module in <content>/vfxlib/<file>.rbxmx (the kit
+-- modules into VFXDev, specs into VFXDev.Effects), checks the spec and, with o.frame, sets the stage and camera and
+-- freezes the effect at that time for ONE framing screenshot (send MCP screen_capture in the same message):
+--   return require(game.ServerStorage.VFXDev.VFXCapture:Clone()).update("devkit", "IceSlam",
+--       { length = 1.5, frame = 0.3, stage = "day", camera = { dist = 32, height = 10, lookUp = 2 } })
+-- Write the rbxmx first with `kit/scripts/rbx_assets.py local <spec>.luau --name devkit` (only the spec is enough).
+function VFXCapture.update(file, specName, o)
+	o = o or {}
+	local SS = game:GetService("ServerStorage")
+	local d = SS:FindFirstChild("VFXDev") or Instance.new("Folder")
+	d.Name = "VFXDev"; d.Parent = SS
+	local fx = d:FindFirstChild("Effects") or Instance.new("Folder")
+	fx.Name = "Effects"; fx.Parent = d
+	local assets = d:FindFirstChild("Assets") or Instance.new("Folder")
+	assets.Name = "Assets"; assets.Parent = d
+	local loaded = {}
+	for _, m in ipairs(game:GetObjects("rbxasset://vfxlib/" .. file .. ".rbxmx")[1]:GetChildren()) do
+		local parent = (m.Name == "VFXTimeline" or m.Name == "VFXCapture" or m.Name == "VFXLibPlayer") and d or fx
+		local old = parent:FindFirstChild(m.Name); if old then old:Destroy() end
+		m.Parent = parent
+		table.insert(loaded, m.Name)
+	end
+	local out = { "loaded " .. table.concat(loaded, ", ") }
+	if specName then
+		table.insert(out, VFXCapture.check(specName, { length = o.length }))
+		if o.frame then
+			if o.stage ~= false then VFXCapture.stage(o.stage or "day", o.stageOpts) end
+			if o.camera then VFXCapture.camera(o.camera) end
+			table.insert(out, VFXCapture.hold(specName, o.frame, o.holdOpts))
+		end
+	end
+	return table.concat(out, "\n")
 end
 
 function VFXCapture.clearStage()

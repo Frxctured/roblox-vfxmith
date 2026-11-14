@@ -58,7 +58,9 @@ Dark ink sprite: `Color = "ink", LightEmission = 0`.
 - grade: ColorCorrectionEffect in Lighting named `VFXGrade_<name>`, tracks any of `Contrast`, `TintColor`,
   `Brightness`, `Saturation`.
 - custom: `start(ctx, L) -> state`, `update(ctx, L, state, lt, dt)`, `stop(ctx, L, state)`; `ctx.random` is seeded,
-  `ctx.folder` is the effect's folder, `ctx.scale`, `ctx.origin`.
+  `ctx.folder` is the effect's folder, `ctx.scale`, `ctx.origin`. Derive every value from the layer time `lt` (not by
+  adding up `dt`) so a freeze holds exactly; put the instances you make under `ctx.folder`: its ParticleEmitters and
+  Beams then freeze and resume with the effect (since 0.1.6-beta3). Destroy what you made in `stop`.
 
 ## Handle
 `play` returns `{ stop(), time(), setSpeed(s) }` (0 freezes, 0.25 slow motion). `VFXTimeline.length(spec)`,

@@ -1,6 +1,6 @@
 {
   "name": "vfxmith",
-  "version": "0.1.6-beta2",
+  "version": "0.1.6-beta3",
   "description": "Make Roblox VFX like experienced artists do: a library of ~1,200 real open-source effects with their exact layer values and frame-by-frame sheets, 11 effect-type studies with starting recipes, a data-driven effect runtime, Studio capture and blind review loop, and tools to study any VFX pack safely.",
   "author": { "name": "Frxctured" },
   "license": "MIT",

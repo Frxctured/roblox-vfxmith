@@ -533,6 +533,18 @@ local function setSpeed(fx, speed)
 			st.inst.TextureSpeed = st.texSpeed * speed
 		end
 	end
+	-- emitters and beams a custom layer made itself (anywhere under the effect's folder) freeze and resume too
+	local folder = fx.ctx.folder
+	if folder and folder.Parent then
+		for _, d in ipairs(folder:GetDescendants()) do
+			if d:IsA("ParticleEmitter") then
+				d.TimeScale = math.clamp((d:GetAttribute("VFXBaseTimeScale") or 1) * speed, 0, 1)
+			elseif d:IsA("Beam") then
+				if d:GetAttribute("VFXBaseTexSpeed") == nil then d:SetAttribute("VFXBaseTexSpeed", d.TextureSpeed) end
+				d.TextureSpeed = d:GetAttribute("VFXBaseTexSpeed") * speed
+			end
+		end
+	end
 end
 
 local function stepEffect(fx, dt)

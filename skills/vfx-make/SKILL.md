@@ -21,6 +21,11 @@ The builder reads `knowledge/builder-notes.md` instead of the whole knowledge fo
 (Blind test 3, 2026-11-14: the 0.1.5 loop scored 7.5 against 6.0 without the plugin but cost 3.3x the tokens. About
 two thirds of its context by the end was screenshots it took one by one, and every one of its 212 turns re-read them.)
 
+**Turn budget: about 30-40 turns for a full build.** Every turn re-reads the whole context, so the number of turns
+(not the size of a file you read once) is what costs. Put independent calls in ONE message: read all pack files
+together, read the three sheets together, send `execute_luau` + `screen_capture` together, spawn the three reviewers
+together. Never read a doc one file or one chunk per turn (the 0.1.6-beta builder spent ~45 of its 86 turns that way).
+
 **Modes.** Full is the default: steps 0-7 with at most TWO review panels.
 - **Quick** only when the user asks for speed ("quick", "rough draft"): one panel, its shared fixes, then a final
   capture you check against the brief yourself. Say it is a draft.
@@ -37,22 +42,24 @@ general-purpose agent told to read and follow `ROOT/agents/vfx-builder.md`) with
 Studio id and the mode, and wait for its report: it runs steps 1-7 in a fresh context. If the request opened the
 conversation, or you are an agent spawned for this effect, run steps 1-7 yourself.
 
-## 1. Read
-- `knowledge/builder-notes.md`: the look rules, texture and Studio traps, and the token rules. Keep to them.
-- `knowledge/spec-format.md`: how an effect is written.
-- `knowledge/categories/<type>.md` for each effect type in the request, in full (~10k tokens each; index:
-  `knowledge/README.md`). Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
-  darkportal + explosion).
-Anything else: `grep -n` the term in `knowledge/`, then read that section only. Reading text is cheap (a whole study
-costs cents over a run); images you load are what costs.
-
-## 2. References (never build from nothing)
-- **From a description:** spawn the librarian (`vfxmith:vfx-librarian`, or a general-purpose agent with model `haiku`
-  told to follow `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request and the brief's beats. Save its reply
-  as `<effect>/refs.md`: it is the map, not the material. Then READ the 2-3 cards it ranks best yourself
-  (`library/cards/...`, 2-8 KB each: the exact layers, textures and numbers) and look at their frame sheets
-  (`gallery/effects/...`, one image each) for shape language, framing, size, phases and colour. In test 4 a builder
-  that worked from the summary alone built a generic shape and came last.
+## 1-2. References, then ONE read of everything (never build from nothing)
+- **Librarian:** spawn `vfxmith:vfx-librarian` (or a general-purpose agent with model `haiku` told to follow
+  `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request and the brief's beats. Save its reply as
+  `<effect>/refs.md`: it is the map (which cards, which types), not the material.
+- **Pack:** `python3 -I "ROOT/kit/scripts/builder_pack.py" --types <type>[,<type>] --cards <the 2-3 best card ids>
+  --out <effect>/pack`. Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
+  darkportal + explosion; index: `knowledge/README.md`). It writes builder-notes + spec-format, each category study
+  with its starting recipe, and the cards, in files of ~15k tokens or less.
+- **Read them all in ONE message** (parallel Read calls), together with the frame sheets of the 1-2 best references
+  (`gallery/effects/...`, the paths are in the pack) and the recipe's gallery strip. That is the whole reading: about
+  40k tokens of text, a few cents over the run. Take the shape language from the cards (in test 4 a builder that
+  worked from the librarian's summary alone built a generic shape and came last). Anything else later: `grep -n`
+  the term in `knowledge/`, then read that one section.
+- **From a video:** give it a folder (`refs/<slug>/`: `source.mp4`, contact sheets at 2 fps, one cycle at 30 fps with
+  frame numbers burnt in, full-size key frames, all with ffmpeg). Look at the sheets. Write `analysis.md`: phase
+  timeline in seconds and frames (t0 = first frame of the effect), one row per layer (look + likely build), palette
+  hex, how colour ages, rhythm (build -> quiet beat -> payoff -> linger), world grade. Then still ask the librarian for
+  the closest library effects and pack them: their layer values are your starting numbers.
 - **From a video:** give it a folder (`refs/<slug>/`: `source.mp4`, contact sheets at 2 fps, one cycle at 30 fps with
   frame numbers burnt in, full-size key frames, all with ffmpeg). Look at the sheets. Write `analysis.md`: phase
   timeline in seconds and frames (t0 = first frame of the effect), one row per layer (look + likely build), palette
@@ -92,19 +99,19 @@ end
 local C = require(dev.VFXCapture:Clone())
 return C.check("<Name>", { length = <the brief's length in s> })
 ```
-After each spec edit, re-run `rbx_assets.py` with just the spec and the same call (it replaces what changed). Fix every
-ERROR and WARN before capturing.
+Fix every ERROR and WARN before capturing. **Every later version is two turns:**
+1. one Bash call that edits the spec (a small Python patch, or the Edit tool first in the same message) AND re-packs
+   it: `... && python3 -I "ROOT/kit/scripts/rbx_assets.py" local <Name>.luau --name devkit`;
+2. one message with `execute_luau`
+   `return require(game.ServerStorage.VFXDev.VFXCapture:Clone()).update("devkit", "<Name>", { length = <s>, frame = <payoff time>, stage = "day", camera = { <framing> } })`
+   (reload + check + the framing frame) AND the MCP `screen_capture` after it.
 
 ## 5. Capture: one framing shot, then the capturer
-1. **Framing (yourself, once per version):**
-   ```lua
-   local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone())
-   C.stage("day")                                         -- default baseplate; "void" = black box; "place" = their map
-   C.camera({ dist = 42, height = 8, lookUp = 6, fov = 70 }) -- gameplay distance; world +X is screen LEFT
-   return C.hold("<Name>", <the payoff time>)
-   ```
-   Then ONE MCP `screen_capture`. Adjust the camera until the payoff fills what the brief says. Check the Output
-   (`get_console_output`) for `[VFXTimeline]` warnings.
+1. **Framing (yourself, once per version):** the `C.update(..., { frame = <payoff time>, stage = "day", camera = {
+   dist = 42, height = 8, lookUp = 6, fov = 70 } })` call of step 4 plus ONE MCP `screen_capture` in the same message
+   (gameplay distance; world +X is screen LEFT; "void" = black box, "place" = their map). Adjust the camera until the
+   payoff fills what the brief says. Look at the Output (`get_console_output`) only if `C.check` or the frame looks
+   wrong.
 2. **Timeline (the capturer):** spawn `vfxmith:vfx-capturer` (or a general-purpose agent with model `haiku` told to
    follow `ROOT/agents/vfx-capturer.md`) with `ROOT=<root>`, the Studio id, the spec name and two plans:
    - `plan day -> <effect>/vN_day: { times = {...}, stage = "day", camera = { <the framing above> }, base = true }`
@@ -112,8 +119,9 @@ ERROR and WARN before capturing.
    Pick 10-14 times that cover the brief: the start, each beat's peak, the payoff and 0.1 s either side, the linger,
    the end. When the effect is for the user's open place, use `stage = "place", stageOpts = { at = <Vector3> }` for
    the day plan. Add `focus = <3-4 payoff times>` to the day plan. It returns `vN_day/sheet.jpg`, `vN_day/focus.jpg`
-   (the payoff at 640 px) and `vN/sheet.jpg`, with the full frames beside them. **Look at these three images, not the
-   frames.** On the focus sheet check builder-notes rule 3: the payoff must be the biggest thing on screen.
+   (the payoff at 640 px) and `vN/sheet.jpg`, with the full frames beside them. **Read these three images in ONE
+   message, not the frames.** On the focus sheet check builder-notes rule 3: the payoff must be the biggest thing on
+   screen. The reviewers (step 6) need the capturer's frames: spawn them after it returns, all three in one message.
 - Real-time video (only when the user has Studio focused or asks): `C.playLater("<Name>", 3.5)` then
   `kit/scripts/record.sh <effect>/vN.mp4 9` (Linux/Wayland; elsewhere any screen recorder).
 - Many stills unattended on Linux + niri: `VFXCapture.batch(items)` + `kit/scripts/stills.py --follow` (no images in
@@ -146,6 +154,10 @@ VFXTimeline.preload(spec)            -- once at load, or the first play misses t
 -- on the server's message:
 VFXTimeline.play(spec, cframe)
 ```
+- **One file to preview or share:** `python3 -I "ROOT/kit/scripts/export_effect.py" <Name>.luau --out <effect>/<Name>_play.luau`
+  writes the runtime + spec as one self-contained script with `_G.VFXPlay(origin, freezeAt?)` / `_G.VFXStop()`
+  (`--globals` renames them). Check it once: one message with `execute_luau` (the file's text, then a frozen play) and
+  a `screen_capture`. Do not write your own exporter.
 - Clean up: `C.clear()`, and destroy `ServerStorage.VFXDev` unless the user wants the kit kept in that place.
 
 Own textures (PIL) and meshes (Blender; vertex colours white -> light grey >= 0.85 so Neon tints them): upload with

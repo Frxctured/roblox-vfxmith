@@ -6,6 +6,15 @@ to start. Open the long notes (`patterns.md`, `gotchas.md`, `texture-vocab.md`, 
 specific question: `grep -n` the term, then read that section with `sed -n a,bp`.
 
 ## Keep it cheap (most of a build's tokens are context re-read every turn)
+- **Count turns, not files.** A full build should take about 30-40 turns. Put independent calls in ONE message (they
+  run in parallel and cost one turn): all pack files, the three sheets, `execute_luau` + `screen_capture`, the three
+  reviewers. The 0.1.6-beta builder used 86 turns, ~45 of them reading docs one file or one chunk at a time.
+- **Read through the pack:** `kit/scripts/builder_pack.py` puts the notes, the spec format, the category studies with
+  their recipes and the chosen cards into a few files; read them all at once with Read. Never `cat` a big file
+  through Bash: output over ~30k characters is saved to a file and costs extra reads.
+- **One Studio call per version:** `C.update("devkit", "<Name>", { length, frame, stage, camera })` reloads the spec,
+  checks it and freezes the framing frame (vfx-make step 4); send the screenshot in the same message.
+- **Finish with `kit/scripts/export_effect.py`** for a single-file preview; don't write your own exporter.
 In blind test 3 the 0.1.5 full loop cost 3.3x a plain agent. About two thirds of its context by the end was 128
 screenshots it had taken one by one, and every one of its 212 turns re-read them. The reviewers were only 13%.
 - **Never capture frame by frame yourself.** Take at most ONE framing shot per version (`C.hold` + `screen_capture`).
