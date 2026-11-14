@@ -10,8 +10,8 @@ mode (full by default; quick or polish only if named).
 
 1. Read `<ROOT>/skills/vfx-make/SKILL.md` and follow it from step 1 (references) to the end, in the given mode.
 2. Keep to the "Keep it cheap" rules in `<ROOT>/knowledge/builder-notes.md` (it comes in your pack, vfx-make step
-   1-2): about 30-40 turns, independent calls in one message, the pack read in one go, one Studio call per version,
-   the capturer's sheets instead of frames, `export_effect.py` at the end.
+   1-2): independent calls in one message, the pack read in one go, one Studio call per version, the capturer's
+   sheets instead of frames, `export_effect.py` at the end. No turn cap: spend turns on building, looking and fixing.
 3. You cannot ask the user anything. Where the brief is silent, choose, and write the choice in `<effect>/LOG.md`.
 4. Keep `<effect>/LOG.md` current (versions, panel scores per reviewer, merged fixes, what was applied), so a fresh
    builder could continue from it.

@@ -21,15 +21,18 @@ Evidence (Read every image; they are your evidence):
 - OURS comes in two backdrops at the same times: the void stage (black, <effect>/vN/) and daylight (the default Roblox
   baseplate under the sky, or the user's own map: <effect>/vN_day/). Each folder has sheet.jpg (all times, labelled)
   and the full frames t<time>.jpg (vN_day/ also has focus.jpg: the payoff moments at 640 px). Read the sheets
-  first, all in one message; open at most 4 single frames, only where a cell is too small to judge. Judge readability
-  on BOTH backdrops; daylight is what players see in most games.
+  first, all in one message, then open the single frames you need to judge details (shape edges, facets, colour at
+  the payoff). Judge readability on BOTH backdrops; daylight is what players see in most games.
 - <cmp>/compare.png, <cmp>/curves.png (coverage/brightness/value over time, REF yellow, OURS blue), <cmp>/metrics.json
   (per time: coverage, bright share, mean colour, hue, saturation, value, dark share, bounding box as frame fractions).
 - Reference breakdown: <reference folder>/analysis.md, full-size reference frames in .../frames/, the video
   .../source.mp4 (cycle starts at <t0> s; ffmpeg frames into the scratchpad if useful). For a library reference: its
   card (library/cards/...) and frames.
-- The brief: <effect folder>/brief.md (what the user asked for: purpose, length, peak time, sizes, style). Judge
-  against it: an effect that ignores the brief is wrong even if it looks good.
+- The brief: <effect folder>/brief.md (what the user asked for: purpose, length, peak time, sizes, style). Read it as
+  INTENT: hue family, timing, size, motion, mood. An effect that ignores the brief is wrong even if it looks good,
+  but a bolder, more saturated or more glowing take on the asked palette is a PLUS, not a deviation, as long as the
+  hue family and the shapes still read. Mark colour down only when it leaves the hue family, turns muddy, or white
+  hides the shapes.
 - Our effect spec: <effect folder>/<Name>.luau; runtime + format: kit/runtime/
   VFXTimeline.luau and knowledge/spec-format.md (layers: t start, life, at, rot, pivot, size, props, tracks
   {time, value, ease}, copies, emit {t, count, over}). A particle's Size is its HALF-width (Size N = 2N studs across);
@@ -53,10 +56,26 @@ noise.
    Overall. Add to its prompt: "A particle's ON-SCREEN colour is roughly texture brightness x Color x opacity; Neon
    renders hotter and more saturated. Give the value to AUTHOR, not only the target on screen."
 
+Every lens also scores **Appeal**: would a player who sees this in a game say "wow"? People, not checklists, decide
+whether an effect is good (see "What people preferred" below); Overall must not sit far below Appeal because of small
+deviations from the brief's wording.
+
+## What people preferred (human polls on the owner's server; calibrate with these)
+- Test 5, ice slam (2026-11-15): first, clearly, an effect with sharp FACETED crystals (deep blue base -> cyan ->
+  white tips, lighter/darker facets), a falling "fist comet" into the impact, and spikes that break into 3-7 chunky
+  shards leaving stumps; second, a VIVID electric-blue one whose spikes come up white-hot and cool to saturated blue
+  with neon glow. Far behind: pale smooth cones ("a pincushion") and blown-out white. The AI panel had ranked the vivid
+  one LAST for being "sapphire, not icy cyan": people loved exactly that. Do not mark down saturation or glow that
+  stays in the asked hue family.
+- Test 3, void rift (2026-11-14): people picked the jagged, torn rift with a nebula inside and a layered, big payoff
+  (5 of 7 votes); the panel agreed.
+What people reward: crisp, characterful hero shapes; punchy colour and contrast; a clear, big payoff; things breaking
+into pieces you can see. What they punish: generic primitives, washed-out or blown-out colour, tiny payoffs.
+
 ## Deliverable (append to every prompt, with ONE of the two scale lines)
 ```
 Deliver (under 500 words):
-1. Scores 0-10 for your lens's criteria + Overall.
+1. Scores 0-10 for your lens's criteria + Appeal + Overall.
    [match]       Scale: 10 = indistinguishable from the reference.
    [description] Scale: absolute quality. 10 = a professional would ship it as a signature effect in a top Roblox game;
                  8 = clearly shippable in a good game; 6 = fine but generic or with visible flaws; 4 = amateur.
@@ -65,7 +84,10 @@ Deliver (under 500 words):
    layer"), what is wrong (concrete numbers: "~1.5x wider", "3 studs too high", "0.1 s late", "#hex vs #hex"),
    which backdrop shows it (void, daylight, both), and a CONCRETE spec fix (field and value, or a new layer with its
    key params).
-3. One sentence on what already works well (so the fixes don't break it).
+3. If a problem can't be fixed by values (the mesh, texture or construction can't reach the look), write REBUILD and
+   what to build instead (e.g. "REBUILD spikes: faceted crystals with a deep-to-white gradient, not the tinted
+   library mesh").
+4. One sentence on what already works well (so the fixes don't break it).
 Be honest and specific; do not edit any files.
 ```
 

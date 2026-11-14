@@ -60,7 +60,49 @@ Dark ink sprite: `Color = "ink", LightEmission = 0`.
 - custom: `start(ctx, L) -> state`, `update(ctx, L, state, lt, dt)`, `stop(ctx, L, state)`; `ctx.random` is seeded,
   `ctx.folder` is the effect's folder, `ctx.scale`, `ctx.origin`. Derive every value from the layer time `lt` (not by
   adding up `dt`) so a freeze holds exactly; put the instances you make under `ctx.folder`: its ParticleEmitters and
-  Beams then freeze and resume with the effect (since 0.1.6-beta3). Destroy what you made in `stop`.
+  Beams then freeze and resume with the effect (since 0.1.6-beta3). Destroy what you made in `stop`. Optional
+  `preload(L, VFXTimeline)`: runs once inside `VFXTimeline.preload(spec)` (it may yield), e.g. to build meshes.
+
+## Crystals built in code (`ctx.Crystal`, since 0.1.6-beta5)
+Faceted crystals and shards for ice, gems, rock or earth spikes, glass: every facet has its own colour (deep at the
+base -> mid -> body -> white tip, alternating lighter/darker facets). Use them for hero geometry instead of a library
+mesh that only roughly fits.
+```lua
+local P = { deep = Color3.fromRGB(22, 64, 160), body = Color3.fromRGB(140, 225, 255), tip = Color3.fromRGB(240, 252, 255) }
+{ id = "spikes", kind = "custom", t = 0.27, life = 1.0,
+  preload = function(L, VFX) VFX.Crystal.prepare({ palette = P }) end, -- builds the mesh versions once (yields)
+  start = function(ctx, L)
+    local s = { list = {} }
+    for i = 1, 12 do
+      local a = i / 12 * math.pi * 2 + ctx.random:NextNumber(-0.15, 0.15)
+      local c = ctx.Crystal.new("spike", { seed = i, palette = P, parent = ctx.folder })
+      table.insert(s.list, { c = c, a = a, h = (i % 2 == 0) and 7 or 4.8, delay = 0.01 * i })
+    end
+    return s
+  end,
+  update = function(ctx, L, s, lt)
+    for _, e in ipairs(s.list) do
+      local out = Vector3.new(math.cos(e.a), 0, math.sin(e.a))
+      local up = (Vector3.yAxis * 0.94 + out * 0.34).Unit                  -- lean ~20 deg outward
+      local base = ctx.origin.Position + out * 6
+      local cf = CFrame.fromMatrix(base, up:Cross(out).Unit, up)
+      local g = math.clamp((lt - e.delay) / 0.1, 0, 1)                      -- 0.1 s eruption with overshoot
+      local grow = 1 + 2.70158 * (g - 1) ^ 3 + 1.70158 * (g - 1) ^ 2
+      e.c:set(cf, Vector3.new(1.6, e.h * grow, 1.6))
+      e.c:hot(1 - math.clamp((lt - e.delay) / 0.12, 0, 1))                 -- born white-hot, cools in 0.12 s
+    end
+  end,
+  stop = function(ctx, L, s) for _, e in ipairs(s.list) do e.c:destroy() end end },
+```
+`ctx.Crystal.new(kind, opts)`: kind `"spike"` (base ring, shoulder, tip) or `"shard"` (bipyramid, for a shatter);
+opts `seed`, `palette` {deep, mid?, body, tip}, `parent`, `sides`, `simple` (a 4-sided pyramid), `backend`. Methods:
+`:set(baseCFrame, Vector3 size)` (base on the ground, grows along the CFrame's UpVector), `:hot(0..1)` (Neon
+white-hot), `:fade(0..1)`, `:destroy()`. Backends: **mesh** (EditableMesh, smooth gradient) in Studio, and in a live
+game only with Experience Settings > Security > "Allow Mesh / Image APIs" on and client memory left; otherwise
+**wedge** (two WedgeParts per facet, flat colour per facet; works everywhere, ~30 parts per spike, so keep about 30
+spikes or fewer at once or pass `simple = true`). `Crystal.prepare` returns which one will be used; without a
+`preload`, crystals use the wedge backend. On the mesh backend `hot` glows in the crystal's own colours (cyan-white);
+on wedges it goes pure white.
 
 ## Handle
 `play` returns `{ stop(), time(), setSpeed(s) }` (0 freezes, 0.25 slow motion). `VFXTimeline.length(spec)`,

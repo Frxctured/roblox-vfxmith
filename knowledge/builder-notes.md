@@ -1,14 +1,14 @@
 # Builder notes: read this instead of the whole knowledge folder
 
-The rules that decided three blind tests (2026-11-14), the traps that cost the most time, and the token rules. With
+The rules that decided five blind tests (2026-11-14) and two human polls, the traps that cost the most time, and the token rules. With
 `spec-format.md` (the effect format) and the category study's anatomy and timing tables, this is all a builder needs
 to start. Open the long notes (`patterns.md`, `gotchas.md`, `texture-vocab.md`, `os-conventions.md`) only for a
 specific question: `grep -n` the term, then read that section with `sed -n a,bp`.
 
 ## Keep it cheap (most of a build's tokens are context re-read every turn)
-- **Count turns, not files.** A full build should take about 30-40 turns. Put independent calls in ONE message (they
-  run in parallel and cost one turn): all pack files, the three sheets, `execute_luau` + `screen_capture`, the three
-  reviewers. The 0.1.6-beta builder used 86 turns, ~45 of them reading docs one file or one chunk at a time.
+- **Batch what is independent.** Put independent calls in ONE message (they run in parallel and cost one turn): all
+  pack files, the three sheets, `execute_luau` + `screen_capture`, the three reviewers. The 0.1.6-beta builder used 86
+  turns, ~45 of them reading docs one file or one chunk at a time. No turn cap: spend the turns on versions.
 - **Read through the pack:** `kit/scripts/builder_pack.py` puts the notes, the spec format, the category studies with
   their recipes and the chosen cards into a few files; read them all at once with Read. Never `cat` a big file
   through Bash: output over ~30k characters is saved to a file and costs extra reads.
@@ -17,16 +17,20 @@ specific question: `grep -n` the term, then read that section with `sed -n a,bp`
 - **Finish with `kit/scripts/export_effect.py`** for a single-file preview; don't write your own exporter.
 In blind test 3 the 0.1.5 full loop cost 3.3x a plain agent. About two thirds of its context by the end was 128
 screenshots it had taken one by one, and every one of its 212 turns re-read them. The reviewers were only 13%.
-- **Never capture frame by frame yourself.** Take at most ONE framing shot per version (`C.hold` + `screen_capture`).
-  The `vfx-capturer` helper (fast model) takes the timeline on both backdrops and returns one sheet per backdrop.
-- **Look at the capturer's sheets, not frames:** the daylight overview, the payoff focus sheet (the peak at 640 px)
-  and the void overview, per version. Open a single full frame only when one moment is disputed.
+- **Timelines go to the capturer; the hero you see yourself.** The `vfx-capturer` helper (fast model) takes the full
+  timeline on both backdrops and returns one sheet per backdrop: use the sheets for timing. But every version, also
+  look at the hero at full size: the payoff frame and one hold frame, plus one shot of your own with the hero filling
+  about a third of the frame (about 1x the effect's width away). Shapes, facets and colour can't be judged from 400-px
+  cells: in test 5 the beta2 builder never saw its spikes up close and kept "chubby pale teardrops"; the winner looked
+  at 8-9 full frames per version from ~16 studs.
 - **References: the librarian finds, you read.** The `vfx-librarian` (fast model) searches the library and ranks the
   best cards. Then read the category study (`knowledge/categories/<type>.md`, ~10k tokens) and the 2-3 best cards
   yourself: 15-20k tokens, about $0.50 over a whole run. In test 4 a 2.5 KB librarian summary replaced them and the
   effect came out generic (a smooth lens, layering 5/10 against 8.5 for the run that read the cards). Never read
   `texture-vocab.md` whole or the runtime source.
-- **Edit, don't rewrite**: change the spec with small edits; never write the whole file again.
+- **Edit, don't rewrite** when tuning: change the spec with small edits. When the construction is wrong (a layer can't
+  reach the look by values, or the same complaint returns), rebuild that layer; test 5's winner rewrote its whole
+  effect once when v1's approach could not render.
 - **One Studio call per step**: re-install the spec and return `C.check` in the same `execute_luau`.
 - **Keep tool output short**: pipe long output through `head`/`tail`; never `cat` a whole long file.
 - **Stop at two panels** (vfx-make step 7). In test 3 the third panel moved the builder's own score 6.17 -> 6.33.
@@ -51,7 +55,12 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    brightest beat. Check it on the payoff frames of your sheet: if the open portal, the charge or the hold looks bigger
    than the payoff, the payoff is too small. Then an aftermath that ends at the brief's length: an empty screen before
    the end reads as a hard cut, running long reads as muddy.
-4. **Anticipation and no dead air.** At least ~0.2 s of wind-up (0.5-1.5 s for a big move). Keep the collapsing or
+4. **Anticipation INTO the hit, and no dead air.** At least ~0.2 s of wind-up (0.5-1.5 s for a big move), and it
+   peaks INTO contact: brightest on the frame before (a falling comet, a fist trail, a strike path). Never fade the
+   wind-up out before contact (test 5: beta2's was at 0 white pixels the frame before; the winner's comet was at its
+   brightest there). The hit lands in ONE frame: one frame after contact the white is at ~85%+ of its peak (winner
+   88%, beta2 33%, whose brightest moment came 83 ms late from the spikes). Capture the frames just before and just
+   after contact to check. Keep the collapsing or
    charging shape on screen until the payoff fires (a hot slit shrinking to a pinpoint); a quiet beat is ~0.05-0.1 s,
    not an empty frame.
 5. **Repeated beats differ and escalate**: a second flash, ring or pulse gets a different shape and is bigger.
@@ -60,19 +69,50 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    converging, not faint wisps.
 7. **Rings and shockwaves travel.** Start at 20% of the final size or less, ease out (quad/quint out), keep growing
    while fading (about 80% of the size in the first 40% of the life) to at least the brief's width. Give the ring
-   thickness or a soft glow band behind it. In daylight no dark twin ring unless it is thin, deep, saturated ink (a grey
+   thickness or a soft glow band behind it. One crisp, thin bright ring racing out (test 5: 4 -> 34 studs in 0.3 s)
+   beat wide soft bands, which read as a grey plate over a pale floor. In daylight no dark twin ring unless it is thin, deep, saturated ink (a grey
    twin reads as a soap bubble).
-8. **Flashes in daylight: a hot core inside a BIG coloured bloom.** The pure-white core stays small (3-6 studs, full
-   white for about 0.1 s) and the coloured bloom around it (the effect's hot colour, bright) carries the size: as wide as
-   the payoff. Both extremes lost points: a solid white disc 14-16 studs across hid the implosion (tests 3 and 4, every
-   reviewer), and a 4-stud core with no real bloom read as "a tiny sparkle, no white-hot moment" (test 4, last place).
-   White only at the hottest moment (`C.check` warns on a near-white sprite over 8 studs).
-9. **One rendering style**, the user's: toon (flat shapes, outlines, cel steps) or soft glow. Never fix one beat by
+8. **Flashes in daylight: the fault is a ROUND blob, not size.** A round soft white sprite over ~8 studs reads as a
+   flat white ball and hides what is behind it (tests 3 and 4, every reviewer). Carry the size with SHAPE instead: a
+   white starburst with thin rays, thin Neon speed lines, a hard neon shell, each 20-30 studs for only 0.1-0.15 s (test
+   5's winner: a 32-stud sparkle star, 22 Neon speed lines thinning out, a 0.11 s neon dome), or a bright coloured
+   bloom around a small white core (3-6 studs). A 4-stud core with nothing around it reads as "a tiny sparkle" (test 4,
+   last). Crisp materials (ice, crystal, metal, glass): flash 1-3 frames, then show the material's own colours; a long
+   white glow hides the spikes (test 5: all three plugin builds marked down for it). `C.check` warns on big round
+   white sprites; a star or ray texture is fine.
+9. **One rendering style**, the user's: toon (flat shapes, outlines, cel steps), anime crisp (sharp shapes, punchy
+   flash, no outlines) or soft glow. Never fix one beat by
    switching style.
 10. **Fire and explosions:** reach orange by ~0.2 s, give the body 0.6-0.9 s, cool slowly (explosion.md).
-11. **Hero shapes with character.** A smooth, symmetric primitive (a clean lens, a plain disc, an even hoop) reads as
-   generic ("a portal or an eye", "a UI circle"). Torn, jagged, asymmetric, layered shapes won (a jagged tear with a
-   nebula inside and a hot rim). Take the shape language from the references you read.
+11. **Hero shapes with character, designed by you.** A smooth, symmetric primitive (a clean lens, a plain disc, an
+   even hoop, a smooth cone) reads as generic ("a portal or an eye", "a pincushion"). Torn, jagged, faceted,
+   asymmetric, layered shapes won (a jagged tear with a nebula inside; faceted crystals shaded deep -> body -> white
+   tip). References show techniques; the shape is yours. If a library mesh only roughly fits, build it
+   (`ctx.Crystal` for crystals, shards and spikes).
+12. **The hero carries the palette.** Put the colours ON the hero shape: deep tone at the base, body colour in the
+   middle, white at the tip, facets alternating lighter/darker (about +-0.1 to 0.35). A textured library mesh can only
+   be tinted as a whole: in test 5 that left "one flat colour" spikes after two review panels. Fragments are their own
+   angular shapes (`ctx.Crystal` shards), not scaled copies of the hero ("droplets"). In daylight put the dark tone on
+   geometry and decals (bases, crack cores, facet shadows), not on sprite twins: a dark sprite twin read as "dirt" or
+   "fur" (test 5).
+13. **Breakable objects tell the whole story in the first draft:** a staggered rise by distance from the centre with
+   an overshoot; something alive while it holds; 0.1-0.2 s of shake, then a 2-3 frame white-hot flash before the break;
+   3-7 pieces born along the body (more for big ones: the winner used 7 / 4 / 3 by size, 145 shards in all, pale and
+   faceted, gravity ~60 studs/s^2), thrown on arcs that LAND and stop on the floor, then shrink; stumps at 25-30% of
+   the height that stay until ~2 s, then sink. Few saturated slivers read as "water droplets" (test 5). Reviewers had to ask the beta2 builder for each of these; the winner had them all in v1.
+14. **Ground marks are Decals in daylight.** Frost, cracks, scorch: a flat part with a Decal (`kind = "part"` with
+   `decal = {...}`, alpha-blended) stays visible on a pale floor; flat particles wash out in daylight and sink at low y
+   (test 5 panel: "frost gone early in day", 3 of 3).
+15. **Colour that lives, glow that is separate.** Animate the hero's colour: white-hot at birth, cooling over
+   ~0.15-0.2 s; a slight shimmer while it holds (about +-10%); a white glint 0.1-0.2 s before it breaks. For the
+   vivid, magic-energy look people also liked (test 5's runner-up: bright azure, saturation ~0.7, a glow that tints
+   the floor), keep the hero solid and faceted and add the glow as its OWN layer (a soft bloom sprite at the base, or a
+   thin Neon core); a glow baked into the hero washed its edges out. Mist and frost puffs in daylight:
+   LightEmission ~0.5-0.8 and tinted; grey smoke (LightEmission 0.1) reads as dust.
+16. **Anime lines are thin Neon.** Speed lines and streaks: Neon parts 0.07-0.16 studs thick that thin out to nothing
+   instead of fading (fading Neon turns grey in daylight).
+17. **Gaps are yours to design.** Where `refs.md` says no reference fits (a "gap"), build that beat yourself; don't fill
+   it with the nearest texture. In test 5 the three listed gaps became the three weakest beats.
 
 ## Textures
 - **Fresh textures, not the recipe's defaults.** Every effect in the first five blind tests drew all its 14-16
@@ -100,4 +140,13 @@ lists the ids used).
 - The first play after a load can miss textures: the capture functions preload; game code calls
   `VFXTimeline.preload(spec)` once.
 - A comment in the middle of a `props` line swallows the rest of it (`C.check`: no Lifetime / no Transparency).
+- Things made in code (no upload): `ctx.Crystal` for crystals; `AssetService:CreateEditableMesh` + `CreateMeshPartAsync`
+  for other meshes (vertex colours via `AddColor`/`SetFaceColors`, flat facet normals); `CreateEditableImage` textures
+  work on Decals and MeshParts but NOT on particles (nothing shows) or beams (a flat white strip): measured in test 5.
+  Particles can use Studio's built-in `rbxasset://textures/particles/sparkles_main.dds` / `smoke_main.dds`. In a live
+  game EditableMesh/EditableImage need Experience Settings > Security > "Allow Mesh / Image APIs" and client memory;
+  creation then returns nil, so always keep a fallback (ctx.Crystal falls back to wedges by itself). Nothing made at
+  runtime is saved with the place: the effect file rebuilds it.
+- Per-object sparkles, puffs or dust in a custom layer: make the emitters under `ctx.folder` (they freeze with the
+  effect) and `:Emit()` when `lt` first passes the time (keep a flag in the state).
 - `game.Lighting.Technology` cannot be read from MCP; judge the lighting from a capture.

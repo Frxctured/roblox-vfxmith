@@ -27,7 +27,8 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
    the short questionnaire and brief (`knowledge/design-brief.md`: ask only what the request leaves open), then
    `skills/vfx-make/SKILL.md`: let the librarian (`agents/vfx-librarian.md`, a fast model) pick references, run
    `kit/scripts/builder_pack.py` and read the pack in ONE message (the rules, the category study, its recipe, the best
-   cards), build from the recipe, let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review,
+   cards) as a guide, design the effect, build it on the recipe's scaffold (library assets are options; build hero
+   shapes yourself when none fits closely), let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review,
    fix, finish with `kit/scripts/export_effect.py`. Look at contact sheets, not single frames, and put independent
    calls in one message: every turn re-reads everything loaded so far. Don't read the other docs one by one first.
 2. **"Make it look like this video"**: `skills/vfx-make/SKILL.md` (reference breakdown first).

@@ -20,7 +20,7 @@ Other agents: ask the same questions in one plain message and offer "reply 'go' 
 | 1 | What is the effect for? | a basic attack or hit (small, fast) / a big ability or ultimate (a signature moment) / ambient or environment (a loop) / UI, pickup or reward feedback |
 | 2 | How long should it last? | snappy, under 0.6 s / short, 0.6-1.5 s / medium, 1.5-3 s / long or cinematic, 3-6 s (or: it loops) |
 | 3 | When should the most exciting moment hit? | instantly, frame 1 (an impact) / after a short wind-up, ~0.2-0.5 s / after a long build, 1 s or more / near the end (a finale) / it is a loop with pulses |
-| 4 | What style should it match? | anime or toon (flat shapes, outlines, cel steps) / soft glowing and magical / grounded (smoke, fire, debris) / match my game (describe it or share a screenshot) |
+| 4 | What style should it match? | anime, crisp (sharp shapes, punchy flash, no outlines) / toon (flat shapes, outlines, cel steps) / soft glowing and magical / grounded (smoke, fire, debris) / match my game (describe it or share a screenshot) |
 
 **Second round (only what is still open and matters):**
 | # | Question | Options |
@@ -66,10 +66,10 @@ check on the dark stage too.
   leave smoke, marks or embers for 1-3 s); one hero shape per beat.
 - **Motion:** where it sits (on the ground, in the air, on the character), whether it moves, and what it pulls in,
   throws out or leaves behind.
-- **Style** (one), **palette** (three tones: core, body, ink), **lighting** (day, dark or both), **budget** (~150
+- **Style** (one), **palette** (three tones: core, body, a deep tone for depth, placed on the hero's geometry), **lighting** (day, dark or both), **budget** (~150
   particles at the peak by default; mobile = `VFXTimeline.Quality` 0.6).
 - **Capture camera** at gameplay distance: ~20-30 studs for a character-sized effect, ~40-60 for an area or a
-  signature move.
+  signature move; plus a **hero camera** at about 1x the effect's width, for judging shapes, facets and colour.
 
 ## 4. Fit the recipes to the brief
 Start from the category recipe(s) as usual (vfx-make step 2), then:

@@ -6,6 +6,12 @@ tags: [vfx, roblox, particles, ice, frost, water, whirlpool, crystals, ground-ri
 
 # Ice / water: what 6 open-source effects teach
 
+> **Hero crystals (blind test 5, 2026-11-14):** the library crystal meshes below (`75306692763883` and the icy ones)
+> can only be tinted as a whole; three builds that used them read as "smooth cones" / "one flat colour". The build
+> people rated clearly best made faceted crystals in code: deep blue base -> cyan -> white tip, alternating facet tones,
+> shards as their own angular pieces that land, stumps that stay. Use `ctx.Crystal` (spec-format.md) for hero spikes
+> and shards; take timing, sizes, mist and ring values from the effects below.
+
 Evidence: freeze-frame sheets + layer tables in `gallery/effects/icewater/` (repo root; layer tables: `kit/scripts/layer_table.py`)
 (Edit-mode replayer, every script stripped), plus the decoded instance trees in the decoded pack files (`kit/scripts/rbxdump.py`) (read as data)
 and the 4 FrostOs scripts (read as text, never run). 286 ParticleEmitters, 85 Beams, 2 Trails, 14 crystal MeshParts.
