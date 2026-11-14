@@ -70,6 +70,8 @@ these). Measured over the 1,495 loadable ids of the top 1,500; the swap is a cle
   `14590086212`, `10598374841`): fine additively, but tinted dark they drag a soft dark square. "Black Flash"
   `8133065785` is ~90% faint haze and darkened every ring near it -> `13621316962` as a black spiky twin; for a star's
   black twin use the halo-less `17450657969`.
+- **Streak direction**: a VelocityParallel streak follows the texture's long axis. A horizontally drawn streak shows
+  across its motion until `Rotation = 90` (blind test 3).
 - **Several streaks in one image** (10): `7136536841` holds 12 parallel streaks; used as one VelocityParallel or
   FacingCameraWorldUp streak it reads as a barcode comb -> `8030734851` (one soft lens streak) or `1315202524`.
 - **Low-res art drawn big**: the older spiky starbursts of group 16 are all low-res: `18118762332` / `11187665050`

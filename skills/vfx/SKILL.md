@@ -9,17 +9,17 @@ description: Roblox VFX router - use for ANY Roblox visual effect request (explo
 `${CLAUDE_PLUGIN_ROOT}`). Every path below is relative to ROOT. Resolve it to an absolute path before running
 anything (it may contain spaces: quote it).
 
-## Read first (always, ~5 minutes)
-1. `knowledge/patterns.md` section 14: what experienced artists do in every effect type (fire at t = 0, black twins with
-   Brightness 0, opaque glow with LightEmission 0, fade by colour, travel ~= Speed / Drag, sizes from one number).
-2. The category study for the effect type(s): `knowledge/categories/<type>.md`, types: explosion, slash, impact, aura,
-   beam, projectile, lightning, fire, icewater, darkportal, misc (holy, light, character). Index:
-   `knowledge/README.md`.
+## Read first (keep it short: every turn re-reads what you load)
+1. `knowledge/builder-notes.md`: one page with the rules that decided the blind tests, the traps, and the token rules.
+2. The category study for the effect type(s), its anatomy and timing tables: `knowledge/categories/<type>.md`, types:
+   explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy, light,
+   character). Index: `knowledge/README.md`.
+For anything else, grep `knowledge/` and read only the matching section.
 
 ## Route
 | The user wants | Use |
 |---|---|
-| a new effect from a description ("a cool light beam with an explosion", "an ice slam", "a purple aura") | the short questionnaire + brief (`knowledge/design-brief.md`, skip what the request answers), `vfxmith:vfx-find` for references, then `vfxmith:vfx-make` |
+| a new effect from a description ("a cool light beam with an explosion", "an ice slam", "a purple aura") | the short questionnaire + brief (`knowledge/design-brief.md`, skip what the request answers), then `vfxmith:vfx-make` (its librarian finds the references, its capturer takes the frames) |
 | an effect that looks like a video they show | `vfxmith:vfx-make` (starts with the video breakdown) |
 | examples / "how do pros make X" | `vfxmith:vfx-find` (or grep `knowledge/` and `library/cards/` for a quick answer) |
 | a review or "make this better" | `vfxmith:vfx-review`, then fixes with `vfx-make` |

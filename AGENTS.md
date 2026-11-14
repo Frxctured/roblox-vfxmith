@@ -22,9 +22,10 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 ## What the user wants -> what to do
 1. **"Make a ... effect"** (from a description, e.g. "a cool light beam with an explosion", "an ice slam"): first
    the short questionnaire and brief (`knowledge/design-brief.md`: ask only what the request leaves open), then
-   `python3 kit/scripts/find_effects.py "<their words>"` -> read the `knowledge/categories/<type>.md` it names, the
-   2-3 best library cards, and LOOK at their frames in `gallery/` -> start from `<type>_recipe.luau` (merge two recipes
-   for a combined effect) -> build, capture, compare and review: `skills/vfx-make/SKILL.md`.
+   `skills/vfx-make/SKILL.md`: read `knowledge/builder-notes.md`, let the librarian (`agents/vfx-librarian.md`, a
+   fast model) pull references from the library, start from `<type>_recipe.luau` (merge two for a combined effect),
+   let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review, fix. Look at contact sheets, not
+   single frames: every image you load is re-read on every later turn.
 2. **"Make it look like this video"**: `skills/vfx-make/SKILL.md` (reference breakdown first).
 3. **"Find me examples of ..."**: `skills/vfx-find/SKILL.md`.
 4. **"Review / improve this effect"**: `skills/vfx-review/SKILL.md` (blind 3-reviewer panel).

@@ -21,6 +21,10 @@
 - A void stage made of SmoothPlastic black parts is not black (ambient + atmosphere tint it blue). Neon black parts are.
 - MCP `screen_capture` leaves BillboardGuis out. Its result names the saved image file (newer Studio MCP versions;
   older ones returned the image only): copy that file into your version folder for compare.
+- **Every `screen_capture` image stays in the caller's context for the rest of the run**, and every later turn re-reads
+  it. In blind test 3 the 0.1.5 builder's 128 one-by-one captures were about two thirds of its context by the end. Let
+  the `vfx-capturer` helper (fast model, short-lived) take timelines: `C.plan` + `C.next` + `screen_capture`, then
+  `kit/scripts/shot_sheet.py` copies the files it names and writes one sheet.
 - Get dev modules into a place with `rbx_assets.py push ... --universe <id>` + InsertService:LoadAsset (no Rojo, no
   pasting). A pushed model owned by the user fails LoadAsset in a GROUP place until granted ("Requester does not have
   permission"). Don't add/remove folders inside a project's Rojo-watched tree for this: deleting a watched folder
@@ -56,6 +60,13 @@
   recipes; `C.check` flags it (no Lifetime / no Transparency). Put notes on their own line.
 
 ## Building
+- **Never create a Script or LocalScript from MCP `execute_luau` and set its `Source`**: it crashed Studio during the
+  blind tests (and a command-bar error inside a just-created script crashed it again). Ship any script inside an
+  `.rbxmx` written by `kit/scripts/rbx_assets.py local ...` and load it with `game:GetObjects("rbxasset://vfxlib/...")`,
+  or keep everything in ModuleScripts loaded that way.
+- **A velocity-aligned streak follows the texture's own long axis.** With `Orientation = VelocityParallel`, a streak
+  texture drawn horizontally renders ACROSS its motion; `Rotation = 90` (or a texture drawn vertically) fixes it
+  (found while building the test-3 void rift's inward streaks).
 - **Beam Segments 1 + a Transparency/Color sequence = invisible beam** when the sequence is 1 at both ends (a fade-in /
   fade-out laser): beams sample sequences only at segment ends. The runtime defaults Segments to 10.
 - Template MeshParts from Open Cloud model uploads have PivotOffset 0 and CFrame at the bbox centre; the runtime's

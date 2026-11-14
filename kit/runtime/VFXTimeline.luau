@@ -712,8 +712,11 @@ end
 -- Stats: length, layers, peak live particles, elongated ones (VelocityParallel / FacingCameraWorldUp / Squash: streaks,
 -- flames, bolts) and the bright-white elongated ones among them (needles and streaks laid over the hero shape: the
 -- clutter the blind test's reviewers flagged), all at Quality 1 from emit counts x Lifetime,
--- peak active layers, the widest particle in studs (a particle's width is 2 x Size), and every texture id with the
--- layers and LightEmission that use it (check those ids with kit/scripts/texture_traits.py).
+-- peak active layers, the widest particle in studs (a particle's width is 2 x Size), the time the last particle dies
+-- (the visible end), and every texture id with the layers and LightEmission that use it (check those ids with
+-- kit/scripts/texture_traits.py).
+-- Also WARNs on a big near-white sprite (a white flash over ~8 studs across reads as a flat white ball in daylight) and,
+-- with opts.length (the brief's total length in s), on an effect visible much longer or shorter than asked.
 local COMMON_KEYS = { id = true, kind = true, t = true, life = true, at = true, rot = true, props = true, tracks = true,
 	copies = true, enabled = true, data = true }
 local KIND_KEYS = {
@@ -745,13 +748,59 @@ local function maxOfSeq(v)
 	return m
 end
 
+-- a NumberSequence-style value at normalised life u (a range counts as its larger end)
+local function seqAt(v, u)
+	if type(v) == "number" then return v end
+	if type(v) ~= "table" then return 0 end
+	if #v == 2 and type(v[1]) == "number" and type(v[2]) == "number" then return math.max(v[1], v[2]) end
+	local prev
+	for _, e in ipairs(v) do
+		if type(e) == "table" and type(e[1]) == "number" and type(e[2]) == "number" then
+			if e[1] >= u then
+				if not prev then return e[2] end
+				return prev[2] + (e[2] - prev[2]) * (u - prev[1]) / math.max(e[1] - prev[1], 1e-6)
+			end
+			prev = e
+		end
+	end
+	return prev and prev[2] or 0
+end
+
+-- a colour or ColorSequence-style value ({ {t, colour}, ... }) at normalised life u, or nil if it does not resolve
+local function colorAt(v, u, ctx)
+	if type(v) == "table" and not isVec(v) and type(v[1]) == "table" then
+		local prev
+		for _, e in ipairs(v) do
+			if type(e) == "table" and type(e[1]) == "number" then
+				if e[1] >= u then
+					local ok1, c1 = pcall(color, e[2], ctx)
+					if not ok1 then return nil end
+					if not prev then return c1 end
+					local ok0, c0 = pcall(color, prev[2], ctx)
+					if not ok0 then return c1 end
+					return c0:Lerp(c1, (u - prev[1]) / math.max(e[1] - prev[1], 1e-6))
+				end
+				prev = e
+			end
+		end
+		if prev then
+			local ok, c = pcall(color, prev[2], ctx)
+			return if ok then c else nil
+		end
+		return nil
+	end
+	local ok, c = pcall(color, v or "#FFFFFF", ctx)
+	return if ok then c else nil
+end
+
 local function meanOfRange(v, default)
 	if type(v) == "number" then return v end
 	if type(v) == "table" and type(v[1]) == "number" then return (v[1] + (v[2] or v[1])) / 2 end
 	return default
 end
 
-function VFXTimeline.check(spec)
+function VFXTimeline.check(spec, opts)
+	opts = opts or {}
 	local problems = {}
 	local function add(level, where, msg)
 		table.insert(problems, { level = level, where = where, msg = msg })
@@ -908,6 +957,24 @@ function VFXTimeline.check(spec)
 			local ok, c = pcall(color, c0 or "#FFFFFF", ctx)
 			white = ok and (0.299 * c.R + 0.587 * c.G + 0.114 * c.B) > 0.9 -- near white (pale yellow flames do not count)
 		end
+		if kind == "emitter" and not streak and props.Brightness ~= 0 then
+			-- a big near-white sprite: the white-ball flash all three reviewers flagged in blind test 3. Size, colour
+			-- and transparency are sampled together over the first half of the life, so a ring that is white only
+			-- while it is still tiny does not count.
+			local worst = 0
+			for k = 0, 10 do
+				local u = k / 20
+				local c = colorAt(props.Color, u, ctx)
+				if c and (0.299 * c.R + 0.587 * c.G + 0.114 * c.B) > 0.9 and seqAt(props.Transparency or 0, u) < 0.6 then
+					worst = math.max(worst, 2 * seqAt(props.Size or 1, u) * ctx.scale)
+				end
+			end
+			if worst > 8 then
+				add("WARN", where, string.format("near-white sprite up to %.1f studs across: in daylight a white flash "
+					.. "this big reads as a flat white ball; keep a 3-6 stud white core inside a coloured glow, full "
+					.. "white for 0.08 s or less (patterns.md 15.10)", worst))
+			end
+		end
 		for i = 1, copies.n or 1 do
 			local t0 = (L.t or 0) + (i - 1) * (copies.every or 0)
 			table.insert(spans, { t0, t0 + life })
@@ -973,6 +1040,16 @@ function VFXTimeline.check(spec)
 		if w > peakW then peakW, peakWT = w, tau end
 		if l > peakL then peakL, peakLT = l, tau end
 	end
+	-- the visible end: the last layer end or particle death (approximate: a fade may end a little earlier)
+	if type(opts.length) == "number" then
+		if horizon > opts.length + 0.5 then
+			add("WARN", "spec", string.format("visible until about %.2f s, the brief asks ~%.1f s: shorten the linger "
+				.. "(Lifetime, fades) or say why", horizon, opts.length))
+		elseif horizon < opts.length - 0.6 then
+			add("WARN", "spec", string.format("over by about %.2f s, the brief asks ~%.1f s: the linger is cut short "
+				.. "(an empty screen before the end reads as a hard cut)", horizon, opts.length))
+		end
+	end
 	for _, inst in pairs(scratch) do
 		if typeof(inst) == "Instance" then inst:Destroy() else for _, x in pairs(inst) do x:Destroy() end end
 	end
@@ -987,15 +1064,16 @@ function VFXTimeline.check(spec)
 		peakStreaks = math.floor(peakS + 0.5), peakStreaksAt = peakST,
 		peakWhiteStreaks = math.floor(peakW + 0.5), peakWhiteStreaksAt = peakWT, peakLayers = peakL, peakLayersAt = peakLT,
 		widestParticle = widest, widestParticleLayer = widestId, lights = lights, textures = textures,
+		visibleEnd = horizon,
 	}
 	local lines = {}
 	for _, p in ipairs(problems) do table.insert(lines, p.level .. " " .. p.where .. ": " .. p.msg) end
 	local nErr, nWarn = 0, 0
 	for _, p in ipairs(problems) do if p.level == "ERROR" then nErr += 1 else nWarn += 1 end end
-	table.insert(lines, string.format("%s: %d errors, %d warnings | %.2f s, %d layers | peak %d particles at %.2f s "
+	table.insert(lines, string.format("%s: %d errors, %d warnings | %.2f s, visible to ~%.2f s, %d layers | peak %d particles at %.2f s "
 		.. "(%d elongated at %.2f s, %d of them bright white at %.2f s), %d layers active at %.2f s | widest particle "
 		.. "%.1f studs (%s) | %d light(s)",
-		ctx.name, nErr, nWarn, length, #spec.layers, stats.peakParticles, peakPT, stats.peakStreaks, peakST,
+		ctx.name, nErr, nWarn, length, horizon, #spec.layers, stats.peakParticles, peakPT, stats.peakStreaks, peakST,
 		stats.peakWhiteStreaks, peakWT, peakL, peakLT, widest, tostring(widestId), lights))
 	local ids = {}
 	for k, v in pairs(textures) do table.insert(ids, k .. " (" .. table.concat(v, ", ") .. ")") end

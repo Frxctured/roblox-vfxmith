@@ -8,6 +8,7 @@ Use the `vfx` skill (vfxmith plugin) for: $ARGUMENTS
 If it starts with "find", run `vfx-find` only and report the references. If it starts with "review", run `vfx-review`
 on the named effect. Otherwise ask the short questionnaire from
 `knowledge/design-brief.md` (only what the request leaves open), write the brief, then make the effect with
-`vfx-find` then `vfx-make` (full mode by default; quick mode only when the
-user asks for speed), including the spec check, captures on both backdrops (void
-and daylight), compare and review in Studio, and report what was captured (frames) and the reviewers' scores.
+`vfx-make` (full mode by default, at most two review panels; quick mode only when the
+user asks for speed). Its helpers do the heavy work: the librarian finds references, the capturer takes the frames on
+both backdrops (void and daylight) and returns contact sheets, three blind reviewers score. Report the final sheets
+and the reviewers' scores.

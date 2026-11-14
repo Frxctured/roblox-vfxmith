@@ -13,6 +13,8 @@
 --   return C.stills("VoidRend", { times = {0.03, 0.1, ...}, hold = 2.5, gap = 0.3, lead = 8, seed = 7 })
 --     -> start epoch ms + marker pixels; then run kit/scripts/stills.py with the SAME times/hold/gap and those values
 --   C.hold("VoidRend", 0.3)                           -- ANY OS: freeze at t, then MCP screen_capture (see hold())
+--   C.plan("VoidRend", { times = {...}, stage = "day" }) then `return C.next()` + screen_capture until "done"
+--                                                     -- the cheap loop the vfx-capturer helper agent runs
 --   C.clear()                                         -- remove the stage, restore the camera
 --
 -- Stills schedule (shared with stills.py): play k starts at S_k (S_0 = start, S_k+1 = S_k + (t_k + hold + gap) s) and
@@ -139,10 +141,10 @@ function VFXCapture.stage(kind, o)
 	return "stage " .. kind .. " at " .. tostring(S.origin)
 end
 
--- Authoring check of a spec (see VFXTimeline.check): returns the report text.
-function VFXCapture.check(spec)
+-- Authoring check of a spec (see VFXTimeline.check): returns the report text. opts.length = the brief's length (s).
+function VFXCapture.check(spec, opts)
 	local VFX = VFXCapture.runtime()
-	return (VFX.check(VFXCapture.spec(spec)))
+	return (VFX.check(VFXCapture.spec(spec), opts))
 end
 
 -- Camera looking at the effect origin from the front (-Z side by default).
@@ -354,6 +356,46 @@ function VFXCapture.hold(specName, t, o)
 	while h.time() < t and os.clock() - t0 < t + 5 do task.wait() end
 	task.wait(0.1) -- one more rendered frame at the frozen state
 	return string.format("held %s at t=%.3f", tostring(specName), h.time())
+end
+
+-- Cheap capture loop (the vfx-capturer helper agent, or anyone): set the plan once, then repeat
+--   `return C.next()` + MCP screen_capture  (both calls in ONE message: they run in order)
+-- until it returns "done". Each next() freezes the effect at the next time (a fresh play, where the camera looks).
+--   C.plan("Name", { times = {0.1, 0.4, ...}, stage = "day", stageOpts = { lighting = "default" },
+--                    camera = { dist = 42, height = 8, lookUp = 6 }, base = true })
+-- base = true first returns "base" with the empty stage (for compare.py). Labels: "base", "t=0.40 (2/12)", "done".
+function VFXCapture.plan(specName, o)
+	o = o or {}
+	assert(type(o.times) == "table" and #o.times > 0, "C.plan needs o.times = { ... }")
+	if S.held then pcall(S.held.stop) S.held = nil end
+	if o.stage then VFXCapture.stage(o.stage, o.stageOpts) end
+	if o.camera then VFXCapture.camera(o.camera) end
+	local VFX = VFXCapture.runtime()
+	local spec = VFXCapture.spec(specName)
+	VFX.preload(spec)
+	S.plan = { name = specName, times = o.times, i = if o.base then -1 else 0, opts = o.holdOpts or {} }
+	return string.format("plan %s: %d frames%s on %s, effect %.2f s long. Now repeat `return C.next()` + "
+		.. "screen_capture until it returns \"done\".", tostring(specName), #o.times, if o.base then " + base" else "",
+		tostring(o.stage or "the current stage"), VFX.length(spec))
+end
+
+function VFXCapture.next()
+	local p = S.plan
+	if not p then return "no plan: call C.plan first" end
+	if S.held then pcall(S.held.stop) S.held = nil end
+	if p.i == -1 then
+		p.i = 0
+		task.wait(0.2)
+		return "base"
+	end
+	p.i += 1
+	if p.i > #p.times then
+		S.plan = nil
+		return "done"
+	end
+	local t = p.times[p.i]
+	VFXCapture.hold(p.name, t, p.opts)
+	return string.format("t=%.2f (%d/%d)", t, p.i, #p.times)
 end
 
 function VFXCapture.clearStage()

@@ -29,6 +29,13 @@ Other agents: ask the same questions in one plain message and offer "reply 'go' 
 | 6 | How big on screen? | hand-sized / around one character / an area, 2-5 characters wide / huge, fills the screen |
 | 7 | Where does it play? | a bright daytime map / dark, night or indoors / both / not sure |
 | 8 | How does it move? | stays where it is cast / follows the character / travels from A to B (projectile, beam, dash) / covers an area |
+| 9 | Does anything get pulled in or thrown out? | pulled in (debris, particles, light) / thrown out (debris, sparks, shards) / leaves marks behind (scorch, cracks) / nothing |
+
+**For sustained effects (portal, rift, vortex, black hole, aura, field, charge) always ask 8 and 9, and whether it
+stands on the ground or hangs in the air**, even when you think the word answers them. In blind test 3 (a void rift)
+both plugin runs assumed "stays where it is cast" from the word "rift", never asked, and never heard that it pulls
+debris in; both also guessed "on the ground" for a rift that hangs at head height. All three reviewers marked one of
+them down for the missing pull.
 Also ask for a reference (video, image, a game moment) if the user mentions one; it overrides the defaults.
 
 ## 2. Defaults from the request's wording (when nobody answers)
@@ -56,6 +63,8 @@ check on the dark stage too.
 - **Rules to check later:** the payoff is the biggest and brightest beat; anticipation is long enough to read (at least
   ~0.2 s, more for big moves); every repeated beat escalates and differs; the linger matches the scale (big moves
   leave smoke, marks or embers for 1-3 s); one hero shape per beat.
+- **Motion:** where it sits (on the ground, in the air, on the character), whether it moves, and what it pulls in,
+  throws out or leaves behind.
 - **Style** (one), **palette** (three tones: core, body, ink), **lighting** (day, dark or both), **budget** (~150
   particles at the peak by default; mobile = `VFXTimeline.Quality` 0.6).
 - **Capture camera** at gameplay distance: ~20-30 studs for a character-sized effect, ~40-60 for an area or a

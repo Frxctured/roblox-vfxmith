@@ -66,11 +66,14 @@ Dark ink sprite: `Color = "ink", LightEmission = 0`.
 `VFXTimeline.CullDistance` (260), `VFXTimeline.Quality` (1; 0.6 on touch).
 
 ## Check
-`local report, problems, stats = VFXTimeline.check(spec)` (or `C.check(name)` in the capture harness) sets every prop
+`local report, problems, stats = VFXTimeline.check(spec, { length = 4 })` (or `C.check(name, { length = 4 })` in the
+capture harness; `length` = the brief's total length in s, optional) sets every prop
 on a scratch instance and reports **ERROR** (unknown property, bad enum or colour, unknown texture or palette name: the
 value never reaches the instance), **WARN** (a key the layer's kind ignores, e.g. `Width0` outside `props`; a track the
 kind ignores, e.g. `Transparency` on an emitter; an unknown ease; no Transparency anywhere, so the layer is opaque its
 whole life and then cuts; an emit or key after the layer's life; an emitter that never emits; no Lifetime or Texture;
 more than one light), then the peaks: live particles, elongated particles and the bright-white ones among them (white streaks and
 needles: the clutter count), active layers, the widest particle in
-studs, and every texture id with the layers and LightEmission that use it.
+studs, when the effect is last visible, and every texture id with the layers and LightEmission that use it. It also
+WARNs on a near-white sprite over 8 studs across (reads as a flat white ball in daylight) and, given `length`, on an
+effect visible more than 0.5 s longer or 0.6 s shorter than asked.

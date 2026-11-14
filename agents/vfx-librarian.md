@@ -28,4 +28,6 @@ Reply in terse bullets, per part:
 - **Typical timing:** from the category table.
 - **Avoid:** 1-2 mistakes from the category study.
 - **Start from:** `knowledge/categories/<type>_recipe.luau`.
+Keep the whole reply under ~700 words: the builder saves it as `refs.md` and works from it instead of the cards.
+If the prompt gives the brief's beats, organise the parts by beat.
 Never invent ids or values; everything comes from the files you opened.

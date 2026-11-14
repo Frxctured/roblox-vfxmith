@@ -138,5 +138,25 @@ scores holds for any effect:
    The blast went white -> flat red puffs -> a floating black ball in under 0.5 s. Reach orange by ~0.2 s, as the
    library does, then give the body time (fire puffs and flame tongues living ~0.6-0.9 s, spending the extra time in
    orange -> red -> ember); holding yellow-hot longer, or starting white, clipped to a shapeless white blob in daylight.
+
+Test 3 (a void rift: a boss ultimate held open, peak at the END, dark effect in daylight, inward pull; no plugin vs
+0.1.5 quick vs full, all captured in the same daylight scene) scored 6.0 / 7.0 / 7.5 and added five rules:
+9. **Rings and shockwaves travel.** All three arms got it wrong: one ring was born at full size and barely grew (a flat
+   UI circle), one stopped growing and faded in place, one was a soft haze ball smaller than the rift it replaced.
+   Start at 20% of the final size or less, ease out (quad/quint out) and keep growing while fading, reaching about 80%
+   of the size in the first 40% of the life; give it thickness or a soft glow band behind; in daylight no grey dark
+   twin ring (it reads as a soap bubble): only thin, deep, saturated ink, or none.
+10. **A daylight flash is a small white core in a coloured falloff.** The winning effect's flash was a shapeless white
+   ball about 14 studs across that hid the implosion (all 3 reviewers). Keep full white to a 3-6 stud core for 0.08 s
+   or less, never wider than half the payoff; `VFXTimeline.check` warns on a near-white sprite over 8 studs.
+11. **Sizes come from the brief, in studs, and get checked.** Asked 15-20 studs, the shockwaves came out ~13, ~18-21
+   and 24-28. Write each beat's size in the brief and compare the capture against it before the panel.
+12. **No dead air at the snap.** The collapsing rift vanished 0.1 s before the payoff fired and the reviewers read the
+   gap as an empty frame. Keep the closing shape on screen (a hot slit shrinking to a pinpoint) until the payoff; a
+   quiet beat is 0.05-0.1 s of reduced light, not nothing.
+13. **The linger ends at the asked length, not before or after.** One effect showed an empty screen at 4.0 s of a 4 s
+   brief (a hard cut for an ultimate); another's smoke ran to 4.6 s and turned muddy. `C.check(name, { length = s })`
+   reports when the effect is last visible. A sustained hold must also BUILD (pulses growing and speeding up, a hotter
+   rim, an accelerating pull with visible debris): the thin, static holds lost points in every lens.
    A fireball also needs a value range (a hot core, an orange body, dark red-brown edges, dark smoke behind): test 2's
    flat single-value orange read as "jelly". Smoke cools to warm grey, rises from low down, with a dust skirt in front.
