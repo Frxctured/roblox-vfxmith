@@ -15,16 +15,20 @@ effects you actually want and tell us how it went.
   or shorter than you asked; the builder gets a close-up sheet of the payoff moments.
 
 ## What we measured so far
-The same request and the same answers, run by each version (an ice slam, 2026-11-14), priced at API rates:
+The same request and the same answers, run by each version (an ice slam, 2026-11-14), priced at API rates and scored
+blind by three reviewers who did not know which effect was which:
 
 | | 0.1.5 full | **0.1.6-beta2** | no plugin |
 |---|---|---|---|
 | Cost | $57.41 | **$13.18** | $9.78 |
 | Time | 70 min | **42 min** | 33 min |
+| Blind score (median, 0-10) | 7.0 | **6.5** | 8.0 |
 
-The blind quality score of beta2 is **not in yet**. The first beta cut the cost by 55% but lost quality on another
-test (a void rift); beta2 fixes the two causes found. So this beta is mainly for cost, speed and usability feedback,
-and for telling us when an effect looks worse than you expected.
+beta2 costs 77% less than 0.1.5 full and scored half a point lower, which is about the spread between two panels. On
+this ice slam the run without the plugin scored best. The plugin steered every build toward the same library crystal
+meshes, which read as smooth cones, while the plugin-free run built its own faceted crystals. The next beta makes
+library assets optional for hero shapes like these. On a void rift (an earlier test) the plugin scored clearly above
+no plugin. A later build (beta3, not released yet) scored 7.0 on the ice slam for $12.05.
 
 ## Install
 You need Claude Code, Roblox Studio with the Studio MCP connected, and Python 3 with Pillow.
@@ -54,7 +58,8 @@ claude plugin enable vfxmith@vfxmith
 ```
 
 ## Known issues
-- Beta2's quality has not been blind-scored yet (see above).
+- Hero shapes come from library meshes, so ice or crystal spikes can look like smooth cones. If that happens, ask
+  it to build faceted crystals itself.
 - The capture helper needs a Studio MCP whose screenshot result names the saved image file (current versions do).
   With an older one the builder takes the screenshots itself, which costs more.
 - Textures still come mostly from the built-in recipes. A search over a much larger texture set (including the free
