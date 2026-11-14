@@ -36,8 +36,8 @@ effect in Studio); without it you still get references and a ready spec.
    spec mistakes; `C.hold(name, t)` + a screenshot captures frozen frames on any OS, on a black stage AND a default
    daylight baseplate (dark layers that vanish on black can read as dirt in daylight).
 4. **Compare and review**: side by side with the references (`compare.py`), three blind reviewer agents (shape, timing,
-   colour) list concrete fixes, scoring absolute quality for a description or resemblance for a video; quick mode
-   stops after one round, full mode repeats until every lens scores 8.5 or progress stops.
+   colour) list concrete fixes, scoring absolute quality for a description or resemblance for a video; the loop repeats
+   until every lens scores 8.5 or progress stops (a faster draft mode exists only for when you ask for one).
 5. **Ship**: copy `kit/runtime/VFXTimeline.luau` + the spec into your game and play it on the client.
 
 ## What the pack taught us

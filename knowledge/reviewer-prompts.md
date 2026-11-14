@@ -26,6 +26,8 @@ Evidence (Read every image; they are your evidence):
 - Reference breakdown: <reference folder>/analysis.md, full-size reference frames in .../frames/, the video
   .../source.mp4 (cycle starts at <t0> s; ffmpeg frames into the scratchpad if useful). For a library reference: its
   card (library/cards/...) and frames.
+- The brief: <effect folder>/brief.md (what the user asked for: purpose, length, peak time, sizes, style). Judge
+  against it: an effect that ignores the brief is wrong even if it looks good.
 - Our effect spec: <effect folder>/<Name>.luau; runtime + format: kit/runtime/
   VFXTimeline.luau and knowledge/spec-format.md (layers: t start, life, at, rot, pivot, size, props, tracks
   {time, value, ease}, copies, emit {t, count, over}). A particle's Size is its HALF-width (Size N = 2N studs across);

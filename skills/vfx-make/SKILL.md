@@ -12,21 +12,28 @@ video) run the scripts; Studio is driven through the Studio MCP server (`execute
 Good effects come from a process, not from the prompt: find real references, build the effect as editable data, LOOK
 at your result next to the references, let blind reviewers list the differences, fix, repeat.
 
-**Quick or full.** The full loop is expensive: in the blind test (2026-11-14) it took ~55 min and ~720k tokens, 1.5x a
-plain attempt, for a clearly better result. Pick by the request and say which you picked:
-- **Quick** (default for a casual description, "make me a cool X"): steps 1-4, ONE capture set on both backdrops
-  (step 5), ONE review panel with the absolute scale (step 6), apply its shared fixes, re-capture once, done. About
-  20-30 min.
-- **Full** (a reference video, "make it great / polished", a signature effect, or the user asks): iterate steps 5-6 to
-  the score bar (step 7).
+**Full mode is the default.** Run every request through the whole loop (steps 1-7: iterate captures and review
+panels to the score bar). It costs about an hour and ~500-700k tokens. Two blind tests on 2026-11-14 measured why:
+the full loop beat a plain agent 7.5 to 7.0, while quick mode (one panel, fixes, no second check) LOST 5.5 to 7.5:
+the effect shipped at the level its first panel had scored.
+- **Quick** only when the user explicitly asks for speed ("quick", "rough draft", "just something fast"): steps 1-4,
+  one capture set on both backdrops, one review panel, its shared fixes, then ONE more panel (or at least a re-capture
+  you score against 7) before finishing. Say that it is a draft and what the full loop would still fix.
 
 ## 0. Read first
 - `knowledge/patterns.md` (section 14: rules seen across the library's ~1,900 catalogued effects by experienced
   artists; 1-13: three tones, pops not fades, impact frames, escalation, aftermath).
 - `knowledge/categories/<type>.md` for every effect type in the request (index: `knowledge/README.md`).
 - `knowledge/spec-format.md` (how an effect is written) and `knowledge/gotchas.md` (Studio and capture traps).
-- `knowledge/patterns.md` section 15 (what lost points in the blind test: daylight, clutter, repeated flashes,
-  explosion body, texture traps) and the "Traps" section at the top of `knowledge/texture-vocab.md`.
+- `knowledge/patterns.md` section 15 (what lost points in the blind tests: daylight, clutter, repeated beats, payoff
+  scale, style, texture traps) and the "Traps" section at the top of `knowledge/texture-vocab.md`.
+- `knowledge/design-brief.md` (the questionnaire and the brief: step 0b).
+
+## 0b. Brief: ask, then plan (before anything else)
+Follow `knowledge/design-brief.md`: ask the user the short questionnaire, only the questions their request leaves
+open (none if it is descriptive; defaults from the wording if they are away), then write `<effect>/brief.md`: purpose
+and scale, total length, peak time, the beats with their hero shape and size at gameplay distance, style, palette,
+lighting, budget, capture camera. Everything after this serves the brief.
 
 ## 1. References (never build from nothing)
 - **From a description:** run the `vfx-find` skill, or directly
@@ -42,15 +49,20 @@ plain attempt, for a clearly better result. Pick by the request and say which yo
 ## 2. Start from a recipe
 - Copy `knowledge/categories/<type>_recipe.luau` into your effect folder as `<Name>.luau` and change its `name`.
   How each recipe plays as it is: `gallery/recipes/<type>_recipe.jpg` (look first: know what you start from).
-- **Combined effects** ("a light beam with an explosion"): one spec, both recipes' layers in one `layers` list. Prefix
+- **Fit it to the brief** (`design-brief.md` section 4): scale each part to the size the brief gives, retime its layers
+  to the brief's beats, keep one hero shape per beat. Recipes are sized and timed for an average library effect; the
+  brief decides how big, when and how long.
+- **Combined effects** ("a light beam with an explosion", "an ice dash into a slash", "a portal that spits fire"):
+  one spec, both recipes' layers in one `layers` list. Prefix
   ids per part (`beam_core`, `boom_flash`), shift the second part's `t` values to where it should start (e.g. the
   explosion at the beam's impact, t = beam length), move its `at` positions to that point, merge palettes and texture
-  tables, and drop duplicate roles (one light, one grade). If both parts keep a flash, give them DIFFERENT shapes
-  (slam: a narrow pillar or cross; blast: a round burst) and make the later one bigger. Keep the total around 150
+  tables, and drop duplicate roles (one light, one grade). If both parts keep a flash or burst, give them DIFFERENT
+  shapes and make the later one bigger (the payoff is the biggest beat). Keep the total around 150
   particles at the peak, bright-white streaks and needles at the payoff to ~25, and one hero shape per beat
   (patterns.md 15).
 - Adapt to the request: palette (three tones: white core, saturated body, dark ink), size (`scale` or the recipe's
-  base size), extra layers from the category note's anatomy table, values from the library cards.
+  base size), extra layers from the category note's anatomy table, values from the library cards. Keep ONE rendering
+  style, the user's (toon with outlines, or soft glow; patterns.md 15.7): never fix one beat by switching style.
 - Textures: `knowledge/texture-vocab.md` by role (contact sheets: `gallery/textures/`); avoid the ids it lists as not
   loading. Its `traits` column (also `gallery/textures/traits.json`) says per texture: white or coloured, transparent
   or on a black/faint card, single or multi-part, effective resolution. Check every id your spec uses

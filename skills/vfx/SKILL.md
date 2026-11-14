@@ -19,7 +19,7 @@ anything (it may contain spaces: quote it).
 ## Route
 | The user wants | Use |
 |---|---|
-| a new effect from a description ("a cool light beam with an explosion") | `vfxmith:vfx-find` for references, then `vfxmith:vfx-make` |
+| a new effect from a description ("a cool light beam with an explosion", "an ice slam", "a purple aura") | the short questionnaire + brief (`knowledge/design-brief.md`, skip what the request answers), `vfxmith:vfx-find` for references, then `vfxmith:vfx-make` |
 | an effect that looks like a video they show | `vfxmith:vfx-make` (starts with the video breakdown) |
 | examples / "how do pros make X" | `vfxmith:vfx-find` (or grep `knowledge/` and `library/cards/` for a quick answer) |
 | a review or "make this better" | `vfxmith:vfx-review`, then fixes with `vfx-make` |

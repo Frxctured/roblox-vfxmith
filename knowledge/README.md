@@ -25,6 +25,7 @@ Where a note says "the vault" it cites the LihFolk Vault V2, an optional knowled
 | Slash and sword VFX - lessons from 6 open-source effects | [slash.md](categories/slash.md) | [slash_recipe.luau](categories/slash_recipe.luau) |
 
 Also: `library-stats.md` (what values artists pick, over every emitter design in the pack),
+`knowledge/design-brief.md` (the questionnaire and brief to start every effect with),
 `knowledge/texture-vocab.md` (texture ids by role) and `knowledge/os-conventions.md` (how the
 effects are driven by attributes).
 

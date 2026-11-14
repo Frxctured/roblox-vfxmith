@@ -29,7 +29,7 @@
 --   keeps the LE 0 orange-to-black cooling); SpikyRing 14538969234 (a 128 px image drawn at Size 17) -> 7417145436
 --   (the same ragged spiky ring at 420 px, starter kit "hairy shock ring"), spikyShock Brightness 25 -> 12 because the
 --   new ring is white where the old one was mid-grey (tone 0.49). Other layer values unchanged.
--- Body and cooling pass (2026-11-14, patterns.md 15.4): in the blind test this recipe's blast went white -> flat red
+-- Body and cooling pass (2026-11-14, patterns.md 15.8): in the blind test this recipe's blast went white -> flat red
 --   puffs -> a floating black ball in under 0.5 s, cluttered with white needles, and nothing was left at 2 s. Changes,
 --   all inside the anatomy ranges of explosion.md b: glow lives 0.4-0.45 s (was 0.25) and cools orange -> red;
 --   flames and fireBlobs live longer (0.45-0.8 / 0.55-0.9 s) with their colour keys moved so they still turn orange

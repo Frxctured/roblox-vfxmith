@@ -7,7 +7,8 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 ## What is here
 | Folder | Use it for |
 |---|---|
-| `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number). Read first. |
+| `knowledge/design-brief.md` | the short questionnaire to ask the user first (length, peak moment, purpose, style...; skip what the request answers) and the brief that sets size and timing before any recipe |
+| `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number; section 15: what the blind tests taught). Read first. |
 | `knowledge/categories/<type>.md` | one deep study per effect type: explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy/light/character). Anatomy with typical values, timing table, techniques, mistakes. |
 | `knowledge/categories/<type>_recipe.luau` | a working starting effect per type (layer list for `kit/runtime/VFXTimeline.luau`); how each one plays: `gallery/recipes/<type>_recipe.jpg` |
 | `knowledge/texture-vocab.md` | texture asset ids by role (glows, stars, rings, crescents, smoke, fire, lightning...) that load in any game |
@@ -19,7 +20,8 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 | `skills/*/SKILL.md` | the detailed workflows below, as plain instructions any agent can follow |
 
 ## What the user wants -> what to do
-1. **"Make a ... effect"** (from a description, e.g. "a cool light beam with an explosion"):
+1. **"Make a ... effect"** (from a description, e.g. "a cool light beam with an explosion", "an ice slam"): first
+   the short questionnaire and brief (`knowledge/design-brief.md`: ask only what the request leaves open), then
    `python3 kit/scripts/find_effects.py "<their words>"` -> read the `knowledge/categories/<type>.md` it names, the
    2-3 best library cards, and LOOK at their frames in `gallery/` -> start from `<type>_recipe.luau` (merge two recipes
    for a combined effect) -> build, capture, compare and review: `skills/vfx-make/SKILL.md`.
