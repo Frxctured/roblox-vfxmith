@@ -37,7 +37,7 @@ effect in Studio); without it you still get references and a ready spec.
 5. **Ship**: copy `kit/runtime/VFXTimeline.luau` + the spec into your game and play it on the client.
 
 ## What the pack taught us
-Eleven category studies (77 effects frame by frame, plus statistics over every emitter in the pack) agree on these.
+Eleven category studies (75 effects frame by frame in the gallery, plus statistics over every emitter in the pack) agree on these.
 Details, numbers and sources: [`knowledge/patterns.md`](knowledge/patterns.md) section 14 and the
 category studies in [`knowledge/categories/`](knowledge/categories/).
 

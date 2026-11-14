@@ -27,3 +27,7 @@ Where a note says "the vault" it cites the LihFolk Vault V2, an optional knowled
 Also: `library-stats.md` (what values artists pick, over every emitter design in the pack),
 `knowledge/texture-vocab.md` (texture ids by role) and `knowledge/os-conventions.md` (how the
 effects are driven by attributes).
+
+Two studied effects (`af00e114ff57` iso_textures THUNDER, `f8b7b6d9d087` Jingliu IceExplosion) came from files that
+were later left out of the pack as ripped from live games: their notes stay (our own observations),
+their frames are not published.

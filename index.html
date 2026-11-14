@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vfxmith: Roblox VFX like experienced artists make them</title>
+<meta name="description" content="A Claude Code plugin and open library: ~1,200 real open-source Roblox effects with exact layer values, frame-by-frame sheets, effect-type studies and a Studio build, capture and review loop.">
+<link rel="icon" href=".claude-plugin/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Claude Code plugin · open library · MIT</p>
+      <h1>vfx<span>mith</span></h1>
+      <p class="lede">Say <em>"make a cool light beam with an explosion"</em> and get an effect built the way experienced
+        Roblox VFX artists build them. vfxmith studied ~1,900 real open-source effects, layer by layer and frame by frame,
+        and turns that into references, recipes and a build loop an AI agent can follow.</p>
+      <div class="install">
+        <div class="code"><span class="prompt">&gt;</span><code>/plugin marketplace add Frxctured/roblox-vfxmith</code><button data-copy="/plugin marketplace add Frxctured/roblox-vfxmith">copy</button></div>
+        <div class="code"><span class="prompt">&gt;</span><code>/plugin install vfxmith@vfxmith</code><button data-copy="/plugin install vfxmith@vfxmith">copy</button></div>
+      </div>
+      <p class="links"><a class="btn" href="https://github.com/Frxctured/roblox-vfxmith">GitHub repository</a>
+        <a class="btn ghost" href="#gallery">Browse the gallery</a></p>
+    </div>
+    <img class="hero-icon" src=".claude-plugin/icon.png" alt="A violet dome burst, the VoidRend example effect" width="512" height="512">
+  </div>
+  <div class="wrap stats" id="stats">
+    <div><b data-count="cards">1,188</b><span>effects with every layer's values</span></div>
+    <div><b data-count="gallery">75</b><span>effects frame by frame</span></div>
+    <div><b>11</b><span>effect-type studies + recipes</span></div>
+    <div><b>~1,900</b><span>effects analysed</span></div>
+  </div>
+</header>
+
+<main>
+<section class="wrap" id="how">
+  <h2>How an agent makes an effect</h2>
+  <ol class="steps">
+    <li><h3>Find references</h3><p><code>find_effects.py "light beam with an explosion"</code> splits the request into parts and returns the closest real effects: exact layer values, frames, the effect-type study.</p></li>
+    <li><h3>Start from recipes</h3><p>One spec with both recipes' layers, the explosion shifted to the beam's impact, adapted with values from the cards.</p></li>
+    <li><h3>Play it in Studio and look</h3><p>The kit installs without Rojo or uploads; frozen frames are captured on any OS through the Studio MCP.</p></li>
+    <li><h3>Compare and review</h3><p>Side by side with the references; three blind reviewer agents (shape, timing, colour) list concrete fixes until the scores stop rising.</p></li>
+  </ol>
+  <p class="note">Works as a plain folder too: point any agent at it and it starts at <code>AGENTS.md</code>.</p>
+</section>
+
+<section class="wrap" id="gallery">
+  <div class="section-head">
+    <h2>Gallery</h2>
+    <p>Real open-source effects, frozen at t = 0.03, 0.1, 0.2, 0.35 ... s after they fire. Click one to open it.</p>
+  </div>
+  <div class="chips" id="chips" role="tablist" aria-label="Effect type"></div>
+  <div class="grid" id="grid" aria-live="polite"></div>
+</section>
+
+<section class="wrap" id="recipes">
+  <div class="section-head">
+    <h2>Starting recipes</h2>
+    <p>One generic effect per type, built from the studies and tuned against the real effects. Agents start here, then iterate.</p>
+  </div>
+  <div class="grid recipes" id="recipe-grid"></div>
+</section>
+
+<section class="wrap" id="lessons">
+  <h2>What the effects taught us</h2>
+  <ol class="lessons">
+    <li><b>Fire everything at t = 0.</b> Lifetimes make the timeline: flash 0.015-0.16 s, rings 0.1-1.1 s, smoke 0.35-2.5 s, ground marks 0.5-2.5 s.</li>
+    <li><b><code>Brightness = 0</code> turns any texture black.</b> Give every bright shape a black twin, a little bigger, slightly behind. No ink = a white blob.</li>
+    <li><b>Opaque glow beats additive stacks.</b> 44% of emitters use <code>LightEmission</code> 0 or less; a dark red at Brightness 60 is a white-hot core with a red edge in one layer.</li>
+    <li><b>Fade by colour, not transparency.</b> Ramps that end at black fade cleanly; one shared ramp ties the whole effect together.</li>
+    <li><b>Pop, then settle.</b> Flashes appear at full size and shrink; rings reach a quarter to half of their size in the first 10% of their life.</li>
+    <li><b>Burst and stop.</b> A particle travels about <code>Speed / Drag</code> studs.</li>
+    <li><b>Flat rings:</b> <code>VelocityPerpendicular</code>, Speed ~0.005, SpreadAngle 0-15 (flat) or 3333 (a shell of random tilts).</li>
+    <li><b>Size everything from one number</b> and set Brightness by screen area: veils 0.05-0.16, rings 1-3, sparks 15-35, embers 50-200.</li>
+  </ol>
+  <p class="note">All of it, with sources and numbers: <a href="https://github.com/Frxctured/roblox-vfxmith/tree/main/knowledge">knowledge/</a>.</p>
+</section>
+
+<section class="wrap" id="safety">
+  <h2>The open-source pack, cleaned</h2>
+  <p>The plugin's library comes from a large collection of open-source Roblox VFX shared by their creators. Every one of its
+    10,103 scripts was decoded without opening Studio and checked. Two files had real backdoors (neutralised), one leaked a webhook
+    token (removed), and five files ripped from live games were left out. The cleaned pack is a separate download;
+    the effects belong to their creators.</p>
+  <p class="links"><a href="https://github.com/Frxctured/roblox-vfxmith/blob/main/SECURITY.md">Security review</a>
+    <a href="https://github.com/Frxctured/roblox-vfxmith/blob/main/PACK.md">What is in the pack</a>
+    <a href="https://github.com/Frxctured/roblox-vfxmith/blob/main/THIRD_PARTY.md">Third-party terms</a></p>
+</section>
+</main>
+
+<footer class="wrap">
+  <p>vfxmith is MIT licensed. The effects shown, the pack and the texture ids they use belong to their creators
+    (<a href="https://github.com/Frxctured/roblox-vfxmith#credits">credits</a>). Not affiliated with Roblox.</p>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="close" aria-label="Close">×</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+</div>
+<script src="site/app.js"></script>
+</body>
+</html>
