@@ -1,0 +1,152 @@
+{
+ "note": "VFX Studio textures picked for the toon void ground explosion (reference: the reference video Styl_VoidRend_v2 (third-party, not included), frames f534-f595). All are white/greyscale on TRANSPARENCY (checked from the alpha channel: no opaque black, saturation 0), so they tint with Color and also work at LightEmission 0 for the dark layers. grid = flipbook grid (4 = Grid4x4, 8 = Grid8x8, null = single image); flipbooks only animate on ParticleEmitters (FlipbookLayout Grid<g>x<g>, FlipbookMode OneShot). Use as rbxassetid://<id>. The contact sheet tools/vfx/out/voidrend_picks.png shows these in file order (cell 0 = ImpactSplash ... cell 20 = CraterStar). Existing picks in vfx_studio_picks.json reused: Sparkle4 (Twinkle). Note: the old RingThin pick (101325137377720, Sun_Circle_Outer) is a decorated rune ring with spokes, not a clean shock ring; ShockRing below replaces it for this effect.",
+ "assets": {
+  "ImpactSplash": {
+   "id": "104479959935534",
+   "grid": 4,
+   "vfxstudio_name": "Images/HIT (1)",
+   "background": "transparent",
+   "what": "radial jagged toon spike burst that tears apart and fades, one-shot 4x4; camera-facing around the dome = the lilac spike silhouette of f566/f571"
+  },
+  "ImpactSplashAlt": {
+   "id": "18326080169",
+   "grid": 4,
+   "vfxstudio_name": "Images/WindImpact2",
+   "background": "transparent",
+   "what": "side-view jagged spike splash rising from a ground line, one-shot 4x4; ring a few upright billboards around the dome base for the spike crown seen from the side"
+  },
+  "Shards": {
+   "id": "95959360430420",
+   "grid": 4,
+   "vfxstudio_name": "Images/ShardFBTest2Hinokami",
+   "background": "transparent",
+   "what": "single jagged toon shard that thins to a needle over 16 frames, one-shot; Emit with high Drag + upward speed for the lilac pieces thrown up (f571-f578)"
+  },
+  "ShardsAlt": {
+   "id": "119305519297143",
+   "grid": 4,
+   "vfxstudio_name": "Images/spritesheet-36",
+   "background": "transparent",
+   "what": "jagged splash blob shattering into flying pieces, one-shot 4x4; one big sprite for the dome breaking up"
+  },
+  "Smoke": {
+   "id": "125025427182492",
+   "grid": 4,
+   "vfxstudio_name": "Texture",
+   "background": "transparent",
+   "what": "two-tone grey toon puff that curls and swirls apart, one-shot 4x4; mid-grey body + lighter tops keep volume at LightEmission 0, tint indigo/navy for the dark-blue swirl smoke (f578-f595)"
+  },
+  "SmokeAlt": {
+   "id": "13992327687",
+   "grid": 4,
+   "vfxstudio_name": "Images/c",
+   "background": "transparent",
+   "what": "toon puff with a white inner highlight and mid-grey body that curls into a crescent, one-shot 4x4; also reads dark at LightEmission 0"
+  },
+  "SoftOrb": {
+   "id": "2065086791",
+   "grid": null,
+   "vfxstudio_name": "blur",
+   "background": "transparent",
+   "what": "big near-flat white disc with a soft edge (bokeh look), single image; purple out-of-focus orbs drifting up (f595), high Transparency"
+  },
+  "SoftOrbAlt": {
+   "id": "867619398",
+   "grid": null,
+   "vfxstudio_name": "glow",
+   "background": "transparent",
+   "what": "softer gaussian blob, single image; hazier orbs or a ground glow under the disc"
+  },
+  "Twinkle": {
+   "id": "120724457343104",
+   "grid": 8,
+   "vfxstudio_name": "Images/24",
+   "background": "transparent",
+   "what": "existing Sparkle4 pick, confirmed: crisp 4-point star at full size on frame 0 that shrinks and dissolves to dust, one-shot 8x8; matches the 'popped at full size' twinkles"
+  },
+  "TwinkleAlt": {
+   "id": "102648375149008",
+   "grid": 4,
+   "vfxstudio_name": "Star Effect Flipbook + Glow",
+   "background": "transparent",
+   "what": "rounded toon 4-point star with soft glow that grows then shrinks, one-shot 4x4; softer, more cartoon twinkle"
+  },
+  "GroundSwirl": {
+   "id": "10352554571",
+   "grid": null,
+   "vfxstudio_name": "Images/windeffect",
+   "background": "transparent",
+   "what": "thick soft swirl ring with an open centre, single image; ground-flat decal/particle, slow spin, tint dark blue for the charge/cool-down ground ring (f545, f578)"
+  },
+  "GroundSwirlAlt": {
+   "id": "86401376598665",
+   "grid": null,
+   "vfxstudio_name": "Images/Swirltexture",
+   "background": "transparent",
+   "what": "crisp brush-stroke swirl ring, single image; brighter inner swirl layer on top of GroundSwirl"
+  },
+  "BeamBody": {
+   "id": "14191603094",
+   "grid": null,
+   "vfxstudio_name": "Images/jamboy",
+   "background": "transparent",
+   "what": "soft vertical energy streaks with thin hairlines and soft side fall-off, single image; pillar body with TextureSpeed scroll (f545). Streaks run vertically in the image (AGENTS.md: a Beam runs the texture's height along its length)"
+  },
+  "BeamBodyAlt": {
+   "id": "12781750620",
+   "grid": null,
+   "vfxstudio_name": "Images/bmle",
+   "background": "transparent",
+   "what": "bright white beam core with flowing streak lines, single image; narrow white core beam inside BeamBody"
+  },
+  "Lightning": {
+   "id": "80308325487892",
+   "grid": null,
+   "vfxstudio_name": "Texture",
+   "background": "transparent",
+   "what": "thin jagged electric squiggle with small forks running top to bottom, single image; magenta squiggle up the pillar (f545), swap/offset every 2-3 frames"
+  },
+  "LightningAlt": {
+   "id": "7151777149",
+   "grid": null,
+   "vfxstudio_name": "lightning beam 1",
+   "background": "transparent",
+   "what": "two intertwined thin electric strands running top to bottom, single image; denser squiggle variant"
+  },
+  "CrownFlash": {
+   "id": "88765597194916",
+   "grid": null,
+   "vfxstudio_name": "Images/2024-02-28_14-11-52_Blast1",
+   "background": "transparent",
+   "what": "solid white spiky star burst with soft edges, single image; laid flat at the strike point and popped at full size = the white spiky crown of f534"
+  },
+  "CrownFlashAlt": {
+   "id": "13052235894",
+   "grid": null,
+   "vfxstudio_name": "Images/hollow color ring",
+   "background": "transparent",
+   "what": "ring of fine white spikes around a hollow centre, single image; flat 'star ring' version of the crown, or a spiky rim around the burst disc"
+  },
+  "ShockRing": {
+   "id": "100035775651006",
+   "grid": null,
+   "vfxstudio_name": "Images/HSRSkillRing4",
+   "background": "transparent",
+   "what": "clean thin ring with a soft glow that fills the frame, single image; ground-flat, scale up while fading for the cool-down ring (f578)"
+  },
+  "ShockRingAlt": {
+   "id": "92353261735516",
+   "grid": 4,
+   "vfxstudio_name": "Images/circleboomV3",
+   "background": "transparent",
+   "what": "toon ring that goes from a thick donut to a thin broken line, one-shot 4x4; particle version of the shock ring (grow Size while it plays)"
+  },
+  "CraterStar": {
+   "id": "6950204777",
+   "grid": null,
+   "vfxstudio_name": "Hit1",
+   "background": "transparent",
+   "what": "extra (not one of the 10 roles): bold 10-point cartoon star outline, single image; tint black at LightEmission 0 on top of the magenta disc = the black spiky crater star (f566, day frame)"
+  }
+ }
+}

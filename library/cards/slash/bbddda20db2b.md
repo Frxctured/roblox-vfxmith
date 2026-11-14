@@ -1,0 +1,30 @@
+# bbddda20db2b: Ranked.rbxl :: ReplicatedStorage/Assets/Effects/Shadow Monarch/Awakening/Dimse/UserRoot
+
+- Category: **slash**; tags: dark, impact, portal, shockwave, slash, smoke
+- Layers: 19 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 1.0 s
+- Fired by: EmitCount attributes
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 4355): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Ranked.rbxl" --ref 4355 --out <studio content>/vfxlib/fx_bbddda20db2b.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E TStripes       | tex 13802469635 | col #FFFFFF | LE0 LI0 Br2.7 | life 0.139-1 | size swell 0->1.73@0.35->0 | tr flat 0.90 | spd 20-45 drag 5.76 spread 3 | VelocityParallel | squash grow 0->0.554 | locked | EMIT 50 @0 | z 1 | attrs {"AgainstLowSpecs": true}
+E Stripes        | tex 1315202524 (M  Stripes) | col #5555FF->#7238FF->#00D5FF | LE1 LI0 Br5 | life 0.15-0.25 | size swell 0->3.5@0.11->0 | tr flat 0.00 | spd 35-75 drag 2 | VelocityParallel/Disc | squash shrink 2.33->0 | EMIT 35 @0 | z 1
+E BStripes       | tex 7447358016 (A  Stripes) | col #000000 | LE0 LI0 Br1 | life 0.17-0.23 | size swell 0->2.01@0.42->0 | tr flat 0.00 | spd 19.5-48.8 drag 3 | VelocityParallel/Disc | squash const 1 | RATE 20 (continuous) | z -3
+E Stripes2       | tex 7447358016 (A  Stripes) | col #5555FF->#7238FF->#00D5FF | LE1 LI0 Br15 | life 0.17-0.23 | size swell 0->2.01@0.42->0 | tr flat 0.00 | spd 19.5-48.8 drag 3 | VelocityParallel/Disc | squash const 1 | RATE 20 (continuous) | z -3
+E smoke          | tex 14200300110 | col #000000 | LE0 LI0 Br0 | life 0.55-0.8 | size grow 0->15 | tr 0.00..0.00 vis 0.00-0.10 ->1.00 | spd 0.00468 spread -360-360 | FacingCamera | flip Grid4x4 PingPong 2-15 | EMIT 3 @0
+E Shadow         | tex 14813420032 (D  ParticleEmit) | col #000000 | LE-2 LI0 Br4 | life 0.1-0.2 | size shrink 25->0 | tr flat 0.00 | spd 0.0211 spread -360-360 | VelocityPerpendicular | EMIT 4 @0
+E Cress          | tex 7216847514 | col #000000 | LE0 LI0 Br5 | life 0.5 | size grow 0->7.58 | tr 0.51..0.51 vis 0.00-0.00 ->1.00 | spd 0.01 spread 360 rotSpd -600-600 | VelocityPerpendicular | locked | EMIT 10 @0 | z 1
+E ParticleEmitte | tex 14987307361 | col #FFFFFF | LE0 LI0 Br0 | life 0.5-0.99 | size grow 0->5 | tr 0.51..0.51 vis 0.00-0.00 ->1.00 | spd 0.00026 spread 360 rotSpd -200 | VelocityPerpendicular | EMIT 5 @0
+E SlashWind2     | tex 13780268621 (M Grid4x4 Slashed) | col #FFFFFF | LE0 LI0.6 Br1 | life 0.35-0.75 | size grow 0->6 | tr flat 0.90 | spd 0.1 spread 360 rotSpd -150--80 | VelocityPerpendicular | flip Grid4x4 OneShot 32 | EMIT 6 @0
+E Crescents      | tex 14864155491 (M Grid4x4 1) | col #FFFFFF | LE0 LI0 Br1 | life 0.4 | size grow 0->7.35 | tr flat 0.00 | spd 0.0525 spread 360 | VelocityPerpendicular | flip Grid4x4 OneShot 32 | EMIT 10 @0 | z -0.175
+E 2              | tex 17019888109 | col #000000 | LE0 LI0.4 Br1 | life 0.15-0.35 | size grow 0->10 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.001 drag 3 spread 5 rotSpd -500-0 | VelocityPerpendicular | EMIT 5 @0 | z 1
+E Swirl2         | tex 16679485356 | col #FFFFFF | LE1 LI0 Br1 | life 0.25-0.45 | size grow 0->8 | tr flat 0.90 | spd 0.306 spread 7 rotSpd -200 | VelocityPerpendicular | flip Grid4x4 OneShot 32 | EMIT 5 @0
+E Swirl          | tex 16570586760 | col #F2F2F2 | LE0 LI0 Br0 | life 0.189-0.425 | size grow 0->7.19 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.427-1.39 drag 0.49 spread -12.5-12.5 rotSpd -150-360 | VelocityPerpendicular | EMIT 15 @0 | z 1
+E SlashWind      | tex 16009567511 (M  SlashWindBig) | col #FFFFFF->#000000 | LE0 LI0 Br0 | life 0.35-0.65 | size grow 0->10 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.001 spread 10 rotSpd -250-250 | VelocityPerpendicular | EMIT 4 @0
+E BShockwave     | tex 15086677140 | col #000000 | LE0 LI0 Br5 | life 0.25-1 | size grow 0->15 | tr 1.00..0.00 vis 0.24-0.24 ->1.00 | spd -0.3-0.3 drag 5 spread 3--3 rotSpd -100--50 | VelocityPerpendicular | flip Grid4x4 Random 0 | EMIT 15 @0 | z 0.2
+E Impact2        | tex 14844123942 | col #FFE4E4 | LE0 LI0 Br0 | life 0.4 | size grow 0->10 | tr 0.88..0.88 vis 0.00-0.00 ->1.00 | spd 0.07 | VelocityPerpendicular | EMIT 5 @0
+E Crescents      | tex 15426684133 | col #BABABA->#000000 | LE1 LI0.45 Br5 | life 0.374-0.936 | size grow 0->15 | tr 1.00..0.00 vis 0.05-0.05 ->1.00 | spd 0.427-1.39 drag 0.49 spread -16-16 rotSpd 184-410 | VelocityPerpendicular | EMIT 15 @0 | z 0.1
+E Crescents      | tex 15620313312 (A  Crescents3) | col #BABABA->#252525 | LE0 LI0 Br0 | life 0.4-0.85 | size grow 0->16.9 | tr 1.00..0.00 vis 0.05-0.05 ->1.00 | spd 0.427-1.39 drag 0.49 spread -16-16 rotSpd 92.2-205 | VelocityPerpendicular | EMIT 7 @0 | z 0.1
+E Impact         | tex 13366469414 | col #BABABA->#252525 | LE1 LI0.45 Br5 | life 0.2 | size grow 0->10.7 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.427-1.39 drag 0.49 | VelocityPerpendicular | EMIT 3 @0
+```

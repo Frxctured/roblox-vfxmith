@@ -1,0 +1,38 @@
+# 81ab0af1dcf4: Ranked.rbxl :: ReplicatedStorage/Assets/Effects/The Goliath/BendedUser
+
+- Category: **slash**; tags: beam, flash, lightning, portal, shockwave, slash, smoke, star
+- Layers: 24 emitters, 3 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.1 s
+- Fired by: EmitCount attributes
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Ranked.rbxl` (instance referent 2440): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Ranked.rbxl" --ref 2440 --out <studio content>/vfxlib/fx_81ab0af1dcf4.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E WLines .       | tex 1315202524 (M  Stripes) | col #FFEFEE | LE0 LI0 Br2 | life 0.2-0.4 | size swell 2.32->4.11@0.10->0 | tr flat 0.50 | spd 1-100 drag 3 | VelocityParallel | squash shrink 3->0.705 | EMIT 35 @0 | z 1 | attrs {"AgainstLowSpecs": true}
+E Specs .        | tex 10205180639 (M  Specs3) | col #FDCA73 | LE0 LI0 Br3 | life 0.55-1.25 | size swell 0->0.94@0.51->0 | tr flat 0.00 | spd 5-20 drag 3 spread 360--360 rotSpd -125-125 | VelocityParallel | locked | EMIT 75 @0 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E PullShards .   | tex 12356442287 (D Grid4x4 Line) | col #FDCA73 | LE0.5 LI0 Br2 | life 0.4-0.6 | size swell 3.71->4.81@0.10->0 | tr flat 0.00 | spd 25-250 drag 15 spread -5-5 | VelocityParallel | squash grow 0->2.11 | flip Grid4x4 OneShot 100 | EMIT 25 @0 | z 1 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E BLines .       | tex 7994629137 (M  Stripes) | col #000000 | LE0 LI0 Br1 | life 0.2-0.4 | size swell 0.998->6.79@0.51->0 | tr flat 0.50 | spd 5-100 drag 4 | VelocityParallel | squash const -0.75 | EMIT 30 @0 | z 1 | attrs {"AgainstLowSpecs": true}
+E Lines .        | tex 7994629137 (M  Stripes) | col #FFAB4A | LE0.3 LI0 Br5 | life 0.2-0.4 | size swell 0.998->6.79@0.51->0 | tr flat 0.50 | spd 5-100 drag 4 | VelocityParallel | squash const -0.65 | EMIT 35 @0 | z 1 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E BShockwave     | tex 10176632695 (M Grid4x4 Impact245) | col #3F3F3F | LE0 LI0 Br0.7 | life 0.2-0.3 | size grow 0->19.4 | tr 1.00..0.56 vis 0.50-0.50 ->1.00 | spd 0.00411 spread -360-360 | VelocityPerpendicular | EMIT 7 @0 | z 1
+E Wind2 .        | tex 16570586760 | col #FFFFFF | LE0 LI0 Br3 | life 0.2-1 | size grow 0->15 | tr 1.00..0.93 vis 0.13-0.60 ->1.00 | spd 45-250 drag 4 rotSpd 300 | VelocityPerpendicular | EMIT 35 @0 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Wind .         | tex 13237253135 (A Grid8x8 Wind) | col #FFFFFF | LE1 LI0 Br3 | life 0.45-1.75 | size grow 0->22.7 | tr 1.00..0.96 vis 0.15-0.15 ->1.00 | spd 25-185 drag 3 spread -5-5 rotSpd 300 | VelocityPerpendicular | flip Grid8x8 OneShot 1 | EMIT 55 @0 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Swirl          | tex 8642185170 (M  ParticleEmit) | col #FFFFFF | LE0.45 LI0.15 Br1 | life 0.45-1.25 | size grow 0->20.6 | tr 1.00..0.20 vis 0.05-0.05 ->1.00 | spd 0.102-3.06 spread 15 rotSpd 200-450 | VelocityPerpendicular | EMIT 5 @0 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Star (right BE | tex 14006783533 (M  Flash) | col #FFFF59 | LE0 LI0 Br5 | life 0.2 | size shrink 40->0 | tr 1.00..0.00 vis 0.03-0.88 ->1.00 | spd 0.003 | FacingCamera | EMIT 2 @0 | z 30 | attrs {"Recolorable": true}
+E Specs          | tex 10632727506 (M  Orbs) | col #FFAB4A | LE1 LI0 Br7.5 | life 0.45-0.8 | size swell 0->1.37@0.25->0 | tr flat 0.15 | spd 68.4-137 drag 8 spread -360-360 | FacingCamera | EMIT 50 @0 | z 3.04 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Sparks         | tex 7922645282 (A  SparksLinger) | col #FFAB4A | LE1 LI0 Br4 | life 0.25-0.65 | size swell 0->0.719@0.47->0 | tr flat 0.00 | spd 25-65 drag 5 spread -360-360 | VelocityParallel | squash const -0.5 | locked | EMIT 35 @0 | z 4.8 | attrs {"Amount": 0.0, "Recolorable": true}
+E Smoke .        | tex 12350056117 (D Grid4x4 Smoke) | col #FFAB4A | LE1 LI0 Br1.4 | life 0.35-0.85 | size grow 0->13.8 | tr 1.00..0.76 vis 0.40-0.40 ->1.00 | spd 45-250 drag 6 spread -5-5 | FacingCamera | squash shrink -0.0164->-0.637 | flip Grid4x4 OneShot 25 | EMIT 15 @0 | z 1 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Shockwave2     | tex 8048608283 (A  ParticleEmit) | col #FDCA73 | LE1 LI0 Br1 | life 0.2-0.5 | size grow 0->22.1 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.0533 drag 2 spread 360 | VelocityPerpendicular | EMIT 10 @0 | attrs {"Recolorable": true}
+E Shockwave      | tex 16569616361 | col #FDCA73 | LE1 LI0 Br5 | life 0.3-0.45 | size grow 0->14.6 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.00529 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 2 @0 | attrs {"Recolorable": true}
+E Shards (right  | tex 10439119562 (M  Shards) | col #FDCA73 | LE1 LI0 Br5 | life 0.3-0.45 | size swell 0->4.15@0.26->0 | tr flat 0.00 | spd 65-150 drag 8 spread -360-360 | VelocityParallel | squash shrink 0.188->0.075 | locked | EMIT 35 @0 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Flare2 (right  | tex 7216848832 (A  Flare2) | col #FFFF59 | LE1 LI0 Br7 | life 0.25 | size swell 0->40.6@0.20->0 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 0.0187 | FacingCamera | locked | EMIT 1 @0 | z 1.5 | attrs {"AgainstLowSpecs": true, "Recolorable": true}
+E Flare          | tex 10598374841 (A Grid2x2 Star99) | col #FFFF59 | LE0 LI0 Br5 | life 0.25 | size shrink 37.5->0 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 0.005 spread 360--360 | FacingCamera | squash const -0.3 | locked | EMIT 2 @0 | z 1.5 | attrs {"Recolorable": true}
+E Crescents2     | tex 13417315210 (D  WindRings2) | col #FFFFFF | LE0 LI0 Br1 | life 0.35-1.8 | size grow 0->8.68 | tr 0.62..0.62 vis 0.00-0.00 ->1.00 | spd 0.00215 spread -12-12 rotSpd -320-320 | VelocityPerpendicular | EMIT 15 @0
+E Crescents      | tex 13417315284 (M  Crsc2) | col #FFFFFF | LE0 LI0 Br1 | life 0.31-2.1 | size grow 0->8.68 | tr 0.62..0.62 vis 0.00-0.00 ->1.00 | spd 0.00177 spread -12-12 rotSpd -350-350 | VelocityPerpendicular | EMIT 15 @0
+E Sparkle        | tex 14006783533 (M  Flash) | col #FFAB4A | LE0.3 LI0 Br5 | life 0.25 | size shrink 12.5->0 | tr flat 0.00 | spd 0 | FacingCamera | locked | EMIT 3 @0 | z 2.5 | attrs {"EmitType": "attribute", "Recolorable": true}
+E Glow           | tex 13712004045 (A  Glow) | col #FDCA73 | LE1 LI0 Br1 | life 0.35 | size shrink 6->0 | tr 1.00..0.79 vis 0.17-0.17 ->1.00 | spd 0 | FacingCamera | locked | EMIT 3 @0 | z 1 | attrs {"EmitType": "attribute", "Recolorable": true}
+E Attached       | tex 15442080545 (D Grid4x4 ParticleEmit) | col #FFAB4A | LE0.3 LI0 Br3 | life 0.25-0.45 | size grow 0->7 | tr 1.00..0.00 vis 0.03-0.84 ->1.00 | spd 0.001 | FacingCamera | flip Grid4x4 OneShot 30 | EMIT 3 @0 | z 3 | attrs {"Recolorable": true}
+E Specs          | tex 9997556038 (M  ParticleEmit) | col #FFAB4A | LE1 LI0 Br5 | life 0.3-0.56 | size swell 0->0.608@0.46->0 | tr flat 0.00 | spd 15-45 drag 9 spread -360-360 rotSpd -100-100 | FacingCamera | squash swell 0->1.43@1.00->1.43 | EMIT 25 @0 | attrs {"Recolorable": true}
+B Beam           | tex 12781804519 (A  lol3) | col #FFAB4A | LE1 LI0 Br2 | w 9-9 curve 8-8 seg 15 face | tr 1.00..0.49 vis 0.40-0.40 ->1.00 | tex Stretch 2 spd 2 | z 0.2 | attrs {"Recolorable": true}
+B Beam2          | tex 14569404693 | col #FFAB4A | LE1 LI0 Br1 | w 6-6 curve 8-8 seg 15 face | tr 0.73..0.00 vis 0.40-0.40 ->1.00 | tex Stretch 1 spd 5 | z 0.2 | attrs {"Recolorable": true}
+B Beam3          | tex 14902262942 | col #FFAB4A | LE1 LI0 Br3 | w 4-4 curve 8-8 seg 15 face | tr 1.00..0.27 vis 0.22-0.22 ->1.00 | tex Stretch 1 spd 2 | z 0.2 | attrs {"Recolorable": true}
+```

@@ -1,0 +1,174 @@
+# 7adc4321fecd: Testing_ServerNote_in_desc.rbxl :: ServerStorage/Elements/Dimension/DIMM5
+
+- Category: **lightning**; tags: fire, flash, lightning, portal, star
+- Layers: 47 emitters, 0 beams, 25 trails, 0 mesh parts, 0 lights; estimated length 10.0 s
+- Fired by: saved running (Enabled + Rate)
+- Pack file: `Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl` (instance referent 49559): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/important (cool) rbx (Nov 2023)/Testing_ServerNote_in_desc.rbxl" --ref 49559 --out <studio content>/vfxlib/fx_7adc4321fecd.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E FireParticles  | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 2273224484 | col #00C2FF->#E200FF | LE1 LI0 Br1 | life 5 | size shrink 7.19->0 | tr 1.00..0.00 vis 0.10-0.80 ->1.00 | spd 2 spread 45 rotSpd -50-50 | FacingCamera
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size const 20 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 300 spread -360-360 rotSpd -100-100 | FacingCamera | RATE 600 (continuous)
+E Core           | tex 1084962479 (A  Core) | col #FF00FF->#00C2FF | LE1 LI0 Br1 | life 1 | size shrink 10->0 | tr 1.00..0.00 vis 0.54-0.54 ->1.00 | spd 0 | FacingCamera | locked | RATE 2 (continuous)
+E Glow           | tex 867619398 (M  Glow) | col #000CFF | LE1 LI0 Br1 | life 1 | size grow 0->10 | tr 1.00..0.75 vis 0.50-0.50 ->1.00 | spd 0 | FacingCamera | locked | RATE 4 (continuous) | z 1.75
+E Vortex         | tex 1084969997 | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 5-10 | size shrink 10->0 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 0 rotSpd 100 | FacingCamera | locked | RATE 10 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 10->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 100 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 0 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 1e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 10->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 100 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 0 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 1e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 10->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 100 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 0 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 1e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #FF00FF | LE1 LI0 Br1 | life 2-5 | size shrink 10->0 | tr 1.00..0.00 vis 0.10-0.10 ->1.00 | spd 25 rotSpd -90-90 | FacingCamera | RATE 100 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF | LE1 LI0 Br1 | life 2-5 | size shrink 10->0 | tr 1.00..0.00 vis 0.10-0.10 ->1.00 | spd 25 rotSpd -90-90 | FacingCamera | RATE 100 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE1 LI0 Br1 | life 2-5 | size shrink 10->0 | tr 1.00..0.00 vis 0.10-0.10 ->1.00 | spd 25 rotSpd -90-90 | FacingCamera | RATE 1e+09 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size const 2 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 20 spread -360-360 rotSpd -100-100 | FacingCamera | RATE 60 (continuous)
+E Core           | tex 1084962479 (A  Core) | col #FF00FF->#FFFFFF | LE1 LI0 Br1 | life 1 | size shrink 10->0 | tr 1.00..0.00 vis 0.10-0.99 ->1.00 | spd 0 | FacingCamera | locked | RATE 2 (continuous)
+E Glow           | tex 867619398 (M  Glow) | col #000CFF | LE1 LI0 Br1 | life 1 | size grow 0->10 | tr 1.00..0.75 vis 0.50-0.50 ->1.00 | spd 0 | FacingCamera | locked | RATE 4 (continuous) | z 1.75
+E Vortex         | tex 1084969997 | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 5-10 | size shrink 10->0 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 0 rotSpd 100 | FacingCamera | locked | RATE 10 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 0 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 10 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 10->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 80 rotSpd -90-90 | FacingCamera | RATE 2.55e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 8.08->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 8.08->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 8.08->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 40 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Core           | tex 1084962479 (A  Core) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 1 | size shrink 10->0 | tr 1.00..0.00 vis 0.46-0.99 ->1.00 | spd 0 | FacingCamera | locked | RATE 2 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 1 | size swell 0->10@0.60->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 250 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 100 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 10->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 80 rotSpd -90-90 | FacingCamera | RATE 2.55e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Core           | tex 1084962479 (A  Core) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 1 | size shrink 10->0 | tr 1.00..0.00 vis 0.46-0.99 ->1.00 | spd 0 | FacingCamera | locked | RATE 2 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 100 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 1e+03 (continuous)
+E ParticleEmitte | tex 346519018 | col #006EFF->#FF20ED->#006EFF | LE0.65 LI0 Br1 | life 0.5-0.65 | size shrink 4.97->0 | tr 0.10..0.10 vis 0.00-0.00 ->1.00 | spd 20 rotSpd -90-90 | FacingCamera | RATE 255 (continuous)
+E Core           | tex 1084962479 (A  Core) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 1 | size shrink 10->0 | tr 1.00..0.00 vis 0.46-0.99 ->1.00 | spd 0 | FacingCamera | locked | RATE 2 (continuous)
+E Sparkles       | tex 1053546634 (A  Sparkles) | col #E200FF->#00C2FF | LE1 LI0 Br1 | life 0.3-0.7 | size swell 0->6.35@0.80->0 | tr 0.50..0.50 vis 0.00-0.63 ->1.00 | spd 100 spread -360-360 rotSpd -300-300 | FacingCamera | RATE 100 (continuous)
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 4 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+T Trail          | col #00C2FF->#E200FF | LE1 LI1 Br1 | life 1 width shrink 1->0 | tr 1.00..0.01 vis 0.50-0.50 ->1.00 | tex Stretch 1 spd None
+P {"k": "Part", "name": "TempSphere4", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "TempSphere3", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "TempSphere2", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Trail1", "size": [15.0, 15.0, 15.0], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Trail2", "size": [15.0, 15.0, 15.0], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "SpecialSphere", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "TempSphere", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Trail", "size": [15.0, 15.0, 15.0], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Explosion", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.3}
+P {"k": "Part", "name": "Core", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Trail", "size": [15.0, 15.0, 15.0], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Explosion", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.3}
+P {"k": "Part", "name": "Core", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+P {"k": "Part", "name": "Explosion", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.3}
+P {"k": "Part", "name": "Core", "size": [0.05, 0.05, 0.05], "mat": "Neon", "transp": 0.0}
+S Script DIMM5DMG len1110 flags=debris,delay,remote
+S Script Script len379 flags=delay
+S Script Script len813 flags=anim,tween
+S Script Script len51 flags=debris
+S Script Script len1191 flags=anim,bezier,delay,tween
+S Script Script len1197 flags=anim,bezier,delay,tween
+S Script Script len1197 flags=anim,bezier,delay,tween
+S Script Script len51 flags=debris
+S Script Script len588 flags=delay
+S Script Script len79 flags=delay
+S Script Script len588 flags=delay
+S Script Script len79 flags=delay
+S Script Script len588 flags=delay
+S Script Script len79 flags=delay
+S Script Script len171 flags=delay
+S Script Script len171 flags=delay
+S Script Script len171 flags=delay
+S Script Script len910 flags=delay
+S Script Script len665 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len665 flags=delay
+S Script Script len79 flags=delay
+S Script Script len1267 flags=anim,debris,delay,tween
+S Script Script len51 flags=debris
+S Script Script len489 flags=anim,debris,delay,tween
+S Script Script len171 flags=delay
+S Script Script len171 flags=delay
+S Script Script len171 flags=delay
+S Script Script len1400 flags=anim,bezier,delay,tween
+S Script Script len522 flags=delay
+S Script Script len1186 flags=anim,bezier,delay,tween
+S Script Script len51 flags=debris
+S Script Script len629 flags=delay
+S Script Script len79 flags=delay
+S Script Script len8212 flags=anim,delay,raycast,tween
+S Script Script len3112 flags=anim,bezier,delay,tween
+S Script Script len598 flags=delay
+S Script Script len79 flags=delay
+S Script Script len598 flags=delay
+S Script Script len79 flags=delay
+S Script Script len598 flags=delay
+S Script Script len79 flags=delay
+S Script Script len116 flags=
+S Script Script len51 flags=debris
+S Script Script len629 flags=delay
+S Script Script len79 flags=delay
+S Script Script len8223 flags=anim,delay,raycast,tween
+S Script Script len2085 flags=anim,bezier,delay,tween
+S Script Script len579 flags=delay
+S Script Script len79 flags=delay
+S Script Script len493 flags=delay
+S Script Script len79 flags=delay
+S Script Script len794 flags=
+S Script Script len579 flags=delay
+S Script Script len79 flags=delay
+S Script Script len116 flags=
+S Script Script len2876 flags=anim,bezier,delay,tween
+S Script Script len593 flags=delay
+S Script Script len79 flags=delay
+S Script Script len794 flags=
+S Script Script len115 flags=
+```

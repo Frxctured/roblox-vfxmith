@@ -1,0 +1,40 @@
+# fcb1ae0f164b: king goku is the best cutscene.rbxm :: king goku is the best/extraVFX(optional, u can add these)
+
+- Category: **impact**; tags: flash, floor, shockwave, slash, smoke, star
+- Layers: 29 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 3.0 s
+- Fired by: EmitCount attributes
+- Pack file: `190 OS (Oct 2024-Mar 2026)/king goku is the best cutscene.rbxm` (instance referent 13379): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/king goku is the best cutscene.rbxm" --ref 13379 --out <studio content>/vfxlib/fx_fcb1ae0f164b.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E Black2         | tex 18333908081 (D  BlackUp) | col #FFFFFF | LE-0.5 LI0 Br0 | life 0.1 | size swell 0->12.9@0.08->0 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 329-432 drag 88 spread 0-360 | VelocityPerpendicular/Disc | squash swell 0->1.5@0.50->-0.3 | EMIT 14 @0 | z 1
+E Star           | tex 15497164665 | col #FFFFFF | LE0.25 LI0 Br6.33 | life 0.055-0.125 | size swell 0->8.86@0.50->0 | tr flat 0.00 | spd 0 drag 6 spread 360 | FacingCameraWorldUp | squash shrink -0.412->-1.95 | locked | EMIT 4 @0 | z 0.1
+E BlackVerticleL | tex 14367067724 | col #FFFFFF | LE0 LI0 Br0 | life 0.1 | size swell 0->8.86@0.50->0 | tr flat 0.00 | spd 0 drag 6 spread 360 | FacingCameraWorldUp | squash swell -0.975->-0.975@0.00->-1.95 | locked | EMIT 4 @0 | z 0.4
+E BlueVertLines  | tex 14367067724 | col #FFFFFF | LE1 LI0 Br7.96 | life 0.1 | size swell 0->8.86@0.50->0 | tr flat 0.00 | spd 0 drag 6 spread 360 | FacingCameraWorldUp | squash swell -0.562->-0.263@0.60->-3 | locked | EMIT 4 @0 | z 3
+E Smoke2         | tex 18348331508 (D  Dust Down) | col #FFFFFF | LE1 LI0 Br4 | life 0.124-1.48 | size grow 0->5.04 | tr flat 0.95 | spd 0.683-31.4 drag 8 spread 60 rotSpd -20-20 | VelocityParallel/Disc | squash grow 0->0.375 | EMIT 10 @0 | z 0.1 | attrs {"recolorable": ""}
+E Smoke          | tex 18348331508 (D  Dust Down) | col #FFFFFF | LE1 LI0.5 Br7.5 | life 0.1-1.2 | size grow 0->8.99 | tr flat 0.95 | spd 1.22-68.3 drag 11 spread 0-180 rotSpd -20-20 | FacingCamera/Disc | EMIT 20 @0 | z 0.1 | attrs {"recolorable": ""}
+E Stars          | tex 15659706200 | col #FFFFFF | LE0.6 LI0 Br5 | life 0.25-0.9 | size swell 0.604->13.9@0.09->0 | tr 0.65..0.65 vis 0.00-0.00 ->1.00 | spd 66-238 drag 14 spread 360 acc 0-21.9-0 | VelocityParallel | EMIT 13 @0 | z 3
+E SmokeFB1       | tex 11515493609 (A Grid8x8 SmokeFB1) | col #FFFFFF | LE1 LI0 Br1 | life 0.4-1.5 | size grow 0->14.3 | tr 0.03..0.00 vis 0.67-0.67 ->1.00 | spd 62-116 drag 8 spread 0-360 | VelocityPerpendicular | squash grow 0->0.969 | flip Grid8x8 OneShot 1 | EMIT 25 @0
+E Wind12         | tex 17052342455 (A  Wind12) | col #FFFFFF | LE1 LI0 Br5 | life 0.5-3 | size grow 0->38.1 | tr 1.00..0.75 vis 0.20-0.80 ->1.00 | spd 1.09-16.3 drag 3 spread 5 | VelocityPerpendicular | EMIT 5 @0
+E ShockWave      | tex 15602659755 (A  Wind) | col #FFFFFF | LE1 LI0 Br4 | life 0.2-0.8 | size grow 0->38.1 | tr 1.00..0.00 vis 0.12-0.12 ->1.00 | spd 3.62 drag 4.2 spread 360 rotSpd 28 | VelocityPerpendicular/Disc | locked | EMIT 5 @0 | z 1
+E Idk2           | tex 13824053049 (M  Idk2) | col #FFFFFF | LE1 LI0 Br5 | life 0.4 | size grow 0->39.9 | tr 1.00..0.62 vis 0.30-0.30 ->1.00 | spd 0.00363 rotSpd -15-15 | FacingCamera | locked | EMIT 2 @0 | z 4
+E Idk1           | tex 1084991215 (A  Shield1) | col #FFFFFF | LE1 LI0 Br5 | life 0.28 | size grow 0->23.4 | tr 1.00..0.92 vis 0.50-0.50 ->1.00 | spd 0.00363 rotSpd -65-65 | FacingCamera | locked | EMIT 2 @0 | z 3
+E Glow2          | tex 13824053049 (M  Idk2) | col #FFFFFF | LE1 LI0 Br5 | life 0.3-0.55 | size grow 0->21.8 | tr 0.61..0.61 vis 0.00-0.00 ->1.00 | spd 0.00363 | VelocityPerpendicular | locked | EMIT 2 @0 | z 1
+E Floor5         | tex 13820538679 | col #FFFFFF | LE1 LI0 Br5 | life 0.4-0.8 | size grow 0->21.8 | tr 1.00..0.24 vis 0.20-0.20 ->1.00 | spd 0.105 | VelocityPerpendicular | locked | EMIT 3 @0 | z 1
+E Smoke1         | tex 4770542473 (A  Smoke1) | col #FFFFFF | LE1 LI0 Br1 | life 0.5-0.8 | size grow 0->8.29 | tr 1.00..0.90 vis 0.30-0.30 ->1.00 | spd 92.4-118 drag 6 spread 0-360 rotSpd -125-125 | FacingCamera | squash shrink 0.475->0 | locked | EMIT 28 @0 | z 2
+E Wind9          | tex 9796475445 (A  Wind9) | col #FFFFFF | LE1 LI0.6 Br1 | life 0.3-0.7 | size grow 0->26.3 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.00516 spread 20 rotSpd -500 | VelocityPerpendicular | EMIT 4 @0 | z 2.5 | attrs {"GroundOnly": true}
+E 1              | tex 13724617538 (M  RotateRed1) | col #FFFFFF | LE1 LI1 Br6 | life 0.5-0.8 | size grow 0->12.6 | tr 0.63..0.51 vis 0.50-0.50 ->1.00 | spd 0-21.7 spread 5 rotSpd -150 | VelocityPerpendicular | EMIT 5 @0 | z 1.2
+E 8              | tex 12318427204 (A  Crescents2) | col #FFFFFF | LE0.9 LI1 Br10 | life 0.3-0.8 | size grow 0->25.3 | tr 0.56..0.55 vis 0.00-0.70 ->1.00 | spd 0.00108 spread 10 rotSpd 100 | VelocityPerpendicular | EMIT 5 @0 | z 0.1
+E 7              | tex 13724617538 (M  RotateRed1) | col #FFFFFF | LE0 LI1 Br6 | life 0.4-0.7 | size grow 0->26.8 | tr 0.63..0.51 vis 0.50-0.50 ->1.00 | spd 0.00055 spread 10 rotSpd -150 | VelocityPerpendicular | EMIT 5 @0 | z 1.2
+E 2              | tex 13675192481 (A Grid4x4 ring half) | col #FFFFFF | LE0 LI1 Br10 | life 0.3-0.6 | size grow 0->22.8 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 0.00217 | VelocityPerpendicular | flip Grid4x4 OneShot 1 | EMIT 2 @0 | z 0.1
+E Shockwaves1    | tex 15056677063 (M  outward shoc) | col #FFFFFF | LE1 LI0 Br0.1 | life 0.05 | size grow 0->28.8 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.00142 | FacingCamera | EMIT 2 @0
+E Shockblue2     | tex 16454644589 | col #FFFFFF | LE0.65 LI0 Br7.43 | life 0.05 | size grow 0->21.6 | tr flat 0.00 | spd 0.127 spread 360 | VelocityPerpendicular | flip Grid4x4 OneShot 1 | EMIT 3 @0 | z 5
+E Shock          | tex 9659008631 (A  Shock) | col #FFFFFF | LE1 LI0.5 Br15 | life 0.05 | size grow 0->32.3 | tr 1.00..0.00 vis 0.20-0.20 ->1.00 | spd 0.369 spread 35 | VelocityPerpendicular | locked | EMIT 6 @0
+E Impulse1       | tex 18355866803 | col #FFFFFF | LE0.65 LI0 Br0.91 | life 0.45-0.52 | size grow 0->28.4 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 4.22-23 drag 12 | VelocityPerpendicular | flip Grid4x4 OneShot 1 | EMIT 2 @0 | z 0.05
+E Impulse2       | tex 18355944757 | col #FFFFFF | LE0.65 LI0 Br0.91 | life 0.45-0.52 | size grow 0->28.4 | tr 1.00..0.00 vis 0.50-0.50 ->1.00 | spd 4.22-23 drag 12 | VelocityPerpendicular | flip Grid4x4 OneShot 1 | EMIT 2 @0 | z 0.05
+E 4              | tex 84897860506268 | col #C54EE6->#B136E6->#C54EE6 | LE1 LI0 Br45 | life 0.6-1.2 | size swell 0->0.494@0.47->0 | tr flat 0.00 | spd 0-10 drag 1 spread 15 acc 0-0--25 rotSpd 200 | FacingCamera/Disc | flip Grid8x8 OneShot 1 | locked | EMIT 25 @0
+E 3              | tex 84897860506268 | col #C54EE6->#B136E6->#C54EE6 | LE1 LI0 Br45 | life 0.6-1.2 | size swell 0->0.494@0.47->0 | tr flat 0.00 | spd 0-10 drag 1 spread 15 acc 0-0--25 rotSpd 30 | FacingCamera/Disc | flip Grid8x8 OneShot 1 | locked | EMIT 25 @0
+E 2              | tex 84897860506268 | col #C54EE6->#B136E6->#C54EE6 | LE1 LI0 Br45 | life 0.6-1.2 | size swell 0->0.494@0.47->0 | tr flat 0.00 | spd 0-10 drag 1 spread 360 acc 25-25-25 rotSpd 130 | FacingCamera/Disc | flip Grid8x8 OneShot 1 | locked | EMIT 25 @0
+E 1              | tex 84897860506268 | col #C54EE6->#B136E6->#C54EE6 | LE1 LI0 Br45 | life 0.6-1.2 | size swell 0->0.494@0.47->0 | tr flat 0.00 | spd 0-10 drag 1 spread 15 acc 0-0--25 rotSpd 230 | FacingCamera/Disc | flip Grid8x8 OneShot 1 | locked | EMIT 25 @0
+```

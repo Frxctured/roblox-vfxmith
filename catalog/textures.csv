@@ -1,0 +1,2085 @@
+asset_id,files,effects,common_layer_names,light_emission_values,flipbook
+16878181512,22,46,Spec1 x230; Specs x5; SlowSpec x4; Dots x2,0.0 x161; 1.0 x64; -1.0 x17,
+1053548563,20,43,Holy Rays x17; Rays_Thick x14; Bubble x12; Rays x9,1.0 x87; 5.0 x2,
+17006200673,19,28,Circle72 x17; 0011 x10; rizzwind x4; Windsfr x4,1.0 x16; 0.5 x12; 0.7 x8,Grid4x4
+8030760338,19,31,Specs x33; Debris2 x16; BSpecs x5; ParticleEmitter x4,1.0 x45; 0.0 x30; 0.1 x2,
+12159555294,19,41,Glow x28; specsemit x13; ParticleEmitter x9; Flare205New x4,1.0 x53; 0.0 x18; 2.0 x2,
+10859315454,18,40,ring x7; 2 x6; wind_purple x6; Shockwave4 x5,1.0 x51; 4.01 x5; 0.0 x4,
+9997556038,17,33,Specs x43; Images/DotGlowOffset (1) x11; Specs1 x6; ParticleEmitter x5,0.0 x42; 1.0 x28; 5.0 x8,
+11799607237,16,18,Smoll x16; Second Cid Smoke (slower x8; smoke x6; Smoke x4,0.0 x25; 0.5 x11; 1.0 x5,Grid8x8
+14590086212,16,16,Debris x5; ParticleEmitter x4; Star113 x3; star x2,1.0 x20; 0.0 x6; 0.7 x4,
+10598374841,16,42,Flare1 x17; Star99 x16; Flare x12; Flare2 x4,1.0 x54; 0.0 x10; 0.5 x2,
+13781849388,16,20,Realistic_Contrast x6; Finished fade x4; Ground x3; ParticleEmitter x2,0.0 x16; 1.0 x4; 0.5 x2,Grid4x4
+15413764911,15,24,FLAME SHARDS x16; firelinger1 x14; firelinger x14; ParticleEmiter x11,0.0 x30; -2.0 x28; 0.9 x12,Grid4x4
+16171528032,15,24,OffCentered Spec 46 x87; Images/322 (1) x12; dots x2; Specs x2,0.0 x81; 1.0 x13; -0.5 x6,
+12160798454,14,22,glow x12; 4 x4; Glow2 x3; Blurred Spec 32 x2,0.0 x12; 1.0 x10; 0.2 x4,
+18140248952,14,24,Circular Smack x15; ImpactCartoonSpike x12; ImpactCartoonBlack x8; ImpactCartoonDark x8,0.0 x19; 0.75 x16; -0.25 x8,Grid4x4
+77024587778878,14,24,Basic Blurry Spec x52; Specs 2.0 x9; auracenter x8; RedSpec1 x6,1.0 x38; 0.0 x33; 0.5 x15,
+17085222506,14,19,DARKRedcresents x12; Smokey Crescent x8; Black Cresents x8; wind stuff x4,1.0 x13; -1.0 x12; 0.0 x10,Grid4x4
+867619398,14,54,ParticleEmitter x51; Glow x47; Corner x24; GlowIN x15,1.0 x105; 0.0 x49; 0.5 x6,
+10439119562,14,30,Shards x24; Shards3 x11; BShards x9; Sticks 2 x4,0.0 x28; 1.0 x16; -1.0 x8,
+1075864321,14,19,Glow x14; ParticleEmitter x6; GLOW x4; Glow 2 x2,1.0 x22; 0.0 x9; 0.6 x4,
+17391818367,13,30,Star102 x128; E x2; Star x1; testStar Shape x1,1.0 x82; -3.0 x32; 0.0 x16,
+8527116276,13,21,Plume5 x46; Smoke28 x6; 5 x5; smokeskib x3,0.0 x50; 0.1 x5; 0.3 x4,
+8030734851,13,25,ParticleEmitter x34; Shards x14; Shards2 x7; Beam x4,1.0 x37; 0.0 x21; 0.5 x14,
+7417145436,13,21,Impact446 x12; Impact x5; Impact347 x4; Shockwaves x4,1.0 x22; 0.3 x5; 0.0 x5,
+13712004045,13,22,Glow x16; specs x11; ParticleEmitter x5; Dots x3,1.0 x29; -1.0 x12; 0.45 x3,
+626588936,13,17,Rocks x5; ParticleEmitter x4; Rock x3; 5 x2,-0.1 x17; 0.0 x13; -0.15 x1,
+127940423551603,12,21,ParticleEmitter x26; C1 x3; Skibimpact x1,0.0 x16; 0.25 x9; 1.0 x3,Grid4x4
+8084996370,12,22,Specs x48; Images/DotNoBGOffset x27; Specs2 x5; Specs 20 x4,-3.0 x39; 1.0 x26; 0.0 x23,Grid4x4
+1084970835,12,20,E16 x10; ParticleEmitter x4; StarLine x2; Sparkles x2,1.0 x20; 0.0 x4,
+17062452122,12,15,ParticleEmitter x16; Star12 x16; star rev squash x1; star x1,0.0 x15; 1.0 x9; 0.65 x5,
+13997926164,12,21,Sparkflipx2 x24; E1 x7; Hit x6; Downward Impact x6,-2.0 x22; 0.0 x16; -15.0 x5,Grid4x4
+16172858603,12,19,Greyish Smoke x13; Smoke x9; Smoke 2 x7; Images/22 (2) x4,1.0 x21; 0.0 x9; 0.8 x3,Grid4x4
+10205180639,12,27,Specs3 x11; Sparks x6; dots x4; Specs x3,1.0 x25; 0.0 x10; -1.0 x3,
+11871320339,12,21,F x12; Smoke x5; 10 x3; AmbienceSmoke5 x2,0.0 x14; 1.0 x5; 0.3 x5,Grid4x4
+16879789169,11,15,Spec19 x23; Star12 x4; BlackHole x4; 8 x1,0.0 x19; 1.0 x11; -1.0 x2,Grid4x4
+11846119288,11,20,Fire  x14; Fire 2 x10; ParticleEmitter x6; 3 x4,0.0 x30; 1.0 x2; -2.0 x2,Grid4x4
+8048608283,11,35,Impact x12; Shockwave2 x11; Shockwave x7; flash x6,1.0 x50; 0.0 x10; -2.0 x4,
+13712002093,11,16,Specs x9; Dust x8; specs2 x4; ParticleEmitter x4,1.0 x24; 0.35 x6; -1.0 x1,
+3052949762,11,16,Custom Lens Flare (read  x19; FlashingStarSQUASH x8; Glare x5; glare x2,1.0 x35; 0.95 x2; 0.55 x1,
+109440284900004,11,16,ParticleEmitter x18; rizzwinds x2; rizzwind x2; C2 x2,0.2 x11; 0.0 x9; 1.0 x5,Grid4x4
+13780092154,11,18,Lightning x15; Wide Burst x7; Electric x2; ToonLightning x1,1.0 x13; 0.0 x11; 0.5 x4,Grid4x4
+8133065785,11,14,Images/HitFX2 x8; Shockwave3 x8; Shockwave x3; Impact477 x3,0.0 x11; 1.0 x9; 0.3 x8,
+12906276200,11,22,Aura x12; ParticleEmitter x11; ripple x4; 2 x2,1.0 x18; -2.0 x4; 0.0 x4,Grid4x4
+11448304274,11,27,specs x29; specs2 x19; specs3 x19; specs1 x19,-2.0 x80; -7.0 x12; 1.0 x8,
+16879804431,10,13,Spec25 x24; specs x8; Flare dots x2,0.0 x27; 1.0 x7,
+105185967968678,10,11,Beam109 x110; AuraBeam2 x32; Trail x1; Beam2 x1,1.0 x145; 0.0 x2,
+11037291253,10,17,ring x6; 3 x5; Impac x3; rizzwind x3,1.0 x23,
+18457400581,10,15,ParticleEmitter x6; Spike Impact 2x2 x5; Impact4 x3; quick x2,1.0 x13; 0.0 x3; -1.0 x2,Grid2x2
+138231890129613,10,18,smh x8; ParticleEmitter x6; St432234uff x4; Stuff x3,0.0 x21; 1.0 x2,Grid4x4
+9281305957,10,15,WindRing x6; rizzimpact x4; Circle x2; Impact406 x1,1.0 x19; 0.3 x1,
+6679618752,10,15,g1 x9; Glow3 x8; Glow1 x7; Glow x3,0.0 x17; 1.0 x11; -0.5 x1,
+14431663347,10,18,Splatter x7; Shards x4; Splash2 x3; ParticleEmitter x3,0.0 x7; 1.0 x7; -1.0 x6,Grid4x4
+13780268621,10,23,Layered Slash whitegreyb x7; SlashWind2 x3; Slashes x3; Slash [Variant] x2,0.0 x10; 1.0 x8; 0.5 x3,Grid4x4
+14200879082,10,15,ParticleEmitter x7; Smoke x4; Images/fire flipbook x4; Pusling x1,1.0 x7; -2.0 x3; -5.0 x3,Grid4x4
+13992197350,10,10,Pulse x10; Fractal x3; ParticleEmitter x1; CenterMist x1,0.0 x12; 1.0 x4; 0.5 x1,Grid4x4
+15011464541,10,13,ParticleEmitter x5; tornado13 x4; tornado14 x4; Bezier x2,1.0 x15; 0.0 x3; -5.0 x3,Grid8x8
+13711999895,10,14,shard x8; Flare1 x3; Flare131New x2; 25 x2,-5.0 x10; 1.0 x7; 0.0 x6,
+12105193694,10,14,Flare170New x6; ParticleEmitter x4; Rainbow3 x4; outter x2,1.0 x19; 0.6 x4,
+14850595833,10,17,spin sh x9; detail2 x8; Impact463 x4; Wind1 x3,0.0 x18; 0.7 x5; 1.0 x5,
+16867483883,10,16,Smoke30 x22; Stylized Smoke53 fading  x9; Smoke x5; Smoke30(1) x3,0.0 x19; 1.0 x13; 0.15 x4,Grid4x4
+15415212938,10,15,Billowing x40; Billowing12451 x3; Billowing-texturea x3; smokeskib x3,0.0 x50; 0.75 x2; 0.6 x1,Grid4x4
+1315202524,10,30,Stripes x14; Slash x7; BStripes x6; White line x5,0.0 x28; 1.0 x25; 0.26 x8,
+243098098,10,19,ParticleEmitter x19; 18 x10; Lightning2 x8; Lightning x8,0.55 x20; 1.0 x18; 0.1 x8,
+8037777212,10,14,Star116 x5; ParticleEmitter x5; 1 x5; Middle x2,1.0 x6; 0.0 x4; 0.5 x4,
+16867490141,10,22,Images/56 x27; Smoke32 x13; Smoke x1,0.0 x20; 1.0 x16; 0.67 x3,Grid4x4
+119473092655714,10,10,slash x4; Burst x3; ExtraStuff x1; BlurThingImObsessed5 x1,1.0 x11,
+11822996479,9,17,Fancy Dissapearing Smoke x17; Fire x2; Shock_Straight x1; RealisticSmoke x1,0.0 x8; 1.0 x7; 0.3 x7,Grid4x4
+11866744589,9,10,smoke355 x5; Dust x3; AmbienceSmoke x2; Smoke2 x2,0.0 x9; 1.0 x2; 0.05 x1,Grid4x4
+18465146997,9,17,ParticleEmitter x20; SpeedLines x12; Lines x1,0.0 x21; 1.0 x6; -10.0 x6,
+11762072190,9,11,15 x8; Flash2 x4; Flash1 x4; ParticleEmitter x4,0.0 x21; 1.0 x14; 0.6 x1,
+1525327413,9,9,ParticleEmitter x7; Smoke x3; footsmoke x2; black1 x1,0.0 x7; 1.0 x6; 0.5 x2,
+13805841956,9,21,ParticleEmitter x13; Bottom layer black slash x9; Slash x8; Slash3 x8,0.0 x18; 0.3 x8; -2.0 x6,Grid4x4
+11895782540,9,11,ParticleEmitter x8; idek2 x2; ImpactFlames x1; Flames x1,1.0 x13,Grid4x4
+16847071704,9,22,Fire20 x14; firey5 x14; firey4 x14; b x8,0.0 x44; 0.9 x12; -1.0 x7,Grid4x4
+11858203067,9,19,Stylized Smoke8 x13; Black1 x7; ParticleEmitter x5; Scorch x4,0.0 x18; 0.3 x10; 1.0 x4,Grid4x4
+128120435243451,9,16,Beam x64; t4 x4; Shine x1; BeamSpace wave 2 x1,0.0 x52; 1.0 x19,
+13189667061,9,13,23 x6; Flare11 x3; Glow x3; flare x2,1.0 x14; 0.0 x5; -2.0 x2,Grid4x4
+1084999891,9,11,1 x7; ParticleEmitter x3; Glow x2; Wave x1,1.0 x18,
+16879949189,9,11,Impact1 x11; Ground1 x3; c x2; Hits x2,1.0 x12; 0.1 x3; -2.0 x2,Grid4x4
+85664013418740,9,9,Rainbow3 x11,1.0 x10; 0.0 x1,
+11845281419,9,27,burstt x16; Fire x9; DustFlat x6; DarkMain x4,1.0 x20; 0.0 x13; 0.5 x8,Grid4x4
+15441282898,9,11,Rocks 2x2 x20; Rocks 2x21 x8; rocks1 x1; Rocks x1,0.0 x31,Grid2x2
+16511093402,9,9,Glitter x14; dots x1,-1.0 x9; 1.0 x5; -5.0 x1,Grid8x8
+15333819074,9,9,floorUP x3; floor x2; fog x2; burst1alt x1,1.0 x6; 0.0 x3; -10.0 x2,Grid4x4
+14945509165,9,13,Left x9; Smoke x7; Ray x4; linga x3,0.2 x10; 0.0 x9; 0.4 x6,Grid4x4
+15269685466,9,20,ParticleEmitter x12; particle7 x7; particle14 x7; Swirl2 x4,1.0 x31; 0.0 x2,
+10558510611,9,21,clashcircle2 x5; clashcircle3 x4; clashcircle x3; Wind1 x3,0.0 x9; 1.0 x7; -5.0 x6,
+14006783533,9,21,Flash x12; Sparkle x4; Star x4; Glare x2,0.0 x12; 1.0 x10; 0.3 x4,
+10180479311,9,13,Smokeblack x16; SmokeDark x10; Smoke x8; Clouds x2,0.0 x24; 1.0 x9; 0.1 x4,
+16892453445,9,9,Beam11 x100; Real x32; Mainbeam x8; Beam x3,1.0 x99; 0.0 x45; 0.5 x2,
+13782885260,9,10,Realistic x3; a2 x2; Light x2; Crack2 x1,0.0 x9; 0.4 x1; 0.3 x1,Grid4x4
+16509892607,9,11,Small realistic energy b x38; fog x2; Burst2 x1,0.0 x33; 1.0 x6; -3.0 x1,Grid4x4
+13013256540,9,17,Purple Lightning x47; contrast x6; firesmoke x6; lighting x2,0.0 x46; -0.5 x6; -1.0 x4,Grid4x4
+15021706755,8,11,winds x18; 6 x2; WIDSNMW x2; ParticleEmitter x2,1.0 x10; 0.5 x6; 0.0 x5,
+1084991215,8,13,Shield1 x9; Shockwave x3; Idk1 x2; ParticleEmitter x2,1.0 x20; 0.0 x1,
+13712011229,8,8,t3 x4; 2 x2; 1 x2; Trail3 x2,0.0 x12,
+13440561704,8,11,Wave x10; Wave22 x8; Wave31 x2,1.0 x14; 0.0 x6,
+10149702982,8,15,1 x7; 2 x6; wind x4; Impac x3,1.0 x16; 0.6 x5; 0.1 x4,
+18527700887,8,14,ParticleEmitter x21; C1 x9; n3 x4; C4 x3,1.0 x37; 0.0 x3,
+18118762332,8,14,ParticleEmitter x12; n2 x5; Impact2 x1; n x1,1.0 x13; 0.0 x5; 0.5 x1,
+1084996536,8,20,Wave x47; E19 x10; wind4 x5; Particle x3,1.0 x65; 0.0 x4; 0.5 x1,
+113398526623218,8,10,upwards cid specs (purpl x8; upwards cid specs x8; Multiple Specs 19 x5; SaketSmoke x4,0.5 x16; 0.0 x8; 1.0 x6,
+15154476954,8,8,ParticleEmitter x4; wind 1 x3; 2 x2; Wind x1,1.0 x7; -2.0 x2; 0.0 x1,
+139474473857712,8,11,ParticleEmitter x5; Stuf432234f x4; Wind9 x2; Stuff x1,0.0 x7; 1.0 x4; 0.35 x1,Grid4x4
+13795988483,8,10,ParticleEmitter x9; Burst2 x2; Burst_Contrast x2; Breaking Returning AOE x1,0.0 x7; 1.0 x3; 0.35 x3,Grid4x4
+16877839414,8,9,Fire1 x4; GuardBoom2 x4; GuardBoom1 x4; Circle2 x3,-1.0 x8; 0.8 x5; 0.0 x3,Grid4x4
+10556525755,8,23,Flash x23; Stars x13; Particle_5 x2; Flare x1,1.0 x41,
+14006234837,8,9,ParticleEmitter x2; cresc1 x2; Whirls2 x2; Wind x2,1.0 x6; 0.0 x6,Grid4x4
+16860307403,8,9,Fire38 x9; C x1; ParticleEmitter x1; circle x1,-1.0 x4; 1.0 x4; 0.0 x2,Grid4x4
+12191903502,8,8,Wind x3; Beam5 x3; Beam2 x3; AreaBeam1 x2,1.0 x11; 0.0 x3,
+11447021694,8,9,ParticleEmitter x4; 2 x2; dark2 x2; 7 x1,1.0 x5; -5.0 x3; 0.2 x1,Grid8x8
+11458438415,8,17,EnergyVFX10 (1) x27; FIRE11 x6; ParticleEmitter x3; fire black x3,1.0 x35; -1.0 x4; -2.0 x3,Grid8x8
+115257157082446,8,10,Impact6122 x5; Impact61 x5; a x2,1.0 x9; -1.0 x3,Grid4x4
+1084962479,8,19,Core x32; explosion x3; Spark x3; Ball2 x1,1.0 x39; 2.0 x2; 5.0 x2,
+11627083142,8,8,flor x4; blood x4; GroundFog x2; balk x2,-0.5 x8; 0.0 x6; 1.0 x6,Grid8x8
+12402897209,8,18,Impact327 x13; 68 x10; Skibimpact x2; Skibshine x1,1.0 x19; 0.0 x7,
+13795445083,8,11,2P_RBurst2 (1) x6; Ring x4; Web Shockwave 2 x3; Burst_Main x2,0.0 x9; 1.0 x4; 0.2 x2,Grid4x4
+15048784530,8,12,Wind x5; Absorb Swirl x4; Raid Shadow Legends x2; Absorb Swirlasd x1,1.0 x8; 0.0 x5; -0.2 x1,Grid4x4
+12350056117,8,17,Smoke x10; Smoke1 x4; Fog x4; SlashSmoke x4,0.0 x14; -0.35 x5; -10.0 x2,Grid4x4
+16860424478,8,11,Fire4 x10; Fire3 x5; Fire2 x4; Fire1 x4,0.0 x15; 0.2 x4; 0.8 x4,Grid4x4
+10358044068,8,9,Impact214 x5; Wind x1; rizzimpact x1; rizzgyatwinds x1,0.6 x6; 1.0 x4; 0.5 x1,
+15118104864,8,10,Claw impact x10; Impact1 x1; Skiblines x1; fire x1,1.0 x5; -1.0 x4; 0.0 x4,Grid4x4
+16511071584,8,13,Snowfall x20; SpecsGold1 x2; Dots x1; SpecsGold x1,1.0 x13; -1.0 x4; 0.0 x4,Grid8x8
+18369800560,8,12,Flame x20; Strange VFX x3; ShinyNebulaFlame1 x2; Flames x2,0.0 x23; 1.0 x6; 0.5 x1,Grid4x4
+17062416111,8,15,Star3 x16; Sparks x5; Star2 x4; Star1 x4,0.0 x22; 1.0 x7,
+117899608714187,8,11,TernsionsC x9; Ternsions2 x9; Ternsions x9; v1 x5,0.0 x22; -2.0 x9; 0.15 x7,Grid4x4
+131070767868542,8,8,rizzimpact x8; Crescents1 x6; windme1 x6; Wind x2,1.0 x20; 0.0 x2; 0.6 x1,Grid4x4
+13712002536,8,11,wavering x3; bright2 x2; ParticleEmitter x2; Fe x2,0.0 x6; 1.0 x5; -3.0 x2,Grid4x4
+10357935135,8,10,impact x12; Hit1 x3; Shock x2; Shockwave x1,-1.0 x12; 0.0 x5; 1.0 x3,
+11446801985,8,10,Energyesque Fog x31; ParticleEmitter x2; burst3 x1; foggy x1,0.0 x30; 1.0 x3; -0.5 x1,Grid8x8
+13712000835,8,9,ParticleEmitter x7; CoverSmoke x5; UpFog x2; Fog2 x2,0.0 x9; 1.0 x8; 0.4 x1,Grid8x8
+9710916533,8,20,Flash x41; Flash1 x1,1.0 x27; 0.0 x14; -1.0 x1,
+16511790647,8,20,Realistic Energy Pulse x36; Images/image (57) x13; ParticleEmitter x1,0.0 x30; 1.11 x12; 1.0 x8,Grid8x8
+16867447521,8,14,smoke2 x9; Smoke23 x7; S moke x2; rizzgroundsmokes x1,0.0 x9; 1.0 x7; 0.6 x2,Grid4x4
+15008670938,7,10,winds x14; 5 x2; WIDSNMW x2; ParticleEmitter x2,1.0 x9; -2.0 x8; 0.5 x2,
+15602659755,7,11,Wind x7; ShockWave x2; ParticleEmitter x2,1.0 x10; 0.0 x1,
+9659008631,7,21,Shock x14; Impact x6; Base x1; 32 x1,1.0 x23,
+18682835879,7,13,ParticleEmitter x6; n4 x5; SW1 x3,1.0 x14,
+16879806460,7,12,"Spec26 x55; Images/20 (1) x28; _33,1_2 rotspeed -475_2, x2; sixgoodspec x2",-3.0 x82; -0.5 x7; 0.0 x5,
+101430476623997,7,10,ParticleEmitter x4; Stuf4324234f x4; Wind10 x2; Stuff x1,0.0 x10; 1.0 x1,Grid4x4
+14864155491,7,14,1 x11; AnotherCresc x6; Crescents x3; 4 x1,1.0 x14; 0.0 x8,Grid4x4
+8196169974,7,9,Gradient x5; Gradient1 x4; ParticleEmitter x2; GradientSecondary x1,0.0 x10; -2.0 x2,
+123630005106717,7,11,wind x5; Shockwave1 x3; 342234324d x3; Wind2 x2,1.0 x12; 0.0 x1,
+12942158384,7,11,ParticleEmitter x7; Embers1 x5; Dots x2; Specs1 x2,0.0 x8; 1.0 x3; 0.65 x3,
+14045123768,7,12,particle15 x8; GlowSpecs x6; glow x3; Glow x1,0.0 x10; -2.0 x6; 1.0 x1,
+10240434007,7,9,BeamDrag smoke x9; Beam101 x8; heh x2; Beam2 x1,0.0 x14; 1.0 x9,
+88405378022930,7,10,Soft Fireflies x11; spects x1,1.0 x7; 0.0 x4; -1.0 x1,Grid4x4
+18226771810,7,13,Sparkflipx2 x16; Stylized Burst x6; Sparkflipx3 x5; Sparkflipx3black x2,0.0 x17; -1.0 x5; 0.6 x4,Grid4x4
+13992190852,7,8,Pulse 2 x8; Aura x2; ParticleEmitter x1; Black grey fractal x1,1.0 x13; 0.0 x2,Grid4x4
+18227138407,7,14,SparkFlip x37; Tri-Fire x1; 15 x1; shards5 x1,0.0 x29; 1.0 x7; 0.4 x4,Grid4x4
+11844017484,7,9,ParticleEmitter x7; Lines x1; FireShapeRed x1; FireShape x1,1.0 x5; 0.0 x3; -1.0 x3,Grid4x4
+16867563190,7,8,Smoke45 x22; DustDebBack x2; rizzgroundsmokes x1,0.3 x8; 1.0 x6; 0.6 x5,Grid4x4
+13280251453,7,8,Impact617 x9; Impact Variant x1,0.7 x5; 1.0 x5,
+8414194072,7,13,Specs x21; Dots x5,1.0 x22; 0.0 x4,
+16892231149,7,13,Impact15 x17; Impact1 x1,0.0 x9; -0.5 x4; -1.0 x3,
+18765326355,7,8,Impact145 x9; ground x1,0.45 x8; 0.7 x2,
+115475105765006,7,7,Full short impact x12,0.0 x5; -2.0 x3; 0.55 x2,Grid4x4
+1084996976,7,20,Specs x10; Absorb x9; Specs2 x8; Bits x6,1.0 x40,
+17334135713,7,20,OffCentered Spec 4 x22; Images/17144368812384632 x18; Images/ x1; 171443688123846323 x1,1.0 x27; 0.0 x12; -1.0 x3,
+13486412595,7,17,Low Res Burst x9; Unique Fire Explosion x7; Images/fklra x5; Fire2 x2,0.0 x17; -1.0 x4; -4.0 x1,Grid4x4
+10176632695,7,15,Wind x4; Impact245 x4; BShockwave2 x3; Crescents x3,0.0 x15; 1.0 x7,
+10316078099,7,23,HalfRing1 x32; Swirl2 x8; Swirl x6; Swirl3 x4,0.0 x37; 1.0 x20; -1.0 x2,
+8172249266,7,15,Wave x7; Ground x3; GroundWave x2; Images/Crater x1,0.0 x13; -0.5 x2; 0.6 x1,
+13450910969,7,9,BCrescents x2; Raid Shadow Legends x2; spec1 x2; spec2 x2,0.0 x6; -0.5 x4; 1.0 x1,Grid2x2
+11198241185,7,11,airWaves2 x4; Shock2 x3; Shock x3; ShockForward x2,1.0 x13; 0.0 x2,Grid4x4
+11862032588,7,13,ParticleEmitter x6; lighting vfx 2 x6; Sparks x2; ToonLightning x2,1.0 x10; -5.0 x3; 0.0 x2,Grid4x4
+15072761142,7,7,DarkSmoke x5; DarkSmoke1 x3; rizzsmoke x2; FireSmoke x2,0.0 x11; 1.0 x4; 0.5 x1,Grid4x4
+13365068138,7,8,ParticleEmitter x4; black3 x1; black3alt x1; smoke x1,1.0 x4; -5.0 x3; -1.0 x2,Grid8x8
+14762708319,7,11,PulseRing x9; Pulse x5; ParticleEmitter x5; Shine x4,0.0 x10; 1.0 x6; 0.65 x4,Grid4x4
+8114157061,7,8,Sparks2 x7; Sparks3 x7; Sparks1 x6; Sparks x1,1.0 x8; -2.0 x5; 0.0 x4,
+12893271073,7,7,Particle_1 x8; ParticleEmiter x6; ParticleEmitter x4; Particle_2 x1,0.0 x7; -5.0 x4; 1.0 x3,Grid4x4
+10527344199,7,9,Glow1 x5; Shockwave2 x3; Impact414 x3,1.0 x11,
+12123878312,7,11,Energy Pulse x44; ParticleEmitter x3,0.0 x43; -5.0 x3; 1.0 x1,Grid4x4
+11941047152,7,9,EnergyVFX23 x6; ParticleEmitter x4; smoke4 x1; not free x1,1.0 x4; -5.0 x3; 0.0 x2,Grid8x8
+448862775,7,9,Dark x5; glow x3; ParticleEmitter x2; Glow x1,-1.0 x3; 0.6 x2; -6.0 x2,
+14687560696,7,12,particle2 x7; Circle x2; FlameExplosion x2; ParticleEmitter x1,1.0 x7; -1.0 x7,Grid4x4
+12921172449,7,9,claw slashes impact line x21; speed5 x2; tp8 x1; tp7 x1,0.0 x25; 0.4 x1; -10.0 x1,
+18450596124,7,20,Multiple Specs 14 x37; Images/Debrisflock x12; Debrisflock x1,0.0 x36; 1.11 x12; 1.0 x2,
+91578195629955,6,9,Ground15 x9; GroundEffect1 x1,0.0 x8; 0.2 x1; 1.0 x1,Grid8x8
+87790026409442,6,7,Fireflies 2 x12; Flare187New x1,1.0 x10; 0.0 x3,Grid8x8
+6091474388,6,6,BeamGlowing Magic x6; 4 x2; 3 x2; Lines x2,1.0 x8; 0.0 x5; 0.75 x1,
+13675192481,6,16,ring half x12; water wave x5; 2 x2; impact3 x1,1.0 x19; 0.0 x2,Grid4x4
+15056677063,6,6,Shockwaves1 x3; Images/Png-15 x2; shockwave2 x1,1.0 x5; 0.0 x1,
+13931762875,6,9,Wave11 x8; Wave33 x7; Wave x1,1.0 x10; 0.0 x6,
+8528430235,6,9,Wave1 x8; Wave11 x1,0.0 x5; 1.0 x4,
+85563186076856,6,10,ParticleEmitter x13; wind x8,1.0 x13; 0.0 x8,
+119637388841475,6,16,ParticleEmitter x40; impacto5 x1; lines4 x1,0.0 x30; -2.0 x6; 1.0 x4,
+74406026456360,6,10,ParticleEmitter x10; wind x6; shock x1,0.0 x11; 1.0 x6,
+84251750889260,6,9,smoke x7; ParticleEmitter x4; wind x2,0.0 x11; 1.0 x2,
+7231210720,6,16,smokeSpecs1 x14; Mass x1; w x1,1.0 x9; 0.0 x7,
+18438148461,6,9,smoke12 x8; Smoke x1,0.1 x5; 0.0 x3; 1.0 x1,Grid4x4
+126034245450101,6,7,circleFlipbook2 x8; Circle x2,0.0 x5; 1.0 x3; -1.0 x2,Grid4x4
+12848554034,6,8,Lightning 2 x6; Lightning x6; LightningRing2 x3; LightningRing x3,1.0 x10; -3.0 x3; -1.0 x2,Grid4x4
+13417315284,6,29,Crescents x13; WindRings x11; Wind2 x8; Swirl x5,1.0 x25; 0.0 x23; 0.35 x1,
+11820076505,6,8,1 x13; 3 x5; Shockwave x3; 2 x2,1.0 x15; 0.0 x5; -0.5 x3,
+8242018934,6,6,ParticleEmitter x20; spec2 x8; dots x1; spark2 x1,1.0 x20; 0.0 x7; -1.0 x4,
+13414392494,6,7,Slash x3; ParticleEmitter x3; Aura1 x1; E x1,1.0 x3; -5.0 x3; 0.0 x1,Grid4x4
+17006172452,6,13,cursed energy3421 x49; ParticleEmitter x3; rizzenergy x3,0.0 x32; 0.3 x7; -1.0 x7,Grid4x4
+12356442287,6,8,Low res gray smoke x4; Shards x4; Shards3 x1; PullShards . x1,0.5 x5; 0.0 x4; 1.0 x1,Grid4x4
+16867347280,6,8,Smoke4 x13; Glow x1,0.5 x5; 0.25 x4; 0.1 x2,Grid4x4
+13795304468,6,6,Breaking Splash x5; water1 x1; Toon x1,0.0 x5; 0.7 x1; 0.3 x1,Grid4x4
+14005903992,6,14,Fire x9; particle6 x7; SpikeFlip x4; Fire1 x3,1.0 x16; -2.0 x4; 0.0 x3,Grid4x4
+7216849703,6,15,shard x8; Star2a x4; Star2 x4; 9 x3,1.0 x17; -2.0 x10; 0.0 x2,
+107821950776778,6,12,Fading Glow x23; Dots2 x1; Dots x1,1.0 x22; 0.0 x3,
+119057920510209,6,11,OTHERBOOM x8; Images/Circle_Disolve_2_ x5; Circle2 x1,1.0 x8; 0.0 x4; -2.0 x2,Grid4x4
+13486409973,6,9,Chromatic Senses x4; Crhomatic x2; Aura2 x2; halo3 x1,1.0 x6; 0.6 x4; -5.0 x2,Grid4x4
+17323225068,6,11,Images/1234 x16; Fast Circle x3,1.0 x16; -2.0 x1; -0.2 x1,Grid4x4
+13131393513,6,9,Impact563 x3; Wind2 x3; Wind1 x2; Wind x2,1.0 x6; 0.0 x4; 0.6 x2,
+14550142746,6,8,BloodHit x3; ParticleEmitter x3; P x1; Aura3 x1,0.0 x4; 1.0 x3; -2.0 x2,Grid4x4
+13765238618,6,8,Fire x3; 4 x3; Fire_4_Realistic x1; flame/smoke x1,1.0 x5; 0.0 x3; 0.25 x1,Grid4x4
+14004145197,6,9,Stylized Energy x15; ParticleEmitter x1,1.0 x6; -2.0 x4; -1.0 x4,Grid4x4
+16867389591,6,11,Images/24 x35; Smoke18 x4,0.0 x18; 1.0 x17; 0.5 x4,Grid4x4
+15153511168,6,9,Shards2 x7; ParticleEmitter x5; Specs3 x5; impact texture x2,1.0 x12; 0.0 x8,
+16056965573,6,8,Glowing Bezier Line x19; wisp x3; Lines x1; Images/27 x1,1.0 x14; 0.0 x9; 0.6 x1,Grid4x4
+16867492882,6,6,Smoke33 x3; ParticleEmitter x3; Fire2 x2,0.0 x5; 0.4 x2; 0.6 x1,Grid4x4
+14457094589,6,9,Impact333 x15; Skibimpact x1,0.0 x12; 1.0 x4,
+11794599322,6,9,ParticleEmitter x7; Splash x3; Accent1 [15] x2,0.0 x4; 1.0 x3; -5.0 x3,Grid4x4
+9973574373,6,18,Glow1 x12; Impact4 x5; Charge x2; Outer2 x2,1.0 x29,
+6910301489,6,10,Specs x5; Wisps x5; SideOrbs x2; BSpecs x1,1.0 x11; 0.5 x2; 0.0 x1,
+8905957078,6,6,big rays x9; Ray1 x4; Ray2 x2; Ray4 x2,0.0 x7; 1.0 x4; 0.3 x4,
+10558425570,6,8,Wind2 x5; Ring1 x3; Circle x2; Wind1 x2,1.0 x13; 0.0 x3,
+13778611432,6,6,ParticleEmitter x3; Drawn Star 2 x2; Explosm x1; hitFast x1,0.7 x3; 0.8 x2; 0.5 x1,Grid4x4
+8970920735,6,9,E12 x10; Sparks2 x2; Sparks x1; idk1 x1,1.0 x8; 0.0 x5; 0.5 x1,
+6673021984,6,7,Glow particle x14; Glow x2; glow x1,1.0 x8; 0.0 x7; -2.0 x2,
+8511527728,6,11,Dots x5; DotBl x2; Dot x2; charge x2,1.0 x8; 0.0 x3; 0.35 x2,
+11492870634,6,12,Lightning1 x8; lighting x4; Lightning2 x3; Lightning x2,1.0 x13; 0.3 x4; 0.0 x2,Grid4x4
+13603608421,6,7,Swirl x10; outerSlash1 x1; Calm SOlar x1; AOE Slash 3 x1,0.0 x9; 1.0 x2; -5.0 x1,Grid8x8
+7216855914,6,8,whiteSpot x18; ParticleEmitter x3; Specs x2; UpSpecs x1,100.0 x18; 1.0 x4; 0.7 x3,
+98046010009179,6,6,Dark x3; overlayglow x2; glwo1 x2; glow2 x2,1.0 x7; 0.0 x1; -0.8 x1,
+16509144751,6,11,ImpactExplode x8; ParticleEmitter x5; fog x2; shockwave1 x2,0.0 x13; 1.0 x4; -0.2 x1,Grid4x4
+13736805356,6,10,ParticleEmitter x6; SmokeBurst1 x2; imp x1; Wave2 x1,1.0 x4; -3.0 x4; 0.4 x1,Grid4x4
+12262387727,6,9,E18 x10; 4 x2; 2 x1; idk5 x1,0.6 x6; 0.0 x4; 0.75 x3,
+1084987899,6,10,ParticleEmitter x7; BreakFX x2; Puff x2; 10 x1,0.4 x8; 0.0 x6; 0.1 x1,
+15640022727,6,6,ParticleEmitter_708 x6; 5 x2; rizzslash x2; B x1,-3.0 x6; 0.0 x4; -2.0 x2,Grid4x4
+11857153748,6,14,Fire x9; Stylized Smoke23 fading x6; ToonFireContrast x1; FilledEnergy x1,0.0 x12; -0.5 x2; 0.35 x1,Grid4x4
+18227093452,6,13,firelinger3 x14; Images/fire5 x5; b x4; BlackWind4 x2,0.0 x14; 0.9 x6; -1.0 x4,Grid4x4
+18652132265,6,11,wind x4; win4234234d x3; Shockwave4 x2; WIND1 x1,1.0 x10; 0.0 x1,
+8250000734,6,9,SmokeGoPurple x4; SmokeGoPurpleTransparent x4; SmokeStayPurple x4; SmokeStayPurpleTranspare x4,1.0 x33; 0.0 x3; 0.45 x2,Grid4x4
+12823974848,6,9,inside firey x6; wind x5; Smoke x5; SmokeBright x1,0.0 x8; 0.2 x6; 1.0 x4,Grid4x4
+14068629763,6,12,F x9; E10 x2; flame/smoke x1,0.3 x5; 0.0 x4; 0.5 x1,Grid4x4
+13783882492,6,11,Ground x3; a3 x2; Realistic x2; Crack x2,0.0 x6; -1.0 x3; 0.4 x2,Grid4x4
+14050038331,6,6,stuff2 x2; ParticleEmitter x1; Images/33 x1; Images/32 x1,0.0 x5; 1.0 x4; 0.4 x1,
+15423151910,6,11,Bezier1 x16; Bezier2 x4; spec x1,0.0 x20; 1.0 x1,Grid4x4
+17409991165,6,12,g x7; ParticleEmitter x4; best wind x3; SW3xx x1,1.0 x16,
+619393574,6,16,bg-clouds x12; ParticleEmitter x3; SmokeParticles x3; smoke3 x2,-0.8 x12; 0.5 x5; 0.0 x4,Grid4x4
+14379744080,6,7,Shorter impact 2 x6; Shorter impact x2,-10.0 x6; -1.0 x2,Grid4x4
+12823611043,6,13,Beam x52; BeamSmoke beam 3 x3; Wind x2,0.0 x29; 1.0 x28,
+16878191468,6,10,Spec4 x7; Sparks3 x6,1.0 x11; 0.0 x2,Grid4x4
+96288653875185,5,5,Rainbow6 x3; fxRainbow-ishLight2 x3,1.0 x6,
+14919880888,5,5,Galaxy_1 x4; Grey Galaxy Smoke x2; black/ purple smoke x1,0.0 x3; 1.0 x3; 0.1 x1,Grid4x4
+135482100082072,5,7,Beam127 x41,0.0 x29; 1.0 x12,
+16860461660,5,5,ParticleEmitter x3; Fire50 x2,0.0 x3; 1.0 x2,Grid4x4
+13724617538,5,7,7 x5; 1 x3; 5 x1; Skibwindss x1,1.0 x5; 0.0 x5,
+12318427204,5,7,8 x2; Swirl x2; Skibwindss x2; wind x2,1.0 x4; 0.9 x2; 0.0 x2,
+13712010449,5,5,6 x2; 5 x2; 1 x2; Trail2 x2,0.0 x7; 1.0 x2,
+13980317982,5,14,smoke x10; 5 x4; Dust x1,0.0 x15,Grid8x8
+130504698717208,5,7,2 x4; Fire 2 x4,0.5 x7; 0.0 x1,Grid4x4
+16659993490,5,7,windShock2 x7; windShock x1,0.0 x6; -2.0 x2,Grid4x4
+17388367001,5,8,ParticleEmitter x5; C2 x4,1.0 x8; 0.0 x1,
+18118833929,5,7,ParticleEmitter x5; SW2 x3,1.0 x8,
+94660750010418,5,7,wind x6; ParticleEmitter x4,1.0 x10,
+13225943898,5,9,Wave2 x6; ParticleEmitter x2; wave x2; Wave41 x2,1.0 x7; 0.0 x5,
+17062454177,5,9,Sparks x6; Star27 x2; star x1; star2 x1,1.0 x6; 0.0 x4; -9.0 x1,
+12685367098,5,8,Wind1 x9; Impact2 x1; Wind x1,1.0 x11,
+16034321024,5,5,Impact587 x6; ParticleEmitter x3; Wind x3,1.0 x12,
+114656597667803,5,8,Sw1 x10; ParticleEmitter x3,1.0 x13,
+115692375305535,5,6,ParticleEmitter x7; Impact245 x2,0.0 x4; 1.0 x3; 0.6 x2,
+126275989641021,5,6,ParticleEmitter x9; Breaking Apart Lightning x4; Lightnings x1,1.0 x12; 0.25 x1; 0.0 x1,Grid4x4
+9556807995,5,9,Wave1 x14; wave x3; 7 x1; wind11 x1,0.0 x10; 1.0 x6; -0.15 x4,
+13712007292,5,7,ParticleEmitter x8; Smoke1 x2; Aura3 x1; Smoke x1,1.0 x8; 0.0 x5; 0.3 x1,Grid4x4
+8090715771,5,7,dots x6; explosion x4; SpecDash x1,-2.0 x7; 1.0 x2; 0.0 x2,
+8050136743,5,8,Outline x7; Impact201 x4,0.0 x10; 1.0 x1,
+15011447462,5,6,ParticleEmitter x5; Ground x3,-5.0 x3; 0.0 x2; 1.0 x2,Grid4x4
+12991508490,5,5,Beam x6; outerslash x6; Beam Slash 1 x3; impacto1 x1,0.0 x7; 0.5 x6; 1.0 x2,
+13291866458,5,5,innerline x24; outerline x6; Beam x3; Beams x3,0.0 x33; 0.5 x3; 0.2 x3,
+13344461845,5,5,Beam 2 x3; Flow1 x2; beam 4 x1; Beam 3 x1,1.0 x5; 0.0 x2,
+109920824813240,5,11,Flame Circle Pop x11,1.0 x9; 0.0 x2,Grid4x4
+11827618350,5,6,Stylized Smoke33 fading x6; ToonSmoke x1; ParticleEmitter x1; Stylized x1,0.0 x3; -0.3 x2; 1.0 x2,Grid4x4
+125578376132704,5,15,Cosmic3 x9; MagicCosmo x4; sixyxyyxy x1; galaxy x1,1.0 x9; 0.0 x5; -0.89 x1,Grid4x4
+10528782340,5,5,Beam x12; Beam4 x3; right x2; left x2,1.0 x18; 0.0 x1,
+16860219678,5,6,Fire32 x7; circle x1; ParticleEmitter x1,0.0 x4; -0.5 x3; 0.3 x1,Grid4x4
+17062426399,5,7,Star4 x5; Stars x2; Wiggly Ball x1; Spec x1,1.0 x6; 0.0 x3,Grid4x4
+14483718869,5,6,a x6; ParticleEmitter x3; Ball2 x1,-1.0 x7; -2.0 x3,Grid8x8
+118613370531472,5,7,Beam75 x18; black x6; Beam2434 x1; Beam1212 x1,0.0 x24; 1.0 x2,
+16879828729,5,5,Spec34 x2; BeamSpiked wave x2; Sparks4 x1; Sparks3 x1,0.0 x4; 1.0 x2,Grid4x4
+88888763013044,5,5,Beam x12; Beam73 x7; 1231 x2; 52 x1,0.0 x18; 1.0 x13,
+16892386886,5,5,Real2 x32; BLK x8; Beam7 x2,1.0 x20; 0.5 x16; 0.0 x6,
+71693355161247,5,5,Beam117 x12,1.0 x6; 0.0 x6,
+132537238667080,5,6,Smoke1 x2; 2 x2; dark5 x2; dark6 x2,1.0 x5; 0.0 x2; -2.0 x1,Grid8x8
+15020647902,5,8,ParticleEmitter x5; rainbow x2; Glow x2,1.0 x9,
+243664672,5,18,Poison x75; ParticleEmitter x31; Other1Shock x13; Blue x11,1.0 x66; 0.0 x33; 0.4 x33,
+110017652984281,5,7,Fancy Shockwave x4; ContrastSmokeBurst x3; Images/ContrastSmokeBurs x2; 14 x1,0.0 x8; 0.5 x1; 1.0 x1,Grid4x4
+13743936715,5,5,Stylized Smoke fading x5; Fire_1_Toon_Contrast x1; cartoony explosion x1,0.0 x5; 0.05 x1; 0.5 x1,Grid4x4
+130658933079638,5,5,Ground15 x4; GlowCrack x2; Cracks x2; ParticleEmitter x1,0.0 x5; 1.0 x2; 0.5 x2,Grid8x8
+16879802703,5,5,Spec24 x13,0.0 x12; 1.0 x1,
+16892226410,5,5,Impact13 x6; Impact1 x1; circle x1,0.0 x4; 1.0 x2; -0.5 x1,
+14152113700,5,5,Slightly glowing x4; Shock1 x3,0.0 x5; 1.0 x1; 0.35 x1,Grid4x4
+18326864825,5,7,Fading Smoke Hole x6; Images/IncentSmoke x4,1.0 x3; 0.67 x3; 0.7 x2,Grid4x4
+13889049714,5,6,ParticleEmitter x2; 12 x1; Sparks x1; Embers x1,1.0 x3; 0.7 x2; 0.0 x1,Grid4x4
+127341143600263,5,6,Fading Shockwave x4; ParticleEmitter x2,0.0 x2; 1.0 x2; 0.5 x2,Grid4x4
+101995042384072,5,6,R Impact x9,1.0 x4; 0.0 x3; 0.8 x2,Grid4x4
+116897739829086,5,5,Impact70 x11; rizzimpact x1; rizzgyatwinds x1; Skibimpact x1,0.45 x14,
+12444217105,5,9,RingsBlack x3; wave x3; Shockwave x2; 5 x2,1.0 x6; 0.0 x3; 0.6 x3,
+15431912045,5,15,Cut x11; Shards x8; ParticleEmitter3 x6; Cut2 x5,1.0 x25; 0.0 x6; 0.2 x4,
+12356382511,5,11,Crescents x7; BeanCrescent2 x4; WindRings x2; BCrescents2 x1,0.0 x11; 1.0 x4,
+12473124995,5,12,Dust2 x8; Dust x2; Smoke2 x1; Smoke_Out x1,0.0 x11; -1.0 x3; 1.0 x1,Grid4x4
+8642185170,5,14,Swirl x5; 2 x2; 4 x2; Swirls2 x1,0.45 x5; 1.0 x5; 0.75 x2,
+10147712199,5,12,Shockwave9 x5; BShock x3; 4 x3; Shockwave1 x2,0.0 x13; 0.3 x2; 0.26 x1,
+6091329339,5,6,Beam x3; Trail x1; BeamHigh glow lines x1; lines x1,1.0 x6,
+15124806555,5,19,Crescents x6; winds x6; Color x5; Circle x3,1.0 x11; 0.5 x6; -0.5 x5,Grid2x2
+7216848832,5,18,Flare2 x12; spark x3; Windup x2; Sparks2 x2,1.0 x18; 0.0 x2; -0.3 x1,
+1053546634,5,21,Sparkles x50; ParticleEmitter x4; Flare3 x3; Embers x3,1.0 x61; 20.0 x3,
+8708637750,5,8,Glow x10,0.0 x8; 0.55 x1; 1.0 x1,
+16877883455,5,6,Outline x2; 5 x1; rizzimpact x1; rizzslashes x1,0.0 x3; 0.75 x2; 1.0 x2,Grid4x4
+14601007537,5,9,Splatter3 x3; Paint Splatter x3; Blood x2; Splatter4 x2,0.0 x11; 0.15 x2; 1.0 x2,Grid4x4
+11841348746,5,6,Fire x3; Raid Shadow Legends x2; Smoke2 x1; Groundsmoke x1,0.0 x6; 0.2 x2; 1.0 x2,Grid4x4
+10365548630,5,7,Wind x5; RedWind x4; 14 x1; FloorWind x1,1.0 x12; 5.0 x1,
+9232117588,5,6,Dust x3; BSmoke x1; .15 x1; PosExpSmoke x1,0.0 x6,
+14004151283,5,5,Vortex x2; Burst x1; ParticleEmitter x1; outerglow x1,0.0 x5; 1.0 x2,Grid4x4
+16847138652,5,5,ParticleEmitter x3; 6 x1; 24 x1; Fire21 x1,0.0 x4; 1.0 x1; -1.0 x1,Grid4x4
+12919895706,5,7,claw slashes impact line x6; Upwards x2,0.0 x6; 0.6 x1; 0.8 x1,
+132246734946508,5,5,crescdark1 x2; Galaxy Burst Shockwave55 x2; -10 x1; To lazy to name x1,1.0 x5; 0.0 x3,
+13464599286,5,7,16 x7; smoke x2; rizzsmoke x2; DustStretch x2,1.0 x7; 0.0 x4; 0.1 x2,Grid4x4
+10856287046,5,5,4 x3; 16 x1; Skibwind x1; 3 x1,1.0 x6,
+16867387523,5,10,smoke222 x8; Stylized Smoke42 fading x1; smoke2 x1,0.0 x9; 1.0 x1,Grid4x4
+15737239528,5,8,E17 x10; idk4 x1,1.0 x6; 0.0 x4; 0.5 x1,
+15927895043,5,8,E13 x10; idk2 x1,0.6 x6; 0.0 x4; 0.5 x1,
+14050526759,5,5,Basic x2; popsmoke x1; S2 x1; S1 x1,1.0 x3; 0.0 x3,Grid2x2
+127583435334430,5,5,Smoll x10; 2.1 x1; 2 x1; SJWAura1 x1,1.0 x13; -5.0 x1; 2.0 x1,
+14641036736,5,11,Stylized Smoke9 x8; FLAME PARTICLE x4,1.0 x6; -1.0 x3; 0.0 x1,Grid4x4
+125716684677906,5,8,Stu43223432ff x4; Wind8 x2; Smoke2 x1; Stuff x1,0.0 x8,Grid4x4
+9163249315,5,10,transparent shock x9; Transparent Shockwave x2,0.6 x9; 0.0 x2,
+16867397491,5,8,Images/27 x6; Stylized Smoke47 Fading x2; EnergyInterior x1; cartoony smoke x1,1.0 x7; 0.0 x2; 0.2 x1,Grid4x4
+6730730442,5,7,Rocks x6; Rocks2 x5,0.0 x11,
+11187665050,5,8,Flash x10; ImpactFrame x1,0.8 x5; 0.0 x4; 0.5 x1,
+7160024951,5,8,E1 x10; ParticleEmitter x2,1.0 x7; 0.0 x4; 0.5 x1,
+15011468690,5,6,ParticleEmitter x5; wind2 x1; wind2(VP) x1,-5.0 x3; 1.0 x2; 0.0 x1,Grid4x4
+12683695494,5,6,BlackAura x6; PurpleAura x6; ParticleEmitter x4; Burst_4 x1,0.0 x12; -5.0 x3; 1.0 x2,Grid8x8
+12817881196,5,7,ParticleEmitter x5; Slash2 x2; Alpha x1; Whirls x1,0.0 x3; 0.65 x3; 0.45 x2,Grid4x4
+1084975295,5,15,Rays x18; Hit2 x3; Raid Shadow Legends x2; ParticleEmitter x1,1.0 x21; 5.0 x3,
+14850804522,5,5,swirl8 x2; shocks x1; ParticleEmitter x1; Wind x1,1.0 x3; 0.5 x2,
+10718317753,5,9,Trail2 x9; Beam4 x3; Beam5 x2,1.0 x6; 0.0 x5; 0.3 x3,
+13390196434,5,17,moving lightning x17; Images/11613913346 x12; Charge x1,0.0 x14; 0.5 x12; 1.0 x4,Grid4x4
+243660364,5,5,GlareEmitter x5,1.0 x5,
+15254061120,5,10,wind x9; BrightWind2 x1,1.0 x10,
+14707966237,5,5,Obsorb x2; swirl6 x1; swirl1 x1; Images/Charge x1,1.0 x4; -1.0 x2,Grid4x4
+7216851093,5,7,Smoke x4; Images/smoke_08 x2; DarkPillarSquash2 x1; Smoke2 x1,0.3 x3; 0.0 x3; 1.0 x2,
+111508092337743,5,5,shinies x4; deco2 x2; deco2alt x2; Images/12 x1,1.0 x8; 0.6 x1; 0.5 x1,
+109574326366882,5,5,galaxy thing x6; 6 x1; ParticleEmitter x1; expansive x1,1.0 x10,
+7216856402,5,5,Images/circle_01 x5; ground x3; Radial4 x1; Radial3 x1,0.0 x6; 1.0 x4; -1.0 x1,
+7246982406,5,5,Sideways Spec 23 x5; Spec1 x1; .23 x1; ParticleEmitter x1,-1.0 x5; 1.0 x2; 0.3 x1,
+133650067075481,5,13,particle12 x7; shock x5; rizzimpact x1; rizzwinds x1,1.0 x8; 0.0 x7,
+133891493735697,5,11,Images/13486409973_2 x32,0.0 x24; 1.0 x8,Grid4x4
+131290109763904,5,11,Images/IMG_9350 x19,1.0 x13; -1.0 x2; 0.5 x2,Grid8x8
+85772363699785,5,9,Beam100 x17,0.0 x16; 1.0 x1,
+139851738398320,5,7,104690121423787_c x17; Images/104690121423787_c x8,1.0 x19; 0.0 x6,
+17137667240,5,5,crack1 x3; Crack x1; rizzgroundcrack x1; rizzcrack x1,0.65 x2; 0.1 x2; 0.8 x1,Grid4x4
+74505180922435,5,6,Beam x12; v7 x3; 8 x3; v5 x3,0.0 x44; 1.0 x16,
+16860398159,5,7,Fire42 x4; Fire x4; ParticleEmitter x1,0.0 x8; 0.3 x1,Grid8x8
+124384892151105,5,7,Images/88091471430778 x11; Images/ x4,0.0 x15,
+73401626133942,5,8,Realistic Layered Fog x35,0.0 x32; 0.7 x2; 1.0 x1,Grid8x8
+112808149793034,5,5,Beam x71; Outer x4; Beam2 x3; Main x2,0.0 x42; 1.0 x36; 0.7 x1,
+12937922496,4,7,Impact347 x5; ParticleEmitter3 x2; ParticleEmitter x1,0.0 x4; 1.0 x2; 0.2 x2,
+126685678214657,4,4,Rainbow5 x3; Shield x1,1.0 x4,
+16892305780,4,4,Impact37 x6,1.0 x3; 0.0 x3,
+16879808635,4,4,Debris x6; Spec27 x3; ParticleEmitter2 x1; ParticleEmitter1 x1,0.0 x8; 1.0 x3,
+14471362207,4,6,ParticleEmitter x4; Energy Bezier Spec x1; Swirls x1,-5.0 x3; 0.1 x1; 5.0 x1,Grid8x8
+16867514432,4,4,Smoke37 x1; Fire1Dark x1; Smokes x1; Images/62 x1,0.0 x2; 0.1 x1; 1.0 x1,Grid4x4
+106876997672794,4,4,Beam130 x24; a x1; Trail x1,1.0 x26,
+15814288909,4,4,7 x2; ParticleEmitter x2,1.0 x3; 0.0 x1,
+18348331508,4,6,Smoke x5; Smoke2 x2; rizzgroundsmokes x1,1.0 x4; 0.2 x3; 0.5 x1,
+4770542473,4,4,Smoke1 x3; ParticleEmitter x1,1.0 x4,
+12442685305,4,7,Wave4 x7,1.0 x4; 0.0 x3,
+113773032724838,4,6,wind x4; ParticleEmitter x3,0.0 x6; 1.0 x1,Grid4x4
+18682826321,4,5,ParticleEmitter x5,1.0 x5,
+18781673034,4,6,ParticleEmitter x15,0.0 x14; 1.0 x1,
+16812738942,4,7,ParticleEmitter x6; windo smoke x1,1.0 x5; 0.0 x1; 0.65 x1,Grid4x4
+12867450128,4,7,ParticleEmitter x7,1.0 x7,
+121143963977274,4,7,ParticleEmitter x12; n x1,1.0 x13,
+79229618038296,4,6,ParticleEmitter x6,0.0 x6,
+15540697602,4,4,ParticleEmitter x4; TP x2; FireMid2 x2; FireMid1 x2,-5.0 x4; 0.0 x3; 0.25 x2,Grid4x4
+102374151967894,4,6,Wind5 x9,1.0 x3; 0.0 x2; 0.5 x2,
+11865130475,4,7,Pixel circle expanding 2 x5; PixelRipple x1; 4 x1; 1 x1,1.0 x5; 0.2 x2; -3.0 x1,Grid4x4
+16171607099,4,7,shards ` x8; shards 2 x6; shards 2 purple x2; shards 2 orange x2,1.0 x7; -3.0 x6; 0.0 x5,
+13580369776,4,13,Fast Slash (2) x8; Fast Slash x8; fireee x2,0.3 x8; 0.0 x4; -3.0 x4,Grid4x4
+15081702105,4,10,2 x11; 3 x11; Swirl x4,1.0 x14; 0.0 x12,Grid4x4
+91152717798125,4,4,HALFTONE x22; ParticleEmitter x1; Halftone2 x1; Halftone3Squence x1,0.0 x13; 0.35 x4; 1.0 x3,Grid4x4
+14425843511,4,5,Impact218 x2; Ring 2 x2; Ring x2; ImpactCircle2 x1,0.0 x5; 1.0 x4,
+15232757562,4,4,Impact112 x10,1.0 x6; 0.65 x4,
+17496393760,4,8,Thing x10,0.0 x5; -2.0 x2; 1.0 x2,Grid4x4
+6763809313,4,8,Stripes2 x6; Black1 x2; Dots x2; Sparks x1,0.0 x6; 1.0 x3; -0.5 x2,
+13452217224,4,6,CRACK x3; Shad4 x2; Evaporating Crack x1,0.0 x6,Grid4x4
+9649381711,4,7,Shockwave x5; 7 x1; impact1 x1,0.0 x4; 1.0 x3,
+9781687320,4,6,explosion x5; Specs x2; Dots2 x1,1.0 x8,
+8189326437,4,5,Flash x6; ParticleEmitter x1,0.0 x3; 1.0 x3; 0.7 x1,
+8030746658,4,5,Gradient x7; Gradient2 x1,0.0 x8,
+7994629137,4,22,Stripes x19; Shards x4; BShards x3; W x2,0.0 x18; 1.0 x14; 0.3 x1,
+7216849325,4,5,Light1 x3; Star x1; Med x1; WHite x1,1.0 x4; 0.0 x1; -0.3 x1,
+13712001094,4,7,Slashes2 x3; ParticleEmitter x3; Slash [Variant] x1; Slash x1,1.0 x6; 0.0 x2,Grid4x4
+13105589524,4,4,FaceFlow2 x16; Flow2 x16; Wind x4; Wind-1 x3,0.7 x32; 1.0 x5; 0.5 x4,
+12237413962,4,5,Chromatic Fog 2 x12; Chromatic Fog 1 x12; Glitch x6,-0.3 x12; -1.0 x12; 0.5 x4,Grid8x8
+12363816474,4,12,Sideways Spec 61 x16; Spec1 x6; ParticleEmitter26 x1,0.0 x22; -1.0 x1,
+16867352057,4,11,Smoke5 x11; Shape x1; 9 x1; 34 x1,0.0 x10; 0.1 x2; 1.0 x2,Grid4x4
+13717823765,4,11,RightUp Smoke x9; 2P_RSmoke1 x1; Smoke2 x1,0.0 x8; 0.1 x2; 0.4 x1,Grid4x4
+14004161351,4,8,Wiggly Ball x11; Thing x2; d x1; ParticleEmitter x1,0.0 x13; -1.0 x2; -2.0 x1,Grid4x4
+14379750639,4,4,Basic Hit x8,0.0 x8,Grid4x4
+12090248314,4,6,Star x19; MidStar x10; Star2 x5; Star 2 x4,0.0 x34; 1.0 x5,
+15270482724,4,4,smoke 16 x4; 4 x2; yoy x2,0.0 x4; -5.0 x2; 1.0 x2,
+14978253601,4,4,Beam 1 x2; Beam x2; beam 2 x1; Beam 3 x1,1.0 x3; 0.0 x3,
+108671638834303,4,4,tiny stars x2; ParticleEmitter x1; d1 x1; Galaxy Burst Shockwave55 x1,1.0 x4; 0.75 x1,Grid4x4
+16845756972,4,4,Fire x5; ParticleEmitter x1; Fire11 x1,0.0 x4; 1.0 x3,Grid4x4
+14960943986,4,7,ParticleEmitter x5; Sparkle x3; Blast7 [16] x1; 7 x1,0.0 x9; -0.75 x1,
+17612128831,4,7,Fast spiky wave x3; d x2; Impact2 x2; Circle2 x2,0.0 x5; 1.0 x2; -1.0 x2,Grid4x4
+16924410706,4,7,ImpactWind2 x4; Simple Gapped Circle x2; Circle3 x1,-0.25 x4; 0.0 x1; 1.0 x1,Grid4x4
+16879608903,4,4,Lines x1; 90 x1; spec x1; Sparks1 x1,1.0 x2; -3.0 x1; 0.0 x1,Grid4x4
+71570654111653,4,4,Impact6222 x2; Impact3 x1; Circular Smack x1,0.0 x2; -1.0 x1; 0.2 x1,Grid4x4
+12781750620,4,5,Trail2 x9; Trail x1; Starbeam x1; Thing. x1,0.0 x10; 1.0 x2,
+100300862060592,4,4,Dust x2; BLackDust x2; Thing1 x1; Shining Ripple x1,0.0 x4; 1.0 x3,Grid4x4
+125449362531870,4,5,Beam101 x6; black x4,0.0 x8; 1.0 x2,
+16867383201,4,4,Stylized Smoke43 fading x2; ParticleEmitter x1; Flame1 x1,0.0 x2; -1.0 x1; 1.0 x1,Grid4x4
+13816054573,4,6,BodyAura x7; middle colore change x3; Blur x2; glow x1,1.0 x8; 0.0 x5,
+16865869553,4,4,Water9 x23,1.0 x15; 0.6 x4; -2.0 x3,Grid4x4
+12693242441,4,11,fire again x8; Fire x3,1.0 x10; 0.0 x1,Grid4x4
+13736993818,4,4,White Outline Version x3; SmokeBurst1_Contrast x1,0.0 x2; 1.0 x1; 0.45 x1,Grid4x4
+18355979113,4,4,Flare167New x2; Flare[2] x2,1.0 x4,
+13803462600,4,11,Bezier x7; ParticleEmitter x3; BezierLineCenter x2; Bezier2 x2,1.0 x5; 0.0 x3; -5.0 x3,Grid8x8
+13552358660,4,10,WAura x8; ex x1; EX x1; 5 x1,0.0 x8; 0.5 x2; -1.0 x2,Grid4x4
+15423959208,4,5,Balls x2; aura2 x1; Aura[2] x1; Sparks3 x1,0.0 x2; 1.0 x2; -0.5 x1,Grid4x4
+86170160520422,4,4,Flares12 x4,0.0 x4,
+126203834853784,4,4,ParticleEmitter x1; Galaxy Swirl x1;  x1; Ground fog 11 x1,0.0 x2; 1.0 x1; 0.85 x1,Grid4x4
+116253074337880,4,4,dot333 x3; detail2 x2; ParticleEmitter x1; E x1,1.0 x7,
+534953301,4,4,Mist x33; 15 x1,0.0 x29; 1.0 x5,
+82556288879264,4,8,Texture x13,1.0 x8; 0.0 x4; -3.0 x1,Grid4x4
+18707464177,4,7,Texture x3; animewhckwave x3; ParticleEmitter x3; Circle3 x1,1.0 x4; -1.0 x3; 0.0 x2,Grid4x4
+16865903588,4,4,Water12 x11; Water12BG x1,0.0 x5; 0.6 x4; 0.1 x2,Grid4x4
+12937922388,4,4,Impact276 x7; shock x1,0.6 x6; 1.0 x2,
+16997139142,4,4,BlackLine x6,0.0 x6,Grid4x4
+16997104240,4,4,Spec48 x6; SlowSpec x4,-2.0 x8; 0.0 x2,Grid4x4
+17062451640,4,4,Star x6,-0.5 x4; 1.0 x2,
+11783806829,4,5,SmokyThing x9; smoke x1,0.1 x6; -0.5 x3; 1.0 x1,Grid8x8
+8415143764,4,5,Lines x11; 265 x1; 259 x1; 253 x1,1.0 x19,
+11133563100,4,15,Particle_5 x36; Particle_52 x14; eff x1,0.5 x22; 1.0 x11; -2.0 x6,
+12441202218,4,12,Smoke x14; Images/SmokeFlipbook (2) x1,0.75 x6; -3.0 x4; 1.0 x3,Grid8x8
+14163275307,4,4,ground x2; crackb1 x2; 5 x1,0.0 x2; 0.2 x2; 1.0 x1,
+9132707475,4,7,ParticleEmitter x15; Wave x2; ground x1,0.0 x14; -0.5 x4,
+15333816834,4,4,fire2 x3; Burst_5 x1; Images/30 x1,1.0 x2; -5.0 x1; -2.0 x1,Grid8x8
+18568183566,4,6,Trail2 x11; Trail1 x1,0.0 x11; 1.0 x1,
+16892272385,4,4,Impact28 x3; Splat x1,1.0 x3; 0.0 x1,
+16892332741,4,7,Impact40 x8,0.0 x8,
+7046374898,4,5,Shards x2; Cut x2; SmallCut x2; NormalCut x2,1.0 x8; 0.0 x2,
+75104427275304,4,5,ParticleEmitter x5,1.0 x5,Grid4x4
+134557993252093,4,4,Fixed circle impact x4,0.0 x1; -0.5 x1; -1.0 x1,Grid4x4
+4704486269,4,6,ParticleEmitter x5; Flashstep x1,0.0 x3; 1.0 x3,
+16997072742,4,5,Impact46 x3; dwa x1; Skibimpact x1,0.5 x3; 0.2 x1; 1.0 x1,
+12865691168,4,7,ParticleEmitter x6; 1 x2,-5.0 x4; 0.3 x2; 0.65 x2,Grid8x8
+16877832428,4,5,Circle1 x1; Spin x1; sPIN x1; Wind x1,1.0 x4; -0.5 x1,Grid4x4
+83108983635987,4,5,blue x6; Beam89 x2,0.0 x8,
+76655342066208,4,5,360 Slash x5; Impact3 x1; SlashFx x1,0.0 x6; 11.0 x1,Grid4x4
+117571359644909,4,8,Noise Smoke x7; IdkTEst x3,1.0 x8; 0.0 x2,Grid4x4
+13712010201,4,4,Wave2 x8; BeamBeam399 x5; Extra x2,1.0 x8; 0.0 x7,
+7216854921,4,11,Smoke x11; Aura2 x8; Aura x5; Haze x1,1.0 x17; 0.5 x8; 0.65 x1,
+7416889709,4,10,Wind x5; Wave1 x5; MainWind x4; Slash x4,1.0 x21; 0.0 x3; -3.0 x1,
+7447358016,4,11,Stripes x11; Particles x5; Stripes2 x2; BStripes x2,1.0 x20; 0.0 x4,
+10558378459,4,8,Embers1 x15; Embers2 x9; Specs x2; Orbs2 x1,1.0 x25; 0.0 x5,
+12385355989,4,6,Beam5 x2; Ripples1.3 x2; Outer x2; Lines x1,0.0 x4; 1.0 x3,
+14006773822,4,14,Images/realistic_clouds  x12; Smoke x1; ParticleEmitter x1,-0.25 x12; 0.5 x1; 0.0 x1,Grid4x4
+7922645282,4,19,SparksLinger x17; Sparks x12; Sparks2 x1,1.0 x27; -8.0 x2; -5.0 x1,
+12061176619,4,8,WhiteSmoke x4; Smoke x2; Smoke (Crush) x1; air1 x1,0.5 x6; 1.0 x2; 0.0 x1,Grid4x4
+457102813,4,5,Beam x10; left3 x2; right3 x2; Arrow Main x1,1.0 x15,
+13634052022,4,6,ToonImpact x2; Hit2 x1; Impact1 x1; Impact x1,1.0 x4; 0.0 x2,Grid4x4
+8904012224,4,9,Shockwave5 x7; ParticleEmitter x2; Shockwave x1; 3 x1,1.0 x10; 0.0 x1; 0.5 x1,
+5076152048,4,6,ParticleEmitter x43; Flash2 x2; Flash 2 x2; Flash x1,1.0 x48; 0.0 x1,Grid4x4
+10358014393,4,6,Wind1 x2; LongWind x2; Wave x1; ParticleEmitter x1,0.0 x4; 1.0 x3,
+11349426661,4,7,GlowingSmoke x4; Aura2 x1; ParticleEmitter x1; Dust x1,0.0 x7; 1.0 x3,Grid4x4
+1084963972,4,9,Particles x18; Wave x6; Shockwave3 x2; Slashes x2,1.0 x22; 0.0 x7,
+7845168136,4,10,Sparks1 x9; Line x4; Shards1 x4; Sparks2 x3,1.0 x18; 0.0 x7; 0.5 x6,
+5001001365,4,4,ParticleEmitter x2; Levitate x1; flare x1; Sparkle x1,0.3 x2; -1.0 x1; 0.0 x1,
+13992057187,4,6,Pulse x10; Wave x4; Glow x4; shockwave x1,0.0 x15; 1.0 x5,Grid8x8
+12188469991,4,5,PulseRipple x10; Ripples x4; 2 x1,1.0 x15,
+16867342570,4,4,ParticleEmitter x2; Smoke Enable x1; Glow x1,-0.5 x2; 0.5 x1; 0.55 x1,Grid4x4
+12844593455,4,9,BLUEDarkImpact x4; DarkImpact x4; BlackImpact x4; Impact x4,0.0 x15; 1.0 x6,Grid4x4
+14002381549,4,8,5 x10; Wind x1; Outer x1,1.0 x7; 0.0 x5,Grid4x4
+12043778355,4,5,Shockwave2 x6; Shockwave2B x3,1.0 x5; 0.5 x3; 0.0 x1,
+12104767407,4,9,Images/00005 x8; Wind x2,1.0 x10,
+11855544753,4,5,Stylized Smoke15 fading x2; wind x1; ToonFire x1; ParticleEmitter x1,0.0 x4; 0.55 x1,Grid4x4
+119272314820246,4,5,ParticleEmitter x6; 11 x1,0.0 x6; 1.0 x1,Grid4x4
+16708557658,4,4,ParticleEmitter x3; CE_2 x1; CE_1 x1; CursedEnergyDetail3 x1,0.0 x3; 1.0 x3,Grid4x4
+138270984714302,4,4,ParticleEmitter x1; 12 x1; spiky x1; Flame1 x1,1.0 x3; 0.0 x1,Grid4x4
+122954463046434,4,5,Fire125 x4; ParticleEmitter x2,0.0 x6,Grid4x4
+14354336687,4,5,ParticleEmitter x3; StarDesign x2; E x1,1.0 x3; -2.0 x3,Grid4x4
+7556127048,4,5,Images/Png (21) x23; E x1; 5 x1,1.0 x25,
+13305806509,4,6,Glow x9; 18 x1,0.0 x6; 1.0 x2; -0.5 x2,
+10477188774,4,7,Dot x8; Dots x1; 15 x1,-0.15 x4; 0.0 x4; 1.0 x1,
+9470659899,4,10,Smoke4 [4] x6; Water2 x3; 3 x1; g x1,1.0 x11,Grid8x8
+13801691431,4,4,BeamWave x5; BeamWave1 x1,0.0 x5; 1.0 x1,
+77189927291566,4,5,Wave1 x8; Smudge x3; Beam97 x2; 5 x1,1.0 x8; 0.0 x5; -5.0 x1,
+15380148205,4,15,Swipe 2 x12; Swipe x12; Wind x3; H x1,1.0 x24; 0.0 x3; 0.1 x1,
+13734332372,4,5,fx x2; a x2; Particle_5 x1; Particle_2 x1,0.0 x7,Grid4x4
+12385813444,4,7,Impact252 x4; HitParticle2 x3; shockwave3 x2; ray x2,0.0 x7; -3.0 x2; 0.5 x1,
+11843276133,4,9,Fire x9; ToonFire x1; 7 x1,0.0 x7; -0.5 x2; 0.55 x1,Grid4x4
+16860267787,4,4,Aura3 x1; Aura2 x1; Basic Flame Wisp x1; fire1 x1,0.0 x4; 1.0 x1,Grid4x4
+11026658044,4,8,Lines x8; LargerLines x8; Particle_4 x4; Rain x2,-0.55 x16; -3.0 x2; 0.0 x2,Grid4x4
+122811453885667,4,4,Lines2 x5; . x2; Lines1 x1,0.0 x7; 1.0 x1,Grid4x4
+12865656309,4,5,ParticleEmitter x3; Burst x2; FloorEffect x1,-5.0 x3; -10.0 x2; 0.2 x1,Grid8x8
+18356099314,4,4,rizzimpact x4; Impact321 x2; Wind x1,1.0 x7,
+9509570418,4,4,Flare147New x2; Glow x1; ugly poopo x1,1.0 x4,
+16924875355,4,6,Spinning Shard 2 x5; Images/crystalflipbook x5; Spinning Shard 2 White x1,1.0 x7; -1.0 x4,Grid4x4
+14124153904,4,4,ParticleEmitter x2; contrast x1; os stuff_2 x1; os stuff_1 x1,1.0 x2; -5.0 x2; -2.0 x1,
+14727016281,4,5,smoke2 x6; ParticleEmitter x2; Mist2 x2; Firm Smoke x1,0.0 x9; 1.0 x2; -2.0 x1,Grid8x8
+127984119352635,4,5,Noisy Fading Glow x6,0.0 x6,
+10198439352,4,10,HIT EFFECTS 2 x8; Dusty Impact x1; ParticleEmitter x1,1.0 x9; 0.0 x1,Grid4x4
+89531304475987,4,8,shock x10; windIdk x3; windrizz x3; Skibwindss x3,0.0 x24; 1.0 x1,Grid4x4
+18651438307,4,8,shock x5; windrizz x4; windIdk2 x3; Wind4 x2,0.0 x17; 1.0 x1,
+111407562812105,4,8,shock x5; Wind2 x2; Skibwindss x1,0.0 x7; 1.0 x1,Grid4x4
+137014331200061,4,8,b10 x6; Shockwave3 x2,0.0 x8,
+105131408419595,4,7,Dust x6; DustGroup x4; Dust Particles x2,0.0 x6; 0.1 x4; 1.0 x2,Grid8x8
+15333808121,4,5,ImpactCircle1 x2; WindBlast1 x2; Impact1 x2; Impact2 x2,0.0 x7; 1.0 x6,
+13726321388,4,8,Smoke3 x4; Smoke1 x2; Stylized Smoke2 x2; 2P_RSmoke3Realistic x1,1.0 x9; 0.4 x1,Grid4x4
+16845151306,4,7,MainRed x6; FirePopExplode x4; Fire5 x1; Black4 x1,1.0 x7; -0.2 x4; -1.0 x1,Grid4x4
+16867377762,4,7,Stylized Smoke40 cloud  x9,0.0 x8; 0.5 x1,Grid4x4
+16504055084,4,12,ImpactHit x8; Images/3333 x8,1.0 x16,Grid2x2
+11846336638,4,10,Diagonal Smoke Burst x5; ParticleEmitter x3; RealisticFire x1; flame/smoke x1,1.0 x6; -5.0 x3; 0.55 x1,Grid4x4
+15658580283,4,7,OffCentered Spec 85 x20; Spec x1,0.0 x13; -3.0 x8,
+2065086791,4,4,Main x1; BlurThingImObsessed4 x1; BlurThingImObsessed x1; darkground x1,0.0 x3; 1.0 x3; 0.4 x1,
+18568378162,4,6,Trail1 x11; Trail x3,0.0 x14,
+12878027420,4,5,ParticleEmitter x4; Images/EnergyVFX122 x2,-5.0 x3; 0.5 x2; 1.0 x1,Grid8x8
+12930785601,4,12,Images/smoke15 x18; Only Smoke x7; ParticleEmitter x3,1.0 x18; 0.3 x7; -10.0 x3,Grid2x2
+14480839965,4,5,Glow x4; ParticleEmitter x3; groundsphere1 x1,1.0 x4; -5.0 x3; 0.5 x1,Grid4x4
+11917388916,4,10,Smoke4 [4] x6; ParticleEmitter x4,0.75 x6; -5.0 x3; 0.0 x1,Grid4x4
+15011478368,4,5,ParticleEmitter x4; 2 x1,-5.0 x3; 1.0 x1; 0.0 x1,Grid4x4
+15011474319,4,5,ParticleEmitter x4; 4 x1,0.0 x4; 1.0 x1,Grid4x4
+12602224662,4,5,ParticleEmitter x4; Fe x1,0.0 x3; 0.5 x1; 1.0 x1,Grid8x8
+14066311352,4,5,ParticleEmitter x4; Smoke1 x2,-5.0 x3; 0.2 x1; 0.5 x1,Grid8x8
+14267547915,4,4,ParticleEmitter x3; Orb x2,0.0 x3; 1.0 x1; 0.2 x1,Grid4x4
+3517446796,4,5,Beam x4; Beam2 x1; Beam3 x1; Beam1 x1,1.0 x7; 0.55 x1,
+15841621175,4,6,Specs x12; Spec 2 x2; Spec 1 x2; Ember emit x2,0.0 x15; 1.0 x5,Grid8x8
+1084965356,4,11,Wave x13; ParticleEmitter x1; shockwave x1; Air slash x1,1.0 x16,
+7394759196,4,9,2.5 x8; s1 x1; s1_2 x1,0.6 x8; 0.75 x2,
+90699600186298,4,5,ParticleEmitter x2; Debris x2; d2 x1; d2_2 x1,0.0 x3; 1.0 x3; 0.75 x1,
+124005197513236,4,6,ParticleEmitter x4; 4 x2; 5 x2; Off centered blurred dot x2,0.0 x8; 1.0 x5; -1.0 x2,
+15501782488,4,4,Flare258New x1; star2 x1; star x1; Light_2 x1,1.0 x5,
+16867460128,4,4,Smoke27 x3; Smoke5 x1,0.0 x3; -1.0 x1,Grid8x8
+111453160791180,4,4,wind x5; ParticleEmitter x2,0.0 x4; 1.0 x3,
+133160707482918,4,5,smk x3; SkibChargeshine x2; ParticleEmitter x1; 9 x1,1.0 x7; 0.0 x1,Grid4x4
+13465720714,4,5,impact1 x4; SkibChargeshine x2; 6 x1,1.0 x4; 0.0 x3,Grid4x4
+16599022233,4,4,ParticleEmitter x3; 19 x1; shockw x1,1.0 x3; 0.5 x2,Grid4x4
+14128174572,4,5,Flare3 x3; Glare_2 x1; Glare_3 x1; Lens x1,1.0 x4; 0.0 x2,
+14538969234,4,4,ring x6; SpikyWave x4; rizzsmoke x2; Red'pikeyShockwave x1,0.0 x9; 1.0 x3; -2.0 x1,
+9169424761,4,8,Trail2 x9,0.0 x5; 1.0 x4,
+1084982817,4,9,Circles x9; dots1 x1; dotsburst x1; aura x1,1.0 x9; 0.0 x3; -2.0 x1,
+16026345008,4,4,18 x1; 15 x1; 14 x1; DashWave1 x1,1.0 x6; 0.5 x1,Grid4x4
+15564363140,4,7,extra x7; 4 x2; Wind x1,0.0 x7; -2.0 x2; 1.0 x1,
+133406139219651,4,4,Wind crescents 1 (6) x6; swirl6 x3; WIDSNMW x2,1.0 x8; 0.5 x3,
+91230378159183,4,5,smoke x7; wind x2,0.0 x8; 1.0 x1,Grid4x4
+74149687949243,4,5,smoke x5; wind x2; Stylized Smoke34 x1,0.0 x6; 1.0 x2,Grid4x4
+98792625311685,4,4,smoke1 x3; not free x1; ParticleEmitter x1; smoke x1,0.5 x4; 0.0 x1; 1.0 x1,
+12506449597,4,4,wind x1; Wind x1; yellowcrescetsemit x1; Wind1 x1,0.0 x3; 1.0 x2,
+242255193,4,4,CandleSmoke x5; ParticleEmitter x4; Steam x1,1.0 x4; 0.3 x4; 0.125 x1,
+16867548275,4,6,Stylized Smoke61 fading x5; Stylized x1; Stylized Smoke45 Fading x1; ParticleEmitter x1,1.0 x6; -1.0 x1; 0.5 x1,Grid4x4
+18870856433,4,4,Texture x16; dots2alt x2; dots2 x1; Images/17 x1,1.0 x19; 0.6 x1,
+100955378623032,4,4,Images/image (2) (6) x6,1.0 x3; 0.0 x2; -34.0 x1,
+16997086012,4,4,Impact4822 x2; ParticleEmitter x1; Glow x1,1.0 x3; 0.55 x1,Grid4x4
+9988507605,4,5,Beam100 x6; Beam1 x5,1.0 x7; 0.0 x4,
+7216856024,4,6,Images/circle_04 x4; 14 x3; Impact 3 x1,1.0 x4; 0.0 x2; -2.0 x1,
+17062452486,4,4,Star15 x6; specs x1,1.0 x3; -1.0 x2; 0.4 x1,
+8073306083,4,5,Images/8x8-flippook-smok x5; 8x8-flippook-smoke x3; smoke x1,0.5 x3; 0.0 x3; 1.0 x2,Grid8x8
+15222191191,4,7,Black Smoke 3 x31; smoke x1,0.0 x30; 0.9 x1; 1.0 x1,Grid8x8
+196969716,4,4,Gradient x4; Circle x1; Dark circle x1; Spread1 x1,0.0 x2; -0.5 x2; 0.3 x1,
+8119252523,4,4,contrast x3; Images/White Radial Circ x1; black x1,0.0 x4; -1.0 x1,
+106582379906133,4,4,Smoll x10; Debris x3,1.0 x13,Grid8x8
+129732204988744,4,4,slash2 x4; expansive2 x1; fog x1,1.0 x6,
+87160246794036,4,14,Images/New Project (2) ( x13; Images/18 x1,0.11 x12; 0.6 x1; 1.0 x1,
+99911247720869,4,4,ParticleEmitter x1; Crack x1; rizzgroundcrack x1; rizzcrack x1,0.9 x2; 0.0 x1; 0.5 x1,
+96092264894202,4,9,smokkk3 x8; smokkk x1,0.0 x9,
+15239406796,4,10,detaul1 x8; Rays x4,0.0 x8; -1.0 x2; 1.0 x2,Grid4x4
+14148906175,4,9,SmokB2 x9,0.0 x9,Grid4x4
+11037067793,4,9,IMPACT OF BOOM x8; ParticleEmitter2 x2,1.0 x8; 0.2 x2,
+17865388433,4,12,particle17 x8; embers4 x4,1.0 x8; -1.0 x4,Grid4x4
+6820821916,4,4,Hit Blunt x3; ShardP x2; HitLines x1,1.0 x3; -1.0 x2; 0.25 x1,
+6444340454,4,5,Images/Lightning (1) x29,1.0 x13; -1.0 x12; -0.5 x1,
+11355872735,4,4,wispy smokey x5; smoke4 x3; Thick Dark Smoke x1,0.5 x4; 1.0 x4; 0.0 x1,Grid8x8
+18116056206,4,5,SpeedLines x16,1.0 x5; 0.5 x5; -5.0 x3,
+14973797453,4,4,wind x12; Floor x1; _ x1; ShockwaveRin1 x1,0.0 x14; 1.0 x1,Grid2x2
+15702022878,4,5,grass_blade14 x6; leaves x2; a x1; stylized leaf 1 x1,0.1 x6; 0.0 x4,Grid8x8
+12251461261,4,4,t5 x4; t2 x4; Trail x3,0.45 x4; 0.0 x4; 0.75 x3,
+15398097961,4,4,Trail2 x4; Trail1 x4; Trail x3,0.0 x8; 0.75 x3,
+9035801067,4,4,Trail x7; t1 x2,0.0 x9,
+15574235597,4,5,WindFlipbookGround x2; WIND4 x1; WIND3 x1; rizzwind x1,0.0 x5; 0.9 x1,Grid4x4
+129378836572027,4,6,Downwards Impact x8,-10.0 x8,Grid4x4
+17226944366,4,6,Specs53 x4; Specs x4,-2.0 x8,Grid4x4
+116535655897049,4,5,rizzsmoke x6; Smoke3 x3; RizzSmoke x1; ncieone x1,0.3 x7; 0.6 x3; 0.0 x1,
+137926940506348,4,6,ShadowMonarchOverlay x4; overtlayyyyy x2,0.0 x6,Grid8x8
+16848303531,4,5,Fire3 x10; Fire23 x1,0.0 x5; 0.8 x4; 0.4 x2,Grid4x4
+7216979807,4,5,DiamondSparks x4; sparks x1; 10 x1; Amber 2 x1,1.0 x4; -3.0 x3; 0.0 x2,
+10335418884,4,4,ParticleEmitter x2; Images/66d54cb6-9ce5-42e x1; Star119 x1; 106087320867193_g x1,1.0 x3; -1.0 x1; 11.0 x1,
+16846880120,4,5,Fire2 x10; ParticleEmitter x2,0.0 x6; 0.8 x4; 0.4 x2,Grid4x4
+8077816591,4,4,Crescents x11; Wind x2; Winds x1; 2 x1,0.4 x7; 1.0 x5; 0.0 x5,
+10111094276,4,7,ParticleEmitter x3; 15 x3; 5 x2; Shards2 x1,1.0 x5; 0.8 x2; -2.0 x1,
+1463939561,4,6,Beam222 x3; Break x2; GuardBreak x2; Beam111 x1,1.0 x8,
+1463840694,4,5,ParticleEmitter x2; Hit1 x1; glow x1; 1 x1,1.0 x5,
+1084997326,4,10,Bits_Small x6; Sparks x5; Bit x1,1.0 x12,
+298984512,4,6,Stars x13; Sparks x1; ParticleEmitter x1,1.0 x14; 0.6 x1,
+12946041355,4,5,ParticleEmitter x3; circlespread x3,1.0 x4; 3.0 x1; 0.0 x1,
+7216848960,4,10,EyeLight x16; ParticleEmitter x1; Press Run x1,1.0 x10; -1.0 x8,
+10825260637,4,4,slash1 x6; hitfx x3; slash x1; ParticleEmitter x1,1.0 x7; -6.0 x2; 0.0 x1,
+7216847656,4,4,Ring2 x4; Color x1; Slash x1,0.0 x4; 1.0 x2,
+15602640682,4,7,Wind x6; extra x2; Windsfr x1,0.0 x6; 1.0 x3,
+8663278927,4,4,Glow x3; 1 x1,0.0 x3; 1.0 x1,
+8708744804,4,7,Shards x9,0.5 x8; 1.0 x1,
+80036442129265,3,3,ParticleEmitter x10,1.0 x9; 0.0 x1,
+92606481798283,3,5,Simple Jagged Circle x6; Sigil1 x5,0.0 x6; 1.0 x5,
+108270101876122,3,6,Flare16New x8,1.0 x8,
+13853120945,3,3,Sparkle x2; FlareSpawn x1; BodyStars x1,1.0 x4,
+116718411365385,3,6,MagicComsoFire x4; Cosmict1 x1; cosmicsamelifetime x1,0.0 x6,Grid4x4
+18333908081,3,3,Black2 x2; impacto2 x1; lines2 x1,-0.5 x2; 0.0 x2,
+14367067724,3,3,BlackVerticleLines x2; BlueVertLines x2; VerticalLines x1,1.0 x3; 0.0 x2,
+15659706200,3,3,Stars x2; Stars2 x1,0.6 x2; 0.0 x1,
+11515493609,3,6,SmokeFB1 x14,1.0 x14,Grid8x8
+17052342455,3,6,Wind12 x6,1.0 x6,
+13824053049,3,3,Idk2 x2; Glow2 x2; BOOM1 x1,1.0 x5,
+9796475445,3,5,Wind9 x5,1.0 x5,
+86674561720572,3,5,7 x3; 8 x2,0.4 x2; 0.7 x2; 1.0 x1,
+73476400279473,3,5,00 x3; rizzwind x3,0.3 x6,Grid4x4
+125542836217455,3,6,ParticleEmitter x8; Smoke27 x1,0.4 x5; 0.6 x2; 1.0 x2,
+17296456452,3,4,SW2 x3; ParticleEmitter x1,1.0 x4,
+89761589014611,3,5,Blood5 x4; Blood x2; Fire x1,0.0 x7,Grid4x4
+15556583761,3,5,ParticleEmitter x4; Star x3; Glow x1,1.0 x8,
+75267576298199,3,5,ParticleEmitter x5; Outer ring x1,0.0 x4; 1.0 x2,
+14595543880,3,3,Smoke x3; Twirl Variants x1,1.0 x3; 0.0 x1,Grid4x4
+13887114225,3,4,Dots x15; moving cid specs (purple x8,1.0 x9; 0.5 x8; 0.0 x6,
+134660140543497,3,6,Pixelated burst 64 x6,-1.0 x3; -3.0 x2; 0.0 x1,Grid4x4
+13820471965,3,5,Pixeled Smoke 54 x8,1.0 x4; 0.0 x4,Grid4x4
+5368629557,3,13,smokeSpecs x21,1.0 x21,
+95791849628501,3,8,Stylized Smoke67 x8,1.0 x8,Grid4x4
+117897352753929,3,7,Line1 x5; Thing x4,-3.0 x5; -2.0 x4,
+88046163630391,3,9,ParticleEmitter x18,0.0 x9; 0.1 x5; -3.0 x4,
+135028775218083,3,3,ParticleEmitter x3,1.0 x3,Grid4x4
+14674845469,3,3,ParticleEmitter x3,1.0 x3,
+15817552026,3,3,ParticleEmitter x3,1.0 x3,
+14953093603,3,3,Galaxy Burst Shockwave55 x3,1.0 x3,Grid4x4
+10196107097,3,4,winds10 x2; windShock2 x2; Ok4 x1; Ok2 x1,1.0 x2; -2.0 x2; 3.0 x1,Grid4x4
+17005480412,3,6,ParticleEmitter x3; Lightning x2; LightlingWild x1,1.0 x3; -2.0 x3,Grid4x4
+7185003058,3,3,Impact490 x1; Wind1 x1; Impact 2 x1; Impact x1,1.0 x2; 0.0 x2,
+16845227778,3,3,Flame1 x20; Flame2 x12; Basic Flame Wisp x1,0.0 x16; 0.5 x12; 1.0 x5,Grid4x4
+10553903882,3,3,shockwave21 x1; shockwave emit x1; shockwave x1; shockwave2 x1,1.0 x4,
+16860471393,3,3,Black2 x8; Red1 x7; Blue1 x1,0.0 x15; 1.0 x1,Grid4x4
+16860466525,3,3,Black3 x8,0.0 x8,Grid4x4
+13771935078,3,5,Lightning2 x3; lightning1 x1; lightning x1; Lightning x1,0.0 x4; 1.0 x2; 0.5 x1,Grid4x4
+14093540059,3,3,ParticleEmitter x2; Specs x1,0.7 x2; 0.3 x1,Grid2x2
+6946066099,3,3,2 x1; rizzimpact x1; RingAround x1,1.0 x2; 0.0 x1,
+8494034818,3,3,BloodCubes x3; Squares x2; Vanishing1 x1; Vanishing2 x1,0.0 x8,
+10468554009,3,5,Flash x2; explosion x1; Impact x1; ooogood x1,1.0 x3; 0.0 x2,
+11705672210,3,3,explosion x1; GroundCrack x1; crackc1 x1,0.0 x1; 0.5 x1; 0.2 x1,
+8542091200,3,3,Shield x5,0.0 x5,
+128080309166936,3,3,Wind4 x2; Shockwaves x1,1.0 x3,
+15105860974,3,10,Aura [Variant] x2; Pink Flames x2; Aura x2; Smoke x1,1.0 x6; 0.0 x5; -0.25 x3,Grid4x4
+14426232568,3,5,Twirl x2; Slow Swirl x2; Twirl Variants x1; Dark Yellow Twirl x1,0.0 x4; 1.0 x2,
+13292221548,3,3,innerslash x6; Beam x3,0.0 x6; 0.5 x3,
+89185242534188,3,4,light blue x6; 2d Lines x1,1.0 x6; 0.0 x1,
+84517278794008,3,3,slicers2 x6; Stars x1,0.0 x6; 1.0 x1,
+14677140208,3,4,Splash3 x2; WindLines x1; Spikes2A x1; Spikes1A x1,0.4 x2; -1.0 x2; 1.0 x1,
+15394196527,3,7,Images/dot2 x8; OffCentered Spec 79 x2,1.0 x5; -1.0 x3; 0.0 x2,
+126052664189577,3,4,Wind45 x6; ParticleEmitter x1,0.0 x4; 1.0 x2; -8.0 x1,Grid4x4
+16865986014,3,4,Water13 x4; Water13BG x1,0.0 x5,Grid4x4
+16865902191,3,4,Water11 x3; blood x3; bloodinner x3,-2.0 x6; 0.0 x2; 0.5 x1,Grid4x4
+18350947061,3,3,Round Spikey  Impact x3; Circle2 x1,1.0 x2; 0.0 x1; -1.0 x1,Grid2x2
+8098345726,3,4,Beam x8; Rune x2,0.75 x6; 0.0 x2; 1.0 x2,
+106835138892794,3,3,deb1 x2; devrisas2 x1,1.0 x3,
+130668602240350,3,3,Specs x4; skibblood x1,1.0 x3; 0.0 x2,Grid4x4
+16969300854,3,4,Fire5 x3; LinesBG1 x2; Spikes2 x1; Spikes2V x1,-3.0 x3; -1.0 x2; 1.0 x2,Grid4x4
+113083314207224,3,3,Beam81 x4; b x1,0.0 x4; 1.0 x1,
+128022764849916,3,7,Beam79 x10; Trail x1,0.0 x11,
+105427977618886,3,3,Blurred Flare x3; white_flarew x1,1.0 x4,Grid4x4
+107251295851688,3,3,Basic Glowing Spec x2; Circle x1,0.0 x3,
+18762827354,3,3,BeamWide Spiked smoke x3; Beam2 x1; Beam3 x1; Beam4 x1,0.0 x4; 1.0 x3; 0.5 x1,
+83109627968100,3,3,Inner x1; Mainblack x1; ParticleEmitter x1,0.0 x3,Grid4x4
+111209754502342,3,3,Star x2; Swirld3 x1; winds5 x1,0.0 x2; 1.0 x2,Grid4x4
+15011471927,3,4,ParticleEmitter x3; Swirld1 x1,-10.0 x3; 0.0 x1,Grid4x4
+13412718273,3,3,Smoother Fading Slash x4; a x1,-1.25 x4; 0.0 x1,Grid4x4
+12842713075,3,3,Outline x32; Astral x1; cut line x1,0.0 x33; 1.0 x1,
+105481683942363,3,3,AuraBeam1 x32; Beam124 x8; Cosmic x1,1.0 x41,
+91924863141962,3,3,Line2 x1; shine3.1 x1; shine3 x1; flare1 x1,0.5 x2; 0.0 x2; 1.0 x1,
+15442080545,3,7,Circle x3; Attached x3; ParticleEmitter x1,0.3 x3; 1.0 x2; -1.0 x1,Grid4x4
+15441262724,3,7,Floating Animated Spec x6; Dots2 x3; who x3,1.0 x8; 0.0 x3; -4.0 x1,Grid8x8
+14379746490,3,3,Flares1 x2; Spiked Right Impact 2 x1; ParticleEmitter x1,0.1 x2; 1.0 x1; 0.0 x1,Grid4x4
+13348242294,3,4,ring x2; outer-ring x2,1.0 x4,
+137375810778410,3,4,SpeedLines2 x4; Thing x2; Copy x1,0.0 x5; -1.0 x2,Grid4x4
+113638059819125,3,5,ParticleEmitter x3; Chromatic Water shockwav x1; ChromOrb1 x1,0.0 x3; 1.0 x2,Grid4x4
+12800351319,3,10,Spiked Spec x10; ParticleEmitter x1,0.0 x8; -0.5 x2; 1.0 x1,Grid2x2
+16511298384,3,4,Crystal Circle x3; Images/image (33) x1,1.0 x2; -55.0 x1; 0.0 x1,Grid8x8
+117299459118480,3,3,Wind33 x3,1.0 x3,
+78592280941627,3,3,Wind28 x3,1.0 x3,
+102723176022147,3,4,Stars x5; dirt x2; flash x1,1.0 x4; 0.0 x2; -1.0 x2,
+16877842776,3,3,Circle3 x1; Shockwave1 x1; PulseRing1 x1,0.0 x2; 1.0 x1,Grid4x4
+13778464872,3,4,Lightnign x2; Blurry Arc Lightning x1; ToonLightning x1,0.0 x2; -2.5 x1; 0.5 x1,Grid4x4
+15314598587,3,9,others x8; shockwave x2,0.0 x8; 1.0 x2,Grid4x4
+13802408466,3,4,Sparks x2; Flowers x1; ToonPetal x1,1.0 x2; 0.0 x1; 0.35 x1,Grid4x4
+15814918201,3,3,WaterFx5 x3; water3 x1; waters x1; water bomb x1,1.0 x3; 0.0 x2; 0.7 x1,Grid4x4
+96806560443322,3,3,Flares3 x2; ParticleEmitter x2,1.0 x4,
+12142723563,3,3,Beam x3; Rain bow x2; Shine x1; Lines x1,1.0 x5; 0.0 x3,
+11768688129,3,3,Wave x12,0.1 x12,
+2045685837,3,3,grid x2; Beam x1,1.0 x3,
+16860226897,3,4,Fire33 x4; B x1,0.0 x3; 0.2 x1; 0.7 x1,Grid4x4
+10747986900,3,4,Dots x6; SmallDots x3; Specs1 x2; specs2b x1,1.0 x7; -2.0 x2; -5.0 x2,
+1190623231,3,3,Water x50; Trail x2,0.0 x50; 1.0 x2,
+16892268625,3,5,55 x3; Images/55 x1; Impact27 x1,1.0 x3; 0.0 x2,
+17062451848,3,3,Star9 x3,0.0 x2; 1.0 x1,
+101535472799928,3,3,Wind15 x2; EnergyDetail x1,0.0 x2; 0.2 x1,Grid4x4
+16867354344,3,3,Aura1 x4; Aura2 x4; Smoke6 x1; Smoke2 x1,0.0 x5; 1.0 x5,Grid4x4
+12713735498,3,3,Impact289 x2; Images/fx_cloud_white_3 x1,0.6 x2; 0.0 x1,
+134788710166485,3,5,Rippling Smoke x3; Images/more_fog x2; Noisy Fading Glow x1,0.0 x5; 0.5 x1,Grid4x4
+120154460257489,3,3,Detailed Energy Upward x1; 4 x1; Aura1 x1,1.0 x2; 0.0 x1,Grid4x4
+124535207786292,3,3,Flare187New x3,1.0 x2; 0.0 x1,
+15311758625,3,4,Lines x11,0.2 x7; 0.0 x3; 1.0 x1,
+11353163220,3,3,Images/rockflip2 x3; Rocks3 x1,-1.0 x2; 0.0 x1; 0.2 x1,Grid2x2
+108463674494908,3,3,ParticleEmitter x2; Dots x1; debris x1,1.0 x4,
+15783804541,3,3,flow4 x2; Burst_7 x1,1.0 x3,Grid4x4
+13368682130,3,3,flow2 x1; Burst_3 x1; Burst x1; Glare_4 x1,1.0 x6,
+14029063178,3,3,Images/Untitled176_20230 x4; Beam x2,1.0 x6,
+14633984190,3,3,Beam x2; Trail x1,1.0 x3,
+16718212610,3,4,Smoke x3; Dots x1,0.2 x3; 0.0 x1,Grid4x4
+14475659881,3,7,Left x9; Top x1,0.2 x10,
+15603834836,3,7,Left x9,0.0 x9,
+15612970009,3,5,_5 x2; _7 x2; 12 x2; Smoke x2,0.1 x6; 0.6 x2,
+73649245182561,3,5,Impact289 x4; Circle8 x1; Wind28 x1; rizzwind x1,1.0 x3; 0.7 x2; 0.5 x2,Grid4x4
+132921682717899,3,4,Crescents2 x4; SW2 x2,1.0 x4; 0.25 x1; 0.0 x1,
+16892282672,3,4,Impact30 x3; ParticleEmitter x1,0.0 x3; 1.0 x1,
+11773081059,3,3,ParticleEmitter x1; Stylized Smoke74 x1; ToonSmoke x1,0.5 x1; 0.0 x1; 0.4 x1,Grid4x4
+13722228396,3,3,ParticleEmitter x1; 12 x1; 10 x1; 2P_RSmoke1_Contrast x1,1.0 x1; 0.6 x1; 0.0 x1,Grid4x4
+14171276320,3,6,watercres x4; burstingthing x2; watercres1 x1,0.0 x7,Grid4x4
+13370270611,3,3,Portal Outward x2; ParticleEmitter x1,1.0 x1; 0.1 x1; 0.0 x1,Grid4x4
+134254043650523,3,3,Energy Vague x3,1.0 x2; -3.0 x1,Grid4x4
+9589703753,3,13,Glow x24; Glow Light 2 x1; Glow Light x1,1.0 x26,
+131725470525741,3,4,Cartoony Shards Impact x7,0.0 x5; 1.0 x1; 0.6 x1,Grid4x4
+125902417361128,3,3,flipping rock x5,0.0 x5,Grid4x4
+12402901395,3,3,Impact580 x5,1.0 x5,
+82623418759453,3,4,quicksw x4; ImpactQk x1,1.0 x2; 0.5 x2; -0.25 x1,
+72969225620485,3,3,Beam116 x4; Bem2 x1; Bem1 x1; Beam x1,1.0 x10,
+10198434999,3,3,Hit x2; ParticleEmitter x1; impact2 x1,1.0 x3; -0.3 x1,Grid4x4
+13417315210,3,25,Crescents2 x13; WindRings2 x9; Wind3 x8; Rings x1,0.0 x21; 1.0 x12,
+13478831328,3,9,Shock x8; Shock3 x3; Shockwave2 x2; Shock2 x2,0.0 x13; 1.0 x4,
+10439914655,3,5,Smoke2 x2; Smoke1 x2; beam 1 x1; fog 2 x1,1.0 x5; 0.0 x1,
+6967099425,3,4,spark2 x4; spike x4; Shards x3; 16 x1,0.0 x6; 0.3 x4; 0.85 x3,
+12333067034,3,13,Debris2 x11; Rocks2 x3; Rocks1 x1; Rocks x1,0.0 x16,Grid2x2
+13712006632,3,7,Circle x3; Circle3 x3; wind34 x1; ParticleEmitter x1,1.0 x7; 0.0 x1,
+15411649406,3,4,Crescents x2; Raid Shadow Legends x2,1.0 x4,Grid4x4
+13221427841,3,4,Waves x4; Beam x2,1.0 x6,
+13447669867,3,4,Beam x8,1.0 x8,
+15742021769,3,4,Wave x2; Raid Shadow Legends x2,0.0 x4,
+11226108137,3,5,Lines x5; Lines2 x3; Sparks2 x1; BSparks x1,0.0 x10; 0.66 x2; -1.0 x1,
+6755657357,3,6,Centre x7; circle x2; ParticleEmitter x1,0.0 x8; 0.1 x1; 1.0 x1,
+12788868051,3,10,Trail2 x10; Trail3 x2; Trail x1; Beam6 x1,0.0 x13; 1.0 x1,
+9660685442,3,5,9 x3; Stripes x2; 2 x1; ParticleEmitter x1,0.85 x2; 0.0 x2; 0.7 x1,
+9563725311,3,10,ParticleEmitter x7; BShards2 x4; Shards x4,0.0 x8; 0.7 x3; 0.5 x2,
+10529371971,3,6,Full Shockwave x2; Impact2 x1; Impact x1; Shockwave x1,1.0 x7; 0.4 x1,
+12781804519,3,5,lol3 x16; Beam x3,1.0 x19,
+11198697853,3,4,Rocks x13; Debris2 x3,0.0 x16,
+12764529137,3,4,Flare x2; Flare3 x1; Impact x1,1.0 x3; -5.0 x1,
+2360242557,3,10,Air x17; Smoke x5; 2 x1; FireCore x1,1.0 x21; 3.0 x2; 0.0 x1,
+14813420032,3,4,ray1 x3; Shadow x2,0.0 x3; -2.0 x2,
+15123700665,3,16,Smoke x33,1.0 x33,Grid4x4
+8747784536,3,7,Shards1 x4; BlackLines1 x4; BlackLines x2; ParticleEmitter24 x1,0.0 x6; -1.0 x3; 0.85 x2,
+15923930072,3,8,Lightning Strike x6; ParticleEmitter x5,1.0 x5; 0.0 x4; 0.5 x2,Grid4x4
+15824130839,3,5,Beam x8,1.0 x7; 0.0 x1,
+13773336783,3,3,Lightning2 x1; ToonLightning x1; ParticleEmitter x1,-1.0 x1; 0.5 x1; 1.0 x1,Grid4x4
+14431633138,3,4,Lightning3 x3; ParticleEmitter x1; lightning1 x1,1.0 x4; 0.5 x1,Grid4x4
+15589248890,3,3,Raid Shadow Legends x2; INCircle2 x1,1.0 x3,
+13612525166,3,5,Whirl x2; Detail1 x2; Spinny x1; Specs2 x1,1.0 x3; -1.0 x1; 0.35 x1,Grid4x4
+14654650241,3,8,Leam x11; Beam x8; Ream x7,0.0 x14; 1.0 x12,
+14378134234,3,5,Raid Shadow Legends x16; Beam x12,1.0 x28,
+16009847884,3,3,Stars x1; Ch x1; 6 x1,0.0 x1; 1.0 x1; 0.2 x1,
+16843151641,3,3,BFlame x1; Fire0 x1; Fire2 x1,0.0 x2; 1.0 x1,Grid4x4
+15048949714,3,4,Swirl 2 x4; Swirl2 x2,0.0 x4; 1.0 x2,Grid4x4
+15057992719,3,4,Lightning2 x2; Lightning x2,1.0 x2; 0.0 x2,Grid4x4
+14491843775,3,3,Dust x7; Dust1 x1,0.0 x8,
+13621316962,3,3,WavesInner x2; Wave2 x2; in x1,1.0 x2; 0.0 x2; -0.3 x1,
+15311971152,3,3,Wave x1; wider swirl x1; swirl x1; Crescents x1,1.0 x5,
+11197617950,3,3,Aura x2; Smoke2 x1; Smoke x1,1.0 x2; 0.0 x2,
+13677961525,3,4,Smoke x3; SmokeUP x2,0.3 x3; 0.0 x2,Grid8x8
+13784241004,3,6,Dissolve x3; Crack x1; Cracks x1; Realistic_Contrast x1,0.6 x3; 0.0 x1; 0.4 x1,Grid4x4
+14166133842,3,3,ParticleEmitter x9; Flash x2,0.0 x7; 0.3 x2; 1.0 x2,Grid4x4
+13052525496,3,8,ParticleEmitter x7; Fire x2,0.1 x6; 1.0 x2; 0.0 x1,Grid4x4
+13973467824,3,3,Lightning x1; ParticleEmitter x1; ToonLightning x1,1.0 x2; 0.0 x1,Grid4x4
+108523870700360,3,3,Flare213New x2; ParticleEmitter2 x1; glare2 x1,1.0 x3; 0.6 x1,
+11866794293,3,7,Darkening realism x5; wind2 x1; AmbienceSmokeContrast x1,1.0 x5; 0.0 x1; 0.2 x1,Grid4x4
+15811547630,3,3,ParticleEmitter x2; Slash3 x1,-8.0 x2; 1.0 x1,
+115530057206994,3,3,EMBER x4; ParticleEmitter x3,1.0 x4; 0.0 x3,Grid4x4
+103222240579945,3,3,ParticleEmitter x2; 10 x1,0.0 x2; -0.5 x1,Grid4x4
+15602866664,3,4,Shard x3; Upwards x1,0.8 x1; 0.5 x1; -5.0 x1,
+86651803434111,3,4,Rune x2; cresc3 x1; BrightSlash x1,1.0 x4,
+13800702582,3,3,ToonBird x12,0.4 x8; 0.0 x4,Grid4x4
+1851669703,3,3,squash x1; Stars x1; Beam111 x1,-2.0 x1; 2.0 x1; 1.0 x1,
+13395479051,3,4,rizzslashes x4; Swirl1 x2; In_1 x1,0.0 x4; 1.0 x1; -5.0 x1,Grid4x4
+16865999711,3,3,Water17 x7,0.0 x6; -0.5 x1,Grid4x4
+13417142950,3,3,colored flare x3; rb-flare x2,1.0 x5,
+11867465395,3,3,smoke x2; AmbienceSmoke x2,0.0 x2; 0.5 x1; 0.4 x1,Grid4x4
+243457340,3,4,Water4 x3; splash2 x1; 1 x1; 2 x1,1.0 x5; 0.0 x2,
+6860332733,3,3,1 x3; 2 x2; 3 x1; 4 x1,0.5 x4; 0.55 x2; 0.0 x1,
+8512404223,3,3,4 x2; shock x2; 5 x1; 3 x1,1.0 x5; 0.0 x1,
+11037518484,3,4,1 x3; 3 x1; wind x1,1.0 x5,
+17061556158,3,5,Glow x13; Glow2 x3,0.0 x15; 1.0 x1,
+125765563402572,3,3,ParticleEmitter x3; Specs1 x2,-0.2 x3; -1.0 x2,
+125085407527682,3,4,ParticleEmitter x2; rizzsmoke x2; RizzSmoke x1; Skibsmoke x1,0.45 x3; 0.0 x2; 1.0 x1,Grid4x4
+14842257638,3,4,ParticleEmitter x4,-2.0 x3; 1.0 x1,Grid4x4
+14505776454,3,3,1 x3; ParticleEmitter x1,1.0 x4,
+14049988179,3,3,Shine x2; Flare222New x1,1.0 x3,
+15601489180,3,4,Shine x4; Glow x1,1.0 x3; 0.5 x2,
+13778319879,3,4,fx x3; a x2; Flame2 x1,0.0 x6,Grid4x4
+14327437980,3,5,a x4; fx x3; 3 x2; 1 x2,0.0 x7; -1.0 x4,Grid4x4
+14406786713,3,6,Wave3 x7,1.0 x4; 0.0 x3,
+125804937717119,3,3,Glowing Jagged Stylized  x8; Steam1 x2,0.0 x7; -0.5 x2; 0.7 x1,Grid4x4
+11037772334,3,8,Blurred Spec 6 x11; GlowBlur x1,1.0 x12,
+16021249467,3,4,Lightning x2; Lightning Emit 1 x2; Splash4 x2; Lightning Emit 2 x1,-1.0 x4; 0.0 x2; 1.0 x1,Grid4x4
+7136536841,3,3,black x4; Stripes2 x1; Stripes1 x1; Stripes x1,-2.0 x3; 1.0 x2; 0.0 x2,
+15355409903,3,3,plode2 x3; Images/slashstuff x2; plode1 x1,1.0 x3; 0.0 x2; -1.0 x1,Grid4x4
+10171855090,3,4,Beam1. x2; Outer x2; Beam01 x1,0.0 x4; 1.0 x1,
+10365552059,3,6,Flash2 x3; Impact1 x2; Layered Impact x1,0.0 x6,
+16892242416,3,5,Impact19 x3; Impact2 x2; 3 x2,0.0 x7,
+128758882110383,3,4,Wind3 x3; Wind1 x2; Wind2(3) x1,1.0 x6,
+79454007816524,3,5,Wind44 x4; Wind1(1) x1,1.0 x5,
+17061859571,3,4,Lightning44 x3; Lightning x3; Disc x2; Big x1,1.0 x6; -0.5 x3,Grid4x4
+13378717718,3,6,ImpactWind1 x4; ParticleEmitter x1; Inner glow circle 14 x1,0.0 x4; 1.0 x2,Grid4x4
+12386392796,3,6,RayBasic x4; 13 x3,-0.55 x4; 1.0 x3,
+13401773376,3,3,burst1 x1; Transparenct Blast 4 x1; burst x1,1.0 x2; 0.1 x1,
+11508013518,3,3,Beams x3; b7 x3; Sub x1,0.0 x4; 0.2 x3,
+92886533174322,3,3,Beams x3; b2 x3; Beam x2,0.0 x5; 0.2 x3,
+115742930526861,3,3,chargesmoke x2; Uhh peak? x1; Debris x1,1.0 x3; 0.0 x1,
+16543943176,3,3,chargespecs x2; specsBG x1; specs x1; Specs x1,1.0 x5,
+79623968430334,3,5,Trail2 x24,1.0 x24,
+18604729281,3,5,Trail4 x11,0.0 x11,
+18568048335,3,5,Trail3 x11,0.0 x11,
+283710844,3,3,ParticleEmitter x3; Particle x3; Particles x2; cosmic energy 3 x1,1.0 x7; 0.5 x2; 0.95 x1,
+123148225595054,3,3,fog debris 1 x2; Wispy Energy Smoke x1,0.0 x2; 1.0 x1,
+15124481454,3,4,truewindslash2 x2; Glowing Faded Crescent x2; Spin x2,-1.0 x3; 0.11 x2; 0.0 x1,Grid4x4
+14937231139,3,3,ParticleEmitter x3,0.0 x2; 1.0 x1,Grid4x4
+11861733639,3,7,ToonLightning x12; ParticleEmitter x3,0.3 x8; -5.0 x3; 5.0 x3,Grid4x4
+14394427356,3,4,ParticleEmitter x3; Images/Fire Centred x1,-10.0 x3; -1.0 x1,Grid4x4
+14496415643,3,4,ParticleEmitter x3; Fe x1,-5.0 x3; -0.5 x1,Grid4x4
+11517935503,3,4,ParticleEmitter x3; Star12 x2,-5.0 x3; 0.0 x2,Grid4x4
+11749129449,3,4,ParticleEmitter x3; Medium Realism LE x1,1.0 x4,Grid4x4
+13455668887,3,4,ParticleEmitter x3; flame/smoke x1,-2.0 x3; 1.0 x1,Grid4x4
+13233046382,3,4,hh x6; ParticleEmitter x3,1.0 x6; -1.0 x3,Grid4x4
+14442131728,3,6,ParticleEmitter x4; Dust1 x2,-5.0 x3; 0.0 x2; 1.0 x1,Grid4x4
+12779603482,3,4,ParticleEmitter x4,-5.0 x3; 1.0 x1,Grid8x8
+14197086122,3,3,Images/aaab x2; ParticleEmitter x1,1.0 x3,Grid8x8
+9732664178,3,13,Images/lightning spark s x12; ParticleEmitter x1,0.32 x12; 1.0 x1,Grid4x4
+12757089364,3,7,explosion x54; ParticleEmitter x1,0.5 x30; 0.0 x25,Grid4x4
+12414215754,3,4,ParticleEmitter x2; t x1; RingBG x1,1.0 x3; 0.0 x1,Grid8x8
+5889875399,3,5,Decal 1 x11; Beam x2; -- x1,1.0 x14,
+16433757077,3,3,ParticleEmitter x2; 106087320867193_g x2,1.0 x2; 0.0 x1; 11.0 x1,Grid4x4
+13712003438,3,4,ParticleEmitter x2; effect x2; 6 x1,1.0 x3; 0.0 x2,Grid8x8
+11862051043,3,3,ToonLightningContrast x1; Dark Impact x1; Lightning 5 x1,0.6 x1; 1.0 x1; -2.0 x1,Grid4x4
+11855202643,3,3,Swirl x3; Radial Twirl x1,0.0 x4,Grid4x4
+11826888424,3,4,Pixel Smoke 5 x6; PixelSmoke x1,0.0 x6; 0.4 x1,Grid4x4
+11847035494,3,3,F4 x2; PixelFire x1; Pixelated Smoke Diagonal x1; F5 x1,0.5 x3; 0.55 x1; 0.0 x1,Grid4x4
+11355845008,3,4,smoke x2; ParticleEmitter x1; 3D Round Smoke x1,1.0 x2; 0.1 x2,Grid8x8
+75202463,3,3,Shine x8; ParticleEmitter x2,1.0 x9; 0.0 x1,
+5726444189,3,3,ParticleEmitter x2; circle2 x1,0.6 x2; 1.0 x1,
+1084976679,3,9,Heaven's Rings x17; Charge x8; Snow x1; glow2 x1,1.0 x26; 0.95 x1,
+528256032,3,5,hlow x3; ParticleEmitter x1; black x1,-1.5 x4; 0.6 x1,
+76562233925062,3,3,ParticleEmitter x2; Disc x1,1.0 x1; -5.0 x1; 0.0 x1,Grid4x4
+137168315504594,3,3,ParticleEmitter x2; Disc x1,1.0 x1; 0.6 x1; 0.0 x1,Grid4x4
+13938110511,3,3,ParticleEmitter x3,1.0 x3,
+14447188478,3,3,Blurred Spec 25 x3; Red Core x2; Purple x1,0.0 x3; 1.0 x2; 0.2 x1,
+17510992903,3,4,smoke x2; Cursed Energy Smoke x1; CE1 x1,0.1 x2; 0.0 x1; -1.0 x1,Grid8x8
+16860419961,3,3,Fire45 x2; Images/24 x1,-1.0 x1; 0.6 x1; 0.0 x1,Grid4x4
+76397637545058,3,3,Beam94 x5; trail x1,0.0 x6,
+16431771159,3,6,"0.11,0.14 x8; Short x2; Blink1 x1",1.0 x11,Grid4x4
+1847258023,3,3,Highlight x1; -8 x1; shine x1,1.0 x3,
+15056130357,3,3,ParticleEmitter x2; Wind x1,1.0 x2; 0.45 x1,
+14197133127,3,5,AOE Lightning Grey x4; ParticleEmitter x3,1.0 x4; 0.0 x3,Grid8x8
+71046177668087,3,3,rune_11 x3,1.0 x2; 0.8 x1,
+8099980096,3,8,FlameWisps x16; ParticleEmitter x1,0.0 x13; 1.0 x3; 0.5 x1,
+18281460865,3,3,Rotating Wind Circle x2; ParticleEmitter x1; expansive x1; Rotating Wind Circle1 x1,0.0 x3; 1.0 x2,Grid4x4
+15975604458,3,3,ParticleEmitter x2; swirl7 x2,1.0 x2; -1.0 x2,Grid4x4
+11932690139,3,4,ParticleEmitter x2; blue star 1 x2,1.0 x4,
+80497837669998,3,3,smk2 x1; 8 x1; impact1 x1,0.0 x2; 1.0 x1,Grid4x4
+12362600879,3,3,ParticleEmitter x2; spec x1,0.25 x2; 1.0 x1,
+16753579629,3,5,Stars x4; BigStar x2; b6 x1; 27 x1,0.0 x5; 0.6 x2; -1.0 x1,
+107683303782344,3,3,FastFill2 x4; FastFill1 x4; Streak x2,0.0 x7; 1.0 x1; -0.2 x1,Grid4x4
+8037357501,3,10,25 x17,1.0 x12; 0.0 x4; 5.0 x1,
+12329257954,3,7,4 x10; RingDetail1 x1; Circle2 x1,1.0 x8; 0.0 x4,Grid4x4
+12329417828,3,5,ParticleEmitter x8; Circle2 x2; Wave1 x1,0.0 x6; 1.0 x3; -0.5 x2,
+88209568981749,3,10,ToonLightning x12; ToonLightning2 x3,0.0 x14; 1.0 x1,Grid4x4
+98016283117283,3,10,ToonLightning x20; ToonLightning2 x3,0.0 x14; -1.0 x8; 1.0 x1,Grid4x4
+98371801305515,3,10,ToonLightning x12; ToonLightning2 x3,0.0 x14; 1.0 x1,Grid4x4
+128704617763218,3,10,ToonLightning x12; lighting vfx 3 x8; ToonLightning2 x3,0.0 x22; 1.0 x1,Grid4x4
+15314567032,3,10,Crack x6; others x2; Crack2 x2,0.0 x8; 0.3 x2,Grid4x4
+15314587909,3,5,Shockwave x4; Shockwave1 x4,-0.5 x6; 0.0 x2,
+18584658493,3,9,Main swirl body x19,1.0 x11; 0.0 x8,
+15021737014,3,3,ParticleEmitter x2; FastShock2 x1,1.0 x3,
+15813029062,3,3,2 x1; 1 x1; ParticleEmitter x1; SkibOrange x1,0.0 x3; 1.0 x2,
+11037291778,3,3,Skibwind x2; 17 x1; 13 x1; rizzwind x1,1.0 x5,
+13465798493,3,3,111 x1; Lightning1 x1; s x1; Skibshine x1,0.0 x2; -1.0 x1; 1.0 x1,Grid4x4
+135767287933837,3,4,Impact61 x4; Spec43 x1,1.0 x2; 0.5 x2; 0.0 x1,Grid8x8
+108889129350756,3,4,Beam x6; Shards1 x2; ParticleEmitter x1,0.0 x7; -5.0 x2,
+15826927544,3,6,Smoll x16; Images/LIGHTNING1 x4; New fixed lightning arc x1,1.0 x19; 0.0 x1; -1.0 x1,Grid4x4
+105480580622301,3,3,star x2; ParticleEmitter x1; Star114 x1,1.0 x2; 0.8 x2,
+124749291708895,3,3,ParticleEmitter x3,1.0 x2; 0.0 x1,Grid4x4
+12363818754,3,3,Spike x2; Shine x1; ParticleEmitter25 x1,1.0 x3; -1.0 x1,
+95752524558827,3,3,wind x7,0.0 x6; 1.0 x1,Grid4x4
+95143770508905,3,3,wind x8; shock x2,0.0 x9; 1.0 x1,
+102567538643487,3,4,smoke x5; wind x2,0.0 x6; 1.0 x1,
+109202189790588,3,4,smokeBack x7; smoke x4,0.1 x10; 1.0 x1,
+93675353995344,3,4,smokeBack x4; smoke x2,0.0 x5; 1.0 x1,
+98115819941329,3,3,blue x1; effect x1; Effect x1,1.0 x3,
+17495955576,3,3,SJWAura1 x2; ParticleEmitter x1,-2.0 x2; 0.0 x1,Grid8x8
+10953167939,3,7,Spec1 x9; Specs1 x2,1.0 x7; 0.0 x4,
+15853224317,3,3,lightning x3; Lightning1 x1,0.0 x4,Grid4x4
+18539291909,3,5,dotsB x3; fog/particle x2; debris x2,1.0 x7,
+99421661918040,3,4,Raid Shadow Legends x16; Beam x8; Lines x2; Trail x1,0.0 x24; 1.0 x3,
+16892233716,3,3,Impact16 x2; Impact2 x1,1.0 x1; 0.6 x1; 0.0 x1,
+79284119732721,3,3,deco6 x3; Images/4 x1,1.0 x3; 0.2 x1,
+87202737393165,3,3,deco5alt x2; deco5 x2; Images/3 x1; Images/2 x1,1.0 x4; 0.2 x1; 0.5 x1,
+71351942052227,3,3,deb1alt x2; deb1 x1; Images/6 x1; Images/5 x1,1.0 x3; 0.6 x2,Grid4x4
+92276634521088,3,3,deco4alt x2; deco4 x2; Images/15 x1; Images/1 x1,1.0 x4; 0.2 x1; 0.6 x1,
+75918526217788,3,3,deco1alt x2; deco1 x2; Images/10 x1; Images/9 x1,1.0 x6,Grid8x8
+93545521782141,3,3,deco3 x2; deco3alt x2; Images/14 x1; Images/13 x1,1.0 x4; -0.7 x1; -0.5 x1,
+109919810664240,3,3,-3 x1; To lazy to name x1; Burst x1,1.0 x3,
+17005504268,3,4,ParticleEmitter x7; Ln1 x2; Lightning10 x1,1.0 x7; 0.0 x2; -3.0 x1,Grid4x4
+11627077002,3,3,idontknowhowtonamethis x4; blood 2 x4; in1 x1; magic x1,-1.0 x4; -0.5 x4; 2.0 x1,Grid8x8
+134727529722190,3,3,Beam110 x11,1.0 x11,
+130848219849162,3,3,Images/Cracks_15 x3,0.0 x2; 1.0 x1,
+15556415618,3,5,Wind Details x6,1.0 x6,
+13367229656,3,3,slash3 x1; ParticleEmitter x1; New149 x1,1.0 x3,
+6909741538,3,3,Star x4; Images/23 x1; Stars x1,0.0 x2; 0.7 x2; 0.6 x1,
+18397658030,3,3,ParticleEmitter x1; impact x1; Partic324234leEmitter x1,0.4 x2; 0.0 x1,
+16125610617,3,4,Hit x2; hitFast x1; ParticleEmitter x1,1.0 x2; 0.0 x1; 0.7 x1,Grid4x4
+73249515680342,3,8,particle9 x8; ParticleEmitter3 x7,0.0 x15,Grid4x4
+134022882058457,3,8,particle8 x8,1.0 x8,Grid4x4
+92176991886542,3,8,particle13 x8,-1.0 x8,Grid4x4
+127136593142768,3,8,ParticleEmitter1 x8,-1.0 x8,
+117696782406615,3,8,Images/2 (2) x8,1.0 x8,Grid4x4
+116451960210015,3,4,Untitled280_202410121917 x15; Images/Untitled280_20241 x1,0.0 x13; 1.0 x3,Grid4x4
+16151520120,3,5,Impact x5,0.5 x3; 0.0 x2,
+13622252312,3,5,LightningAura x3; Lightning1 x2; Recolor x2,1.0 x7,Grid8x8
+87970239798298,3,13,Smoll x28,1.0 x16; 1.11 x12,
+15989904878,3,3,Chromatic Line x2; hu9d98u90i12mi0dapp2d1 x1; impacto6 x1; lines1 x1,-0.5 x2; 1.0 x2; 9.0 x1,
+18446116252,3,3,Images/IMG_0282 x2; deb2 x1,0.2 x1; 1.0 x1; 0.5 x1,
+17450657969,3,5,Sparks x6,0.0 x5; 1.0 x1,
+18118860997,3,4,Slash x5; ParticleEmitter x1,0.0 x3; 1.0 x2; -5.0 x1,
+13712007548,3,3,Wind x2; shockwave2 x1; Shockwave1 x1,0.0 x3; 1.0 x1,
+101845528452864,3,4,12656840930_blur (1) x16; Images/12656840930_blur  x4,1.0 x20,Grid4x4
+73333400909681,3,3,middle shine x3; os stuff_4 x1,1.0 x4,
+138241506642100,3,3,Crack x1; rizzgroundcrack x1; rizzcrack x1,0.65 x2; 0.5 x1,
+99197004872210,3,3,Crack x1; rizzgroundcrack x1; rizzcrack x1,0.8 x3,
+15516389398,3,4,shockwind x2; Wind x1; rizzwind x1,0.0 x4,
+14091984485,3,3,small explosions x6; circ6 x1,-2.0 x6; 1.0 x1,Grid4x4
+86644934246125,3,9,Unique Fire Explosion x8; Unique Fire Explosion1 x3; Unique Fire Explosion2 x2,0.0 x13,Grid4x4
+12713360567,3,7,BeamAura Beam x13; b2 x1,0.0 x11; 1.0 x3,
+137666963718741,3,4,Water Wisps x4; CE2 x1,0.0 x4; -1.0 x1,Grid4x4
+12401154143,3,4,Chromatic Shards 2 x6; rainbow x2; ChromAura1 x1,1.0 x9,Grid8x8
+138746448398393,3,3,Steam1 x6; STeam x1,0.3 x6; 0.0 x1,Grid4x4
+18717313304,3,3,Extra x5,0.0 x4; 1.0 x1,Grid4x4
+8733488500,3,3,Pixel Blob x2; Specs x2,-1.0 x2; 0.5 x2,Grid4x4
+81012989604637,3,7,128972414105772_g x10; Images/128972414105772_g x3,0.0 x7; 1.0 x6,
+18281363731,3,3,WHAT THE HELLLLLLLLLL :s x2; black2 x1,0.45 x2; 0.5 x1,Grid4x4
+18224762254,3,3,15 (2) x2; Lines x2; Images/15 (2) x1,-2.0 x2; -1.0 x1; 0.0 x1,
+136879951069352,3,6,shock x5; Skibwindss x1,0.0 x5; 1.0 x1,
+15268228591,3,6,Sideways Spec 36 x8,0.0 x7; 1.0 x1,
+17657522953,3,3,speed4 x2; speed3 x2; tp5 x1; tp4 x1,0.8 x2; 0.95 x2; 0.0 x2,Grid4x4
+96566003778336,3,3,speed x2; tp1 x1,0.95 x2; 0.0 x1,
+125523015121474,3,9,Images/DoubleCornerDebri x9,1.0 x8; 0.15 x1,
+15394198783,3,11,Images/dot 3 x11,1.0 x8; -1.0 x3,
+128488005243516,3,3,ParticleEmitter x3,1.0 x3,Grid4x4
+15730883980,3,3,Drawn Outlined Slash x2; shockwave14 x1,1.0 x2; 0.0 x1,Grid4x4
+16599202420,3,5,Water x3; Magma x2; ParticleEmitter x1,0.6 x3; -1.0 x2; 0.5 x1,Grid4x4
+116686317011720,3,4,rizzsmoke x6; Smoke4 x3; Smoke1 x3,0.6 x10; 0.0 x2,Grid4x4
+131667932715858,3,4,Smoke2 x3; rizzsmoke x2,0.55 x5,
+97051019398375,3,3,Cursed Energy Disperse 8 x8,0.0 x7; -2.0 x1,Grid8x8
+138004702320351,3,3,2 x44; fire x1,1.0 x45,Grid2x2
+387288028,3,4,Contrast x16; ParticleEmitter x2; A x1,0.0 x16; 0.3 x2; 1.0 x1,
+96013523226630,3,8,Flare Twinkles x12,1.0 x6; 0.0 x6,Grid4x4
+16843373901,3,4,Fire1 x10,0.0 x4; 0.8 x4; 0.4 x2,Grid4x4
+14354678512,3,14,Light1 x14,0.0 x14,Grid4x4
+16892247104,3,4,Impact10 x2; Shockwave2 x2; Impact21 x1,0.0 x5,
+5942218263,3,4,Beam x8,1.0 x6; 0.0 x2,
+10293208499,3,4,Flash x5,1.0 x2; 0.0 x2; 0.75 x1,
+124164858775284,3,4,Faint Wispy Energy Smoke x5,0.0 x5,
+115742682793502,3,3,Images/1_00000 (4) x6,1.0 x6,
+96754486633479,3,4,Images/DustUnbaked x11,0.0 x7; 0.55 x4,
+117358359592021,3,4,Images/24 (1) x6,0.5 x4; 1.0 x2,
+78758937033415,3,4,Images/1 (4) x5,1.0 x5,
+14355738489,3,7,extra x6; Ex x1,1.0 x5; -5.0 x1; 0.8 x1,Grid4x4
+14834478801,3,3,Stars x3; Flare1 x1,0.0 x3; -5.0 x1,
+1463874772,3,8,Hit2 x2; Extra-Needed2 x2; ParticleEmitter2 x2; JAN2 x2,1.0 x6; 0.75 x3; 10.0 x2,
+1463903184,3,3,GuardBreak2 x2; Block x1,1.0 x2; 0.95 x1,
+348467696,3,7,BlueFire x29; PurpleFire x9; Aura x2; BlueFire1 x2,1.0 x44; 0.0 x2,
+296874871,3,10,1 x12; ParticleEmitter x5; rFire x3; BurningPart x2,1.0 x20; 0.75 x3; 0.85 x2,
+250186345,3,8,aura 2 x14; aura 1 x14; Beam x2,0.7 x13; 1.0 x11; 0.1 x3,
+1085001473,3,7,Glow x20; Flare x13,1.0 x32; 5.0 x1,
+991687067,3,9,Hit2 x10; Eye x2; Lightning0 x1,1.0 x11; 0.0 x2,
+6219939930,3,6,Glare x7,1.0 x5; 5.0 x2,
+6149990816,3,4,Hit x4,1.0 x4,
+6569118042,3,6,ParticleEmitter x4; H x3; Waves x2,1.0 x7; 0.0 x2,
+2916153928,3,8,Shockwave x5; ParticleEmitter2 x2; Wave x2; Beam x2,1.0 x8; 0.65 x5; 0.9 x2,
+6280384227,3,4,ParticleEmitter x5; Dots x2,1.0 x7,
+8494150181,3,4,Spinny2 x2; Spinny1 x2; sPIN x1; SPIN1 x1,0.0 x5; -1.0 x2,
+12505188370,3,3,purpletrail x2; Beam4 x1; Beam3 x1,0.0 x3; 1.0 x1,
+12524470529,3,4,smoke x12; Smoke1 x4; Smoke2 x3; Smoke x2,1.0 x19; 0.0 x2,Grid4x4
+11341746334,3,3,Aura1 x7; Aura2 x5,1.0 x6; 0.0 x5; -1.0 x1,
+6250126210,3,3,Inside2 x2; lastspinnings x2; Tornado 1 x1; Menacing Slashes x1,0.0 x5; -2.0 x2,
+11624551967,3,3,Beam3 x3,1.0 x2; 0.0 x1,
+6497432385,3,4,Wind x3; Impact x2,1.0 x5,
+1084955012,3,8,Bolts x17; lol x2; Ok12 x1,1.0 x20,
+1084959312,3,4,Bolts x23,1.0 x23,
+272050333,3,4,ParticleEmitter x3; Glow x2; Particle2 x1,1.0 x4; 0.0 x1; 2.0 x1,
+8120749500,3,4,Smoke x5; Clouds x1,0.0 x6,
+14512618584,3,4,circlefloor x4,1.0 x4,
+11337343865,3,4,ParticleEmitter x5; lightning2 x3; lightning x3,-2.0 x6; 1.0 x2; -0.7 x1,Grid4x4
+11813039262,3,9,Aura x140; behind aura x8,-5.0 x72; -2.0 x71; 0.0 x3,Grid4x4
+14183571391,3,4,godbackground x2; backgroundBase x1; ParticleEmitter x1,0.0 x3; 1.0 x1,
+11187840108,3,4,Specs x12; Fe x1; Middle x1,0.0 x12; -0.5 x1; 0.85 x1,Grid4x4
+12681270997,3,4,LightBeam2 x8; sparks x8; DarkBeam2 x4; darkline x1,0.0 x12; 2.0 x8; 0.3 x1,
+131734519886520,3,6,Wind detail 2 (3) x7; WIDSNMW x1,1.0 x8,
+8132607319,3,4,Rocks x3; rocs x1; Dough x1,1.0 x3; -0.3 x1; 0.0 x1,
+14438046728,3,4,Side2 x5; Side1 x5; main x4,0.5 x10; 0.0 x4,
+8071207852,3,4,RedFlames x2; Flames x2; Back x1; Flames1 x1,0.0 x7; 1.0 x2,
+12189101933,3,4,E4 x7,1.0 x7,
+18252909156,3,4,E3 x7,0.0 x7,
+18600375096,3,8,E2 x19; E3 x2,1.0 x21,Grid4x4
+17834796043,3,4,OrientForward x10,0.0 x10,Grid4x4
+18198549229,3,4,Flame x13,0.0 x13,Grid4x4
+17077939650,3,7,RealFlame x16,1.0 x13; 0.0 x3,Grid4x4
+8489296565,3,3,Lines x10,1.0 x10,
+8517750479,3,3,Line x6; BgLines x6,1.0 x6; 0.8 x6,
+13380372076,3,3,Shards2 x5; Shards x5,1.0 x10,Grid4x4
+13464811688,3,3,Smoke2 x15,0.5 x10; 1.0 x5,Grid4x4
+13085290240,3,3,Squashed x10,1.0 x10,Grid4x4
+13455955840,3,3,Prisms x10,0.0 x5; 0.3 x5,
+8693743604,3,3,Backdrop x3,0.0 x2; 1.0 x1,
+14844074205,2,2,ParticleEmitter x3,1.0 x3,
+16034294138,2,2,ParticleEmitter x1; Wind1(2) x1,1.0 x2,
+76204681346241,2,2,Noisy Ripple Overlay 2 x2,0.0 x1; 1.0 x1,Grid4x4
+136488378522949,2,2,Prism Circle x1; SmallerCircle x1,0.0 x1; 1.0 x1,
+107746228303534,2,2,Beam121 x2,1.0 x2,
+15308453552,2,2,Sparkle x1; Spec2 x1,1.0 x1; -1.0 x1,Grid4x4
+7482053708,2,2,cebits x1; Aura x1,1.0 x1; 0.0 x1,
+108170985018134,2,2,BeamChromatic Thick x15,0.65 x8; 1.0 x7,
+13546935092,2,2,BeamDrag shard x9,1.0 x8; 0.0 x1,
+84897860506268,2,6,1 x36; 4 x36; 3 x36; 2 x36,0.0 x136; 1.0 x12,Grid4x4
+104639539651080,2,2,1 x2,1.0 x2,Grid8x8
+15497164665,2,2,Star x2,0.25 x2,
+13820538679,2,2,Floor5 x2,1.0 x2,
+16454644589,2,2,Shockblue2 x2,0.65 x2,Grid4x4
+18355866803,2,2,Impulse1 x2,0.65 x2,Grid4x4
+18355944757,2,2,Impulse2 x2,0.65 x2,Grid4x4
+13161986324,2,6,Flare247New x13,1.0 x13,
+100113424383392,2,3,01 x2; rizzwind x1,0.2 x3,
+77399181389527,2,5,03 x5,0.7 x5,
+17789739351,2,3,smoke x4,0.0 x4,Grid4x4
+17296579364,2,3,SW4 x3,1.0 x3,
+17296514835,2,3,SW3 x3,1.0 x3,
+16878134274,2,3,SW1 x2; ParticleEmitter x1,1.0 x3,
+17296443284,2,3,SW1 x2; ParticleEmitter x1,1.0 x3,
+14395391916,2,4,BloodLines x6,0.2 x6,Grid4x4
+16010378085,2,4,Blood3 x8,-0.2 x8,Grid4x4
+16615386579,2,4,Blood2 x6,-0.2 x6,Grid4x4
+16972459124,2,4,Blood6 x4; Blood x3,0.0 x7,Grid4x4
+87810510935695,2,4,Blood x4; Blood4 x4,0.0 x8,Grid4x4
+80093918065702,2,4,Blood1 x4; Blood x2,0.0 x6,Grid4x4
+18775646348,2,4,BloodR x6,0.1 x6,
+17433812238,2,4,ParticleEmitter x5,1.0 x5,
+126755071876766,2,4,ParticleEmitter x4,1.0 x4,
+106809629756956,2,9,Line2 x5; Big Line x5; Beam Slash 2 x3; Beam Slash 1 x3,0.0 x6; -2.0 x5; -1.0 x5,
+11866495294,2,2,Pixelated Smoke Puff x6; PixelBurst x1,-3.0 x6; 0.35 x1,Grid4x4
+8733226116,2,7,Pixel smoke [Flipbook pa x6; Pixel Smoke x4,-3.0 x6; 1.0 x3; 0.0 x1,Grid4x4
+113678423988783,2,4,Pixel Burst 60 x4,1.0 x3; 0.0 x1,Grid4x4
+16310643442,2,4,Seperating Pixel Smoke x4,1.0 x4,Grid4x4
+82525068951507,2,3,Wind2 x6,0.9 x3; 1.0 x3,
+15824417274,2,6,Transparenct Blast 5 x7,1.0 x7,
+103000834263561,2,6,Wind23 x7,0.7 x7,
+11842749937,2,2,Pixel Smoke 34 x1; PixelSmoke x1,1.0 x1; 0.4 x1,Grid4x4
+16880037488,2,4,impacts x4,-3.0 x4,Grid4x4
+93565053798685,2,4,Thick Pixelated Star x7,-3.0 x6; -0.5 x1,
+16310656466,2,5,Impact451 x5,-3.0 x5,
+15419166595,2,6,OffCentered Spec 75 x54,-3.0 x54,
+11854613172,2,4,Pixel Splash x27; PixelFire x1,-3.0 x27; 0.55 x1,Grid4x4
+13819755999,2,4,Images/Pixel Slash x4,0.9 x4,
+8733731095,2,4,Pixel effect [Flipbook p x4,0.9 x4,Grid4x4
+18453281504,2,4,spiral pixelated ring x4,1.0 x4,
+14522749246,2,4,Pixelled Crescent x4,0.9 x4,Grid4x4
+70626665050216,2,4,Simple Slash (2) x8,0.0 x4; -3.0 x4,Grid4x4
+17211298816,2,2,Star142 x2; E x1,1.0 x3,
+111950982411383,2,3,trail x12,0.0 x8; 1.0 x4,
+124284659328694,2,2,Specs Swirl x1; Thing2 x1,1.0 x1; 0.0 x1,Grid4x4
+113548216170478,2,2,CircleSpam x1; winds13 x1,1.0 x1; 0.7 x1,Grid4x4
+86291813122834,2,2,winds12 x4,1.0 x3; 0.3 x1,
+17506220428,2,2,Shockwave x2,1.0 x1; 0.0 x1,
+15782373888,2,2,Wave1 x2,1.0 x2,
+115846753587357,2,2,Motion Lightning x3,0.0 x2; -0.5 x1,Grid4x4
+9572238730,2,4,rotating x3; 6 x1,1.0 x4,
+15635861050,2,2,Smoke x1; ParticleEmitter x1,0.7 x2,Grid4x4
+7216851605,2,2,Smoke x1; SmokeSpread x1; SmokeSpreadLine x1,0.0 x3,
+7731347137,2,2,SlideDust x1; ParticleEmitter x1,0.0 x2,
+126294351777027,2,2,Sw1 x2; Whirl 2 x1,1.0 x3,
+116387802988546,2,2,Sw1 x2; Whirl 3 x1,1.0 x2; 0.0 x1,
+10637699514,2,4,Shards3 x2; splash x1; BShards x1; Shards x1,0.0 x4; 0.1 x1,Grid4x4
+8296960342,2,2,BloodDrops x3,0.0 x3,
+6863041721,2,2,Shock x1; Waves x1,0.0 x1; 1.0 x1,
+5406968633,2,2,2 x6; 1 x6; Inner x2,0.8 x12; 0.6 x1; 0.0 x1,
+8094437430,2,2,Shockwave x2,0.0 x2,
+7919579655,2,2,Blood x3; Ring x1,0.0 x4,
+8662188503,2,2,W x1; Spec x1,1.0 x1; 0.5 x1,
+4979919970,2,4,White Aura Flame x48; Beam x2,1.0 x50,
+8089495857,2,3,Beamy x16; Beam x2,1.0 x18,
+15134927040,2,3,Lighting x19; Lightning x2,0.0 x14; 1.0 x7,Grid4x4
+14762426483,2,2,1 x1; Faster Red Trail x1; Slow Red Trail x1,0.0 x2; 1.0 x1,
+15350834372,2,3,Flame x10,0.0 x4; 1.0 x4; -0.15 x1,Grid4x4
+14851056482,2,7,Lines x8; Specs x6; Specs2 x5; Lines Larger x1,1.0 x16; 0.0 x5,
+14834666396,2,5,Specs x8; Specs [Larger] x2; Circle Spec x1; Inside Dots x1,0.0 x7; 1.0 x4; 3.0 x2,
+14834550802,2,11,Dot x3; ParticleEmitter x2; Dots1 x2; Dots2 x2,1.0 x10; 0.0 x7,
+15294279094,2,6,Stars x5; Giant Star x2; Flash x1; Star x1,1.0 x9; -0.15 x1,
+15292043166,2,3,Lines x3,1.0 x3,
+14875600193,2,7,Smoke x3; Aura x2; Exlosion x1; ParticleEmitter x1,0.0 x7; 1.0 x4; -0.25 x1,Grid4x4
+15472703101,2,7,Specs x4; Stars x2; Specs2 x2; Dot x2,1.0 x8; 0.0 x2,Grid4x4
+14926541120,2,4,Ashes x3; Burnt x1; Crack Ash x1,0.0 x3; 1.0 x2,
+15350755535,2,2,Slashes [Variant] x7; Shockwave x1,0.0 x7; 1.0 x1,
+14970165676,2,8,Slashes x8; Press Run x3; Slash x2; Slashs x2,1.0 x17; 0.0 x3,
+14840076903,2,8,Slashes x5; Slashes2 x3; Slashes [Variant] x2; slash thingy x2,0.0 x10; 1.0 x4,
+12781834839,2,2,Intensity x16; black x12; violet x9; pink x8,0.0 x38; 1.0 x16,
+125603075630254,2,2,Flow2 x2; BB8 x1; BB7 x1; BB6 x1,0.0 x10; 1.0 x8,
+16867365247,2,2,Smoke x2; Dust x1,-0.5 x2; 1.0 x1,Grid8x8
+10843512523,2,5,DetailShards x4; Lines x1,1.0 x5,
+80077547940551,2,2,Wind3 x2,1.0 x2,
+126954633926694,2,2,Wind1 x2,1.0 x2,
+10269309720,2,2,Circle Impact x1; Circle1 x1; Circle x1,1.0 x2; 0.0 x1,
+100157595400098,2,9,Personal1 x18; Personal2 x2,0.0 x7; -1.0 x7; 0.5 x4,Grid4x4
+17062535921,2,4,Images/FlameSpec4x4 x24; Fire55 x2,0.0 x26,Grid4x4
+101943315608494,2,9,Rainbow Lens Flare x9,0.0 x7; 1.0 x2,
+104302733170217,2,4,Galaxy Burst x5,0.0 x5,Grid4x4
+13743483729,2,3,Strange Movement x4; 2P_RSmoke3RealisticV2 x1,1.0 x2; 0.0 x2; 0.4 x1,Grid4x4
+119548113391566,2,3,Style Smoke 36 x3,1.0 x2; 0.0 x1,Grid4x4
+139646456766666,2,3,Wisp x3,0.0 x2; 0.5 x1,Grid4x4
+16866058024,2,2,Water28 x5,0.6 x4; 0.0 x1,Grid4x4
+13794844031,2,2,Stylized plain Blob Rise x8; Toon x1,0.0 x8; 0.4 x1,Grid4x4
+10672228547,2,2,Glow x8,1.0 x8,
+10472974536,2,2,Beam x4; FireBeam3 x2,0.35 x4; 0.5 x2,
+12131250818,2,2,StarSpread x5; Stars x1,0.0 x5; 1.0 x1,
+13934610516,2,2,6 x2,1.0 x2,Grid4x4
+12528455353,2,2,7 x2,1.0 x2,Grid8x8
+8890667599,2,2,5 x1; haze2 x1; haze1 x1,1.0 x3,Grid8x8
+115544666170781,2,2,Shine x1; BeamWork064 x1; BeamWork062 x1; BeamWork060 x1,1.0 x33,
+83366076789439,2,2,Specs 2.0 x9,1.0 x9,
+80610949593105,2,2,Smokes x3,1.0 x3,Grid4x4
+74304838845038,2,2,Smokes x3,1.0 x3,Grid4x4
+115455074609806,2,2,Lightning x3,1.0 x3,Grid4x4
+7216854591,2,2,ShineLight2 x8; Small x1,1.0 x9,
+7216979191,2,2,Beam x11; White x3,0.0 x11; 1.0 x3,
+11397993418,2,2,Smoke4 x1; Smoke3 x1; Smoke1 x1; Smoke2 x1,1.0 x5,Grid4x4
+122320794951414,2,2,c x1; TT8 x1; TT7 x1; TT6 x1,1.0 x9; 0.15 x8,
+109985324958700,2,7,Blur x4; Halftone x2; Dots x1,1.0 x4; 0.0 x3,
+16879838922,2,2,Line x1; Spec39 x1,0.0 x1; 0.5 x1,
+87542617578573,2,2,c x1; b x1; a x1; Glitch x1,0.0 x3; -2.0 x1,Grid4x4
+16877851515,2,3,Ring x2; Ball x1; Circle4 x1,0.0 x2; -1.0 x2,Grid4x4
+17062452367,2,3,BStars x2; Star x1,0.0 x3,
+138209242993782,2,4,Stylized Weird Movement5 x27; Fall x1,-3.0 x27; 0.0 x1,Grid4x4
+112418500538896,2,2,Swirld2 x1; Galaxy Swirl x1,0.0 x1; 1.0 x1,Grid4x4
+16892384522,2,2,Main x4; Beam2 x1,0.0 x5,
+135611124886147,2,2,Fading Dust x4,0.0 x4,Grid8x8
+101478845975822,2,3,Wind1 x2; Crecents x2; Wind x1,0.0 x3; -1.0 x2,Grid4x4
+14052683457,2,3,Impacts x2; ShardSustain x1,0.0 x2; 1.0 x1,Grid2x2
+140471746213044,2,9,Unique Fire Explosion x7; Smoke x2,0.0 x9,Grid4x4
+17006206111,2,3,Circle x2; ParticleEmitter x2,0.0 x3; 1.0 x1,Grid4x4
+120395714965965,2,2,ParticleEmitter x2,1.0 x2,
+12800351913,2,2,Simple Bubble x1; ParticleEmitter x1,1.0 x2,Grid2x2
+16398573330,2,9,water134 x8; ParticleEmitter x2,1.0 x8; 0.0 x2,Grid4x4
+18456244650,2,10,Fire Tower x16; Images/butthatshowlosers x2,1.0 x10; 0.0 x8,Grid4x4
+99925185052573,2,12,Slash28 x16,0.3 x8; 0.0 x8,Grid4x4
+98810729551344,2,9,Slash x8; sidagains2 x2,0.3 x8; -0.3 x2,
+10568218586,2,3,Fire Specs x5; outlinedspec x4,0.0 x5; -2.5 x2; 1.0 x2,Grid2x2
+125214381397274,2,7,Fancy Spinning Lightning x6; Ln3 x2,-2.5 x6; 0.0 x2,Grid4x4
+80189053385709,2,2,Wind48 x2,1.0 x2,
+109474863702604,2,2,Wind29 x2,1.0 x2,
+16997078201,2,2,Impact4722 x3,1.0 x2; 0.8 x1,Grid4x4
+111463968547579,2,2,snowflake x2,1.0 x2,
+87559021239332,2,2,Snowflake x3,-2.5 x2; 1.0 x1,Grid8x8
+131381875395578,2,2,leavesOther x2,1.0 x2,Grid2x2
+101387181065064,2,2,dirt x3,1.0 x3,
+15098067965,2,2,halfgrad x2; ParticleEmitter x1,0.0 x2; 1.0 x1,
+15484052560,2,3,water x5; water2 x1,-0.5 x4; 0.7 x1; 0.0 x1,Grid4x4
+2607452359,2,2,flake x3; snow x1,0.0 x2; 1.0 x1; 2.2 x1,
+13447156433,2,2,Crecent x1; ParticleEmitter x1,1.0 x2,Grid4x4
+13522089613,2,2,ParticleEmitter x2; CircleDissolve1 x1,1.0 x2; 0.85 x1,Grid4x4
+122881636456623,2,2,Flare28 x2,0.0 x2,
+10080798513,2,3,Lightning x7,1.0 x3; 0.0 x2; -1.0 x2,Grid4x4
+12483561300,2,2,Pin point x2,1.0 x2,
+13002153057,2,2,Square x2,1.0 x2,
+17388445951,2,2,Crescent1 x2; Crescent34 x1,0.2 x2; 0.0 x1,
+87962185594365,2,2,shockwave2 x2; A x1,0.0 x1; 1.0 x1; -1.0 x1,Grid4x4
+107202748597502,2,2,Flares8 x2,1.0 x1; -2.0 x1,
+135417099182467,2,2,ParticleEmitter x2; Images/wow (1) x1,1555.0 x2; -1.0 x1,Grid8x8
+17223867020,2,2,ParticleEmitter x1; 11복사 x1,1.0 x2,
+13745021655,2,2,Fire11 x1; Fire1 x1; Fire_2_Realistic x1,0.0 x2; 0.25 x1,Grid4x4
+15314730915,2,2,SG11 x1; SG1 x1; ParticleEmitter x1,0.0 x2; 1.0 x1,
+15937996601,2,2,BeamFire beam 2 x2; B5 x1; B6 x1; B7 x1,1.0 x8; 0.0 x2,
+118422915306523,2,9,edgier_fire_shard_but_do x6; Images/edgier_fire_shard x6,1.0 x12,Grid4x4
+124744903601692,2,4,Texture x4,1.0 x3; -0.5 x1,Grid4x4
+13800461961,2,4,2P_RBurst5_Contrast x9; Realistic_Contrast x1,0.0 x9; 0.35 x1,Grid4x4
+118323587821210,2,4,-_fire_00000 x3; Images/-_fire_00000 x1,1.0 x3; -0.2 x1,Grid8x8
+130341645640774,2,7,ImpactFade x8; SmokeOrImpact x3,1.0 x8; -1.0 x3,Grid4x4
+119387723789903,2,4,fire3 x3; ClearBlackEmitter x1,0.0 x3; 0.75 x1,Grid4x4
+15730376453,2,7,FireRise x4; diff_angle_fire_shard_ni x3,-0.2 x4; 0.0 x3,Grid4x4
+95382709647093,2,4,16860219678_t x3; RisingFlame2 x1,0.0 x4,Grid4x4
+98601807716287,2,5,15333819074_1 x3; SW2 x2,1.0 x3; 0.5 x2,Grid4x4
+16865995882,2,2,Water16 x2; Water16BG x1,0.0 x3,Grid4x4
+13633403236,2,2,ThickTrail x2; Smoke x1; OtherTrail x1,1.0 x4,
+13633360758,2,2,SmokeTrail x2; SmokeOut x1; OtherTrail x1,0.0 x3; 1.0 x1,
+13633372968,2,2,CoverTrail x2; Misty x1; Trail x1,1.0 x4,
+12389942991,2,2,Impact296 x2,1.0 x2,
+12985993958,2,2,Impact453 x2,0.6 x2,
+112960874731496,2,2,leafOther x4,0.0 x4,
+15536021290,2,2,Hit2 x4,-1.5 x4,Grid4x4
+13990234027,2,2,Glowing Impact 2 x4,0.0 x4,Grid4x4
+16511986084,2,2,Flare286New x4,1.0 x4,
+17218042034,2,2,Galaxy Swirl x1; Ground fog 2 x1,1.0 x1; 0.85 x1,
+76056597100004,2,2,ParticleEmitter x1; Ground fog 10 x1; Ground fog 6 x1,1.0 x1; 0.0 x1; 0.5 x1,
+95981596731268,2,2,ParticleEmitter x1; Ground fog 1 x1,1.0 x1; 0.85 x1,
+89779528189516,2,2,Orb Overlay Faded x1; Rise1 x1,1.0 x1; -5.0 x1,Grid4x4
+12360035207,2,2,Strange Energy Orb LE x1; ParticleEmitter x1,1.0 x2,Grid4x4
+16721426284,2,2,lines1 x2; lines x1; black lines x1,0.0 x3; -5.0 x1,
+12483558811,2,2,Shine x1; Dark 1 x1; Dark 2 x1; Light 2 x1,1.0 x3; 0.0 x2,
+13349335664,2,2,flow3 x1; Burst_9 x1,1.0 x2,Grid4x4
+13695135137,2,2,wind2 x1; WindSwirl3 x1,1.0 x2,
+13331752979,2,2,wind x1; WindSwirl2 x1,1.0 x2,
+15333825012,2,2,floor2 x2,1.0 x2,Grid4x4
+78773963470100,2,2,Trail x2,0.0 x2,
+84789020011525,2,2,Trail x4,0.0 x4,
+70678035959695,2,2,Trail x4,0.0 x4,
+10238688790,2,2,Shock x1; 1 x1,1.0 x2,
+15619582736,2,2,CoverContrast x1; Cover x1; Top x1; Left x1,0.2 x2; 0.0 x1; 1.0 x1,Grid2x2
+17005839768,2,2,Lightning x1; LightningStreak x1,1.0 x1; 0.0 x1,Grid4x4
+14454562247,2,2,Lightning x2; Lightning 2 x2,0.0 x3; 1.0 x1,Grid4x4
+9135046200,2,3,Specs2 x2; Specs x2; Lightning x1,1.0 x5,Grid2x2
+15314650876,2,2,Ripple2 x1; Ripple3 x1; Ripple1 x1; Ripple x1,0.0 x5; 1.0 x1,Grid4x4
+10337713824,2,2,Smoke4 x1; Smoke3 x1; Smoke1 x1; Smoke x1,1.0 x8,
+16865899680,2,2,Water10 x9,0.0 x4; 0.6 x4; 0.1 x1,Grid4x4
+76951334461630,2,2,Water50 x6,0.6 x4; 0.0 x1; 1.0 x1,Grid8x8
+97232854781041,2,6,Rainbow6 x7,1.0 x6; 0.0 x1,
+16867530947,2,3,Smoke40 x3,1.0 x3,Grid4x4
+70728001087698,2,6,Flare20New x11,1.0 x11,
+112629787601025,2,2,Beam105 x4,0.0 x2; 0.5 x1; 1.0 x1,
+82634208863762,2,2,Smooth Circle x1; CircleSmear x1,0.2 x1; 1.0 x1,
+127353288690632,2,2,Twirl x1; okeysnalielbye_00000 x1,0.0 x2,
+15861117170,2,2,Tornado x2,0.0 x1; 1.0 x1,Grid4x4
+17809467126,2,2,ParticleEmitter x3; MagicWind x1,0.0 x3; 1.0 x1,
+7953178806,2,2,Trail x7,0.0 x6; 1.0 x1,
+13348146849,2,3,GlowRing2 x1; Glow x1; Glow2 x1,1.0 x3,
+16009266206,2,3,Sparks x3,1.0 x3,
+104632340635453,2,3,Inverted muddy impact x3,0.0 x3,Grid4x4
+11037781450,2,2,Impact450 x1; Images/DAX_Explode_Qc_01 x1,0.0 x1; 1.0 x1,
+9324968005,2,2,Shadow x2,1.0 x2,
+10365554384,2,2,Beam x5,1.0 x4; 0.6 x1,
+18245525527,2,2,ParticleEmitter x2,0.0 x2,Grid4x4
+15094930910,2,3,Wind3 x1; NoRecolor x1; Wind x1,0.0 x1; 0.25 x1; 0.1 x1,
+98086205667576,2,3,BloodSmok x4; Smoke x1,0.1 x5,Grid4x4
+92991665171281,2,2,Outward Noise Shockwave x2,0.5 x1; 0.0 x1,Grid4x4
+18925205019,2,2,BeamFilled wavey x3,1.0 x2; 0.0 x1,
+13580357222,2,2,BeamMagical dust x12,1.0 x12,
+12781853708,2,2,BeamThinner fractal x4; Beam x1,1.0 x5,
+18837316844,2,2,beam2 x16; BeamThick low glow x10,1.0 x16; 0.0 x10,
+120127136579962,2,2,Smaller version impact x2,0.0 x1; 1.0 x1,Grid4x4
+15267986070,2,2,Flare199New x2,1.0 x2,
+16892286605,2,2,Impact32 x3; Impact1 x1,0.0 x3; 1.0 x1,
+138578711337491,2,2,Chromatic Star x1; Flare1 x1,1.0 x2,
+16892244417,2,2,shockwave2 x2; Impact20 x1,0.0 x2; 0.8 x1,
+97073167273125,2,2,ParticleEmitter x1; Black x1,-1.0 x1; 0.0 x1,Grid2x2
+14407956519,2,6,Hit4 x4; Boom x2,1.0 x5; -3.0 x1,Grid4x4
+14622697144,2,3,Hit x2; ParticleEmitter x1,-2.0 x2; 1.0 x1,Grid4x4
+13406621187,2,3,Wind2 x4; Wind1 x1,1.0 x5,
+15238060759,2,5,CrescentsSmall x7; ShockwaveSmall x1,1.0 x8,
+13888866703,2,2,Star x1; star2 x1,1.0 x2,
+11536435403,2,10,Shockwave x9; Shockwave2 x3; Hit x1; ShockCenter x1,0.2 x8; 1.0 x3; 0.0 x3,
+13712001736,2,2,ParticleEmitter x2; Shards x1,1.0 x3,
+6763679282,2,3,Stripes x4,1.0 x4,
+12505124986,2,5,Shock x5; flare2 x1,1.0 x6,
+11402221943,2,2,Dust x2,0.0 x1; 1.0 x1,Grid4x4
+13832097149,2,6,Wind x7; SWind x2,1.0 x9,
+9409698931,2,4,BSpecs x3; Specs x3; Specs2 x3; Specs1 x2,0.0 x7; 1.0 x4,
+14621031119,2,6,Circle2 x6; rizzwind x1,1.0 x6; 0.9 x1,Grid4x4
+10517580193,2,3,Beam x16; beam 6 x1,0.0 x16; 1.0 x1,
+12423457994,2,3,Wind2 x3; Wind1 x1,1.0 x4,
+13296730934,2,3,Beam2 x5,0.5 x3; 1.0 x2,
+14447680035,2,5,Impact2 x2; Shockwave3 x2; Shockwave2 x2; Impact3 x1,1.0 x8; 0.0 x1,Grid2x2
+13237253135,2,9,Wind x11; wind_4 x6; Wind . x3; wind_1 x1,1.0 x24,Grid8x8
+10632727506,2,8,Orbs x6; BSpecs x5; Specs x3; BOrbs x1,1.0 x9; 0.0 x7,
+8811061868,2,3,Swirls3 x1; BSpin2 x1; 5 x1,1.0 x2; 0.0 x1,
+10348071181,2,4,Shield2 x3; Crack2 x1,1.0 x4,
+14850580043,2,6,Crescents x9; Crescents2 x4; Swirl x1; Waves x1,0.0 x11; 1.0 x4,Grid4x4
+14850591400,2,5,Crescents x6; Crescents2 x4,0.0 x6; 1.0 x4,
+8187306179,2,11,Specs x11; Blob 3 x7; Specs4 x1,0.0 x14; 1.0 x3; -0.35 x2,
+15238209526,2,4,Wave x3; WavesIn2 x1; Beams x1,1.0 x5,
+12788947795,2,8,Trail x8; Trail2 x2,1.0 x5; 0.0 x5,
+13172482223,2,6,Wind1 x12; Impac x3; Impact x1,0.0 x15; 1.0 x1,
+13172421357,2,6,Shockwave x17,0.0 x14; 0.65 x3,
+14762356114,2,2,ParticleEmitter x3; FlareEnd x1,1.0 x4,
+8180428772,2,5,Star2 x5; Star1 x3; Star x2; Stars x1,0.76 x6; 0.8 x2; 0.1 x2,
+15721938594,2,2,Debris x1; Debris1 x1,0.0 x2,Grid4x4
+16879575363,2,2,Debris x6; Specs2 x1,0.0 x7,Grid8x8
+13621524576,2,2,WideCrescents x2,1.0 x2,
+14229909590,2,7,Shards2 x3; BEmbers x2; Embers x2; Embers3 x1,1.0 x4; 0.0 x2; 0.5 x1,Grid2x2
+9135310747,2,3,Lightning x7,1.0 x7,Grid4x4
+1084969783,2,5,Vortex_Bits x13; Shards4 x3,0.0 x15; 1.0 x1,
+7523391365,2,3,Orbs x7; ParticleEmitter x5,0.0 x5; 0.5 x4; -1.0 x1,
+15620313312,2,9,Crescents3 x4; Crescents x4; __3 x1,1.0 x7; 0.0 x2,
+15486083983,2,5,Crescents2 x3; Swirl2 x1; _3 x1,1.0 x5,
+15386766846,2,5,ImpactCircle x28; ImpactCircleLight x4; Circle x1,0.75 x16; 0.0 x8; -0.55 x4,Grid4x4
+16009567511,2,4,4 x4; SlashWind x3,0.0 x4; -5.0 x2; 1.0 x1,
+7000716848,2,3,Shards4 x2; 10 x1,0.0 x3,
+14789777643,2,4,Swirl x3; Swirl1 x3,1.0 x3; 0.0 x2; 0.5 x1,Grid4x4
+8599882518,2,9,Stripes x4; Spikes x4; Specs x1,1.0 x6; 0.35 x2; 0.0 x1,
+7016382152,2,4,Cut x6; Line2 x4; Shards3 x2; 10 x2,-1.0 x6; 1.0 x4; 0.85 x4,
+13780281187,2,4,Slash x12; SlashExtra x8; Slash2 x4; Colored x1,1.0 x10; -1.0 x8; -0.25 x2,Grid4x4
+16725955721,2,4,Flash2 x2; Flash 3 x2,1.0 x4,
+8625703339,2,2,Active x1; Shockwave x1; 4 x1,0.8 x1; 0.65 x1; 1.0 x1,
+14858385745,2,3,SWind x2; Wind2 x2; Wind x2,1.0 x6,
+15824087323,2,2,Beam x2,1.0 x2,
+16878186706,2,2,Specs2 x1; Spec2 x1,1.0 x2,
+14000237845,2,5,Circle x2; Ring x1; Circle2 x1; ParticleEmitter x1,1.0 x2; 0.35 x1; 0.5 x1,Grid4x4
+13793926944,2,2,Ripple x1; Realistic x1,1.0 x1; 0.4 x1,Grid4x4
+16397543640,2,2,Wind x1; Fillwind x1,1.0 x1; 0.7 x1,
+15922928385,2,3,Lightning x2; Lightning2 x1,0.0 x2; 1.0 x1,Grid4x4
+15923960174,2,5,Lightning Tendril x6; Lightning x1,0.0 x4; 0.5 x2; 1.0 x1,Grid4x4
+10813564431,2,2,wind x2; Wind x1; whityewind x1,0.0 x2; 0.1 x1; 1.0 x1,
+11852978685,2,2,Specs x1; BSpecs x1; ToonFire x1,1.0 x1; 0.0 x1; 0.55 x1,Grid4x4
+16869292205,2,2,Water_Ripple x4; Ripple x1,1.0 x5,Grid4x4
+12127091006,2,2,7 x2; Break4 x1; 5 x1,1.0 x3; 0.0 x1,
+268667620,2,2,Break3 x1; 7 x1,0.0 x1; 1.0 x1,
+10357918337,2,2,Waves x2; Smoke1 x2,1.0 x4,
+15166317733,2,2,Lightning x2; Fe x1,1.0 x2; -1.2 x1,Grid4x4
+13315699616,2,3,BeamCurved smoke beam 2 x4; 2 x2,1.0 x6,
+15638729672,2,2,Cleave x2; BLines x1,0.0 x2; -1.0 x1,
+14111878332,2,3,Dots1 x2; BDots x1; Specs x1; Dots x1,0.0 x4; 1.0 x1,
+13621165663,2,2,Lines (Crush) x1; Lines x1,1.0 x2,
+11988378846,2,2,Circle x1; 6 x1,1.0 x2,Grid4x4
+10428805046,2,2,Aura x3,1.0 x2; 0.0 x1,
+13633436231,2,2,Dots x4,1.0 x3; -1.0 x1,
+408873377,2,5,Shards x2; ParticleEmitter x2; Emit5 x1,0.0 x4; 1.0 x1,
+15099350705,2,3,Beam 2 x5; Beam x2; Beam 3 x1; Beam Main x1,1.0 x5; 0.0 x4,
+8189517327,2,2,Flash x1; Star2 x1,1.0 x2,
+16879957895,2,2,Impact2 x1; impact1 x1,1.0 x1; -0.3 x1,Grid4x4
+15657359362,2,2,ParticleEmitter x2,1.0 x1; -1.0 x1,Grid4x4
+11414312820,2,3,Smoke x7,1.0 x6; 0.0 x1,
+16845320132,2,2,Fire x1; ParticleEmitter x1,0.2 x1; 0.3 x1,Grid4x4
+12329058133,2,2,Circle1 x2; AwesomeCircle x2; Circle x1,1.0 x5,
+12878919631,2,2,Fire x5; 25 x1; 5 x1,0.7 x3; 0.65 x2; 1.0 x2,Grid4x4
+15314958346,2,2,WavesIn x2; MainSpark x1,1.0 x2; 0.0 x1,
+13863941502,2,2,starsssss x1; Flare1 x1,0.4 x1; 1.0 x1,
+15206786301,2,2,Hit x1; Skibimpactsd x1,0.7 x1; 0.0 x1,Grid4x4
+14608931802,2,2,Flash x3,0.0 x2; 1.0 x1,
+10358202617,2,5,Smudge1 x4; Aftermath x1,0.0 x5,
+6594369527,2,4,FormAura x6; Burst x2; 3 x1; 2 x1,1.0 x11,
+11866632577,2,2,Fog x2; AmbienceSmoke x1,0.25 x2; 0.4 x1,Grid4x4
+12201406614,2,2,Trail x1; DustFlat x1,0.0 x2,
+4976779930,2,4,ParticleEmitter x17,0.55 x12; 1.0 x4; 0.1 x1,
+13367803563,2,2,ParticleEmitter x2,-2.0 x2,Grid4x4
+18815258007,2,2,Star x1; 20 x1,0.0 x1; -0.5 x1,
+18815276414,2,2,Star x1; 21 x1,0.0 x1; -0.5 x1,
+18815719751,2,2,Dots x1; 16 x1,1.0 x1; -0.5 x1,Grid2x2
+120316769173318,2,2,cresc4 x2; Impact ig ? x1,0.0 x2; 1.0 x1,
+16897191960,2,2,Crescents1 x2,0.0 x2,
+14704600122,2,2,Charge x2,0.0 x2,
+14044631587,2,2,Bezier x2,0.65 x2,Grid8x8
+9742976067,2,2,Rays x2,0.8 x2,
+9743013525,2,2,Expansion x2,1.0 x2,
+9743029448,2,2,IdleExpansion x2,0.0 x2,
+16225387272,2,2,ParticleEmitter x1; SuperHeatedAura:3 x1,0.45 x2,Grid4x4
+14278119943,2,3,BlackPatches x2; Crescents22QQW x1,0.0 x2; 1.0 x1,Grid4x4
+13387960381,2,2,Specs_3 x2; Particle_3 x1,1.0 x2; 0.35 x1,
+16353111554,2,2,shockwave33 x2; ParticleEmitter x1,0.0 x2; 1.0 x1,
+15316530495,2,3,Sparks x2; shards x1,1.0 x2; -1.0 x1,
+11751891032,2,2,glow3 x2; ParticleEmitter x1,1.0 x3,
+17844277603,2,4,glow x3; glow3 x1; glow1 x1,1.0 x5,
+12208186192,2,2,WindOut x1; ParticleEmitter x1,0.0 x2,Grid4x4
+13386858482,2,2,Specs_1 x1; Particle_6 x1,0.35 x1; 0.0 x1,
+13861952191,2,2,ParticleEmitter x2; water x1,0.55 x2; 1.0 x1,Grid8x8
+11828267185,2,3,Trail x3,0.0 x2; 1.0 x1,
+15506935150,2,2,Sparks x2,-15.0 x2,
+551638771,2,2,Impactttt x2,-5.0 x2,
+16177800441,2,2,line x2; line2 x2,0.5 x2; 1.0 x2,
+15456969464,2,2,line x2,1.0 x2,
+15811890822,2,3,Wave x3,1.0 x3,
+18781804767,2,2,ParticleEmitter x7,0.0 x7,
+18781784628,2,2,ParticleEmitter x3,0.2 x3,
+18875426779,2,2,ParticleEmitter x3,0.3 x3,
+18207989812,2,2,ParticleEmitter x3,0.0 x2; 1.0 x1,
+11812381532,2,3,shard x8; 5 x3; 12 x2,0.15 x10; -5.0 x2; 0.6 x1,
+14112548373,2,4,LightningShard x7; lightning x3; 9 x2; shard x1,-3.0 x10; -1.0 x2; 1.0 x1,Grid2x2
+13680293530,2,6,Lightning x10; 3 x4; 9 x3; shard x1,-10.0 x10; -12.0 x4; -15.0 x2,Grid4x4
+12404181199,2,3,6 x1; 3 x1; 5 x1,1.0 x2; 0.2 x1,
+11037506534,2,2,2 x2; 4 x1,1.0 x3,
+16725902774,2,3,Specs3 x9; Specs 3 x2,1.0 x11,
+16892374733,2,2,LineSquare x32; Beam3 x1,0.0 x32; 1.0 x1,
+116919342416403,2,2,Stars x3,1.0 x3,
+87367507830235,2,2,RandomSmoke2 x3,1.0 x3,Grid4x4
+86416754715762,2,2,RandomSmoke x3,1.0 x3,Grid8x8
+14647331432,2,3,BodyAura x7; SwirlyDot x1; Stars2 x1; Sparks x1,1.0 x8; 0.0 x2,
+8532862085,2,4,WhiteLines x4; Specs x4,-5.0 x6; 0.2 x1; 0.0 x1,
+15424260256,2,4,WhiteLines x4,-5.0 x3; 0.2 x1,Grid4x4
+12192472364,2,2,shard x8; 14 x1,-4.0 x9,
+14844289257,2,2,shard x1; 12 x1,-15.0 x2,
+135646770206125,2,3,Galaxy Impact x6,4.0 x3; -2.0 x3,
+108169571871991,2,3,Floor x3,1.0 x3,
+9142631906,2,2,Wave3 x2; Circle2 x2; cir x1,1.0 x5,
+14746170922,2,2,1 x1; ParticleEmitter x1,0.0 x1; 1.0 x1,
+13943284807,2,4,2 x5; 1 x5; 4 x4; 6 x1,0.0 x10; 0.75 x2; 0.3 x2,
+1062601649,2,2,6 x1; Particles x1,0.1 x1; 0.0 x1,
+14052685115,2,2,Drawn Star x10; Drawn Star 2 x3,0.6 x10; 0.8 x3,Grid2x2
+17070198927,2,5,FireFire x4; Stylized Explosion34312 x1,-0.25 x4; 1.0 x1,Grid4x4
+13764992917,2,2,Spiked Smoke x1; Fire_4_Toon x1,1.0 x1; 0.25 x1,Grid4x4
+86470467217654,2,2,beam4 x16; BeamFaded Outlines Inwar x4,1.0 x16; 0.5 x4,
+12907658987,2,2,s x2; Particle_1 x1; s2 x1,0.5 x3; -3.0 x1,
+1269254614,2,2,Lines x2; lines x1,1.0 x2; -3.0 x1,
+117143920327635,2,2,BeamSpiked wave x4,0.0 x4,Grid4x4
+15501870094,2,2,Shine x2,1.0 x2,
+15501868294,2,3,Shine x4,1.0 x4,
+96304240883767,2,2,Shine x2,1.0 x2,
+116452735525212,2,2,Shine x2,1.0 x2,Grid4x4
+14411280814,2,2,Smoke x2,0.2 x1; 0.5 x1,Grid4x4
+14398621510,2,3,Smoke x3,0.2 x3,
+16292934922,2,2,Smoke x2,0.1 x2,Grid4x4
+13894904991,2,3,a x2; fx x1,0.0 x3,Grid4x4
+15287960804,2,3,Sparks x3,0.2 x3,
+11995386251,2,4,Glow x3; C x2; Specs x1,0.6 x3; 0.0 x2; 0.9 x1,
+15611036245,2,3,SnowCresents x2; ParticleEmitter x2; C x2,0.0 x4; 0.45 x2,Grid4x4
+18562662708,2,3,coloredstuf x2; Shock x1,1.0 x3,Grid4x4
+74868500807594,2,2,Faint Smoke Shockwave x2; Color x1; Shock1 x1,0.0 x3; 1.0 x1,
+117280660128652,2,2,Shock2 x2; Shockwave x1,0.0 x3,
+14638171362,2,2,Sparks x1; lightningkatanashine x1,1.0 x1; -3.0 x1,
+15467188159,2,7,Fire x9,0.0 x7; -0.5 x2,Grid4x4
+16694126717,2,11,Fire x27,0.0 x21; -0.5 x6,Grid4x4
+14080708584,2,3,FingerHit x6,-3.0 x2; 1.0 x2; -1.0 x2,
+14050533905,2,3,REG x4; Basic 2x2 x2; Smoke2 x1; Smoke1 x1,0.0 x6; 1.0 x2,Grid2x2
+12922845759,2,2,New1 x2,1.0 x2,
+131834556810162,2,2,CirclesFB5 x3,1.0 x2; 0.0 x1,Grid4x4
+68072538,2,2,Snowflake x1; snow x1,1.0 x1; 2.2 x1,Grid8x8
+88836910549343,2,2,soft impact x1; wind x1,1.0 x1; 0.0 x1,
+86053465625060,2,2,Off centered dot x1; Spec2 x1; Spec1 x1,0.0 x2; -0.7 x1,
+15433989948,2,2,Greyscale Flame Burst x2; Fire x2,-1.0 x2; 0.0 x1; 2.0 x1,Grid4x4
+12329133324,2,2,Wave1 x3; BigShock1 x1; SmallShock x1,1.0 x3; 0.0 x2,
+12385513112,2,2,Beam2. x9,0.0 x9,
+9216446257,2,2,Dust x18; Splash x2,1.0 x20,Grid4x4
+122662949386396,2,2,dot2 x1; ParticleEmitter x1,1.0 x2,
+130689728461532,2,2,0 x1; light x1,1.0 x2,
+12800315318,2,2,LTrail2 x1; ParticleEmitter x1,0.25 x1; 1.0 x1,Grid2x2
+12800316081,2,2,EyeTrail x2; LTrail x1; ParticleEmitter x1,0.25 x3; 1.0 x1,Grid2x2
+14248735103,2,2,Images/Glow2 x5; Glow x1,1.0 x6,
+17005486894,2,2,Li x3; MainLightning3 x1,0.0 x3; 1.0 x1,Grid4x4
+11861841517,2,3,MainLightning2 x2; MainLightning1 x2; ToonLightningContrast x1,1.0 x4; 0.6 x1,Grid4x4
+99030912594735,2,2,Wind2(2) x1; Wind51 x1,1.0 x2,
+86521711047914,2,2,Wind2(1) x1; Wind1 x1,1.0 x2,
+16867567145,2,2,Smoke2 x2; ParticleEmitter x1,0.0 x2; -1.5 x1,Grid4x4
+4975465603,2,3,BeamBlank wave x2; Beam x2,0.0 x2; 1.0 x2,
+14635196973,2,2,Rise2 x2; 3D Circle x1,0.0 x3,Grid8x8
+8700410994,2,2,Ray x1; Rays x1,0.0 x2,
+13914836240,2,5,FireCircle x4; Radial1 x1,-1.0 x4; 0.0 x1,Grid4x4
+76622868814303,2,5,FireSwift x4; RisingFlame1 x1,-0.2 x4; 0.0 x1,Grid4x4
+14748087183,2,5,ImpactLightning1 x12; Lightning2 x7; DarkLightning1 x4,-1.25 x12; 1.0 x7; -0.25 x4,Grid4x4
+16879953929,2,5,ImpactWater x8; Impact2 x1,1.0 x8; 0.0 x1,Grid4x4
+17069522501,2,5,CartoonSlash1 x12; Slash14 x1,-2.55 x12; 0.0 x1,Grid4x4
+12402898856,2,5,Dust2 x8; Dust1 x8; MagicMain x8; 70 x1,0.0 x24; 1.0 x1,
+15853894417,2,5,Lightning3 x4; electricity x1,1.0 x5,Grid4x4
+13975873083,2,6,2x2 Smoke Grey x6,1.0 x5; 0.0 x1,Grid2x2
+11989899750,2,6,Low Res Smoke Left x10; ParticleEmitter x1,1.0 x11,Grid4x4
+12957162958,2,6,wind1 x5; Skibblue x1,0.8 x5; 1.0 x1,
+81209435473973,2,8,windSlash x5; Inner slash detail (3) x3,0.8 x5; 0.0 x3,
+99129082742397,2,4,Smokey Slash 2 x6; Slash1 x1,0.7 x3; 1.0 x3; 0.0 x1,Grid4x4
+89480767232810,2,8,Star97 x31; Flare1 x1,-2.0 x27; 0.0 x5,
+17226915741,2,2,text kanji stuff1412 x4,-3.0 x2; -1.0 x2,Grid4x4
+15187371739,2,2,dark blue x1; dark x1,1.0 x2,
+89763422289713,2,2,ParticleEmitter x1; Images/New Project (4) x1,1.0 x2,
+18791624432,2,2,WindFlipbook x3; spin' x1,0.5 x3; 1.0 x1,Grid8x8
+7216851326,2,3,smoke 28 x4; Smoke x1,0.11 x2; 0.4 x2; 0.0 x1,Custom
+13417032203,2,2,shards x1; Impact x1,0.0 x1; 1.0 x1,
+15430580152,2,4,Smoke1 x4,0.0 x4,
+15418453171,2,4,Smoke x4,0.0 x4,Grid4x4
+14203413838,2,4,Wind x4,1.0 x4,
+101641525137577,2,2,Beams x3; b5 x3,0.1 x3; 0.2 x3,
+18638131263,2,2,Beams x3; b4 x3,0.0 x3; 0.2 x3,
+117078217139317,2,2,Beams x3; b3 x3,0.0 x3; 0.2 x3,
+98803326148313,2,2,Beams x3; b1 x3,0.0 x3; 0.2 x3,
+18632859839,2,2,a1 x2,1.0 x2,Grid8x8
+74117306337150,2,2,Wispy Energy Smoke x5,-1.0 x2; -2.0 x2; 1.0 x1,
+115619822404280,2,2,shadslash1 x2; Chromatic Slash 1 x2,-10.0 x2; 0.0 x2,Grid4x4
+14944433028,2,2,ParticleEmitter x15; Star12 x2; Impact8 x1,-0.1 x12; 0.0 x5; -1.0 x1,Grid4x4
+14709239500,2,3,ParticleEmitter x2; SphereFX x1,0.0 x2; 1.0 x1,Grid8x8
+5320412027,2,4,Beam x8; Trail x1,1.0 x9,
+12169768457,2,4,ParticleEmitter x4,-5.0 x4,Grid8x8
+13336761812,2,3,ParticleEmitter x3,-5.0 x3,Grid4x4
+14476165199,2,4,ParticleEmitter x4,-5.0 x3; 1.0 x1,Grid4x4
+11515478646,2,3,ParticleEmitter x3,-5.0 x3,Grid4x4
+13669808632,2,3,ParticleEmitter x3,-10.0 x3,Grid4x4
+14393243408,2,3,ParticleEmitter x3,-3.0 x3,Grid4x4
+15011441052,2,3,ParticleEmitter x3,-5.0 x3,Grid4x4
+15011456461,2,3,ParticleEmitter x3,-5.0 x3,Grid4x4
+15011454473,2,3,ParticleEmitter x3,-3.0 x3,Grid4x4
+12780365055,2,3,ParticleEmitter x3,-5.0 x3,Grid8x8
+13980004222,2,3,ParticleEmitter x3,0.0 x3,Grid4x4
+11389369395,2,3,ParticleEmitter x3,0.0 x3,Grid4x4
+12830011666,2,3,ParticleEmitter x3,-5.0 x3,Grid8x8
+11828552375,2,3,ParticleEmitter x2; Images/edit_1024x1024 x1,1.0 x2; -1.0 x1,Grid8x8
+14366190868,2,2,idek4 x2; idek x2; ParticleEmitter x1,1.0 x5,Grid4x4
+14152768329,2,2,ParticleEmitter x2,0.0 x1; 0.5 x1,Grid4x4
+11372606236,2,2,ParticleEmitter x1; 1 x1; 3 x1,1.0 x2; 0.0 x1,Grid4x4
+14164156363,2,2,ParticleEmitter x1; Images/Buff-DebuffFlip H x1,0.0 x2,Grid4x4
+14162711722,2,2,ParticleEmitter x1; Fire1 x1,0.0 x1; 1.0 x1,Grid4x4
+14004739953,2,2,glow x3; ParticleEmitter x1,1.0 x4,Grid4x4
+13992220545,2,2,ParticleEmitter x1; Water1 x1,1.0 x1; 0.0 x1,Grid4x4
+5320460025,2,3,Beam x2; Trail x2,1.0 x4,
+5889857268,2,3,Beam x2; Head 4 x1; Head 3 x1; Head 2 x1,1.0 x4; 0.3 x2,
+1134824633,2,4,Beam x11; Trail x3,1.0 x14,
+241779220,2,3,Beam x2; FlareSparks x1,1.0 x3,
+5259486177,2,3,Beam x2; Main x1; Main 2 x1,1.0 x4,
+8091408769,2,3,Beam x2; top x2,1.0 x4,
+14106669939,2,2,ParticleEmitter x1; 25 x1,0.0 x1; 0.4 x1,Grid4x4
+15657357309,2,2,ParticleEmitter x1; Souls x1,1.0 x1; 0.2 x1,Grid4x4
+14451121834,2,2,ParticleEmitter x1; 3D Orb Wrapping x1,1.0 x2,Grid4x4
+14947864431,2,2,ParticleEmitter x1; Dullahan x1,1.0 x1; 0.2 x1,Grid8x8
+13393033122,2,2,ParticleEmitter x1; soemthing x1,1.0 x2,Grid2x2
+13803331652,2,2,BezierLineCenter x2; squiggl x1,0.35 x2; 0.0 x1,Grid8x8
+11862160354,2,3,parr x5; ToonLightning x1,1.0 x5; 0.8 x1,Grid4x4
+11862186106,2,2,ToonLightningContrast x1; FWOOSH4 x1,0.6 x1; 0.0 x1,Grid4x4
+11861743946,2,2,LightningOnGround x2; ToonLightningContrast x1,0.6 x1; 0.0 x1; 5.0 x1,Grid4x4
+11868400571,2,2,CircularBurst x3,1.0 x2; 0.65 x1,Grid4x4
+13782458713,2,2,Realistic x1; cracka1 x1,0.0 x1; 0.4 x1,Grid4x4
+11823051025,2,2,PixelSmoke x1; 3 x1,0.4 x2,Grid4x4
+11842007223,2,2,ToonSmoke x1; Smokes x1,0.4 x1; 0.0 x1,Grid4x4
+11841836676,2,3,Stylized Smoke 18 fading x2; ToonSmokeContrast x1,0.0 x2; 0.4 x1,Grid4x4
+13806175054,2,2,BlackInside x1; ParticleEmitter x1,0.1 x1; 0.0 x1,Grid4x4
+11858773923,2,2,PixelFire x1; F1 x1; F2 x1,0.5 x2; 0.55 x1,Grid4x4
+11854297993,2,2,ParticleEmitter x5; RealisticFire x1,0.55 x6,Grid4x4
+11844402871,2,2,Pixel Fire x1; F3 x1,0.55 x1; 0.5 x1,Grid4x4
+11843575561,2,7,ParticleEmitter x6; ToonFireContrast x1,1.0 x6; 0.3 x1,Grid4x4
+13771592635,2,4,lightning x11; ToonLightning_Contrast x1,0.3 x11; 0.5 x1,Grid4x4
+13771290435,2,2,ToonLightning x2,0.5 x2,Grid4x4
+11867375448,2,2,Smoke3 x2; AmbienceSmoke x1,0.0 x2; 0.5 x1,Grid4x4
+13726311040,2,2,2P_RSmoke3Toon x1; Flame1 x1,0.4 x1; 1.0 x1,Grid4x4
+13765167337,2,3,Flame3 x2; Fire_1_Toon x1,0.0 x2; 0.5 x1,Grid4x4
+13189668031,2,2,ParticleEmitter x2,1.0 x1; 0.0 x1,Grid4x4
+13189666095,2,2,2355 x2; ParticleEmitter x1,1.0 x3,Grid4x4
+11381560992,2,2,ParticleEmitter x1; smoke x1,1.0 x1; 0.1 x1,Grid8x8
+12800351745,2,2,ParticleEmitter x2,1.0 x1; 0.0 x1,Grid2x2
+9178507829,2,3,s x4; ParticleEmitter x1,0.0 x4; 1.0 x1,Grid4x4
+12800351571,2,2,Haze x2; ParticleEmitter x1,1.0 x3,Grid2x2
+12437246241,2,2,LinedSMoke x5; ParticleEmitter x1,0.5 x5; 1.0 x1,Grid4x4
+9181472195,2,3,Layered Slash x2; ParticleEmitter x1,0.0 x2; 1.0 x1,Grid4x4
+11163755167,2,2,Particle x1; white x1; smoke x1,0.5 x2; 0.0 x1,Grid4x4
+243728166,2,2,ParticleEmitter x1; rock x1,0.6 x1; 0.8 x1,
+2122546039,2,2,Enabled x2; ParticleEmitter x1,0.4 x1; -0.4 x1; 0.0 x1,
+3916186365,2,3,Particles x11; ParticleEmitter x1,0.0 x11; 0.6 x1,
+243728104,2,8,Effect x9; ParticleEmitter x5,0.75 x9; 1.0 x5,
+42427179,2,2,ParticleEmitter x1; snow x1,1.0 x1; 9.9 x1,
+669133414,2,2,ParticleEmitter x1; LevelParticle x1,1.0 x2,
+1454292685,2,2,ParticleEmitter x1; Flare198New x1,1.0 x2,
+243728206,2,3,ParticleEmitter x10; Magic x4,0.0 x7; 0.6 x4; 0.4 x2,
+419625073,2,2,ParticleEmitter x1; BloodParticles x1,0.2 x1; -1.0 x1,
+1946917526,2,3,ParticleEmitter x2; smoke x1,0.4 x2; 1.0 x1,
+917186750,2,2,ParticleEmitter x1; MainVFX x1,0.6 x1; 1.0 x1,
+135971617705259,2,2,Outershell2 x1; ParticleEmitter x1,1.0 x2,Grid4x4
+86293310836408,2,2,Outershell2(large) x1; ParticleEmitter x1,1.0 x2,Grid4x4
+112175595505809,2,2,Outershell2 x1; ParticleEmitter x1,1.0 x2,Grid4x4
+13712004842,2,2,Shape x1; spec x1,1.0 x2,
+86779984483816,2,2,Outershell3 x1; ParticleEmitter x1,0.0 x2,Grid4x4
+132161450209006,2,2,Inner2 x1; ParticleEmitter x1,1.0 x1; 0.0 x1,Grid4x4
+117784751087297,2,2,Inner x1; ParticleEmitter x1,1.0 x2,Grid4x4
+14271209798,2,7,shinyShard2 x4; Shard x4,0.0 x5; -3.0 x1; 0.7 x1,Grid4x4
+86612156355527,2,3,Crescent11 x1; ParticleEmitter x1; dark very x1,1.0 x2; -3.0 x1,
+18887369317,2,3,Crescent11 x2; ParticleEmitter x1; Detail_2 x1,1.0 x4,
+7216855364,2,3,ParticleEmitter4 x2; Crescent11 x1; ParticleEmitter x1,1.0 x2; 0.2 x2,
+107264993528590,2,3,Flare288New x2; ParticleEmitter x1,1.0 x3,
+13655845087,2,2,Darkening Energy Circle x1; 7 x1,0.0 x1; 1.0 x1,Grid4x4
+17006174840,2,2,cursed energy rea3534 x2,0.0 x2,Grid4x4
+111905988954117,2,2,yoy x2; sm x1,0.0 x3,
+16477162837,2,2,Circle 1 (no drag) x3; Circle 1 x3; Circle22 x1; Shockwave2 x1,0.0 x6; -0.5 x1; 1.0 x1,Grid4x4
+15652409265,2,3,StarGlow x2; ParticleEmitter x1; Star12 x1,0.5 x2; -0.3 x1; 0.0 x1,Grid4x4
+137394858697787,2,2,ParticleEmitter x5; flame/smoke x1,0.0 x5; 1.0 x1,Grid8x8
+124692159307028,2,2,shock x2; ParticleEmitter x1,0.0 x2; 1.0 x1,Grid4x4
+17077942641,2,2,ParticleEmitter x2,1.0 x1; 0.0 x1,Grid4x4
+16177798848,2,2,ParticleEmitter x3; Ground36 x1,1.0 x3; 0.4 x1,
+8187308349,2,2,ParticleEmitter x12,1.0 x12,
+97371691119032,2,2,Flare146New x1; DivergentFlare x1,1.0 x2,
+75703954756989,2,2,circle19 x2,1.0 x2,
+14197348275,2,2,Ouroboros 2 x2,1.0 x2,
+14995083532,2,2,BeamBeginning wave x60,1.0 x60,
+15502025766,2,2,ParticleEmitter x1; GlowImpact3 x1,1.0 x2,
+15501967496,2,3,smk x2; Impact128 x1,1.0 x3,
+15501784243,2,2,ParticleEmitter x1; Glare x1,1.0 x2,
+17052235477,2,5,Shockwave x4; smk3 x1,1.0 x5,
+94698008981093,2,2,galaxyinthechat x1; Spec19 x1,0.0 x2,
+8133845150,2,2,ParticleEmitter x1; 25 x1,1.0 x2,
+12222002958,2,2,ParticleEmitter x2; OffCentered Spec 76 x1,0.0 x3,
+18958922849,2,2,ParticleEmitter_14341 x6; ParticleEmitter_1434 x6; w x6; spec x1,-4.0 x6; -35.0 x6; -12.0 x6,Grid4x4
+12363778394,2,2,ray x2; Rays x2,1.0 x4,
+15423010865,2,2,Beam x3; Beam 2 x2; beam 3 x1,0.0 x5; 1.0 x1,
+14261754295,2,2,Detail_2 x1; Detail x1; Water1 x1,1.0 x2; 0.0 x1,Grid8x8
+15501811581,2,2,Debris x1; Debris_2 x1,1.0 x2,
+87420709979058,2,5,ParticleEmitter x5; black x3; purple x3,0.0 x11,Grid4x4
+15184178432,2,3,Crescents_1 x5,1.0 x5,
+83337784980211,2,2,smoke x2; ParticleEmitter x1; smokkk x1,0.0 x4,Grid4x4
+117501948203370,2,2,ParticleEmitter x1; Stuff x1,1.0 x1; 0.0 x1,Grid4x4
+13584871267,2,4,WaveReal x14,0.0 x10; -0.15 x4,
+14152783729,2,4,Stylized winds x4; smallwind x1,1.0 x5,Grid4x4
+10269759573,2,3,Burst1 x4; Shockwave1 x1,0.0 x4; 1.0 x1,
+73090298247659,2,4,Shockwave3 x10,-0.5 x10,Grid4x4
+97791845516200,2,4,Shockwave x4,0.0 x4,Grid4x4
+16745823052,2,2,Skibwind x2; 30 x1; 29 x1; 33 x1,1.0 x6,Grid4x4
+14329791140,2,2,19 x1; crescent2 x1,1.0 x2,Grid4x4
+16028030795,2,2,10 x1; BrightWind1 x1; Skibwind x1,1.0 x3,
+16879522362,2,2,4 x1; rizzimpact x1; Skibwind x1,0.0 x3,Grid4x4
+116222763351165,2,2,20 x1; shockw2 x1,1.0 x2,Grid4x4
+16211026072,2,2,21 x1; shockw3 x1,1.0 x2,
+13251527241,2,2,1 x1; ParticleEmitter x1,0.0 x2,
+16188078879,2,2,18 x1; 7 x1; 5 x1; shards8 x1,-1.0 x2; 1.0 x2,Grid4x4
+13465893393,2,2,17 x1; shards7 x1,0.0 x2,Grid4x4
+129670976806683,2,2,16 x1; shards6 x1,-1.0 x2,
+133103505670458,2,2,14 x1; shards4 x1,0.0 x2,Grid4x4
+15047406593,2,2,5 x1; fire5 x1,0.0 x2,Grid4x4
+17307797134,2,2,4 x1; STAR x1,1.0 x2,
+14528718783,2,2,11 x1; shards1 x1,-2.0 x2,Grid4x4
+14195470540,2,2,13 x1; shards3 x1,-2.0 x2,Grid4x4
+14773394473,2,2,6 x2,-1.0 x2,Grid4x4
+15733521585,2,2,3 x2,-2.0 x2,
+130609432647635,2,2,swirl1 x5; swirl5 x1; swirl77 x1; swirl1125152 x1,-1.0 x8,
+17307830069,2,2,222 x1; s x1,0.0 x2,Grid4x4
+87926172877911,2,2,swirl31251 x1; 12512512512 x1; swirl3 x1; swirl5 x1,0.5 x4,
+7258803609,2,2,swirl2 x3; swirl2353 x1; swirl15 x1; swirl2152 x1,1.0 x6,
+15207726402,2,2,swirl41251 x1; swirl4 x1,-1.0 x2,
+130201265973117,2,2,swirl5 x2; swirl3125 x1; swirl3 x1,-1.0 x4,Grid4x4
+86220343550021,2,2,swirl3 x2; swirl31251512521 x1; swirl1 x1,-1.0 x2; 0.5 x2,
+17439553820,2,2,star x3; star4 x1; star3 x1; safasfsafasfas x1,1.0 x6,Grid4x4
+111398582148332,2,2,4 x2,1.0 x2,Grid4x4
+17307755169,2,2,swirl412512 x1; swirl4 x1,-1.0 x2,
+6771131510,2,2,swirl3125 x1; swirl3 x1,-1.0 x2,
+88999567927530,2,2,dots x2,1.0 x2,Grid4x4
+14980681149,2,2,swirl4 x2,-1.0 x2,Grid4x4
+14984410521,2,2,swirl2 x2,-1.0 x2,
+16879847192,2,2,Spec43 x3,0.0 x3,
+91958284756655,2,2,ring x2; ParticleEmitter x1,1.0 x2; 0.0 x1,
+78654143172310,2,3,b x12; 216 x1,1.0 x11; 0.0 x2,
+15501797918,2,2,ParticleEmitter x1; Images/T_BrightFlareCA00 x1,1.0 x2,
+17511023878,2,2,ParticleEmitter x1; rizzimpact x1; rizzgyatwinds x1; Skibimpact x1,0.45 x3; 1.0 x1,
+2545904564,2,2,charge x1; Spec1 x1,1.0 x2,
+1084969997,2,7,Vortex x10,1.0 x10,
+12713358795,2,2,Star x5; 4 x1,1.0 x6,
+70574682513107,2,2,wind x5,0.1 x5,
+77747026597062,2,3,smoke x4; wind x2,0.0 x6,
+79034116104407,2,2,smokeBack x4,0.1 x3; 1.0 x1,Grid4x4
+116952409636124,2,2,Star x1; Blurry Star Impact x1,1.0 x1; -1.0 x1,Grid4x4
+16409068152,2,2,blue x2; star x2,1.0 x2; 0.0 x2,
+133411381307965,2,2,blue x1; expansive x1,1.0 x2,
+90622033786859,2,2,blue x1; fog x1,1.0 x2,
+15584566438,2,2,BeamHigh transparency x2,0.0 x1; 1.0 x1,
+12352572126,2,2,BeamFilled Smoke x1; AuraHaki x1,1.0 x2,
+18470709110,2,2,Beam100 x6; BeamFilled fog 2 x1,1.0 x6; 0.0 x1,
+72041794400388,2,2,Stars x2,0.0 x2,Grid4x4
+15604412661,2,2,Stars x2,0.0 x2,
+105518239092629,2,2,ParticleEmitter x1; smoke2 x1,0.35 x1; 0.0 x1,Grid4x4
+6889406585,2,2,Specs2 x2,-5.0 x1; -15.0 x1,
+73296613374574,2,3,Wind16 x3,0.5 x2; 1.0 x1,
+16879962690,2,2,Impact5 x3; Glow x1,1.0 x3; 0.55 x1,Grid4x4
+13916934000,2,2,glow x1; ParticleEmitter x1,1.0 x2,
+136372760088216,2,3,Circle2 x4; Images/72695959330064 x1,1.0 x4; -100.0 x1,Grid4x4
+112778012978199,2,4,lines x5; LightBlueSlashes x1,1.0 x6,
+14128173698,2,4,ray x5; Light Ray x1,1.0 x5; 0.0 x1,
+89558239154959,2,3,Images/8sided_Star x4; Star x1,1.0 x5,
+92467723442550,2,2,debris x2,1.0 x2,
+101843421256922,2,2,BeamCool x17; Images/IMG_1909 x1,1.0 x18,
+502107146,2,2,Light2 x1; Light x1; Sparkle x1,1.0 x3,
+7153311499,2,2,Wind x1; 3 x1,1.0 x1; 0.65 x1,
+13279976915,2,2,Smoke4 x1; realistic smoke 3 x1,0.25 x1; 0.0 x1,
+14985988624,2,2,ParticleEmitter x2,0.75 x2,
+86248454539509,2,2,ParticleEmitter x3,0.0 x2; 1.0 x1,Grid4x4
+87680836668179,2,2,Beam2 x18; 214 x1; 212 x1,1.0 x20,
+97837591502231,2,3,Raid Shadow Legends x10,0.0 x10,
+85512266285793,2,3,Raid Shadow Legends x12,-5.0 x12,
+77577414367765,2,3,Raid Shadow Legends x5,1.0 x5,
+129453672835990,2,3,Raid Shadow Legends x5,0.0 x5,
+88726663133694,2,3,Raid Shadow Legends x5,1.0 x5,
+134640545129146,2,3,Raid Shadow Legends x5,0.0 x5,
+118485478335728,2,3,Raid Shadow Legends x6,1.0 x6,
+111401110484320,2,3,Raid Shadow Legends x3,1.0 x3,
+102735329673823,2,3,Raid Shadow Legends x3,0.0 x3,
+7096972007,2,2,Raid Shadow Legends x2,0.0 x2,
+15750661609,2,2,Raid Shadow Legends x2,1.0 x2,Grid4x4
+11007791589,2,2,Raid Shadow Legends x2,1.0 x2,Grid4x4
+15719996249,2,3,Raid Shadow Legends x32; Beam x16,0.0 x24; 1.0 x24,
+15742588211,2,3,Raid Shadow Legends x4; Black Ring x2,0.0 x4; 1.0 x2,
+13003055436,2,3,Raid Shadow Legends x2; Ring Out x2,0.0 x4,
+15742268573,2,2,Raid Shadow Legends x2,0.0 x2,
+120792185687498,2,2,Raid Shadow Legends x4,1.0 x4,
+6660412891,2,3,Raid Shadow Legends x2; Beam Up x1,0.0 x3,
+15923272267,2,5,Lightning Tendrils 2 x7,0.0 x5; 0.5 x2,Grid4x4
+14364460918,2,2,BeamLong arc x2,1.0 x2,
+75353285142738,2,3,Shockwave1 x1; Shockwave2 x1; Whirl 4 x1,0.5 x1; 1.0 x1; 0.0 x1,
+15238162317,2,2,OutsideWaves x2,1.0 x2,Grid4x4
+8084911316,2,2,WindTrail6 x1; WindTrail x1; In Slashes x1,1.0 x2; -0.5 x1,
+125932074401124,2,2,Texture x2,1.0 x1; -2.0 x1,
+136381635604038,2,2,ParticleEmitter x5; Images/Untitled_Artwork  x1,1.0 x6,
+135687642050733,2,2,5902e7cd6c7ef5577394e269 x2,1.0 x2,
+97216308387813,2,2,dark3 x2,1.0 x2,
+140542847795375,2,2,dark4 x2,1.0 x2,Grid8x8
+18452666305,2,2,BeamWork063 x1; BeamWork061 x1; BeamWork059 x1; BeamWork057 x1,1.0 x33,
+13580371343,2,2,ParticleEmitter x1; midblack x1,1.0 x1; -4.0 x1,Grid2x2
+101510419050856,2,2,deb2alt x2; deb2 x1,1.0 x3,Grid8x8
+80944419641927,2,2,ParticleEmitter x2; dots1alt x1; dots1 x1,1.0 x4,
+113406219274699,2,2,To lazy to name x2; -7 x1; -6 x1,1.0 x4,
+101984603975236,2,2,-5 x1; To lazy to name x1,1.0 x2,
+82161805094025,2,2,-4 x1; To lazy to name x1,1.0 x2,
+105147115783751,2,2,-2 x1; To lazy to name x1,1.0 x2,Grid4x4
+16879526707,2,2,-1 x1; To lazy to name x1,1.0 x2,Grid8x8
+12491910703,2,2,-9 x1; To lazy to name x1,1.0 x2,
+136503879190164,2,6,136036627143435_lite_g x5; Spec 1 x1,1.0 x6,
+4099715280,2,2,Dots x1; skibblood x1,0.0 x2,
+127057910167957,2,2,ParticleEmitter x7; Lightning Spark 4x4 x2,1.0 x8; -1.0 x1,Grid4x4
+131946373681101,2,3,ParticleEmitter x9,1.0 x9,Grid4x4
+16285219607,2,2,ParticleEmitter x2,-3.0 x1; -2.0 x1,Grid4x4
+16845391847,2,2,Images/23 x2,0.0 x2,Grid4x4
+124881509003731,2,2,BlurThingImObsessed1 x1; fog x1,1.0 x2,
+1470871817,2,3,Trail x4,1.0 x4,
+12452578181,2,13,Pointy Star x30,0.0 x30,Grid4x4
+18636189591,2,13,Stylized Star x31; Star102 x11,0.0 x42,
+9841274014,2,2,Flare x1; Impact232 x1,100.0 x1; 1.0 x1,
+93158471738214,2,4,Images/12246819324 x4,-1.0 x4,Grid4x4
+116905821505101,2,4,Images/hiboom_00000 x4,-1.0 x4,Grid4x4
+16848288027,2,2,Images/41 x1; new x1,-1.0 x1; 0.45 x1,Grid4x4
+11715867299,2,4,Wind x8,1.0 x8,
+14754464270,2,3,ParticleEmitter x2; 4 x1; 1 x1,-2.0 x3; 0.0 x1,Grid4x4
+16511598488,2,2,Growing Smoke FX x19,0.0 x12; 0.5 x6; 1.0 x1,Grid8x8
+13026594575,2,2,Breaking Tower x1; ParticleEmitter x1,1.0 x1; 0.0 x1,Grid8x8
+18838828771,2,3,Texture x2; Wind Crescent 1 x2,1.0 x2; 0.11 x2,
+132592993711073,2,3,Beam Slash x5; Images/Trail2 (1) x1,0.0 x6,
+16503588946,2,2,fog x1; Fog3 x1,1.0 x2,Grid4x4
+16511998441,2,3,flare x3; ParticleEmitter x2,1.0 x5,
+13366353306,2,2,Star109 x4; ParticleEmitter x2,0.0 x4; 1.0 x2,
+91258314575153,2,2,orb x2; inside detail x1,1.0 x3,
+97817549850353,2,2,particles x4; Images/snow_debris x1,0.0 x4; -0.3 x1,Grid8x8
+84427792951578,2,2,glow x6; ParticleEmitter x4,0.7 x5; 1.0 x5,
+123675807271031,2,2,Images/34 x1; Fog1 x1,0.7 x1; 1.0 x1,Grid4x4
+112261004318883,2,2,Images/28 x1; contrast 2 x1,0.6 x1; 1.0 x1,
+11201546023,2,2,Images/25 x1; shards x1,0.6 x1; 1.0 x1,
+119780391570267,2,2,Images/22 x1; Debris 3 x1,0.6 x1; 1.0 x1,
+18870857123,2,2,Images/16 x1; dots2 x1,0.6 x1; 1.0 x1,
+18397737060,2,2,ParticleEmitter x1; Parti4322343cleEmitter x1,0.0 x1; 1.0 x1,
+18684145757,2,2,wind x3,1.0 x2; 0.0 x1,
+104922764134050,2,7,particle5 x7; ParticleEmitter4 x7,0.0 x14,Grid4x4
+92158933214414,2,7,particle4 x7,-0.5 x7,Grid4x4
+15304302923,2,7,particle3 x7,-1.0 x7,Grid4x4
+88437270828540,2,7,particle10 x7,0.0 x7,
+12386378844,2,7,6 x7,1.0 x7,
+116950511763816,2,2,Images/ripple_4096_00000 x2,1.0 x1; 0.0 x1,Grid8x8
+115286146516615,2,2,Images/18254173589 x2,1.0 x2,Grid4x4
+130819656332431,2,2,Images/14124153904_2 x1; 14124153904_2 x1,1.0 x2,
+16850891267,2,3,Images/42 x12; fire2 x1,-2.0 x12; 1.0 x1,Grid4x4
+15958823639,2,3,Recolor x2; Lightning3 x1,1.0 x3,Grid4x4
+15958832214,2,4,Lightning2 x2; Recolor x2,1.0 x4,Grid8x8
+136391706912472,2,2,Images/Energy_2 x2,0.5 x1; 0.75 x1,Grid4x4
+16358073113,2,2,Smoke x2,1.0 x2,Grid8x8
+14837899287,2,3,ShockwaveB x3; Shockwave x2,0.0 x3; 1.0 x2,
+14059561458,2,2,Sparks x2; SparksB x1,1.0 x2; 0.0 x1,
+89816655384560,2,12,Images/uhh_original_fog_ x12,-0.7 x12,Grid4x4
+8187308218,2,12,Images/Cloud x12,-0.7 x6; -0.5 x6,
+87834277333031,2,12,Images/download_29 x12,2.0 x12,
+105900768863906,2,12,Images/Cloud x12,-0.9 x12,
+130042646554310,2,3,Images/rock x4,-1.0 x2; -0.1 x1; 0.2 x1,Grid2x2
+88848729824097,2,7,small ember specs x27,0.0 x26; 1.0 x1,
+84127812322926,2,6,Grey Slash 4 x6,0.0 x6,Grid4x4
+117907214673915,2,4,Images/4 x4,1.0 x3; 0.2 x1,Grid4x4
+104185000871508,2,5,Meshed Linger x5; Detailed Cres x1,1.0 x2; 0.0 x2; -1.0 x1,
+77344368783840,2,7,f x4; Black ambient slash 2 (3 x3,0.0 x7,
+88366169080988,2,4,Bottom layer black slash x4,0.0 x4,Grid4x4
+16879585719,2,2,Spec9 x4; ParticleEmitter x1,0.0 x2; -1.0 x2; 0.45 x1,Grid4x4
+76997705216999,2,2,darkerfog x3; - x1,0.0 x3; -0.75 x1,
+117962134521217,2,2,fog x3,1.0 x3,
+70776782800571,2,2,Add_a_little_bit_of_body x16,1.0 x16,
+11828156780,2,2,Images/Spark7 x4; Spark7 x1,1.0 x5,
+80110788431307,2,3,217 x1; 9d126d06f24eb5caec5cf244 x1; Images/9d126d06f24eb5cae x1,1.0 x3,
+121243243146587,2,2,61 x2; 211 x1; 209 x1; 59 x1,1.0 x5,
+101987908821349,2,2,60 x2; 210 x1; 208 x1; 58 x1,1.0 x5,
+16867371255,2,2,Stylized Smoke45 Fading x4,1.0 x3; 0.0 x1,Grid4x4
+9146886834,2,2,Dust x3; UpDust x3; Smoke x1,0.0 x6; 1.0 x1,Grid8x8
+16070964921,2,4,Rocks2 x4; Rocks x4,0.0 x8,Grid2x2
+12118255430,2,4,6 x4,1.0 x3; 0.65 x1,
+15516392140,2,2,Wind x1; rizzwind x1,0.0 x2,
+85403020583447,2,2,Rock6 x2,0.0 x1; -1.0 x1,Grid2x2
+81110833835270,2,8,Cosmic2 x7; galaxy x1,0.0 x7; -1.0 x1,Grid4x4
+17226921546,2,8,Stylized Upwards Burst x14; 2 x1,0.0 x15,Grid4x4
+569507596,2,2,red energy 2 x1; SplashParticles x1,-1.0 x1; 0.0 x1,
+14684195806,2,2,LineFlare1 x1; MainGlare1 x1,1.0 x2,
+12403112662,2,2,WindSwirl2 x1; BG2 x1,1.0 x1; 0.0 x1,
+81762212510392,2,2,Flare1 x1; -001_43_Emitter x1,1.0 x2,
+80442375429221,2,2,Main x10,0.0 x10,Grid4x4
+78371370584447,2,2,slash x12,-1.0 x12,Grid4x4
+14339514555,2,2,BeamHigh pixels beam x2,0.0 x2,
+103412391467302,2,2,pixel heart x2,-1.0 x2,
+1403936511,2,2,SmallSquare x2,-1.0 x2,
+7709167392,2,7,ParticleEmitter x8,1.0 x6; 0.0 x2,
+12285525899,2,10,Fire2 x10,0.4 x6; 0.3 x4,Grid4x4
+16034329589,2,2,46 (4) x1; Wind x1,1.0 x1; 0.0 x1,
+17268259842,2,4,Flare234New x4,0.0 x4,
+87611664787759,2,6,shock x6,0.0 x6,Grid4x4
+122134894288654,2,5,shock x5,0.0 x5,Grid4x4
+116360203760867,2,4,shock x4,0.0 x4,Grid4x4
+9641756324,2,2,Shockwave2 x1; Circle2 x1,1.0 x2,
+16511719438,2,2,Images/Ground3 x4,0.6 x2; 0.0 x2,
+116852757864858,2,2,Images/CRACK_00000 (2) x2,0.425 x2,Grid4x4
+83086555210331,2,2,EnergyOutline[Black] x1; Fading Cursed Energy x1,0.5 x1; -1.0 x1,Grid8x8
+11808623574,2,9,Images/Smoke6 x9,1.0 x6; -1.0 x3,
+16879840263,2,7,Images/18 x7,0.0 x6; 1.0 x1,
+139071870446239,2,7,Images/Untitled318_1 x7; Images/Untitled318_ x7; Images/Untitled318_20241 x7,1.0 x21,
+15615341722,2,7,Starts x7,1.0 x7,
+80103256348315,2,2,ParticleEmitter x2,0.6 x1; 0.0 x1,Grid4x4
+70513431100180,2,2,ParticleEmitter x2,0.5 x1; 0.0 x1,Grid4x4
+17093828340,2,4,FlashBlack x5,0.1 x5,
+16892395552,2,3,Beam1 x1; Beam8 x1; Beam x1,0.0 x3,
+79485011518974,2,3,Thaw flare 2 x3,0.0 x3,Grid4x4
+123214658790614,2,2,Ground28 x2; Ground1 x1,-0.5 x2; 1.0 x1,
+13580361995,2,2,Thicker Shockwave x2,0.0 x2,
+125377110978480,2,3,atlaswhitestuff x4; newwind x1; flipbook x1,0.0 x2; 1.0 x2; 0.125 x2,Grid2x2
+103104593098163,2,3,RightSoft x2; specs x2; cornball x1; ? x1,0.1 x3; 0.0 x2; -1.0 x2,Grid4x4
+10039693328,2,3,ParticleEmitter x2; unctexture x1,0.5 x2; 0.0 x1,
+18681801468,2,5,Shards x9,0.0 x5; 1.0 x4,Grid2x2
+125454357295406,2,2,Extra x2; Smoke2 x1; quicklinger x1,0.0 x4,
+95755389807942,2,2,wow x1; Flare x1,1.0 x2,
+12386386944,2,3,10 x27; Star147 x2,0.0 x25; 1.0 x4,
+16878073342,2,2,Circle16 x2,0.0 x2,
+13600029796,2,3,ParticleEmitter x2; d x1,0.0 x2; 1.0 x1,
+13455499583,2,2,ImpactRipple x1; Impact2 x1,1.0 x2,
+15024914905,2,2,WaterRippleMain x6,1.0 x5; 0.0 x1,
+117719268353600,2,2,Images/103781527754617 x3; Images/1 x1; Images/ x1,0.0 x5,
+100003213330529,2,3,L4 x4,0.0 x4,Grid4x4
+13115734886,2,3,ParticleEmitter x3,0.25 x2; -5.0 x1,Grid4x4
+11037528577,2,6,Impact591 x6; 3 x2,1.0 x8,
+17842430380,2,3,2 x28; Shards 2x2 2 x18,1.0 x28; 0.0 x18,Grid2x2
+8292854478,2,2,Sideways Spec 44 x5; WShardsP x1,0.0 x6,
+13553050928,2,3,Very Thin Crescent x2; ParticleEmitter x1,-1.0 x2; 0.0 x1,Grid4x4
+14890446220,2,2,Directional beams x30,0.0 x30,
+12486978769,2,3,rizzdots x3; Dot3 x2; Dot1 x2,0.0 x6; -3.0 x1,Grid4x4
+16892240388,2,4,Wind1 x2; rizzshockwave x1; Shocke1 x1,0.0 x3; 1.0 x1,
+13830994797,2,2,rizzslash x2; Skibslash x1; Simple Slash x1,0.0 x3; -1.0 x1,Grid4x4
+17069520876,2,2,rizzslash x2; ParticleEmitter x2; SkibSlash x1,0.0 x5,Grid4x4
+15964048013,2,2,Air3 x1; Air2 x1; Air1 x1; Skib4 x1,1.0 x5,
+16455402168,2,2,Floor x1; 2 x1; 1 x1; Skib2 x1,1.0 x5,
+81065240898614,2,2,BeamWide curve x2; a x1; b x1; c x1,1.0 x18,
+74048537509914,2,2,Images/Untitled image -  x7,1.0 x7,Grid8x8
+129722699287220,2,2,Texture x2,-3.0 x1; -2.0 x1,Grid4x4
+18542376422,2,3,Texture x5,1.0 x4; -3.0 x1,
+139843022964858,2,3,Wavy Glowing Star Shine8 x7; yea x2,0.0 x5; -0.5 x2; -0.25 x2,Grid8x8
+130177060021326,2,2,Style Smoke 21 x2,0.0 x1; 1.0 x1,Grid4x4
+90532677171477,2,2,fine-smoke2 x6,0.0 x6,
+72058519746764,2,2,glare 2 x1; glare1 x1,1.0 x2,Grid4x4
+16718928993,2,2,Burst x1; roar x1,1.0 x1; 0.0 x1,
+242461088,2,2,CandleFire x5,1.0 x5,
+10386316474,2,2,Beam2 x2; Beam02 x1,0.85 x2; 1.0 x1,
+118758348149908,2,7,Beam Slash x18; Beam Slash 2 x1,0.0 x19,
+17013333656,2,2,crack x3,0.5 x3,
+13235750188,2,2,DustFlatOut x1; WaveUp x1,0.0 x1; 1.0 x1,
+12781774532,2,2,Beam x31,0.0 x31,
+124640421906932,2,2,Images/15441275183 x2,1.0 x1; 0.6 x1,Grid4x4
+16878076248,2,2,Images/36 x1; Circ x1,1.0 x1; 0.35 x1,Grid4x4
+8943878058,2,2,Images/tunelring x1; Circle x1,1.0 x2,
+14197142877,2,4,Images/0004 x3; lightning x1,1.0 x2; 0.53 x1; 0.0 x1,Grid8x8
+11799788138,2,4,Images/S23 x3; Realistic 3D Smoke x3,1.0 x3; 0.0 x3,Grid8x8
+17061857191,2,3,ParticleEmitter x4; Lightning42 x1,0.0 x2; 1.0 x2; -1.0 x1,Grid4x4
+14378454717,2,2,shard sockwave x1; shockwave4 x1,1.0 x2,Grid4x4
+9710377531,2,12,Lines 3 x12,1.0 x12,
+7882076699,2,12,UpdraftAura1 x24; SpreadAura x24,1.0 x48,
+16102268592,2,12,Impact x12,1.0 x12,
+14985562672,2,12,Wind5 x12,1.0 x12,
+14906420421,2,12,Wind4 x12; Wind3 x12; Wind2 x12,1.0 x36,
+14977236565,2,12,Wind1 x12,1.0 x12,
+15999721928,2,12,Pulse x12,1.0 x12,Grid8x8
+12863421381,2,12,Circle 2 x12; Circle  x11,1.0 x23,Grid4x4
+15162062291,2,12,Blur x24,0.2 x12; 0.05 x12,
+6793187349,2,12,Glow x12,1.0 x12,
+14376604973,2,12,Lines x12,0.55 x12,
+9171262291,2,12,Smoke x12,-1.0 x11; -0.5 x1,Grid8x8
+15161996973,2,12,Impact x12,1.0 x12,
+11507966694,2,2,Sub x1; wave1 x1,0.0 x1; 1.0 x1,
+11514931062,2,2,Sub x1; wave2 x1,0.0 x1; 1.0 x1,
+69542617,2,3,Beam x12; top layer x1,0.0 x12; 1.0 x1,
+17005865240,2,2,lightning1 x1; Air Flow x1,-0.5 x1; 0.0 x1,Grid4x4
+89116956652289,2,2,lightning2 x1; LightningRise x1,0.0 x2,Grid4x4
+15855917528,2,2,Stylized Smoke56 circle x5,0.0 x5,Grid4x4
+2218229809,2,5,Flame x10; ParticleEmitter x2,1.0 x8; 0.8 x3; 0.5 x1,
+9470888178,2,3,Cubes x5,0.0 x5,
+9544354287,2,2,Dust x2,0.0 x2,
+15939596990,2,2,Beam100 x6; BeamGlowing transparent x1,0.0 x6; 1.0 x1,
+17867372958,2,4,Trail x4,0.0 x2; 1.0 x2,
+126496740477130,2,4,Smoke30 x14; Fire1 x6; Smoke30(1) x3; ParticleEmitter x1,0.0 x10; 1.0 x10; 0.15 x4,Grid4x4
+122124840771903,2,5,Specs x20; Specs2 x2,1.0 x8; 0.0 x8; 0.15 x6,Grid4x4
+93899394787881,2,4,SW2 x4; ParticleEmitter x3; SW x3; C x1,0.5 x4; 0.15 x3; 0.0 x2,Grid4x4
+138604161517178,2,4,Smoke30 x14; Smoke30(1) x3,1.0 x9; 0.0 x8,Grid4x4
+88560472840059,2,3,ParticleEmitter x4,1.0 x3; 0.0 x1,Grid4x4
+80405856413833,2,3,qsw1 x3,1.0 x3,
+75084578376153,2,3,ParticleEmitter x6,1.0 x3; 0.0 x3,Grid4x4
+73012430597979,2,3,ParticleEmitter x3,-0.1 x3,
+124365956300639,2,3,ParticleEmitter x3,0.25 x3,Grid4x4
+88344990919163,2,3,ParticleEmitter x3,0.5 x3,
+132143239572850,2,3,ParticleEmitter x3,0.5 x3,
+107529502185172,2,3,ParticleEmitter x3,0.0 x3,
+100214773525152,2,3,ParticleEmitter x3,0.5 x3,
+122049262092290,2,3,C5 x3,1.0 x3,
+132008930149231,2,3,C5 x3,1.0 x3,
+99857513091617,2,3,C5 x3,1.0 x3,
+95402717482741,2,3,C2 x6; C3 x3,0.0 x6; 1.0 x3,Grid4x4
+135723087302805,2,3,C1 x6,0.0 x6,Grid4x4
+89503370769930,2,4,SW2 x4; ParticleEmitter x3; SW x3; C x1,1.0 x4; 0.5 x4; 0.15 x3,Grid4x4
+138241884998718,2,4,Smoke x4,0.0 x4,
+77210383117374,2,4,Smoke x4,0.0 x4,
+116830170504562,2,4,Smoke x4,0.0 x4,
+17388444841,2,3,Crescent28 x3,1.0 x3,
+117201508234705,2,3,ParticleEmitter x3,0.0 x2; -5.0 x1,
+16880045313,2,2,Impact10 x6,1.0 x4; 0.5 x2,Grid4x4
+131209311381618,2,2,Lightning x2,0.5 x2,Grid4x4
+83071689451725,2,2,ParticleEmitter x2,1.0 x2,Grid4x4
+82167287860983,2,2,ParticleEmitter x2,0.0 x2,Grid4x4
+16028033353,2,4,quicksw x2; ParticleEmitter x2,0.5 x2; -2.0 x2,Grid4x4
+11392234336,2,2,2 x1; ParticleEmitter x1,1.0 x2,
+82761263816477,2,3,Smoke x3,0.3 x2; 0.15 x1,Grid4x4
+87213428899516,2,3,Shards2 x2; Beam x2,1.0 x2; 0.0 x2,
+8671023711,2,2,rays x1; Rays emit x1; RaysGreen x1; RaysBlue x1,1.0 x2; 0.0 x2,
+15347950050,2,2,Upper x2,0.5 x1; 1.0 x1,Grid4x4
+13580351149,2,3,glow x3,1.0 x3,
+83309204524962,2,2,Water Overlay 2 x2,0.0 x2,Grid4x4
+81756337425917,2,2,Chromatic flare overlay x2,1.0 x2,Grid4x4
+96821054632727,2,2,Chromatic Ground Glare x2,1.0 x2,
+106837501680968,2,2,chromatic dots x2,0.0 x2,
+132647721901466,2,2,Unique Fog Effect 4x4 x4,0.0 x4,Grid4x4
+132981532016497,2,3,Paint Splash6 x5,0.6 x2; 0.0 x2; 0.75 x1,
+93138557189628,2,3,Paint Splash1 x5,0.0 x3; 0.75 x2,
+85224036722577,2,2,Texture x6,0.0 x4; 1.0 x1; -0.5 x1,
+15634469903,2,2,Smoke Swirl 2 x3,-0.5 x2; 0.0 x1,
+13405807158,2,2,Images/texture (1) (1) x3,-0.5 x3,Grid4x4
+73769444771678,2,2,Images/Quad_crescent_v2 x3,-0.5 x3,
+15683693744,2,2,Images/Image x3,-0.5 x3,
+86692403316625,2,2,Images/69_Sem_Titulo_202 x3,-0.5 x2; 0.0 x1,
+7216852545,2,2,slash2 x1; Beam x1,1.0 x1; 0.0 x1,
+17006190392,2,2,Lightning x3; Disc x2; Thun x1; Big x1,1.0 x6; 0.0 x1,Grid4x4
+128124707976588,2,2,fine-smoke1 x7,0.0 x7,
+18118931443,2,2,Smoke x2; Smoke3 x1; Smoke1 x1,0.0 x4,
+133619974,2,2,ParticleEmitter x4; ow x2; Smoke x1,1.0 x6; 0.3 x1,
+332655294,2,5,ParticleEmitter x29; TerrainSmoke x1,0.5 x26; 0.54 x2; 0.3 x1,
+6154696618,2,2,Shine x2,1.0 x2,
+13890082,2,2,Healed x2,1.0 x2,
+2286297003,2,6,Embers x30; Particles x4,1.0 x34,
+1084952073,2,8,Wave x16,1.0 x13; 0.0 x3,
+476778304,2,5,ParticleEmitter x5,1.0 x5,
+1882230139,2,5,Aura1 x5,0.0 x5,
+6428867170,2,2,Beam x2,1.0 x2,
+6428800497,2,2,Beam x2,1.0 x2,
+6428770095,2,2,Beam x4,1.0 x4,
+2450392732,2,2,pul x2,1.0 x2,
+5812378274,2,3,ParticleEmitter x3,1.0 x3,
+4585154705,2,3,ParticleEmitter x3; sparks x3,1.0 x6,
+886346568,2,2,ParticleEmitter x2,1.0 x2,
+257173628,2,2,ParticleEmitter x2,1.0 x2,
+1021559161,2,2,2 x2; pul x1,1.0 x3,
+2443461141,2,2,Trail x2; Trail2 x1,1.0 x2; 0.0 x1,
+3071903961,2,2,Hit2 x2,1.0 x2,
+3071902048,2,2,Hit2 x2,1.0 x2,
+6150099806,2,6,Circle x6,1.0 x6,
+1084955488,2,3,Bubble x6,1.0 x6,
+3499610614,2,2,Hit2 x2,1.0 x2,
+301851161,2,2,Hit2 x2,1.0 x2,
+4998927913,2,3,ParticleEmitter x3,1.0 x3,
+6486908530,2,3,ParticleEmitter3 x5,1.0 x5,
+6489454124,2,3,ParticleEmitter4 x5,1.0 x5,
+6487659613,2,3,ParticleEmitter2 x3,1.0 x3,
+12214528604,2,2,Smoke x1; Fire x1,1.0 x2,Grid4x4
+13893050854,2,2,ParticleEmitter x2; Smoke x1; Fire x1,1.0 x2; 0.0 x2,Grid4x4
+13874342455,2,2,ParticleEmitter x3,1.0 x2; 0.0 x1,Grid8x8
+13914837887,2,3,Blue x2; TransformCenter x1,1.0 x2; 0.0 x1,Grid4x4
+281633012,2,2,Shards x2; Glass x1,0.0 x2; 1.0 x1,
+6732711844,2,3,ParticleEmitter x4; outer slash2 x1,0.0 x4; 1.0 x1,
+12505672712,2,3,constellations3emit x1; constellations3 x1; Symbols x1,1.0 x3,Grid4x4
+12505153931,2,2,yelloworangetrail x2,1.0 x1; 0.0 x1,
+5171039460,2,2,ParticleEmitter x1; Kamui world x1,0.0 x2,
+1266209505,2,2,Shockwave x2,1.0 x2,
+243664729,2,2,ParticleEmitter x1; Debris 1 x1,0.0 x1; 1.0 x1,
+242911609,2,12,Icon x30; Effect x12; ParticleEmitter x11; 1 x1,0.0 x23; 0.5 x18; 1.0 x11,
+12414458390,2,2,Beam1 x2,1.0 x2,
+13512725718,2,4,Astral smoke 1 x2; Smoke x1; lowersmoke x1,1.0 x3; 0.0 x1,Grid4x4
+243043229,2,4,ParticleEmitter x15; Particles x2,1.0 x17,
+7150933366,2,3,RedBall x1; 1 x1; Ground fog 7 x1,0.0 x2; 1.0 x1,
+3386621521,2,2,Center x1; sphere2 x1,0.8 x1; 1.0 x1,
+1135136643,2,2,Beam x3,0.0 x2; 0.4 x1,
+258126401,2,4,Bottom x4; ParticleEmitter x2; Ground fog 4 x1,0.9 x4; 1.0 x2; 0.85 x1,
+6682535486,2,3,Lines x9,1.0 x9,
+11876903526,2,3,UI3Dots x8,1.0 x8,
+14508109029,2,8,ParticleEmitter x16,-2.0 x12; 1.0 x4,Grid4x4
+9541055154,2,2,smokeTrail x2; f122 x1; f12 x1,1.0 x4,
+14652840596,2,2,Beam x8; BeamThirdbase x1,0.0 x7; 0.55 x2,
+14629280210,2,2,Beam x2; Beambase x1,1.0 x3,
+12781806168,2,5,Beam x16,1.0 x12; 0.0 x4,
+7216848219,2,3,aura x5; lines flying up 1.5 x3; lines flying up 1 x3,1.0 x6; -2.0 x4; -5.0 x1,
+14511821646,2,2,circle x2,1.0 x2,
+14647758900,2,2,mainbase2 x2; spotty x2,0.0 x2; -2.0 x2,
+14647517405,2,2,ParticleEmitter x2,1.0 x2,
+14647465220,2,2,inwardsSparks x2,1.0 x2,
+8358978083,2,2,DiamondSparksSlash x2; DiamondSpark x1,-6.0 x1; 1.0 x1; -10.0 x1,
+9973334259,2,4,Hit2 x3; Impact3 x2; beggining1 x1; Impact1 x1,1.0 x7,
+13279119039,2,3,GlowBeam x8; ParticleEmitter x8; DarkBeam x4,2.0 x8; 1.0 x8; 0.0 x4,
+12682033594,2,3,LightBeam3 x8; DarkBeam3 x4; lightlinefade x1,2.0 x9; 0.0 x4,
+12681222861,2,3,LightBeam1 x8; DarkBeam1 x4; lightline x1,2.0 x9; 0.0 x4,
+1084959112,2,3,Bolts x22,1.0 x22,
+1084959583,2,3,Bolts x22,1.0 x22,
+1084961641,2,9,Rays_Thin x13; Particle x1; Rays_Thick x1; Rays x1,1.0 x16,
+12412552354,2,2,Smoke1 x1; r x1; e x1,1.0 x3,Grid2x2
+10151994092,2,2,ParticleEmitter x2,1.0 x2,
+11466396770,2,3,Debree1 x2; Debree2 x2,0.0 x4,Grid2x2
+4231233461,2,2,f x1; Particles x1,1.0 x1; 0.2 x1,
+12357151520,2,2,Ring1 x3; Wind3 x1,0.0 x4,
+12844861921,2,2,firehit1 x1; Lines1 x1,1.0 x2,
+17762024346,2,2,S3 x1; Specs 2 x1,0.0 x1; 0.5 x1,Grid4x4
+135790432285434,2,3,blue x6,1.0 x6,
+15667561065,2,2,ParticleEmitter x3,-3.0 x2; -4.0 x1,Grid4x4
+15315925771,2,3,Shockwave2 x4,0.0 x2; -0.5 x2,
+18919350112,2,3,4 x6; ParticleEmitterw x2,0.0 x4; -5.0 x2; 1.0 x2,Grid4x4
+125890866475618,2,2,InnerDetail x1; Particles x1,1.0 x1; 0.0 x1,
+15107926359,2,2,Shad3 x2,0.0 x2,Grid4x4
+13909361910,2,2,Flare x2,1.0 x2,
+15887200134,2,2,Spec3 x1; Spec2 x1; Spec1 x1; Spark1 x1,0.0 x3; -10.0 x1,Grid2x2
+17317111249,2,2,spikes 1 x4; spikes 2 x2; spikes 3 x2; spikes 4 x2,-1.0 x8; -0.5 x3; 0.0 x2,Grid4x4
+13622515841,2,2,Beam x3,1.0 x3,
+13622546112,2,2,Beam x9,1.0 x9,
+17005881987,2,2,Li x3; Lightning3 x1,0.0 x3; 0.55 x1,Grid4x4
+15132691346,2,2,Swirl 2 x3,0.0 x3,Grid4x4
+12957647371,2,2,Beam6 x1; Beam 3 x1; Beam x1; Beam 4 x1,0.0 x4,
+18227621394,2,3,MAINSLASHHH x3,1.0 x3,
+120452258684031,2,2,smoke3 x2; s x1,0.0 x2; 0.3 x1,Grid4x4
+13410359900,2,2,Smoke1 x2; smuke x1,0.1 x2; 0.0 x1,Grid8x8
+12209629043,2,2,Circle1 x1; Dash1 x1,1.0 x2,Grid4x4
+14565296397,2,2,shineshine4 x8,0.0 x6; -2.0 x2,Grid8x8
+15753396972,2,2,slicers x4,0.0 x4,
+71104856688611,2,2,Windpara x2; Windparawindow x1,1.0 x3,Grid4x4
+133776739912245,2,2,Windpara x2; Windparawindow x1,1.0 x3,Grid4x4
+124524993547748,2,2,Wind x1; Windsfr x1,0.2 x1; 1.0 x1,Grid4x4
+139882555533361,2,2,Windsfr x2; Wind x1,1.0 x3,
+108126894652583,2,2,Wind x1; Windsfr x1,1.0 x2,
+138319609723740,2,2,Beam5 x16; R x9; L x9; 1 x4,1.0 x22; 0.0 x16,
+92862385030924,2,2,Beam3 x16; R x10; L x10,1.0 x20; 0.0 x16,
+5688488020,2,3,ParticleEmitter x2; Debris 2 x1,0.0 x2; 1.0 x1,
+94285822704200,2,2,main x2,0.0 x2,
+14438356564,2,2,mainoverlay3 x2,0.0 x2,
+85751403145423,2,2,mainoverlay3 x2,0.2 x2,
+94502212409804,2,2,stars x2,-0.5 x2,
+11183649951,2,2,ParticleEmitter x2,-1.0 x2,
+137467767091450,2,2,Twirl x9; Beam x1,0.02 x9; 0.0 x1,
+134910403522457,2,2,Twirl x8; Beam x1,0.02 x8; 0.0 x1,
+93245648535243,2,2,smoke3 x4,1.0 x4,
+13401485455,2,2,smoke2 x4,1.0 x4,
+8746501634,2,7,Main swirl effect x14,1.0 x8; 0.0 x6,
+14933985610,2,2,FlameFX x2,0.2 x2,Grid4x4
+17732225977,2,2,ParticleEmitter x7,0.0 x7,Grid4x4
+11974778836,2,2,Smoke2 x1; FrostVictim x1; FrostArm x1,0.0 x2; 0.5 x1,Grid4x4
+11245861328,2,2,Star x2,-4.0 x2,
+17569189242,2,2,stars x6,-1.0 x6,Grid8x8
+12993580758,2,2,Flash2 x3,1.0 x3,
+15292526242,2,2,Flash x3,0.5 x3,
+14914635500,2,2,orb manga x4,0.55 x2; -6.0 x2,Grid4x4
+14928605172,2,2,cover-ring x2,0.8 x2,Grid4x4
+115893075150205,2,2,a x3,-1.0 x3,Grid4x4
+15017717512,2,2,ParticleEmitter x1; extra x1,0.75 x1; 0.0 x1,
+14277915348,2,2,ParticleEmitter x2; extra x1,0.75 x2; 0.0 x1,
+15017690999,2,2,ParticleEmitter x1; extra x1,0.75 x1; 0.0 x1,
+14229268831,2,2,ParticleEmitter x1; extra x1,0.75 x1; 0.0 x1,
+17155981368,2,5,Shockwave x5,0.0 x5,Grid4x4
+15008391648,2,3,Shard x6; ParticleEmitter x3,0.0 x4; -5.0 x2; 0.45 x1,
+14618924609,2,2,ParticleEmitter x1; Shard x1,-10.0 x2,
+2038571567,2,2,Star x2; Star1 x2,1.0 x4,
+13105633098,2,2,Test x5,1.0 x4; 0.0 x1,
+1530507204,2,4,ParticleEmitter x3; Flare x1,1.0 x3; 0.0 x1,
+6578829503,2,3,Outer x2; Beam06 x1,0.0 x2; 1.0 x1,
+7483357409,2,4,Sparks3 x3; SparkDebris1 x2,0.25 x3; 0.0 x2,
+6709561759,2,3,Ring x4,0.0 x3; 0.9 x1,
+6764615288,2,4,OnFireSparks x3; Lens x1,0.8 x2; 0.85 x1; 1.0 x1,
+8529175248,2,2,Smoke x2; ParticleEmitter x2,0.0 x2; 1.0 x2,
+8466767701,2,2,Crescents x2; CrescentsThin x1,0.0 x2; 1.0 x1,
+6764612182,2,3,OnFireWisps x3,0.9 x2; 1.0 x1,
+6677363346,2,3,OnFire x3; back2 x1; BurningPart x1,1.0 x4; 0.85 x1,
+8693786705,2,2,Specs x2,0.0 x2,
+2994705879,2,4,Steam x3; UhWIND x2,0.95 x3; 1.0 x2,
+8681315537,2,2,Crescents x2,0.0 x1; 1.0 x1,
+8030839542,2,2,Flames x2,0.0 x2,

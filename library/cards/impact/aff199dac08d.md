@@ -1,0 +1,24 @@
+# aff199dac08d: Vergil.rbxm :: Practice/Vergil/Vergil/Ground2
+
+- Category: **impact**; tags: floor, ice, smoke, star
+- Layers: 13 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 0.8 s
+- Fired by: EmitCount attributes
+- Pack file: `190 OS (Oct 2024-Mar 2026)/Vergil.rbxm` (instance referent 3445): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/190 OS (Oct 2024-Mar 2026)/Vergil.rbxm" --ref 3445 --out <studio content>/vfxlib/fx_aff199dac08d.rbxmx`
+- Frames: `gallery/effects/impact/aff199dac08d.jpg`
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E 68             | tex 12402897209 (M  Impact327) | col #505CFF->#4668FF | LE1 LI0 Br1 | life 0.1 | size grow 0->11 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 0.001 | VelocityPerpendicular | EMIT 3 @0 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Images/27      | tex 16867397491 (M Grid4x4 smoksmok) | col #665B3C | LE1 LI0 Br5 | life 0.35-0.8 | size grow 0->2.4 | tr 1.00..0.86 vis 0.20-0.20 ->1.00 | spd 25-65 drag 11 spread 7-180 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 55 @0 | z -1 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E smokeSpecs1    | tex 7231210720 (M  smokeSpecs1) | col #BD9F63 | LE0 LI0 Br5 | life 0.3-0.7 | size grow 0->3 | tr 1.00..0.44 vis 0.18-0.18 ->1.00 | spd 5-25 drag 4 spread 21-180 acc 0--8-0 | FacingCamera | EMIT 15 @0 | z -1.05 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E smokeSpecs     | tex 5368629557 (A  smokeSpecs) | col #BD9F63 | LE1 LI0 Br5 | life 0.3-0.7 | size grow 0->3 | tr 1.00..0.74 vis 0.20-0.20 ->1.00 | spd 15-50 drag 4 spread 21-180 acc 0--8-0 | FacingCamera | EMIT 15 @0 | z -1.05 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E smokeSpecs     | tex 5368629557 (A  smokeSpecs) | col #BD9F63 | LE1 LI0 Br5 | life 0.3-0.7 | size grow 0->3 | tr 1.00..0.74 vis 0.20-0.20 ->1.00 | spd 15-50 drag 4 spread 21-180 acc 0--8-0 | FacingCamera | EMIT 15 @0 | z -1.05 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Stylized Smoke | tex 95791849628501 (A Grid4x4 Stylized Smo) | col #665B3C | LE1 LI0 Br1 | life 0.35-0.8 | size grow 0->2.4 | tr 1.00..0.86 vis 0.20-0.20 ->1.00 | spd 25-65 drag 11 spread 7-180 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 55 @0 | z -1 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Images/25 (1)  | tex 16867507329 | col #B3B3B3 | LE1 LI0 Br1 | life 0.1-0.8 | size grow 0->6 | tr 0.94..0.94 vis 0.00-0.00 ->1.00 | spd 6.14-61.4 drag 11 spread 0-180 acc 0--6.14-0 rotSpd -15-15 | FacingCamera | squash shrink 0.338->0 | flip Grid4x4 OneShot 1 | EMIT 15 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Images/24      | tex 16867389591 (M Grid4x4 Images/24) | col #B3B3B3 | LE1 LI0 Br5 | life 0.1-0.8 | size grow 0->5 | tr 0.94..0.94 vis 0.00-0.00 ->1.00 | spd 6.14-61.4 drag 11 spread 0-180 acc 0--6.14-0 rotSpd -15-15 | FacingCamera | squash shrink 0.338->0 | flip Grid4x4 OneShot 1 | EMIT 15 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E OffCentered Sp | tex 15658580283 (M  OffCentered ) | col #505CFF->#4668FF | LE-3 LI0 Br25 | life 0.2-0.5 | size swell 0->1.19@0.10->0 | tr flat 0.00 | spd 35-75 drag 6 spread 360--360 | FacingCamera | locked | EMIT 3 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Star116        | tex 8037777212 (A  ParticleEmit) | col #505CFF->#4668FF | LE1 LI0 Br25 | life 0.2-0.5 | size swell 0->0.688@0.10->0 | tr flat 0.00 | spd 35-75 drag 6 spread 360--360 | FacingCamera | locked | EMIT 3 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Star108        | tex 116403060004639 | col #505CFF->#4668FF | LE0 LI0 Br25 | life 0.2-0.5 | size swell 0->1.19@0.10->0 | tr flat 0.00 | spd 35-75 drag 6 spread 360--360 | FacingCamera | locked | EMIT 3 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E OffCentered Sp | tex 15658580283 (M  OffCentered ) | col #505CFF->#4668FF | LE-3 LI0 Br25 | life 0.2-0.5 | size swell 0->1.19@0.10->0 | tr flat 0.00 | spd 35-75 drag 6 spread 360--360 | FacingCamera | locked | EMIT 3 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Star97         | tex 89480767232810 (D  Star97) | col #505CFF->#4668FF | LE0 LI0 Br25 | life 0.2-0.5 | size swell 0->1.19@0.10->0 | tr flat 0.00 | spd 35-75 drag 6 spread 360--360 | FacingCamera | locked | EMIT 3 @0 | z 2 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+```

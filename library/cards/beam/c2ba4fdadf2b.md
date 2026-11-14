@@ -1,0 +1,40 @@
+# c2ba4fdadf2b: amine vfx 2.rbxl :: Workspace/Model
+
+- Category: **beam**; tags: beam, fire, star
+- Layers: 4 emitters, 5 beams, 0 trails, 38 mesh parts, 2 lights; estimated length 1.2 s
+- Fired by: saved running (Enabled + Rate)
+- Pack file: `Older OS (2025 and older)/November 2023/amine vfx 2.rbxl` (instance referent 4165): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/Older OS (2025 and older)/November 2023/amine vfx 2.rbxl" --ref 4165 --out <studio content>/vfxlib/fx_c2ba4fdadf2b.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E ParticleEmitte | tex 867619398 (M  Glow) | col #FC5208->#FC310C | LE1 LI0 Br1 | life 0.9-1.2 | size shrink 0.3->0.2 | tr 1.00..0.00 vis 0.37-0.59 ->1.00 | spd 70 | FacingCamera | RATE 80 (continuous) | z -1
+E ParticleEmitte | tex 1315202524 (M  Stripes) | col #FC5208->#FC310C | LE1 LI0 Br1 | life 0.7 | size shrink 3.35->2.05 | tr 1.00..0.00 vis 0.37-0.59 ->1.00 | spd 70 | FacingCamera | RATE 40 (continuous) | z -1
+E ParticleEmitte | tex 296874871 (A  1) | col #FC5208->#FC310C | LE1 LI0 Br1 | life 0.3-0.5 | size shrink 5->2.85 | tr 1.00..0.85 vis 0.37-0.60 ->1.00 | spd 75-80 | FacingCamera | RATE 8e+03 (continuous) | z -1
+E ParticleEmitte | tex 296874871 (A  1) | col #021AFF->#FC4B09->#FC310C | LE1 LI0 Br1 | life 0.3-0.5 | size shrink 2.4->0.95 | tr 1.00..0.00 vis 0.36-0.60 ->1.00 | spd 5-10 acc 0-0-80 | FacingCamera | RATE 300 (continuous) | z -1
+B Beam           | tex 250186345 (A  aura 2) | col #FC580B->#FDB20E | LE1 LI0 Br1 | w 30-30 curve 0-0 seg 100 | tr 1.00..0.00 vis 0.31-0.70 ->1.00 | tex Stretch 0.2 spd 0.3 | z -1
+B Beam           | tex 6428867170 | col #FDA94B->#FEC383 | LE1 LI0 Br1 | w 30-30 curve 0-0 seg 100 | tr 1.00..0.00 vis 0.31-0.70 ->1.00 | tex Stretch 0.5 spd 2 | z -1
+B Beam           | tex 6428800497 | col #FDA94B->#FEC383 | LE1 LI0 Br1 | w 30-30 curve 0-0 seg 100 | tr 1.00..0.00 vis 0.31-0.70 ->1.00 | tex Stretch 0.2 spd 1 | z -1
+B Beam           | tex 6428770095 | col #FEC383 | LE1 LI0 Br1 | w 30-30 curve 0-0 seg 10 | tr 1.00..0.00 vis 0.31-0.70 ->1.00 | tex Stretch 0.1 spd 1 | z -1
+B Beam           | tex 6428770095 | col #FEC383 | LE1 LI0 Br1 | w 30-30 curve 0-0 seg 10 | tr 1.00..0.00 vis 0.31-0.70 ->1.00 | tex Stretch 0.2 spd 1 | z -1
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.9063, 2.95567, 2.71295], "mat": "Slate", "transp": 0.0, "mesh": 6428830903}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.73839, 2.46254, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.98801, 2.46254, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.66074, 2.57472, 2.66074], "mat": "Slate", "transp": 0.0, "mesh": 6428838945}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.10988, 2.73386, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.66074, 2.57472, 2.66074], "mat": "Slate", "transp": 0.0, "mesh": 6428838945}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.98801, 2.46254, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.73839, 2.46254, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.9063, 2.95567, 2.71295], "mat": "Slate", "transp": 0.0, "mesh": 6428830903}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.10988, 2.73386, 2.79016], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.50413, 2.54667, 2.33754], "mat": "Slate", "transp": 0.0, "mesh": 6428830903}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.22107, 2.12177, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.57453, 2.12177, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.67953, 2.35555, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.29255, 2.21843, 2.29255], "mat": "Slate", "transp": 0.0, "mesh": 6428838945}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.57453, 2.12177, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.22107, 2.12177, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.50413, 2.54667, 2.33754], "mat": "Slate", "transp": 0.0, "mesh": 6428830903}
+P {"k": "MeshPart", "name": "MeshPart", "size": [2.67953, 2.35555, 2.40406], "mat": "Slate", "transp": 0.0, "mesh": 6428829616}
+P {"k": "MeshPart", "name": "MeshPart", "size": [3.27687, 3.33254, 3.05887], "mat": "Slate", "transp": 0.0, "mesh": 6428830903}
+```

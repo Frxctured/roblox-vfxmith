@@ -1,0 +1,27 @@
+# 92be287baefc: jane juliet lets larp.rbxm :: Jane/BeamCollection
+
+- Category: **beam**; tags: beam
+- Layers: 0 emitters, 16 beams, 0 trails, 0 mesh parts, 0 lights; estimated length None s
+- Fired by: its own scripts (not included in the card)
+- Pack file: `2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm` (instance referent 1239): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Jan-April (part 2)/jane juliet lets larp.rbxm" --ref 1239 --out <studio content>/vfxlib/fx_92be287baefc.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+B a              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B b              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B c              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B d              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B e              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B f              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B g              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B h              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B i              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B j              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B k              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B l              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B m              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B n              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B o              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-12.7 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+B p              | tex 81065240898614 | col #FFFFFF | LE1 LI0 Br1 | w 0-27.9 curve 12.7--10.1 seg 255 face | tr 1.00..0.89 vis 0.31-0.31 ->1.00 | tex Stretch 1.38 spd -1 | attrs {"CurveSize0_End": 12.67506, "CurveSize0_Start": 12.67506, "CurveSize1_End": -10.14005, "CurveSize1_Start": -10.14005, "
+```

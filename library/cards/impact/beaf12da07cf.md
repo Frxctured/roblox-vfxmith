@@ -1,0 +1,23 @@
+# beaf12da07cf: WukongSpinRushVFXos.rbxl :: Workspace/GroundSparks
+
+- Category: **impact**; tags: dash, fire, flash, floor, lightning, portal, star
+- Layers: 12 emitters, 0 beams, 0 trails, 0 mesh parts, 0 lights; estimated length 2.33 s
+- Fired by: EmitCount attributes
+- Pack file: `2026 OS Mar-April/WukongSpinRushVFXos.rbxl` (instance referent 24985): cut it into Studio with `kit/scripts/rbxcut.py "<pack>/2026 OS Mar-April/WukongSpinRushVFXos.rbxl" --ref 24985 --out <studio content>/vfxlib/fx_beaf12da07cf.rbxmx`
+- Frames: none captured yet (play it with kit/studio/VFXLibPlayer.luau)
+
+## Layers (one line each, in firing order; E emitter, B beam, T trail, P part, S script)
+```
+E Sideways Spec  | tex 15268228591 (D  Sideways Spe) | col #FF7535 | LE0 LI0 Br10 | life 0.25-0.613 | size swell 0->1.16@0.13->0 | tr flat 0.00 | spd 37.1-124 drag 12 spread 30 acc 0--37.1-0 | VelocityParallel | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Soft Fireflies | tex 88405378022930 (M Grid4x4 Soft Firefli) | col #FF7535 | LE1 LI0 Br10 | life 0.402 | size grow 0->2.7 | tr 1.00..0.00 vis 0.29-0.29 ->1.00 | spd 1.24-74.2 drag 10 spread 40 acc 0--24.7-0 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Spec4          | tex 16878191468 (M Grid4x4 Spec4) | col #FF7535 | LE1 LI0 Br10 | life 0.25-0.613 | size swell 0->1.16@0.13->0 | tr flat 0.00 | spd 37.1-124 drag 12 spread 40 acc 0--49.5-0 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Stylized Energ | tex 14004145197 (M Grid4x4 Stylized Ene) | col #FF7535 | LE1 LI0 Br2.03 | life 0.25-0.613 | size swell 0->1.16@0.13->0 | tr flat 0.00 | spd 1.24-74.2 drag 12 spread -360-360 acc 0--12.4-0 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E glow           | tex 13580351149 (D  glow) | col #FF7535 | LE1 LI0 Br1 | life 0.932 | size const 8.66 | tr 1.00..0.61 vis 0.17-0.17 ->1.00 | spd 0.0124 | FacingCamera | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E specs          | tex 16879804431 (D  Spec25) | col #FF7535 | LE1 LI0 Br7.03 | life 0.3-0.5 | size swell 0->1.47@0.43->0 | tr flat 0.00 | spd 37.1-148 drag 17.3 spread 40 acc 0--31-0 rotSpd -500-500 | FacingCamera | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Plume5         | tex 8527116276 (D  Plume5) | col #616161 | LE0 LI0.75 Br15 | life 0.4-0.7 | size grow 0->12.2 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 acc 0--24.7-0 | FacingCameraWorldUp | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Billowing      | tex 15415212938 (D Grid4x4 Billowing) | col #FFFFFF | LE0 LI0 Br0.4 | life 0.4-0.7 | size grow 0->7.74 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 acc 0--24.7-0 | FacingCameraWorldUp | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 0.85, "TimeScale_Start": 0.85}
+E Billowing      | tex 15415212938 (D Grid4x4 Billowing) | col #FFFFFF | LE0 LI0 Br0.4 | life 0.4-0.7 | size grow 0->7.74 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 acc 0--24.7-0 | FacingCameraWorldUp | squash grow 0->1.79 | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 0.85, "TimeScale_Start": 0.85}
+E Plume5         | tex 8527116276 (D  Plume5) | col #616161 | LE0 LI0.75 Br15 | life 0.4-0.7 | size grow 0->12.2 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 acc 0--24.7-0 | FacingCameraWorldUp | squash grow 0->1.79 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Plume5         | tex 8527116276 (D  Plume5) | col #616161 | LE0 LI0.75 Br15 | life 0.4-0.7 | size grow 0->12.2 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 acc 0--8-0 | FacingCamera | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 1.0, "TimeScale_Start": 1.0}
+E Billowing      | tex 15415212938 (D Grid4x4 Billowing) | col #FFFFFF | LE0 LI0 Br0.4 | life 0.4-0.7 | size grow 0->7.74 | tr 0.00..0.00 vis 0.00-0.00 ->1.00 | spd 24.7-124 drag 7 spread 20 | FacingCamera | flip Grid4x4 OneShot 1 | EMIT 1 @0 for 1.4 | attrs {"TimeScale_Duration": 0.1, "TimeScale_End": 0.85, "TimeScale_Start": 0.85}
+```

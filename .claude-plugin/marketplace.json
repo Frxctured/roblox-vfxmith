@@ -1,0 +1,12 @@
+{
+  "name": "roblox-vfx",
+  "owner": { "name": "Frxctured" },
+  "metadata": { "description": "Roblox VFX library, knowledge and build loop for Claude Code." },
+  "plugins": [
+    {
+      "name": "roblox-vfx",
+      "source": "./",
+      "description": "Make Roblox VFX from a description or a video, using a library of real open-source effects."
+    }
+  ]
+}
