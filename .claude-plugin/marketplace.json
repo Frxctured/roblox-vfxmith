@@ -1,7 +1,11 @@
 {
-  "name": "vfxmith",
-  "owner": { "name": "Frxctured" },
-  "metadata": { "description": "Roblox VFX library, knowledge and build loop for Claude Code." },
+  "name": "vfxmith-beta",
+  "owner": {
+    "name": "Frxctured"
+  },
+  "metadata": {
+    "description": "BETA channel of vfxmith (Roblox VFX library, knowledge and build loop for Claude Code). Stable: add Frxctured/roblox-vfxmith without #beta."
+  },
   "plugins": [
     {
       "name": "vfxmith",

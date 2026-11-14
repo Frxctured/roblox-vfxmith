@@ -1,5 +1,8 @@
 # vfxmith: make Roblox VFX like experienced artists do
 
+> **Beta channel: 0.1.6-beta2.** Cheaper runs, still being tested. What changed, how to install it and how to go
+> back to stable: [BETA.md](BETA.md).
+
 A Claude Code plugin (or a plain folder for any AI agent) that lets you say **"make a cool light beam with an
 explosion"** and get an effect built the way experienced Roblox VFX artists build them. It knows how, because it
 catalogued ~1,900 real open-source effects, read ~1,200 of them layer by layer (every value) and played 75 frame
