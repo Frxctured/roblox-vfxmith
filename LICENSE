@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---------------------------------------------------------------------------------
-Scope: this licence covers the work made for this project: the roblox-vfx plugin
+Scope: this licence covers the work made for this project: the vfxmith plugin
 (skills, agents, commands, kit/, knowledge/, library/ cards, the VoidRend example), the catalogue files and this repository's documentation.
 It does NOT cover the open-source pack (the separate release download), the effects
 shown in gallery/, or the Roblox asset ids those effects reference: those belong to

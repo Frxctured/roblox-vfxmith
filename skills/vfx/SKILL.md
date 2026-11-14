@@ -19,11 +19,11 @@ anything (it may contain spaces: quote it).
 ## Route
 | The user wants | Use |
 |---|---|
-| a new effect from a description ("a cool light beam with an explosion") | `roblox-vfx:vfx-find` for references, then `roblox-vfx:vfx-make` |
-| an effect that looks like a video they show | `roblox-vfx:vfx-make` (starts with the video breakdown) |
-| examples / "how do pros make X" | `roblox-vfx:vfx-find` (or grep `knowledge/` and `library/cards/` for a quick answer) |
-| a review or "make this better" | `roblox-vfx:vfx-review`, then fixes with `vfx-make` |
-| to learn from or clean a downloaded VFX pack | `roblox-vfx:vfx-study-pack` |
+| a new effect from a description ("a cool light beam with an explosion") | `vfxmith:vfx-find` for references, then `vfxmith:vfx-make` |
+| an effect that looks like a video they show | `vfxmith:vfx-make` (starts with the video breakdown) |
+| examples / "how do pros make X" | `vfxmith:vfx-find` (or grep `knowledge/` and `library/cards/` for a quick answer) |
+| a review or "make this better" | `vfxmith:vfx-review`, then fixes with `vfx-make` |
+| to learn from or clean a downloaded VFX pack | `vfxmith:vfx-study-pack` |
 
 If the skills are not loaded (plain folder use), open `skills/<name>/SKILL.md` and follow it as instructions.
 

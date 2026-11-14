@@ -1,4 +1,4 @@
--- Dev-only player for OPEN-SOURCE effects cut out with kit/scripts/rbxcut.py (skill roblox-vfx-pipeline), so they can be
+-- Dev-only player for OPEN-SOURCE effects cut out with kit/scripts/rbxcut.py (skill vfxmith), so they can be
 -- watched and captured in Studio EDIT mode without running any of their scripts. Lives next to VFXCapture in
 -- ServerStorage.VFXDev. Files are read from Studio's local content folder (rbxasset://vfxlib/<name>.rbxmx): no upload.
 --

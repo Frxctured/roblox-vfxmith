@@ -1,4 +1,4 @@
--- Dev-only capture harness for the VFX pipeline (skill roblox-vfx-pipeline). Lives in the place being worked on as
+-- Dev-only capture harness for the VFX pipeline (skill vfxmith). Lives in the place being worked on as
 -- ServerStorage.VFXDev.VFXCapture, next to VFXDev.VFXTimeline (the runtime), VFXDev.Effects (spec ModuleScripts) and
 -- VFXDev.Assets (template MeshParts). In a game that ships effects, the runtime/specs/assets can live in
 -- ReplicatedStorage instead: the lookups below fall back to a search there. Runs in Studio EDIT mode through the MCP

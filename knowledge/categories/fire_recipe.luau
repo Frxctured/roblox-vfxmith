@@ -1,4 +1,4 @@
--- FireEruption: one generic ground fire burst for VFXTimeline (roblox-vfx-pipeline spec format), distilled from the
+-- FireEruption: one generic ground fire burst for VFXTimeline (vfxmith spec format), distilled from the
 -- 7 open-source fire effects studied in fire.md (same folder). UNTESTED DRAFT: no Studio capture yet.
 -- Phases (s): ignite/flash 0-0.1 | peak 0-0.35 | body second wave 0.2-1.0 | cool (colour -> oxblood, smoke)
 -- 0.35-0.8 | linger (cracks, scorch, smoke) to ~1.4 | last embers ~3.1.

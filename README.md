@@ -1,4 +1,4 @@
-# roblox-vfx: make Roblox VFX like experienced artists do
+# vfxmith: make Roblox VFX like experienced artists do
 
 A Claude Code plugin (or a plain folder for any AI agent) that lets you say **"make a cool light beam with an
 explosion"** and get an effect built the way experienced Roblox VFX artists build them. It knows how, because it
@@ -15,8 +15,8 @@ studied ~1,900 real open-source effects: their exact layer values, their timing,
 
 ## Install (Claude Code)
 ```
-/plugin marketplace add Frxctured/roblox-vfx
-/plugin install roblox-vfx@roblox-vfx
+/plugin marketplace add Frxctured/roblox-vfxmith
+/plugin install vfxmith@vfxmith
 ```
 Then ask for an effect ("make a purple ground slam", "a light beam with an explosion"), or use `/vfx <request>`.
 For the build loop, connect Roblox Studio through the Studio MCP server (the agent places, captures and reviews the

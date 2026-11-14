@@ -1,6 +1,6 @@
 # AGENTS.md: making Roblox VFX with this folder
 
-You are in **roblox-vfx**: everything needed to make Roblox visual effects the way experienced artists build them,
+You are in **vfxmith**: everything needed to make Roblox visual effects the way experienced artists build them,
 learned from ~1,900 real open-source effects. Works with any AI coding agent (as a Claude Code plugin it adds the
 skills in `skills/`; as a plain folder, follow this file). All paths below are relative to this folder.
 

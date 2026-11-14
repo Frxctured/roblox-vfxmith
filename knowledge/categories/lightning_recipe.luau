@@ -1,4 +1,4 @@
--- LightningStrike: one generic lightning / electric ground strike for VFXTimeline (roblox-vfx-pipeline spec format),
+-- LightningStrike: one generic lightning / electric ground strike for VFXTimeline (vfxmith spec format),
 -- distilled from the 7 open-source effects studied in lightning.md (same folder). UNTESTED DRAFT: no Studio capture yet.
 -- Phases (s): ink frame 0-0.05 | flash 0.03-0.15 | bolts 0.03-0.45 (re-strikes at +0.1, +0.2) | streaks and
 -- rings 0.03-0.35 | arcs, crescents, smoke 0.05-1.3 | second beat (shards) 0.5-0.9 | linger (scorch, glints) to ~2.6.

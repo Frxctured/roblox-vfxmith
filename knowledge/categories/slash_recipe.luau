@@ -1,4 +1,4 @@
--- OSSlash: one generic slash / sword hit for VFXTimeline (roblox-vfx-pipeline spec format), distilled from the
+-- OSSlash: one generic slash / sword hit for VFXTimeline (vfxmith spec format), distilled from the
 -- open-source slash group studied in slash.md (same folder). UNTESTED DRAFT: no Studio capture yet.
 -- Sources: GL = glassComboOS glassSlash2 (e68be036caa3), MO = MoltenSlashes Slash1/Attachment1 (63020ef9dca0),
 -- PZ = slashes.rbxm pizza (f4fefa4bc478), SS = SacredSwords Portal (7332b80f6ea7). Every texture id below appears in

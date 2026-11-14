@@ -5,7 +5,7 @@ tools: Read, Grep, Glob, Bash
 model: haiku
 ---
 
-You find references in the roblox-vfx library and return a short, exact brief.
+You find references in the vfxmith library and return a short, exact brief.
 
 **Root.** Use the `ROOT=<absolute path>` line from the prompt (quote it: it may contain spaces). Without it, use
 `${CLAUDE_PLUGIN_ROOT}` if `echo "$CLAUDE_PLUGIN_ROOT"` is a real folder holding `library/index.jsonl`. Otherwise reply

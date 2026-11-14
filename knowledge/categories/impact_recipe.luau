@@ -1,4 +1,4 @@
--- GroundSlam: one generic impact / slam / ground hit for VFXTimeline (roblox-vfx-pipeline spec format), distilled from
+-- GroundSlam: one generic impact / slam / ground hit for VFXTimeline (vfxmith spec format), distilled from
 -- the 7 open-source impact effects studied in impact.md (same folder). UNTESTED DRAFT: no Studio capture yet.
 -- Origin = the impact point ON the floor (y = 0 is the floor surface). The dome layers rely on the floor hiding the
 -- lower half of a camera-facing sprite: with no floor they show as full circles.
