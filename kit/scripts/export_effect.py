@@ -55,15 +55,16 @@ if S.holder then pcall(game.Destroy, S.holder) end
 S.handle, S.holder = nil, nil
 pcall(VFXTimeline.preload, Spec)
 
-_G.{stop_name} = function()
+-- local functions: play must not depend on the globals still being set (another script may reuse the names)
+local function stop()
 	local h, holder = S.handle, S.holder
 	S.handle, S.holder = nil, nil
 	if h then pcall(h.stop) end
 	if holder then holder:Destroy() end
 end
 
-_G.{play_name} = function(origin: Vector3, freezeAt: number?)
-	_G.{stop_name}()
+local function play(origin: Vector3, freezeAt: number?)
+	stop()
 	local holder = Instance.new("Folder")
 	holder.Name = "{key}_Play"
 	holder.Parent = workspace
@@ -82,6 +83,9 @@ _G.{play_name} = function(origin: Vector3, freezeAt: number?)
 	end
 	return h
 end
+
+_G.{stop_name} = stop
+_G.{play_name} = play
 
 return string.format("{name} ready: _G.{play_name}(origin, freezeAt?) / _G.{stop_name}(); %.2f s, %d layers",
 	VFXTimeline.length(Spec), #Spec.layers)
