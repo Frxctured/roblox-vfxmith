@@ -56,7 +56,7 @@
 
   function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
-  fetch("site/effects.json").then((r) => r.json()).then((data) => {
+  (window.VFXMITH ? Promise.resolve(window.VFXMITH) : fetch("site/effects.json").then((r) => r.json())).then((data) => {
     const effects = data.effects;
     const cats = ["all", ...Object.keys(LABELS).filter((k) => k !== "all" && effects.some((e) => e.category === k))];
     let current = "all";
