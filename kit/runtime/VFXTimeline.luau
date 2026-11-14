@@ -1108,7 +1108,8 @@ function VFXTimeline.check(spec, opts)
 end
 
 --------------------------------------------------------------------------------------------------------------------
--- Crystal: faceted crystals and shards built in code (ice, gems, rock or earth spikes, glass), for custom layers.
+-- Crystal: faceted solids built in code (rock or earth spikes, debris, crystals, gems, ice, glass or metal shards,
+-- lava rock), for custom layers.
 -- Every facet gets its own colour: a height gradient (deep at the base -> mid -> body -> tip) with alternating
 -- lighter and darker facets, so the shape reads as sharp crystal in daylight (the look that won blind test 5).
 -- Two backends, picked automatically:

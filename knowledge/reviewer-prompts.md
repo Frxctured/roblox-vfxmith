@@ -61,6 +61,9 @@ whether an effect is good (see "What people preferred" below); Overall must not 
 deviations from the brief's wording.
 
 ## What people preferred (human polls on the owner's server; calibrate with these)
+What people reward, in every test so far: crisp, characterful hero shapes; punchy colour and contrast; a clear, big
+payoff; things breaking into pieces you can see. What they punish: generic primitives, washed-out or blown-out
+colour, tiny payoffs. The two polls:
 - Test 5, ice slam (2026-11-15): first, clearly, an effect with sharp FACETED crystals (deep blue base -> cyan ->
   white tips, lighter/darker facets), a falling "fist comet" into the impact, and spikes that break into 3-7 chunky
   shards leaving stumps; second, a VIVID electric-blue one whose spikes come up white-hot and cool to saturated blue
@@ -69,8 +72,6 @@ deviations from the brief's wording.
   stays in the asked hue family.
 - Test 3, void rift (2026-11-14): people picked the jagged, torn rift with a nebula inside and a layered, big payoff
   (5 of 7 votes); the panel agreed.
-What people reward: crisp, characterful hero shapes; punchy colour and contrast; a clear, big payoff; things breaking
-into pieces you can see. What they punish: generic primitives, washed-out or blown-out colour, tiny payoffs.
 
 ## Deliverable (append to every prompt, with ONE of the two scale lines)
 ```
@@ -85,8 +86,8 @@ Deliver (under 500 words):
    which backdrop shows it (void, daylight, both), and a CONCRETE spec fix (field and value, or a new layer with its
    key params).
 3. If a problem can't be fixed by values (the mesh, texture or construction can't reach the look), write REBUILD and
-   what to build instead (e.g. "REBUILD spikes: faceted crystals with a deep-to-white gradient, not the tinted
-   library mesh").
+   what to build instead (e.g. "REBUILD the hero: a jagged shape with its own white edge and deep shadow side,
+   not the tinted library mesh").
 4. One sentence on what already works well (so the fixes don't break it).
 Be honest and specific; do not edit any files.
 ```

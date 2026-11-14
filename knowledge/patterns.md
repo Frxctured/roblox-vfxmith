@@ -180,7 +180,9 @@ analysis: blindtest run_2026-11-14e COMPARE_B2_N2.md and PROCESS_B2_N2.md. It ad
    STAR, 22 thin Neon speed lines; one frame after contact the white was at 88% of its peak (the runner-up 33%, its
    brightest moment 83 ms late). A builder that shrank its flash under the old 8-stud warning ended with "a roundish
    white blob". The wind-up must peak INTO contact (a falling comet brightest on the frame before), not fade out.
-16. **Design the hero; the library is a guide.** Three plugin builds used library crystal meshes, tinted as a whole:
+16. **Design the hero; the library is a guide (any effect).** Build the hero shape for the design, with its own value
+   range on it, and let references supply technique and numbers. In test 5 three plugin builds used library meshes
+   tinted as a whole:
    "smooth cones", "a pincushion", "one flat colour" after two panels. The winner built faceted crystals in code
    (deep base -> cyan -> white tip, alternating facet tones; now `ctx.Crystal`), pieces as their own angular shapes
    (7 / 4 / 3 per spike, landing with gravity), stumps that stay. Its whole object story was in v1.

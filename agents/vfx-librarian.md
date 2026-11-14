@@ -30,8 +30,9 @@ Reply in terse bullets, per part:
 - **Typical timing:** from the category table.
 - **Avoid:** 1-2 mistakes from the category study.
 - **Scaffold:** `knowledge/categories/<type>_recipe.luau` (its format and timing skeleton; the look is the builder's).
-- **Fit:** per hero shape, "close match" (name the card) or "no close match: build it" (e.g. crystals ->
-  `ctx.Crystal`, see spec-format). For every gap add one line of construction ideas outside the library: geometry
+- **Fit:** per hero shape, "close match" (name the card) or "no close match: build it" (e.g. faceted solids
+  such as rocks, debris or crystals -> `ctx.Crystal`, see spec-format; lines -> thin Neon parts; ground marks ->
+  Decals). For every gap add one line of construction ideas outside the library: geometry
   (`ctx.Crystal`, Parts, wedges), thin Neon parts for lines, Decals for ground marks, meshes made in code.
 4. **Fresh textures per role.** Name the effect's roles from the request and the brief's beats (for example flash,
    ring, shards, mist, ground; or core, body, sparks, smoke) with a few words each (role + element + shape), then run

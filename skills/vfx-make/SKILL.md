@@ -11,9 +11,10 @@ video) run the scripts; Studio is driven through the Studio MCP server (`execute
 
 Good effects come from a process, not from the prompt: settle what the user wants, DESIGN the effect yourself, use
 real references as a guide (techniques, timing, values that work), build it as editable data, look at it in daylight,
-let blind reviewers list the differences, fix. **The library is a guide, not a requirement.** In blind test 5 (ice
-slam) every plugin build used library crystal meshes and read as "smooth cones"; a plain agent built faceted
-crystals in code and people rated it clearly best.
+let blind reviewers list the differences, fix. **The library is a guide, not a requirement, for every effect type.**
+In blind test 5 every plugin build used library meshes for its hero and read as "smooth cones"; a plain agent that
+designed and built its own hero in code was people's clear favourite. Design the hero shape for the brief, whatever
+the effect; borrow techniques, timing and values from the references.
 
 **Cheap by design.** The loop hands its heavy reading and capturing to helpers, so the builder's own context stays
 small (every turn re-reads it):
@@ -80,7 +81,7 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   pieces are born from it, where they land, what stays (builder-notes rules 12-15). If you are unsure what Studio can
   render (a texture made in code, a mesh API), test it in one small `execute_luau` first.
   Ask of every library asset you consider: does it match the design closely? If it only roughly fits, build that
-  part yourself (crystals, shards, spikes: `ctx.Crystal`, see spec-format; other solids: Parts, wedges, custom
+  part yourself (faceted solids such as rocks, debris, crystals, shards: `ctx.Crystal`, see spec-format; other solids: Parts, wedges, custom
   layers; flat marks: sprites or decals). Library meshes and textures are options, never the default.
 - Use `knowledge/categories/<type>_recipe.luau` as a parts menu: copy it into the effect folder as `<Name>.luau`
   (change its `name`) for the format and the timing skeleton, keep only the layers whose role a beat of your design
@@ -189,7 +190,7 @@ VFXTimeline.play(spec, cframe)
   a `screen_capture`. Do not write your own exporter.
 - Clean up: `C.clear()`, and destroy `ServerStorage.VFXDev` unless the user wants the kit kept in that place.
 
-Made in code, no upload: crystals, shards and spikes with `ctx.Crystal` (spec-format); other meshes with
+Made in code, no upload: faceted solids (rocks, debris, crystals, shards) with `ctx.Crystal` (spec-format); other meshes with
 `AssetService:CreateEditableMesh` and textures with `CreateEditableImage` (Decals and MeshParts only: particles show
 nothing and beams a flat white strip; live games need "Allow Mesh / Image APIs" on, so keep a fallback; builder-notes
 lists the details). Own textures (PIL) and meshes (Blender; vertex colours white -> light grey >= 0.85 so Neon tints them): upload with

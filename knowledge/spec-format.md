@@ -63,10 +63,14 @@ Dark ink sprite: `Color = "ink", LightEmission = 0`.
   Beams then freeze and resume with the effect (since 0.1.6-beta3). Destroy what you made in `stop`. Optional
   `preload(L, VFXTimeline)`: runs once inside `VFXTimeline.preload(spec)` (it may yield), e.g. to build meshes.
 
-## Crystals built in code (`ctx.Crystal`, since 0.1.6-beta5)
-Faceted crystals and shards for ice, gems, rock or earth spikes, glass: every facet has its own colour (deep at the
-base -> mid -> body -> white tip, alternating lighter/darker facets). Use them for hero geometry instead of a library
-mesh that only roughly fits.
+## Faceted solids built in code (`ctx.Crystal`, since 0.1.6-beta5)
+Any faceted solid: earth or rock spikes, debris and rubble, crystals, gems, ice, glass or metal shards, lava rock,
+magic crystals. Every facet has its own colour (deep at the base -> mid -> body -> lit tip, alternating lighter/darker
+facets), so the shape carries its own value range (builder-notes rule 12). Use it for hero geometry or for the
+pieces of anything that breaks, instead of a library mesh that only roughly fits. Example palettes (deep, body, tip):
+rock (45,35,30) (125,105,85) (215,200,175); ember/lava (60,10,5) (255,90,20) (255,230,150); arcane gem (40,10,90)
+(170,80,255) (245,220,255); ice (22,64,160) (140,225,255) (240,252,255). The example below is a ring of spikes; the
+same calls make a rock eruption, a debris burst or crystals growing on a wall.
 ```lua
 local P = { deep = Color3.fromRGB(22, 64, 160), body = Color3.fromRGB(140, 225, 255), tip = Color3.fromRGB(240, 252, 255) }
 { id = "spikes", kind = "custom", t = 0.27, life = 1.0,

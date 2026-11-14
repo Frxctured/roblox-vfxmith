@@ -85,34 +85,37 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    switching style.
 10. **Fire and explosions:** reach orange by ~0.2 s, give the body 0.6-0.9 s, cool slowly (explosion.md).
 11. **Hero shapes with character, designed by you.** A smooth, symmetric primitive (a clean lens, a plain disc, an
-   even hoop, a smooth cone) reads as generic ("a portal or an eye", "a pincushion"). Torn, jagged, faceted,
-   asymmetric, layered shapes won (a jagged tear with a nebula inside; faceted crystals shaded deep -> body -> white
-   tip). References show techniques; the shape is yours. If a library mesh only roughly fits, build it
-   (`ctx.Crystal` for crystals, shards and spikes).
-12. **The hero carries the palette.** Put the colours ON the hero shape: deep tone at the base, body colour in the
-   middle, white at the tip, facets alternating lighter/darker (about +-0.1 to 0.35). A textured library mesh can only
-   be tinted as a whole: in test 5 that left "one flat colour" spikes after two review panels. Fragments are their own
-   angular shapes (`ctx.Crystal` shards), not scaled copies of the hero ("droplets"). In daylight put the dark tone on
-   geometry and decals (bases, crack cores, facet shadows), not on sprite twins: a dark sprite twin read as "dirt" or
-   "fur" (test 5).
-13. **Breakable objects tell the whole story in the first draft:** a staggered rise by distance from the centre with
-   an overshoot; something alive while it holds; 0.1-0.2 s of shake, then a 2-3 frame white-hot flash before the break;
-   3-7 pieces born along the body (more for big ones: the winner used 7 / 4 / 3 by size, 145 shards in all, pale and
-   faceted, gravity ~60 studs/s^2), thrown on arcs that LAND and stop on the floor, then shrink; stumps at 25-30% of
-   the height that stay until ~2 s, then sink. Few saturated slivers read as "water droplets" (test 5). Reviewers had to ask the beta2 builder for each of these; the winner had them all in v1.
-14. **Ground marks are Decals in daylight.** Frost, cracks, scorch: a flat part with a Decal (`kind = "part"` with
-   `decal = {...}`, alpha-blended) stays visible on a pale floor; flat particles wash out in daylight and sink at low y
-   (test 5 panel: "frost gone early in day", 3 of 3).
-15. **Colour that lives, glow that is separate.** Animate the hero's colour: white-hot at birth, cooling over
-   ~0.15-0.2 s; a slight shimmer while it holds (about +-10%); a white glint 0.1-0.2 s before it breaks. For the
-   vivid, magic-energy look people also liked (test 5's runner-up: bright azure, saturation ~0.7, a glow that tints
-   the floor), keep the hero solid and faceted and add the glow as its OWN layer (a soft bloom sprite at the base, or a
-   thin Neon core); a glow baked into the hero washed its edges out. Mist and frost puffs in daylight:
-   LightEmission ~0.5-0.8 and tinted; grey smoke (LightEmission 0.1) reads as dust.
-16. **Anime lines are thin Neon.** Speed lines and streaks: Neon parts 0.07-0.16 studs thick that thin out to nothing
-   instead of fading (fading Neon turns grey in daylight).
-17. **Gaps are yours to design.** Where `refs.md` says no reference fits (a "gap"), build that beat yourself; don't fill
-   it with the nearest texture. In test 5 the three listed gaps became the three weakest beats.
+   even hoop, a smooth cone, a round puff) reads as generic ("a portal or an eye", "a pincushion"). Torn, jagged,
+   faceted, asymmetric, layered shapes won in every test (a jagged rift with a nebula inside; a crescent with a hot
+   edge; faceted crystals). References show techniques; the shape is yours. If no library asset matches the design
+   closely, build that shape: Parts, wedges, beams, custom layers, `ctx.Crystal` for any faceted solid (crystals,
+   rocks, debris, gems, shards), meshes made in code.
+12. **The hero carries its own value range.** Put light, body colour and shadow ON the hero shape itself: the hottest
+   or most lit part white (a blade's edge, a fireball's core, a beam's centre line, a crystal's tip), the body in the
+   saturated colour, the deep tone where it is in shadow or at its roots (the trailing edge, the outer smoke, the base,
+   facet shadows). A shape tinted as one flat colour reads flat however many layers sit around it (test 5: "one flat
+   colour" heroes after two panels; test 2: a single-value orange fireball read as "jelly"). Pieces that break off
+   are their own shapes in the same range, not scaled copies of the hero. In daylight put dark tones on geometry and
+   decals, not on sprite twins: a dark sprite twin read as "dirt" or "fur".
+13. **Every object tells its whole story in the first draft:** how it is born (where, staggered, with an overshoot),
+   what keeps it alive while it holds, the warning before it ends (a shake, a flicker, a 2-3 frame white flash), how
+   it ends (it breaks, bursts, dissolves, collapses), where its pieces go (3-7 per object by size, on arcs with gravity
+   about 60 studs/s^2 that LAND and stop, then shrink) and what stays (stumps, scorch, embers, a fading mark). This
+   holds for crystals, rocks, shields, portals, projectiles, fireballs. Reviewers had to ask the test-5 runner-up for
+   each of these one round at a time; the winner had them all in v1.
+14. **Ground marks are Decals in daylight.** Scorch, cracks, frost, magic circles, splashes: a flat part with a Decal
+   (`kind = "part"` with `decal = {...}`, alpha-blended) stays visible on a pale floor; flat particles wash out in
+   daylight and sink at low y (test 5 panel, 3 of 3: "gone early in day").
+15. **Colour that lives, glow as its own layer.** Animate the hero's colour: white-hot at birth, cooling to its body
+   colour over ~0.15-0.2 s; a slight shimmer or pulse while it holds (about +-10%); a hot glint just before it ends.
+   Vivid, saturated glow in the asked hue family is a plus (people liked it, test 5); keep the hero's edges crisp and
+   give the glow its OWN layer (a soft bloom sprite, a thin Neon core); a glow baked into the hero washes its edges
+   out. Smoke, mist and dust in daylight: tint them and give them LightEmission ~0.3-0.8 for magic or cold effects,
+   warm grey with a darker core for fire; flat grey (LightEmission ~0.1) reads as dust.
+16. **Anime lines are thin Neon.** Speed lines, slash streaks, impact rays: Neon parts or beams 0.07-0.16 studs thick
+   that thin out to nothing instead of fading (fading Neon turns grey in daylight).
+17. **Gaps are yours to design.** Where `refs.md` says no reference fits (a "gap"), build that beat yourself; don't
+   fill it with the nearest texture. In test 5 the three listed gaps became the three weakest beats.
 
 ## Textures
 - **Fresh textures, not the recipe's defaults.** Every effect in the first five blind tests drew all its 14-16
