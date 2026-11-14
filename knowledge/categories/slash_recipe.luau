@@ -49,23 +49,32 @@ return {
 		ink = "#0A0A0A", -- MO
 	},
 	textures = {
-		Star99 = 10598374841, -- thin cross with glow core (GL, MO)
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		Star99 = 10598374841, -- thin cross with glow core (GL, MO) [FAINT, white, 1 part, eff 133, fill 8%]
 		Impact591 = 11037528577, -- radial streak burst on black, additive only (GL)
-		BlurredSpec = 11037772334, -- soft blurred spec (MO glow)
+		-- [BLACK card, white, 10 parts, eff 112, fill 16%]
+		BlurredSpec = 11037772334, -- soft blurred spec (MO glow) [FAINT, white, 1 part, eff 16 smooth, fill 40%]
 		GreySlash4 = 84127812322926, -- 4x4 grey slash sheet (GL hot body, MO)
-		GlowingSlash = 13580352351, -- 4x4 glowing slash (MO halo)
-		SmallSlash = 13580362430, -- 4x4 thin slash strands (MO)
-		Slash28 = 99925185052573, -- 4x4 slash (MO spinning detail)
+		-- [clear, white, 2 parts, eff 103, fill 3%, 15/16 cells]
+		GlowingSlash = 13580352351, -- 4x4 glowing slash (MO halo) [clear, white, 1 part, eff 102, fill 4%, 14/16 cells]
+		SmallSlash = 13580362430, -- 4x4 thin slash strands (MO) [clear, white, 1 part, eff 99, fill 2%, 13/16 cells]
+		Slash28 = 99925185052573, -- 4x4 slash (MO spinning detail) [clear, white, 1 part, eff 82, fill 5%, 13/16 cells]
 		LayeredSlash = 9181472195, -- 4x4 layered slash (GL ink, Br 0)
+		-- [clear, white, 1 part, eff 84, fill 8%, 14/16 cells]
 		BottomBlack = 88366169080988, -- 4x4 "Bottom layer black slash" (MO)
+		-- [clear, white, 2 parts, eff ~69, fill 3%, 15/16 cells]
 		WindDetails = 15556415618, -- thin broken ring arcs (GL ground ring)
-		Shards = 17842430380, -- 2x2 shards (GL)
-		EmberSpecs = 88848729824097, -- tiny specks in a big frame (GL, MO)
-		SparksLinger = 7922645282, -- spark dot (SS)
-		OffCenterSpec = 16171528032, -- off-centre sharp dot (PZ)
-		WavyStreak = 139843022964858, -- 8x8 streak (PZ speed lines; look unverified, no thumbnail)
+		-- [clear, black+white, 3 parts, eff 139, fill 6%]
+		Shards = 17842430380, -- 2x2 shards (GL) [FAINT, white, 1 part, eff 48, fill 15%]
+		EmberSpecs = 88848729824097, -- tiny specks in a big frame (GL, MO) [clear, white, 7 parts, eff ~234, fill 4%]
+		SparksLinger = 7922645282, -- spark dot (SS) [clear, white, 1 part, eff 115, fill 8%]
+		OffCenterSpec = 16171528032, -- off-centre sharp dot (PZ) [clear, white, 1 part, eff 57, fill 3%]
+		WavyStreak = 139843022964858, -- 8x8 cells of one small glowing 4-point star, squashed into streaks (PZ "Wavy
+		-- Glowing Star" speed lines; seen on its thumbnail 2026-11-14) [FAINT, white, 1 part, eff ~27 smooth, fill 10%]
 		MeshedLinger = 104185000871508, -- thin broken crescent arcs (MO ghost crescents)
-		ThinWinds = 123392140151112, -- MO ghost crescents (look unverified, no thumbnail)
+		-- [clear, white, 4 parts, eff ~207, fill 4%]
+		ThinWinds = 123392140151112, -- MO ghost crescents: faint soft swirl arcs in a ring (seen on its thumbnail 2026-11-14)
+		-- [FAINT, white, 1 part, eff ~131, fill 13%]
 	},
 	layers = {
 		------------------------------------------------------------------ pop (0 - 0.06)

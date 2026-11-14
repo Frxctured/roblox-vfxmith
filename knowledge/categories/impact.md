@@ -26,8 +26,9 @@ Color on 5.5 %, emitter `TimeScale` < 1 on 11.1 %; Orientation VelocityPerpendic
 VelocityParallel 20.1 %, FacingCameraWorldUp 1.7 %. So half of an impact is flat ground cards, and a quarter of all
 layers is non-additive or darkening.
 
-R below = half of the effect's main ground-ring final Size (the effect's radius). Sizes are particle Size in studs
-(the sprite's edge length), so "Size 2R" = a sprite as wide as the ring.
+R below = half of the effect's main ground-ring final Size. Sizes are particle Size in studs, which is a HALF-width
+(a sprite of Size S is 2S studs across, measured 2026-11-14): the ring's real radius on screen is 2R, and "Size 2R" is
+still a sprite as wide as the ring.
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -211,6 +212,8 @@ R below = half of the effect's main ground-ring final Size (the effect's radius)
 ---------------------------------------------------------------------------------------------------------------
 
 ## b. Anatomy of an impact / slam / ground hit (firing order)
+
+**Recipe note (2026-11-14):** after measuring texture traits (`gallery/textures/traits.json`) the recipe replaced several ids cited below (a low-resolution flash, a chromatic RGB-split cross tinted as if white, a 128 px spiky ring): the evidence keeps the original ids, the recipe header lists each swap.
 
 Every layer in all 7 effects fires at t = 0 (EmitDelay 0 everywhere); the order below is when each role is SEEN, set by
 lifetimes and size curves. Values: typical (range) across the effects. Size as a multiple of R.

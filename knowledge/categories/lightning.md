@@ -233,7 +233,7 @@ LE 1" is only half the story: half of all bolt layers are normal-blend or darken
 
 ## b. Anatomy of a lightning / electric effect (firing order)
 
-Sizes are Roblox particle Size (card edge, studs) and given as multiples of R. "Burst" values come from pillar /
+Sizes are Roblox particle Size (a HALF-width: the card is 2x Size across, measured 2026-11-14) and given as multiples of R. "Burst" values come from pillar /
 THUNDER / lightningos / handeff / lightningburst; "sustained" ones from pillar / Debris30.
 
 | # | Role | Textures seen (role) | LE / LI / Br | Lifetime | Size curve, peak vs R | Transparency | Speed / Drag / Spread | Orientation, Squash, flipbook | Count, ZOffset |

@@ -1,7 +1,7 @@
 # AGENTS.md: making Roblox VFX with this folder
 
 You are in **vfxmith**: everything needed to make Roblox visual effects the way experienced artists build them,
-learned from ~1,900 real open-source effects. Works with any AI coding agent (as a Claude Code plugin it adds the
+learned from ~1,900 catalogued open-source effects (~1,200 read layer by layer, 75 played frame by frame). Works with any AI coding agent (as a Claude Code plugin it adds the
 skills in `skills/`; as a plain folder, follow this file). All paths below are relative to this folder.
 
 ## What is here
@@ -14,7 +14,7 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 | `knowledge/spec-format.md` | how to write an effect as data |
 | `library/` | ~1,200 real effects: one card each with exact layer values (`library/cards/<type>/<id>.md`); search with `kit/scripts/find_effects.py` |
 | `gallery/effects/<type>/<id>.jpg` | real effects frozen at t = 0.03, 0.1, 0.2 ... s: what good looks like |
-| `kit/` | the runtime, Studio modules (capture, playback of library effects), scripts (search, compare, capture, pack tools) |
+| `kit/` | the runtime (with `VFXTimeline.check`, a spec checker), Studio modules (capture on a void stage, a default daylight baseplate or your map; playback of library effects), scripts (search, compare, capture, texture traits, pack tools) |
 | the pack (optional) | the cleaned open-source files the cards come from, a separate ~410 MB download: `kit/scripts/get_pack.py` gets it (ask the user first), then `kit/scripts/rbxcut.py --id <card id> --studio` puts any card's effect into Studio to watch. Everything else works without it. |
 | `skills/*/SKILL.md` | the detailed workflows below, as plain instructions any agent can follow |
 
@@ -33,8 +33,14 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 
 ## Rules
 - **Never build from nothing.** Every effect starts from library references and the category note.
-- **Look at your result.** An effect is not done until you have captured it in Studio and compared it with the
-  references (`kit/studio/VFXCapture.luau`: `C.hold(name, t)` + a screenshot works on every OS).
+- **Look at your result, in daylight too.** An effect is not done until you have captured it in Studio and compared
+  it with the references (`kit/studio/VFXCapture.luau`: `C.hold(name, t)` + a screenshot works on every OS). Capture
+  on the black void stage AND on `C.stage("day")` (the default baseplate) or the user's map: the void hides dark
+  layers that read as dirt in daylight.
+- **Check the spec after every edit:** `C.check(name)` lists silent authoring mistakes (a property outside `props`, a
+  missing Transparency, an unknown ease) and the peak particle counts.
+- **Check textures before you use them:** `kit/scripts/texture_traits.py <id>` (colour, black/faint card, multi-part,
+  effective resolution); a particle's Size is its half-width.
 - Roblox Studio is driven through the Studio MCP server (`execute_luau`, `screen_capture`). If it is not connected,
   say so and give the user the spec + install steps instead of claiming the effect looks right.
 - Texture ids in the library are other people's uploads: fine to reference while building; tell the user that

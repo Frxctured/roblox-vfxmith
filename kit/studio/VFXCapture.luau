@@ -5,7 +5,9 @@
 -- execute_luau tool, no Play needed:
 --
 --   local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone())
---   C.stage("void")                                   -- black box stage far above the map (or "day", or "none")
+--   return C.check("VoidRend")                        -- authoring mistakes + peak counts: fix ERROR/WARN first
+--   C.stage("void")                                   -- black box stage far above the map; "day" = a default
+--                                                     -- Roblox baseplate in daylight; "place" = a spot in the map
 --   C.camera({ dist = 15.5, height = 3.7, lookUp = 2.75, fov = 70 })
 --   C.playLater("VoidRend", 1.5)                      -- video: start the recorder now, the effect plays in 1.5 s
 --   return C.stills("VoidRend", { times = {0.03, 0.1, ...}, hold = 2.5, gap = 0.3, lead = 8, seed = 7 })
@@ -70,34 +72,77 @@ local function block(parent, size, cf, color, neon)
 	return p
 end
 
--- "void": a black box (floor, walls, ceiling) so only the effect shows, like a VFX showcase.
--- "day": a dark grey floor under the place's own sky and lighting (daylight readability check).
--- "none": no stage (play at a real spot in the map with C.origin = <Vector3>).
-function VFXCapture.stage(kind)
+-- "void": a black box (floor, walls, ceiling) so only the effect shows, like a VFX showcase. Flattering: dark
+--   layers (ink, smoke, black spikes) vanish into it, and every additive layer looks brighter than in a game.
+-- "day": a copy of the default Roblox Baseplate (grey Plastic, the grid texture) under the place's own sky and
+--   lighting: the daylight readability check. In a place with night or dark lighting pass { lighting = "default" }
+--   to use Roblox's default daylight while the stage is up (restored by clearStage/clear).
+-- "place": no stage; the effect plays on the user's own map at `o.at` (Vector3), or on the ground under the camera's
+--   focus: what players will see. "none" = the same without moving the origin.
+local DEFAULT_LIGHTING = { Brightness = 3, ClockTime = 14.5, Ambient = Color3.fromRGB(70, 70, 70),
+	OutdoorAmbient = Color3.fromRGB(70, 70, 70), ExposureCompensation = 0, EnvironmentDiffuseScale = 1,
+	EnvironmentSpecularScale = 1 }
+
+function VFXCapture.stage(kind, o)
+	o = o or {}
 	VFXCapture.clearStage()
 	S.kind = kind
 	if kind == "none" then return "no stage" end
+	if kind == "place" then
+		local at = o.at
+		if not at then
+			local focus = Workspace.CurrentCamera.Focus.Position
+			local hit = Workspace:Raycast(focus + Vector3.new(0, 200, 0), Vector3.new(0, -1000, 0))
+			at = if hit then hit.Position else focus
+		end
+		S.origin = at
+		return "place: effect origin " .. tostring(at)
+	end
 	local folder = Instance.new("Folder")
 	folder.Name = "VFXStage"
 	if kind == "void" then
 		-- Neon black renders black whatever the place's lighting is (SmoothPlastic picks up ambient and haze).
-		local o, black, R = VFXCapture.Origin, Color3.new(0, 0, 0), 70
-		block(folder, Vector3.new(2 * R, 2, 2 * R), CFrame.new(o - Vector3.new(0, 1, 0)), black, true)
-		block(folder, Vector3.new(2 * R, 2, 2 * R), CFrame.new(o + Vector3.new(0, 70, 0)), black, true)
+		local origin, black, R = VFXCapture.Origin, Color3.new(0, 0, 0), 70
+		block(folder, Vector3.new(2 * R, 2, 2 * R), CFrame.new(origin - Vector3.new(0, 1, 0)), black, true)
+		block(folder, Vector3.new(2 * R, 2, 2 * R), CFrame.new(origin + Vector3.new(0, 70, 0)), black, true)
 		for _, z in ipairs({ -R, R }) do
-			block(folder, Vector3.new(2 * R, 140, 2), CFrame.new(o + Vector3.new(0, 35, z)), black, true)
+			block(folder, Vector3.new(2 * R, 140, 2), CFrame.new(origin + Vector3.new(0, 35, z)), black, true)
 		end
 		for _, x in ipairs({ -R, R }) do
-			block(folder, Vector3.new(2, 140, 2 * R), CFrame.new(o + Vector3.new(x, 35, 0)), black, true)
+			block(folder, Vector3.new(2, 140, 2 * R), CFrame.new(origin + Vector3.new(x, 35, 0)), black, true)
 		end
-		S.origin = o
+		S.origin = origin
 	else
-		local o = VFXCapture.DayOrigin
-		block(folder, Vector3.new(600, 2, 600), CFrame.new(o - Vector3.new(0, 1, 0)), Color3.fromRGB(30, 30, 36))
-		S.origin = o
+		-- the default Baseplate template: Plastic, Color 91,91,91, grid texture 6372755229 (black, 0.8, 8 studs)
+		local origin = VFXCapture.DayOrigin
+		local floor = block(folder, Vector3.new(600, 2, 600), CFrame.new(origin - Vector3.new(0, 1, 0)),
+			Color3.fromRGB(91, 91, 91))
+		floor.Material = Enum.Material.Plastic
+		local grid = Instance.new("Texture")
+		grid.Texture = "rbxassetid://6372755229"
+		grid.Face = Enum.NormalId.Top
+		grid.Color3 = Color3.new(0, 0, 0)
+		grid.Transparency = 0.8
+		grid.StudsPerTileU, grid.StudsPerTileV = 8, 8
+		grid.Parent = floor
+		if o.lighting == "default" then
+			local Lighting = game:GetService("Lighting")
+			S.savedLighting = {}
+			for prop, v in pairs(DEFAULT_LIGHTING) do
+				S.savedLighting[prop] = Lighting[prop]
+				Lighting[prop] = v
+			end
+		end
+		S.origin = origin
 	end
 	folder.Parent = Workspace
 	return "stage " .. kind .. " at " .. tostring(S.origin)
+end
+
+-- Authoring check of a spec (see VFXTimeline.check): returns the report text.
+function VFXCapture.check(spec)
+	local VFX = VFXCapture.runtime()
+	return (VFX.check(VFXCapture.spec(spec)))
 end
 
 -- Camera looking at the effect origin from the front (-Z side by default).
@@ -314,6 +359,11 @@ end
 function VFXCapture.clearStage()
 	local old = Workspace:FindFirstChild("VFXStage")
 	if old then old:Destroy() end
+	if S.savedLighting then
+		local Lighting = game:GetService("Lighting")
+		for prop, v in pairs(S.savedLighting) do Lighting[prop] = v end
+		S.savedLighting = nil
+	end
 end
 
 -- Removes the stage, any effect folders left behind, and restores the editor camera.

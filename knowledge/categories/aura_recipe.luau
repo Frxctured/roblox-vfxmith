@@ -16,6 +16,9 @@
 -- Sources: Sukuna = Sukuna Aura.rbxm (ca02a0ef8c5a / 169d8de5f532), Tatsumaki = tatsumakirip.rbxl Charge
 -- (dfdc1ff4eaa4), Voidstrike = Voidstrike.rbxl HandAura (d4822fa4128e), ChargeUp = Charge Up.rbxm (ace632d5c265),
 -- Angel = angel aura.rbxm (a71fc16cc7b0), Voidflare = Voidflare.rbxl Rush Aura (79f04711219b).
+-- Texture traits pass (2026-11-14, kit/scripts/texture_traits.py): rgbSparks' RGB-split chromatic cross 17062416111
+-- (tinted pale -> body, its red and green fringes turn dark and teal) -> 17062452122, a plain white short cross of the
+-- same Star series (key RGBCross renamed Cross). Layer values unchanged.
 return {
 	name = "AuraCharge",
 	scale = 1,
@@ -29,24 +32,33 @@ return {
 		ink = "#000000",
 	},
 	textures = {
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
 		Star2a = 7216849703, -- blurry soft 4-point glow (Tatsumaki ignition)
-		RGBCross = 17062416111, -- cross with RGB-split fringe and dark core (Voidstrike Sparks)
-		Needle = 18118860997, -- solid diamond needle (Voidstrike)
+		-- [FAINT, grey, 1 part, eff 41 smooth, fill 12%]
+		Cross = 17062452122, -- small short white cross (Star12); was Voidstrike Sparks' RGB-split cross 17062416111
+		-- [clear, white, 1 part, eff 126, fill 2%]
+		Needle = 18118860997, -- solid diamond needle (Voidstrike) [clear, white, 1 part, eff 203, fill 3%]
 		SoftHalo = 6673021984, -- soft halo with a tiny bright centre (ChargeUp Glow particle)
-		Bubble = 7216856402, -- soft ring / sphere rim (ChargeUp circle_01)
+		-- [FAINT, white, 1 part, eff ~142, fill 27%]
+		Bubble = 7216856402, -- soft ring / sphere rim (ChargeUp circle_01) [clear, grey, 1 part, eff 172, fill 42%]
 		SwirlRing = 109574326366882, -- swirl ring of fine strands (Angel "galaxy thing")
-		OffSpec = 16171528032, -- off-centre sharp dot (ChargeUp sparks)
+		-- [FAINT, white, 3 parts, eff ~224, fill 13%]
+		OffSpec = 16171528032, -- off-centre sharp dot (ChargeUp sparks) [clear, white, 1 part, eff 57, fill 3%]
 		UpBurst = 17226921546, -- Grid4x4 "Stylized Upwards Burst" (Sukuna)
-		StylSmoke = 11858203067, -- Grid4x4 stylized smoke (Sukuna)
-		Bolts = 17005480412, -- Grid4x4 electric squiggle (Voidstrike)
-		Glitter = 16511093402, -- Grid8x8 tiny glitter specks (Voidstrike dots)
-		RingFlat = 7216856024, -- soft thin ring (ChargeUp circle_04)
-		Star15 = 17062452486, -- long thin 4-point star (ChargeUp release)
-		Disc = 6631155345, -- solid white disc (ChargeUp Filled circle)
+		-- [clear, white, 5 parts, eff 108, fill 1%, 7/16 cells]
+		StylSmoke = 11858203067, -- Grid4x4 stylized smoke (Sukuna) [clear, grey, 1 part, eff 56, fill 28%, 13/16 cells]
+		Bolts = 17005480412, -- Grid4x4 electric squiggle (Voidstrike) [FAINT, white, 3 parts, eff 80, fill 7%]
+		Glitter = 16511093402, -- Grid8x8 tiny glitter specks (Voidstrike dots) [clear, white, scatter, eff 49, fill 5%]
+		RingFlat = 7216856024, -- soft thin ring (ChargeUp circle_04) [clear, grey, 1 part, eff 151, fill 27%]
+		Star15 = 17062452486, -- long thin 4-point star (ChargeUp release) [FAINT, white, 1 part, eff 49, fill 16%]
+		Disc = 6631155345, -- solid white disc (ChargeUp Filled circle) [clear, white, 1 part, eff ~268, fill 79%]
 		CoreSheet = 74187681812534, -- Grid4x4 "Texture" (ChargeUp core; no thumbnail, read in the recapture as
 		-- white-blue crescents at 0.20-0.55 s, attribution Inferred: check the look in Studio)
+		-- [clear, white, 1 part, eff ~69, fill 1%, 13/16 cells]
 		RingDissolve = 119057920510209, -- Grid4x4 ring breaking up (ChargeUp Circle_Disolve)
+		-- [clear, white, 3 parts, eff 93, fill 8%, 10/16 cells]
 		Cloud = 12713735498, -- swirly smoke crescent (ChargeUp fx_cloud_white)
+		-- [FAINT, white, 3 parts, eff 52, fill 20%]
 	},
 	layers = {
 		------------------------------------------------------------------ ignition (0 - 0.1)
@@ -70,11 +82,12 @@ return {
 			},
 			emit = { { 0, 10 } },
 		},
-		{ -- RGB-fringed cross that twinkles twice (size 0 -> 1.47 -> 0.15 -> 1.41 -> 0, x2 here), speed 0-5 stopped
-			-- by Drag 15.3 (Voidstrike Sparks; the source has a second emitter with Squash -0.5 for the other axis)
+		{ -- cross that twinkles twice (size 0 -> 1.47 -> 0.15 -> 1.41 -> 0, x2 here), speed 0-5 stopped by Drag 15.3
+			-- (Voidstrike Sparks, whose RGB-fringed texture is swapped for a white one; the source has a second emitter
+			-- with Squash -0.5 for the other axis)
 			id = "rgbSparks", kind = "emitter", t = 0.02, life = 0.05, at = { 0, 3, 0 },
 			props = {
-				Texture = "RGBCross", Color = { { 0, "pale" }, { 1, "body" } }, LightEmission = 0, Brightness = 5,
+				Texture = "Cross", Color = { { 0, "pale" }, { 1, "body" } }, LightEmission = 0, Brightness = 5,
 				Size = { { 0, 0 }, { 0.21, 3 }, { 0.49, 0.3 }, { 0.74, 2.8 }, { 1, 0 } }, Squash = 0.5,
 				Speed = { 0, 5 }, Drag = 15.3, SpreadAngle = 5, Lifetime = { 0.13, 0.24 }, Transparency = 0,
 				ZOffset = 1,

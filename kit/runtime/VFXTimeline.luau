@@ -699,4 +699,309 @@ function VFXTimeline.length(spec)
 	return n
 end
 
+--------------------------------------------------------------------------------------------------------------------
+-- Dev check (Studio, before every capture): lists authoring mistakes the player would silently ignore, plus the peak
+-- numbers the clutter rule needs. Costs nothing unless called.
+--   local report, problems, stats = VFXTimeline.check(spec)   -- report = text for the MCP output
+-- ERROR = the value never reaches the instance (unknown property, bad enum/colour, unknown texture or palette name).
+-- WARN  = valid but almost certainly not meant: an unknown layer key (a typo, or a property put outside `props`), a
+--         track this kind ignores, an unknown ease (plays linear), no Transparency anywhere (opaque the whole life,
+--         then a hard cut: the classic "a comment swallowed the line" bug), an emit or a key after the layer's life
+--         (never reached), an emitter that never emits, no Lifetime (Roblox default 5-10 s), no Texture (default
+--         sparkle), more than one light.
+-- Stats: length, layers, peak live particles, elongated ones (VelocityParallel / FacingCameraWorldUp / Squash: streaks,
+-- flames, bolts) and the bright-white elongated ones among them (needles and streaks laid over the hero shape: the
+-- clutter the blind test's reviewers flagged), all at Quality 1 from emit counts x Lifetime,
+-- peak active layers, the widest particle in studs (a particle's width is 2 x Size), and every texture id with the
+-- layers and LightEmission that use it (check those ids with kit/scripts/texture_traits.py).
+local COMMON_KEYS = { id = true, kind = true, t = true, life = true, at = true, rot = true, props = true, tracks = true,
+	copies = true, enabled = true, data = true }
+local KIND_KEYS = {
+	part = { template = true, mesh = true, meshTexture = true, meshScale = true, meshSize = true, size = true,
+		pivot = true, spin = true, decal = true },
+	beam = { a = true, b = true, axis = true },
+	emitter = { box = true, emit = true },
+	light = { class = true },
+	grade = {},
+	custom = { start = true, update = true, stop = true },
+}
+local KIND_TRACKS = {
+	part = { Scale = true, Offset = true, Rot = true, Color = true, Transparency = true, DecalColor = true,
+		DecalTransparency = true },
+	beam = { A = true, B = true, Width = true, Color = true, Fade = true, CurveSize0 = true, CurveSize1 = true },
+	emitter = { Rate = true, Offset = true },
+	light = { Brightness = true, Range = true, Color = true },
+}
+local SPEC_KEYS = { name = true, scale = true, palette = true, textures = true, layers = true }
+
+local function maxOfSeq(v)
+	if type(v) == "number" then return v end
+	if type(v) ~= "table" then return 0 end
+	if #v == 2 and type(v[1]) == "number" and type(v[2]) == "number" then return math.max(v[1], v[2]) end -- range
+	local m = 0
+	for _, e in ipairs(v) do
+		if type(e) == "table" and type(e[2]) == "number" then m = math.max(m, e[2] + (e[3] or 0)) end
+	end
+	return m
+end
+
+local function meanOfRange(v, default)
+	if type(v) == "number" then return v end
+	if type(v) == "table" and type(v[1]) == "number" then return (v[1] + (v[2] or v[1])) / 2 end
+	return default
+end
+
+function VFXTimeline.check(spec)
+	local problems = {}
+	local function add(level, where, msg)
+		table.insert(problems, { level = level, where = where, msg = msg })
+	end
+	if type(spec) ~= "table" or type(spec.layers) ~= "table" then
+		return "ERROR spec: not a table with `layers`", { { level = "ERROR", where = "spec", msg = "no layers" } }, {}
+	end
+	for k in pairs(spec) do
+		if not SPEC_KEYS[k] then add("WARN", "spec", "unknown top-level key `" .. tostring(k) .. "` (ignored)") end
+	end
+	local ctx = { name = spec.name or "Effect", scale = spec.scale or 1, palette = spec.palette or {},
+		textures = spec.textures or {}, warned = {} }
+	for name, v in pairs(ctx.textures) do
+		if type(v) ~= "number" and not (type(v) == "string" and (string.match(v, "^%d+$") or string.find(v, "://"))) then
+			add("ERROR", "textures." .. tostring(name), "not an asset id: " .. tostring(v))
+		end
+	end
+	local scratch = {
+		part = Instance.new("Part"), beam = Instance.new("Beam"), emitter = Instance.new("ParticleEmitter"),
+		light = { PointLight = Instance.new("PointLight"), SpotLight = Instance.new("SpotLight"),
+			SurfaceLight = Instance.new("SurfaceLight") },
+		grade = Instance.new("ColorCorrectionEffect"), decal = Instance.new("Decal"),
+	}
+	local seenIds, lights, textures = {}, 0, {}
+	local bursts, spans = {}, {} -- particle bursts {t, n, over, life, streak, white}; layer spans {from, to}
+	local widest, widestId = 0, nil
+	local length = VFXTimeline.length(spec)
+
+	for index, L in ipairs(spec.layers) do
+		local id = tostring(L.id or ("#" .. index))
+		local where = "layer " .. id
+		local kind = L.kind
+		if L.id == nil then add("WARN", where, "no id (reviews and warnings can't name it)") end
+		if seenIds[id] then add("WARN", where, "duplicate id") end
+		seenIds[id] = true
+		if not KIND[kind] then
+			add("ERROR", where, "unknown kind `" .. tostring(kind) .. "`")
+			continue
+		end
+		if L.enabled == false then continue end
+		for k in pairs(L) do
+			if not COMMON_KEYS[k] and not KIND_KEYS[kind][k] then
+				local other
+				for kk, keys in pairs(KIND_KEYS) do if keys[k] then other = kk end end
+				add("WARN", where, "key `" .. tostring(k) .. "` is ignored" ..
+					(if other then " (it belongs to kind " .. other .. ")" else " (typo, or a property that belongs in props?)"))
+			end
+		end
+		local life = L.life or 1
+		local props, tracks = L.props or {}, L.tracks or {}
+		-- props: set each on a scratch instance of the same class
+		local inst = scratch[kind]
+		if kind == "light" then inst = scratch.light[L.class or "PointLight"] or scratch.light.PointLight end
+		local tplClone
+		if kind == "part" and L.template then
+			local folder = assetFolder()
+			local tpl = folder and folder:FindFirstChild(L.template, true)
+			if tpl then
+				tplClone = tpl:Clone()
+				inst = tplClone
+			else
+				add("WARN", where, "template `" .. tostring(L.template) .. "` not found (VFXTimeline.Assets / ReplicatedStorage.VFXAssets): props not checked")
+				inst = nil
+			end
+		end
+		if typeof(inst) == "Instance" then
+			for prop, v in pairs(props) do
+				if (prop == "Texture" or prop == "TextureId") and type(v) == "string" and not ctx.textures[v]
+					and not string.match(v, "^%d+$") and not string.find(v, "://") then
+					add("ERROR", where, prop .. " `" .. v .. "` is not in `textures`")
+				else
+					local ok, err = pcall(function() inst[prop] = convert(inst, prop, v, ctx) end)
+					if not ok then add("ERROR", where, "props." .. tostring(prop) .. ": " .. tostring(err)) end
+				end
+			end
+		end
+		if tplClone then tplClone:Destroy() end
+		if L.decal then
+			for prop, v in pairs(L.decal) do
+				local ok, err = pcall(function() scratch.decal[prop] = convert(scratch.decal, prop, v, ctx) end)
+				if not ok then add("ERROR", where, "decal." .. tostring(prop) .. ": " .. tostring(err)) end
+			end
+		end
+		-- tracks
+		for prop, keys in pairs(tracks) do
+			local known = KIND_TRACKS[kind]
+			if kind == "grade" then
+				local ok = pcall(function() return scratch.grade[prop] end)
+				if not ok then add("WARN", where, "track `" .. tostring(prop) .. "` is not a ColorCorrection property") end
+			elseif known and not known[prop] then
+				add("WARN", where, "track `" .. tostring(prop) .. "` is ignored by kind " .. kind ..
+					(if kind == "emitter" and (prop == "Transparency" or prop == "Size" or prop == "Color")
+						then " (particles take Transparency/Size/Color as sequences over each particle's life in props)" else ""))
+			end
+			if type(keys) ~= "table" or #keys == 0 then
+				add("ERROR", where, "track `" .. tostring(prop) .. "` has no keys")
+				continue
+			end
+			for _, key in ipairs(keys) do
+				if type(key[1]) ~= "number" then
+					add("ERROR", where, "track `" .. tostring(prop) .. "`: a key has no time")
+				elseif key[1] > life + 1e-6 then
+					add("WARN", where, string.format("track `%s`: key at %.2f s is after the layer's life %.2f s (never reached)",
+						prop, key[1], life))
+				end
+				if key[3] ~= nil and not EASE[key[3]] then
+					add("WARN", where, "track `" .. tostring(prop) .. "`: unknown ease `" .. tostring(key[3]) .. "` (plays linear)")
+				end
+			end
+			local trackKind = if COLOR_TRACKS[prop] then "color" elseif VECTOR_TRACKS[prop] then "vector"
+				elseif prop == "Scale" then "vectorOrNumber" else nil
+			local ok, err = pcall(prepTrack, keys, ctx, trackKind)
+			if not ok then add("ERROR", where, "track `" .. tostring(prop) .. "`: " .. tostring(err)) end
+		end
+		-- fades: opaque the whole life, then gone in one frame
+		if kind == "emitter" and props.Transparency == nil then
+			add("WARN", where, "no Transparency: particles are fully opaque their whole life, then pop out")
+		elseif kind == "beam" and props.Transparency == nil and not tracks.Fade then
+			add("WARN", where, "no Transparency or Fade: fully opaque, then a hard cut at the end")
+		elseif kind == "part" and not L.template and props.Transparency == nil and not tracks.Transparency then
+			add("WARN", where, "no Transparency (props or track): fully opaque, then a hard cut at the end")
+		end
+		if kind == "part" and not L.template and props.Color == nil and not tracks.Color then
+			add("WARN", where, "no Color: a new Part is grey")
+		end
+		-- emitters
+		if kind == "emitter" then
+			if props.Lifetime == nil then add("WARN", where, "no Lifetime: Roblox's default 5-10 s") end
+			if props.Texture == nil then add("WARN", where, "no Texture: Roblox's default sparkle") end
+			local emits = L.emit or {}
+			if #emits == 0 and not tracks.Rate and not (type(props.Rate) == "number" and props.Rate > 0) then
+				add("WARN", where, "never emits (no emit list, Rate or Rate track)")
+			end
+			for _, e in ipairs(emits) do
+				if type(e[1]) ~= "number" or type(e[2]) ~= "number" then
+					add("ERROR", where, "emit entries are {t, count[, over]}")
+				elseif e[1] > life + 1e-6 then
+					add("WARN", where, string.format("emit at %.2f s is after the layer's life %.2f s (never fires)", e[1], life))
+				end
+			end
+			local w = 2 * maxOfSeq(props.Size or 1) * ctx.scale
+			if w > widest then widest, widestId = w, id end
+		end
+		if kind == "light" then lights += 1 end
+		-- spans, bursts, textures (per copy)
+		local copies = L.copies or { n = 1 }
+		local plife = meanOfRange(props.Lifetime, 7.5)
+		local streak = props.Orientation == "VelocityParallel" or props.Orientation == "FacingCameraWorldUp"
+			or (props.Squash ~= nil and maxOfSeq(props.Squash) ~= 0)
+		local white = false
+		if streak and props.Brightness ~= 0 then
+			local c0 = props.Color
+			if type(c0) == "table" and not isVec(c0) and type(c0[1]) == "table" then c0 = c0[1][2] end
+			local ok, c = pcall(color, c0 or "#FFFFFF", ctx)
+			white = ok and (0.299 * c.R + 0.587 * c.G + 0.114 * c.B) > 0.9 -- near white (pale yellow flames do not count)
+		end
+		for i = 1, copies.n or 1 do
+			local t0 = (L.t or 0) + (i - 1) * (copies.every or 0)
+			table.insert(spans, { t0, t0 + life })
+			if kind == "emitter" then
+				for _, e in ipairs(L.emit or {}) do
+					if type(e[1]) == "number" and type(e[2]) == "number" and e[1] <= life + 1e-6 then
+						table.insert(bursts, { t = t0 + e[1], n = e[2], over = e[3] or 0, life = plife, streak = streak, white = white })
+					end
+				end
+				if type(props.Rate) == "number" and props.Rate > 0 and not tracks.Rate then
+					for s = 0, life, 0.05 do
+						table.insert(bursts, { t = t0 + s, n = props.Rate * 0.05, over = 0, life = plife, streak = streak, white = white })
+					end
+				end
+				if tracks.Rate then
+					local keys = tracks.Rate
+					for s = 0, life, 0.05 do -- a Rate track as 0.05 s bursts
+						local r = 0
+						for k = 1, #keys do
+							if keys[k][1] <= s then r = keys[k][2] end
+						end
+						if type(r) == "number" and r > 0 then
+							table.insert(bursts, { t = t0 + s, n = r * 0.05, over = 0, life = plife, streak = streak, white = white })
+						end
+					end
+				end
+			end
+		end
+		local tex = props.Texture or props.TextureId or L.meshTexture or (L.decal and L.decal.Texture)
+		if tex ~= nil then
+			local key = tostring(if type(tex) == "string" and ctx.textures[tex] then ctx.textures[tex] else tex)
+			textures[key] = textures[key] or {}
+			local le = props.LightEmission
+			table.insert(textures[key], id .. (if kind == "emitter" or kind == "beam"
+				then " LE " .. (if le == nil then "0" else tostring(le)) else ""))
+		end
+	end
+	if lights > 1 then add("WARN", "spec", lights .. " lights (one per effect is the budget)") end
+
+	-- peaks on a 0.05 s grid
+	local horizon = length
+	for _, b in ipairs(bursts) do horizon = math.max(horizon, b.t + b.over + b.life) end
+	local peakP, peakPT, peakS, peakST, peakL, peakLT, peakW, peakWT = 0, 0, 0, 0, 0, 0, 0, 0
+	for tau = 0, horizon, 0.05 do
+		local p, s, l, w = 0, 0, 0, 0
+		for _, b in ipairs(bursts) do
+			if tau >= b.t then
+				-- born evenly over [t, t + over]; each dies `life` after its birth
+				local born = if b.over > 0 then b.n * math.clamp((tau - b.t) / b.over, 0, 1) else b.n
+				local dead = if b.over > 0 then b.n * math.clamp((tau - b.life - b.t) / b.over, 0, 1)
+					elseif tau - b.t >= b.life then b.n else 0
+				local alive = born - dead
+				p += alive
+				if b.streak then s += alive end
+				if b.white then w += alive end
+			end
+		end
+		for _, sp in ipairs(spans) do
+			if tau >= sp[1] and tau < sp[2] then l += 1 end
+		end
+		if p > peakP then peakP, peakPT = p, tau end
+		if s > peakS then peakS, peakST = s, tau end
+		if w > peakW then peakW, peakWT = w, tau end
+		if l > peakL then peakL, peakLT = l, tau end
+	end
+	for _, inst in pairs(scratch) do
+		if typeof(inst) == "Instance" then inst:Destroy() else for _, x in pairs(inst) do x:Destroy() end end
+	end
+
+	local order = { ERROR = 1, WARN = 2 }
+	table.sort(problems, function(a, b)
+		if order[a.level] ~= order[b.level] then return order[a.level] < order[b.level] end
+		return a.where < b.where
+	end)
+	local stats = {
+		length = length, layers = #spec.layers, peakParticles = math.floor(peakP + 0.5), peakParticlesAt = peakPT,
+		peakStreaks = math.floor(peakS + 0.5), peakStreaksAt = peakST,
+		peakWhiteStreaks = math.floor(peakW + 0.5), peakWhiteStreaksAt = peakWT, peakLayers = peakL, peakLayersAt = peakLT,
+		widestParticle = widest, widestParticleLayer = widestId, lights = lights, textures = textures,
+	}
+	local lines = {}
+	for _, p in ipairs(problems) do table.insert(lines, p.level .. " " .. p.where .. ": " .. p.msg) end
+	local nErr, nWarn = 0, 0
+	for _, p in ipairs(problems) do if p.level == "ERROR" then nErr += 1 else nWarn += 1 end end
+	table.insert(lines, string.format("%s: %d errors, %d warnings | %.2f s, %d layers | peak %d particles at %.2f s "
+		.. "(%d elongated at %.2f s, %d of them bright white at %.2f s), %d layers active at %.2f s | widest particle "
+		.. "%.1f studs (%s) | %d light(s)",
+		ctx.name, nErr, nWarn, length, #spec.layers, stats.peakParticles, peakPT, stats.peakStreaks, peakST,
+		stats.peakWhiteStreaks, peakWT, peakL, peakLT, widest, tostring(widestId), lights))
+	local ids = {}
+	for k, v in pairs(textures) do table.insert(ids, k .. " (" .. table.concat(v, ", ") .. ")") end
+	table.sort(ids)
+	table.insert(lines, "textures: " .. table.concat(ids, "; "))
+	return table.concat(lines, "\n"), problems, stats
+end
+
 return VFXTimeline

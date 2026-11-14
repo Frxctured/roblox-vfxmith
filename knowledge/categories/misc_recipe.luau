@@ -14,6 +14,9 @@
 -- LightInfluence 0 (the runtime sets it), the core's ink twin is a Br0 copy behind it instead of lamp2's LE -2 copy
 -- (the recapture showed that pair as a dim muddy flicker). Floor layers sit 0.1 studs above the origin: the origin
 -- must be ON the ground (the first replay lost floor layers under the stage).
+-- Texture traits pass (2026-11-14, kit/scripts/texture_traits.py): glintInk no longer shares the glints' Star113
+-- 14590086212, whose wide low-alpha glow fills its frame (a faint card: at Brightness 0 every glint dragged a soft dark
+-- square over the glow); it uses StarInk 17450657969, a clean long thin 4-point star. Layer values unchanged.
 return {
 	name = "HolyBurst",
 	palette = {
@@ -30,23 +33,35 @@ return {
 		ink = "#000000",
 	},
 	textures = {
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
 		PullStreak = 17627858096, -- gravity FlashWhite / FlashGreem, Grid4x4 (Loop at fps 1 = first frame)
-		Rays = 7265756294, -- mochiHit "Rays": one-frame ray flash
-		Flare = 16511998441, -- lamp2 / head "flare" bloom
+		-- [clear, white, 13 parts, eff ~327, fill 3%]
+		Rays = 7265756294, -- mochiHit "Rays": one-frame ray flash [BLACK card, white, 1 part, eff ~169, fill 9%]
+		Flare = 16511998441, -- lamp2 / head "flare" bloom [FAINT, white, 1 part, eff 272, fill 9%]
 		EnergyFire = 11458438415, -- EnergyVFX10, Grid8x8 realistic energy fire
-		SpikeInk = 17093828340, -- gravity FlashBlack: jagged spike silhouette
+		-- [clear, white, 2 parts, eff 39 smooth, fill 13%, 52/64 cells]
+		SpikeInk = 17093828340, -- gravity FlashBlack: jagged spike silhouette [clear, white, 1 part, eff 110, fill 32%]
 		Needle = 1053548563, -- jane Star1b: needle from the bottom edge to the centre, on BLACK (additive only)
-		Star = 14590086212, -- Star113: long thin cross
+		-- [BLACK card, white, 1 part, eff 263, fill 1%]
+		Star = 14590086212, -- Star113: long thin cross [FAINT, white, 1 part, eff 354, fill 14%]
+		StarInk = 17450657969, -- long thin 4-point star with no halo, for the black twin of the glints
+		-- [clear, white, 1 part, eff 151, fill 6%]
 		Lines = 16969300854, -- gravity "Sharp" LinesBG1/2, Grid4x4
+		-- [clear, white, 2 parts, eff ~50, fill 10%, 9/16 cells]
 		SoftRing = 8030746658, -- mochiFX "Gradient": soft ring with a bright rim
-		SpinRing = 12402897209, -- jane Impact327: ring with inner rays
+		-- [clear, white, 1 part, eff 136, fill 43%]
+		SpinRing = 12402897209, -- jane Impact327: ring with inner rays [clear, white, 1 part, eff ~113, fill 37%]
 		RayFan = 8905957078, -- skyrim LightRays: needle from the top edge to the centre
+		-- [clear, white, 1 part, eff 456, fill 2%]
 		Halo = 1084999891, -- skyrim Light: soft radial rays round a dark centre, on BLACK (additive only)
-		Smoke = 8120749500, -- mochiFX / mochiHit smoke puff
-		Wisp = 6910301489, -- mochiFX Wisps: off-centre dot (orbits when spun)
-		Pin = 13712002093, -- gravity Specs: pin-prick dot
+		-- [BLACK card, white, 5 parts, eff 99, fill 13%]
+		Smoke = 8120749500, -- mochiFX / mochiHit smoke puff [clear, white, 1 part, eff 53, fill 53%]
+		Wisp = 6910301489, -- mochiFX Wisps: off-centre dot (orbits when spun) [clear, white, 1 part, eff 65, fill 2%]
+		Pin = 13712002093, -- gravity Specs: pin-prick dot [clear, white, 1 part, eff 373, fill <1%]
 		Ripple = 13455499583, -- galaxy ImpactRipple: flat floor ripple ring
+		-- [BLACK card, white, 6 parts, eff ~124, fill 8%]
 		Glow = 867619398, -- head "Glow": big soft blob (texture-vocab: big soft glow)
+		-- [clear, white, 1 part, eff 16 smooth, fill 58%]
 	},
 	layers = {
 		------------------------------------------------------------------ flash + burst (t = 0: frame-1 pop)
@@ -133,7 +148,7 @@ return {
 		{ -- black twin of the glints: LightEmission 0 + Brightness 0 renders black whatever the colour (jane, 5 pairs)
 			id = "glintInk", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
 			props = {
-				Texture = "Star", Color = "gold", LightEmission = 0, Brightness = 0,
+				Texture = "StarInk", Color = "gold", LightEmission = 0, Brightness = 0,
 				Size = 1.2, Speed = { 50, 90 }, Drag = 15, SpreadAngle = 360,
 				Lifetime = { 0.1, 0.25 }, Transparency = 0, ZOffset = 2.9,
 			},

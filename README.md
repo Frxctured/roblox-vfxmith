@@ -2,7 +2,8 @@
 
 A Claude Code plugin (or a plain folder for any AI agent) that lets you say **"make a cool light beam with an
 explosion"** and get an effect built the way experienced Roblox VFX artists build them. It knows how, because it
-studied ~1,900 real open-source effects: their exact layer values, their timing, frame by frame.
+catalogued ~1,900 real open-source effects, read ~1,200 of them layer by layer (every value) and played 75 frame
+by frame.
 
 | | What |
 |---|---|
@@ -29,11 +30,14 @@ effect in Studio); without it you still get references and a ready spec.
 1. **Find references**: `kit/scripts/find_effects.py "light beam with an explosion"` splits the request into parts and
    returns, per part, the closest real effects (cards with exact values, frames), the effect-type study and its recipe.
 2. **Start from recipes**: one spec with both recipes' layers (the explosion shifted to the beam's impact), adapted to
-   the request with values from the cards ([`knowledge/spec-format.md`](knowledge/spec-format.md)).
-3. **Play it in Studio and look**: the kit installs without Rojo or uploads; `C.hold(name, t)` + a screenshot captures
-   frozen frames on any OS.
+   the request with values from the cards ([`knowledge/spec-format.md`](knowledge/spec-format.md)); every texture
+   checked for traps (`texture_traits.py`: coloured, black or faint card, multi-part, low resolution).
+3. **Check it, play it in Studio and look**: the kit installs without Rojo or uploads; `C.check(name)` catches silent
+   spec mistakes; `C.hold(name, t)` + a screenshot captures frozen frames on any OS, on a black stage AND a default
+   daylight baseplate (dark layers that vanish on black can read as dirt in daylight).
 4. **Compare and review**: side by side with the references (`compare.py`), three blind reviewer agents (shape, timing,
-   colour) list concrete fixes; repeat until every lens scores 8.5 or progress stops.
+   colour) list concrete fixes, scoring absolute quality for a description or resemblance for a video; quick mode
+   stops after one round, full mode repeats until every lens scores 8.5 or progress stops.
 5. **Ship**: copy `kit/runtime/VFXTimeline.luau` + the spec into your game and play it on the client.
 
 ## What the pack taught us

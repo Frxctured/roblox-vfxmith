@@ -8,7 +8,7 @@
 -- Scale: D = 24 studs = peak Size of the main ring (explosion.md b: every size is a multiple of D; opts.scale
 -- resizes everything). Burst centre 3 studs above the origin; ground layers at y 0.1-0.3.
 -- Timing: like every studied effect, ALL layers fire at t = 0 as single bursts; lifetimes alone make the phases:
---   flash 0-0.09 | peak 0.03-0.15 | break-up 0.15-0.45 | linger 0.45-1.6 (crack), embers to ~2.8.
+--   flash 0-0.09 | hot core to ~0.15-0.2 | break-up and cooling 0.15-0.7 | linger 0.7-2.2 (crack, dust), embers to ~2.8.
 -- Three tones: white core (flashCore, flashStar, pillar, crossFlare, ringWhip, sparks, streaks),
 --   saturated orange body (glow, ringFlat, ringShell, spikyShock, flames, fireBlobs, embers),
 --   dark ink (blackFlash, streakInk, darkSmoke, crack ends black).
@@ -17,6 +17,33 @@
 -- body layer instead of 1 (e.9). Negative LightEmission is used on one layer only (spikyShock) and marked; embers use
 -- LE 1 instead of fire's LE -2 Br 200. Every layer gets LightInfluence 0 from the runtime.
 -- Check in Studio first: some ids may not load in another experience (asset permissions).
+-- Texture traits pass (2026-11-14, kit/scripts/texture_traits.py; the blind test hit every one of these):
+--   StarFlash 18118762332 / SpikyStar 11187665050 (the same 420 px starburst, effective resolution ~110 px: blurry,
+--   stair-stepped spikes at Size 22-28) -> 17296456452 (radial spike burst, 1024 px, eff 247) and 16892332741 (crisp
+--   toon star, eff 266); BlackFlash 8133065785 (a faint low-alpha card: at Brightness 0 it darkened the rings round
+--   it) -> 13621316962, the same-art twin of the new flash as its black twin; Cross 17391818367 -> 14590086212 (same
+--   long thin cross, eff 354 instead of 183, for its Size 26); Lines 7136536841 (12 parallel streaks in one image: a
+--   barcode comb under FacingCameraWorldUp) -> 8030734851 (one soft lens streak; 20 streaks now, not 240 lines:
+--   raise the emit counts if it reads sparse); Crack 130848219849162 (a dark semi-transparent haze round the cracks:
+--   at LightEmission 0 it cut the ground rings with a dark outline) -> 99911247720869 (clean single crack starburst,
+--   keeps the LE 0 orange-to-black cooling); SpikyRing 14538969234 (a 128 px image drawn at Size 17) -> 7417145436
+--   (the same ragged spiky ring at 420 px, starter kit "hairy shock ring"), spikyShock Brightness 25 -> 12 because the
+--   new ring is white where the old one was mid-grey (tone 0.49). Other layer values unchanged.
+-- Body and cooling pass (2026-11-14, patterns.md 15.4): in the blind test this recipe's blast went white -> flat red
+--   puffs -> a floating black ball in under 0.5 s, cluttered with white needles, and nothing was left at 2 s. Changes,
+--   all inside the anatomy ranges of explosion.md b: glow lives 0.4-0.45 s (was 0.25) and cools orange -> red;
+--   flames and fireBlobs live longer (0.45-0.8 / 0.55-0.9 s) with their colour keys moved so they still turn orange
+--   at ~0.2 s as before and spend the extra time in orange -> red -> ember; 9 fireBlobs instead of 7. (Tested in
+--   daylight: holding the yellow-hot colour longer, or starting white, clips to a shapeless white blob at Brightness
+--   4.5-8, the baseline's white-out; reverted.) white needles cut to ~25 at the peak (streaks 20 -> 12,
+--   streakInk 12 -> 7, sparks 25 -> 16); darkSmoke starts lower (y 2, was 3: it still rises through the fireball's base
+--   and gives it its dark tone), rises faster, lives 1.3-2.1 s and cools to a warm dark GREY that thins from ~60 % of
+--   its life (was pure black by 0.4 s: the black ball the reviewers saw);
+--   new dustRise layer (anatomy 15): a pale dust skirt thrown low along the ground in front of the smoke, drifting
+--   up, to ~2.6 s; crack lives 2.2 s and holds full strength to half its life.
+--   Checked in Studio on the default daylight baseplate against the previous version at 0.08 / 0.25 / 0.6 / 1.1 /
+--   2.0 s: same fireball at 0.25 s; at 0.6 s an orange core inside translucent grey smoke instead of a solid black
+--   mass; at 1.1 s a thinning smoke column over the crack instead of nothing.
 return {
 	name = "OSExplosion",
 	palette = {
@@ -26,26 +53,39 @@ return {
 		red = "#E8341C",
 		ember = "#8A1A0C",
 		smokeBrown = "#A6623C", -- fire's dark-smoke start colour
-		smokeMid = "#090503", -- fire's dark-smoke middle colour
+		smokeMid = "#090503", -- fire's dark-smoke middle colour (no longer used: smoke cools to grey, see header)
+		smokeDark = "#2B2420", -- warm dark grey: the smoke's darkest point
+		smokeGrey = "#5A544D", -- where the smoke ends, thinning out
+		dust = "#C2B29C", -- pale warm dust
 		crackHot = "#F35529", -- fire's crack colour
 		ink = "#000000",
 	},
 	textures = {
-		StarFlash = 18118762332, -- spiky starburst flash (jing, 1-frame flash)
-		SpikyStar = 11187665050, -- spiky starburst (burst ImpactFrame)
-		Glow = 14045123768, -- big soft glow (burst, ice)
-		PillarFlash = 15294279094, -- flash used with Squash 0 -> 10.6 (cinn)
-		Cross = 17391818367, -- thin 4-point cross (fire Star102)
-		BlackFlash = 8133065785, -- spiky hit burst, used at Brightness 0 = black (fire "Black Flash")
-		TwoArcRing = 18527700887, -- two-arc wind ring (jing)
-		ThinRing = 15269685466, -- decay16 ring (ice)
-		SpikyRing = 14538969234, -- ragged spiky shock ring (burst Red'pikeyShockwave)
-		Lines = 7136536841, -- vertical line streaks (burst "black" sparks)
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		StarFlash = 17296456452, -- radial spike burst (SW2 / Hit13); was jing's 18118762332, low-res
+		-- [clear, white, 1 part, eff 247, fill 32%]
+		SpikyStar = 16892332741, -- crisp toon star splat (Impact40); was burst ImpactFrame 11187665050, low-res
+		-- [clear, white, 1 part, eff 266, fill 24%]
+		Glow = 14045123768, -- big soft glow (burst, ice) [FAINT, white, 1 part, eff 29 smooth, fill 25%]
+		PillarFlash = 15294279094, -- flash used with Squash 0 -> 10.6 (cinn) [clear, white, 1 part, eff ~263, fill 8%]
+		Cross = 14590086212, -- long thin 4-point cross (Star113); was fire's Star102 17391818367: same look, half the res
+		-- [FAINT, white, 1 part, eff 354, fill 14%]
+		BlackFlash = 13621316962, -- radial spike burst (same art as StarFlash), used at Brightness 0 = black; was fire's
+		-- "Black Flash" 8133065785, a faint card [clear, white, 1 part, eff 247, fill 32%]
+		TwoArcRing = 18527700887, -- two-arc wind ring (jing) [clear, black+white, 3 parts, eff 137, fill 6%]
+		ThinRing = 15269685466, -- decay16 ring (ice) [clear, black+white, 3 parts, eff 137, fill 6%]
+		SpikyRing = 7417145436, -- ragged spiky shock ring (Impact446); was burst Red'pikeyShockwave 14538969234 (128 px)
+		-- [clear, white, 1 part, eff 72, fill 17%]
+		Lines = 8030734851, -- one soft vertical lens streak; was burst's 7136536841 (12 parallel streaks in one image)
+		-- [clear, white, 1 part, eff 117, fill 9%]
 		FlameShard = 15413764911, -- toon flame tongue 4x4 (cid; same art as ice's 14005903992)
-		ToonPuff = 16867383201, -- stylised smoke 4x4 (fire, big)
-		Spark = 15431912045, -- white diamond spark streak (cid)
-		Ember = 16171528032, -- off-centre sharp dot (fire embers, ice specks)
-		Crack = 130848219849162, -- ground cracks (fire)
+		-- [clear, white, 3 parts, eff 82, fill 12%, 7/16 cells]
+		ToonPuff = 16867383201, -- stylised smoke 4x4 (fire, big) [clear, white, 3 parts, eff 98, fill 21%, 13/16 cells]
+		Spark = 15431912045, -- white diamond spark streak (cid) [clear, white, 1 part, eff 112, fill 7%]
+		Ember = 16171528032, -- off-centre sharp dot (fire embers, ice specks) [clear, white, 1 part, eff 57, fill 3%]
+		Dust = 16867490141, -- soft smoke 4x4, the library's most used (dustRise) [clear, grey, 1 part, eff 39 smooth, fill 26%, 12/16 cells]
+		Crack = 99911247720869, -- single bright crack starburst; was fire's 130848219849162 (dark haze card)
+		-- [clear, white, 1 part, eff 129, fill 16%]
 	},
 	layers = {
 		------------------------------------------------------------------ flash (0 - 0.09): white core
@@ -54,7 +94,8 @@ return {
 			id = "flashCore", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
 			props = {
 				Texture = "StarFlash", Color = "white", LightEmission = 1, Brightness = 6,
-				Size = { { 0, 28 }, { 1, 0 } }, Transparency = 0, Lifetime = 0.06,
+				-- Size 28 -> 20: the new flash texture fills 32 % of its card, the old one 22 %
+				Size = { { 0, 20 }, { 1, 0 } }, Transparency = 0, Lifetime = 0.06,
 				Speed = 0, Rotation = { 0, 360 }, ZOffset = 3,
 			},
 			emit = { { 0, 1 } },
@@ -106,9 +147,9 @@ return {
 			-- burst 14045123768 0 -> 185 (1.9 D) Tr 0.69; ice 0 -> 40 (0.8 D); library glow 1.16 D
 			id = "glow", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
 			props = {
-				Texture = "Glow", Color = "orange", LightEmission = 1, Brightness = 3,
-				Size = { { 0, 10 }, { 0.3, 36 }, { 1, 40 } }, Transparency = { { 0, 0.7 }, { 1, 1 } },
-				Lifetime = 0.25, Speed = 0, ZOffset = -1,
+				Texture = "Glow", Color = { { 0, "orange" }, { 1, "red" } }, LightEmission = 1, Brightness = 3,
+				Size = { { 0, 10 }, { 0.25, 36 }, { 1, 42 } }, Transparency = { { 0, 0.7 }, { 0.4, 0.8 }, { 1, 1 } },
+				Lifetime = { 0.4, 0.45 }, Speed = 0, ZOffset = -1, -- body pass: 0.25 -> 0.4-0.45 (anatomy 3: 0.06-0.45)
 			},
 			emit = { { 0, 1 } },
 		},
@@ -152,7 +193,7 @@ return {
 			-- LE -1 at Br 45 renders a dark #78080F crescent vivid red (big), so expect a saturated rim, not a dark one
 			id = "spikyShock", kind = "emitter", t = 0, life = 0.05, at = { 0, 0.2, 0 },
 			props = {
-				Texture = "SpikyRing", Color = { { 0, "orange" }, { 1, "ember" } }, LightEmission = -1, Brightness = 25,
+				Texture = "SpikyRing", Color = { { 0, "orange" }, { 1, "ember" } }, LightEmission = -1, Brightness = 12,
 				Orientation = "VelocityPerpendicular", EmissionDirection = "Top", Speed = 0.02, SpreadAngle = { 0, 0 },
 				Size = { { 0, 0 }, { 1, 17 } }, Transparency = { { 0, 0 }, { 0.7, 0.2 }, { 1, 1 } },
 				Lifetime = { 0.3, 0.5 }, Rotation = { 0, 360 }, ZOffset = 0.2,
@@ -170,7 +211,7 @@ return {
 				Squash = { { 0, -3 }, { 0.09, 1 }, { 1, -2 } }, Transparency = 0,
 				Lifetime = { 0.15, 0.3 }, ZOffset = 3,
 			},
-			emit = { { 0, 20 } },
+			emit = { { 0, 12 } }, -- body pass: 20 -> 12 (white needles buried the fireball)
 		},
 		{ -- the black twin of the streaks: same motion, Brightness 0, a hair behind (d.5)
 			-- burst 7136536841 LE 0 Br 0 copies (4+4), ZOffset 2.98 vs 2.99
@@ -182,7 +223,7 @@ return {
 				Squash = { { 0, -3 }, { 0.09, 1 }, { 1, -2 } }, Transparency = 0,
 				Lifetime = { 0.15, 0.3 }, ZOffset = 2.9,
 			},
-			emit = { { 0, 12 } },
+			emit = { { 0, 7 } }, -- body pass: 12 -> 7
 		},
 		{ -- toon flame tongues thrown out and stopped, stretching then thinning (anatomy 9)
 			-- cid 15413764911 LE 0.45 Br 7, Squash 0.3 -> 1.39 @45 % -> 0, Drag 6.7; ice 14005903992 (same art)
@@ -190,11 +231,11 @@ return {
 			id = "flames", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
 			props = {
 				Texture = "FlameShard", FlipbookLayout = 4, FlipbookMode = "OneShot",
-				Color = { { 0, "hot" }, { 0.4, "orange" }, { 1, "red" } }, LightEmission = 0.45, Brightness = 8,
+				Color = { { 0, "hot" }, { 0.33, "orange" }, { 1, "red" } }, LightEmission = 0.45, Brightness = 8,
 				Orientation = "VelocityParallel", EmissionDirection = "Top", SpreadAngle = { 180, 180 },
 				Speed = { 20, 80 }, Drag = 8, Size = { { 0, 3 }, { 0.3, 9 }, { 1, 9 } },
 				Squash = { { 0, 0.3 }, { 0.45, 1.4 }, { 1, 0 } }, Transparency = 0,
-				Lifetime = { 0.35, 0.7 }, ZOffset = 1,
+				Lifetime = { 0.45, 0.8 }, ZOffset = 1, -- body pass: 0.35-0.7 -> 0.45-0.8
 			},
 			emit = { { 0, 8 } },
 		},
@@ -203,13 +244,13 @@ return {
 			id = "fireBlobs", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
 			props = {
 				Texture = "ToonPuff", FlipbookLayout = 4, FlipbookMode = "OneShot",
-				Color = { { 0, "hot" }, { 0.3, "orange" }, { 0.7, "red" }, { 1, "ember" } },
+				Color = { { 0, "hot" }, { 0.25, "orange" }, { 0.7, "red" }, { 1, "ember" } },
 				LightEmission = 0.3, Brightness = 6,
 				Speed = { 15, 45 }, Drag = 6.5, SpreadAngle = { 180, 180 }, EmissionDirection = "Top",
 				Size = { { 0, 2 }, { 0.2, 10 }, { 1, 12 } }, Transparency = { { 0, 0 }, { 0.8, 0.1 }, { 1, 1 } },
-				Lifetime = { 0.4, 0.8 }, Rotation = { 0, 360 }, RotSpeed = { -60, 60 }, ZOffset = 0.5,
+				Lifetime = { 0.55, 0.9 }, Rotation = { 0, 360 }, RotSpeed = { -60, 60 }, ZOffset = 0.5, -- body pass: 0.4-0.8 -> 0.55-0.9
 			},
-			emit = { { 0, 7 } },
+			emit = { { 0, 9 } }, -- body pass: 7 -> 9: the fireball is the hero shape of the break-up
 		},
 		{ -- white-hot spark streaks with a little gravity (anatomy 8/11; d.19)
 			-- cid 15431912045 VelocityParallel, swell 0 -> 4.25 @5 % -> 0, Drag 9.58, LE 1 Br 15, x25;
@@ -223,7 +264,7 @@ return {
 				Size = { { 0, 0 }, { 0.05, 1.4 }, { 1, 0 } }, Transparency = 0,
 				Lifetime = { 0.3, 0.6 }, ZOffset = 2,
 			},
-			emit = { { 0, 25 } },
+			emit = { { 0, 16 } }, -- body pass: 25 -> 16
 		},
 		{ -- a few hot embers that drift and orbit, carrying the linger alone (d.18)
 			-- fire 16171528032: Size 2.69 -> 0, Speed 22-79, Drag 3.24, RotSpeed 97-162, life 1.85-3.7, x4,
@@ -242,15 +283,30 @@ return {
 		{ -- dark smoke rising behind the fire, ramping to black (d.6, d.8; anatomy 13)
 			-- fire flipbooks #A6623C -> #090503 -> #000000, LE -1 Br 5, Speed 20-170, Drag 6.5-9, life 0.86-2;
 			-- LE 0 Br 1.5 here (same ramp, no negative LE), 0.58 D, rises
-			id = "darkSmoke", kind = "emitter", t = 0, life = 0.05, at = { 0, 3, 0 },
+			-- body pass: starts near the ground and rises; cools to warm dark grey and thins (not black: a hole in daylight)
+			id = "darkSmoke", kind = "emitter", t = 0, life = 0.05, at = { 0, 2, 0 },
 			props = {
 				Texture = "ToonPuff", FlipbookLayout = 4, FlipbookMode = "OneShot",
-				Color = { { 0, "smokeBrown" }, { 0.35, "smokeMid" }, { 1, "ink" } },
+				Color = { { 0, "smokeBrown" }, { 0.3, "smokeDark" }, { 1, "smokeGrey" } },
 				LightEmission = 0, Brightness = 1.5,
-				EmissionDirection = "Top", SpreadAngle = { 70, 70 }, Speed = { 8, 30 }, Drag = 6.5,
-				Acceleration = { 0, 3, 0 }, Size = { { 0, 3 }, { 0.3, 11 }, { 1, 14 } },
-				Transparency = { { 0, 0.1 }, { 0.7, 0.3 }, { 1, 1 } },
-				Lifetime = { 0.9, 1.6 }, Rotation = { 0, 360 }, RotSpeed = { -40, 40 }, ZOffset = -1,
+				EmissionDirection = "Top", SpreadAngle = { 70, 70 }, Speed = { 8, 26 }, Drag = 6.5,
+				Acceleration = { 0, 6, 0 }, Size = { { 0, 3 }, { 0.3, 10 }, { 1, 15 } },
+				Transparency = { { 0, 0.15 }, { 0.6, 0.4 }, { 1, 1 } },
+				Lifetime = { 1.3, 2.1 }, Rotation = { 0, 360 }, RotSpeed = { -40, 40 }, ZOffset = -1,
+			},
+			emit = { { 0, 8 } },
+		},
+		{ -- body pass: pale dust thrown low along the ground, then drifting up (anatomy 15, linger smoke / dust)
+			-- library linger smoke: life 1.2-3.8, 0 -> 0.15-0.6 D, Tr 0.25-0.9 -> 1, Speed 16-225 Drag 5-6, LE 0-0.15 Br 1-5;
+			-- 16867490141 = the library's most used smoke flipbook (219 layers) [clear, grey, 1 part, smooth, 12/16 cells]
+			id = "dustRise", kind = "emitter", t = 0, life = 0.05, at = { 0, 0.5, 0 },
+			props = {
+				Texture = "Dust", FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Color = "dust", LightEmission = 0.1, Brightness = 1.5,
+				EmissionDirection = "Top", SpreadAngle = { 85, 85 }, Speed = { 24, 42 }, Drag = 5,
+				Acceleration = { 0, 3, 0 }, Size = { { 0, 2 }, { 0.3, 7 }, { 1, 10 } },
+				Transparency = { { 0, 0.1 }, { 0.4, 0.3 }, { 1, 1 } },
+				Lifetime = { 1.4, 2.6 }, Rotation = { 0, 360 }, RotSpeed = { -30, 30 }, ZOffset = 0, -- in front of the smoke
 			},
 			emit = { { 0, 8 } },
 		},
@@ -261,8 +317,8 @@ return {
 				Texture = "Crack", Color = { { 0, "crackHot" }, { 0.5, "ember" }, { 1, "ink" } },
 				LightEmission = 0, Brightness = 15,
 				Orientation = "VelocityPerpendicular", EmissionDirection = "Top", Speed = 0.01, SpreadAngle = { 0, 0 },
-				Size = { { 0, 6 }, { 0.06, 11 }, { 1, 12 } }, Transparency = { { 0, 0 }, { 0.34, 0 }, { 1, 1 } },
-				Lifetime = 1.6, Rotation = { 0, 360 }, ZOffset = 0.1,
+				Size = { { 0, 6 }, { 0.06, 11 }, { 1, 12 } }, Transparency = { { 0, 0 }, { 0.5, 0 }, { 1, 1 } },
+				Lifetime = 2.2, Rotation = { 0, 360 }, ZOffset = 0.1, -- body pass: 1.6 -> 2.2
 			},
 			emit = { { 0, 1 } },
 		},

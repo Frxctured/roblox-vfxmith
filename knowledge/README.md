@@ -1,6 +1,6 @@
 # Findings
 
-What studying ~1,900 open-source Roblox effects taught us. Start with `knowledge/patterns.md` (rules that hold across
+What studying the open-source Roblox effects taught us (~1,900 catalogued, ~1,200 read layer by layer, 75 played frame by frame). Start with `knowledge/patterns.md` (rules that hold across
 effect types), then the category you are building. Each category note has: a breakdown of each studied effect,
 the **anatomy** (recurring layer roles with typical property values), a **timing** table, a **techniques**
 catalogue with exact property recipes, and the **mistakes** seen. Each `<category>_recipe.luau` is a generic

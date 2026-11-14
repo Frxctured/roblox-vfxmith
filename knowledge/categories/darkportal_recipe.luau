@@ -34,23 +34,36 @@ return {
 		ink = "#000000",
 	},
 	textures = {
-		QuickFlash = 12118255430, -- doom "6": soft white burst (QuickFLash)
-		ImpactStar = 10357935135, -- collab "impact": spiky white starburst
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		QuickFlash = 12118255430, -- doom "6": soft white burst (QuickFLash) [clear, white, 1 part, eff 115, fill 22%]
+		ImpactStar = 10357935135, -- collab "impact": spiky white starburst [clear, white, 3 parts, eff 62, fill 30%]
 		InkDisc = 102977909637329, -- tatsumaki ink disc (nt), used at Brightness 0
+		-- [clear, white, 1 part, eff ~80, fill 43%]
 		BlackShock = 16509144751, -- doom ground shock flipbook, Grid4x4 (ImpactExplod)
-		Slash = 78371370584447, -- collab slash card, Grid4x4 (nt)
+		-- [FAINT, white, 6 parts, eff 84, fill 14%, 11/16 cells]
+		Slash = 78371370584447, -- collab slash card, Grid4x4 (nt) [clear, white, 1 part, eff ~63, fill 8%]
 		ToonCrescents = 14973797453, -- collab "wind": four bold toon crescents, Grid2x2
+		-- [clear, white, 1 part, eff 227, fill 10%]
 		SpinSwirl = 14850595833, -- collab "cres" / doom "FinalWindTest": swirl ring
-		WindRing = 17848865880, -- voidflare spiky flat wind ring (nt)
+		-- [clear, white, 4 parts, eff 122, fill 6%]
+		WindRing = 17848865880, -- voidflare spiky flat wind ring (nt) [clear, grey, 4 parts, eff 122, fill 5%]
 		StreakRing = 11715867299, -- doom "Wind": ring with radial streaks, on BLACK (additive only)
+		-- [clear, black, 1 part, eff 78, fill 30%]
 		Needle = 16171607099, -- voidflare LinesWhite / Linesback2: thin vertical needle
+		-- [clear, white, 1 part, eff 117, fill 9%]
 		ZigZag = 13390196434, -- voidstorm "moving lightning": small zigzag arcs, Grid4x4
-		Orb = 13712004045, -- collab "specs": big soft blob, used tiny
+		-- [clear, white, 2 parts, eff 79, fill 7%, 10/16 cells]
+		Orb = 13712004045, -- collab "specs": big soft blob, used tiny [clear, white, 1 part, eff 16 smooth, fill 45%]
 		OffDot = 17334135713, -- doom embers: dot in the bottom-left corner (orbits when spun)
+		-- [clear, white, 1 part, eff ~63, fill 1%]
 		GreySmoke = 16867490141, -- doom Images/56: faint grey smoke, Grid4x4, used black
+		-- [clear, grey, 1 part, eff 39 smooth, fill 26%, 12/16 cells]
 		VoidFog = 89816655384560, -- voidstorm "uhh_original_fog" (nt), Grid4x4
+		-- [FAINT, grey, 1 part, eff ~43 smooth, fill 49%]
 		GlowCrack = 13781849388, -- collab GlowCrack / Cracks, Grid4x4
+		-- [clear, white, 1 part, eff 89, fill 34%, 15/16 cells]
 		Dissolve = 13784241004, -- doom Dissolve: scorch that dissolves, Grid4x4
+		-- [clear, black+white, 4 parts, eff 82, fill 23%, 15/16 cells]
 	},
 	layers = {
 		------------------------------------------------------------------ flash + punch (0 - 0.2)

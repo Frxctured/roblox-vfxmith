@@ -53,23 +53,39 @@ return {
 		ink = "#000000",
 	},
 	textures = {
-		Charge = 14704600122, -- radial soft streaks (SUN "Charge")
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		Charge = 14704600122, -- radial soft streaks (SUN "Charge") [FAINT, white, 7 parts, eff 85, fill 10%]
 		GlowDot = 13189667061, -- 4x4 glow dot with cross flare, grows/peaks/shrinks (FT "23")
-		Starburst = 16892268625, -- spiky star burst, single image (FT "55")
+		-- [clear, white, 1 part, eff 24 smooth, fill 6%]
+		Starburst = 16892268625, -- spiky star burst, single image (FT "55") [FAINT, white, 6 parts, eff 262, fill 15%]
 		CoreSmoke = 9470659899, -- 8x8 soft smoke on BLACK, additive only (F2 "3", hot base)
+		-- [BLACK card, white, 1 part, eff ~28 smooth, fill 11%]
 		BigFire = 17703378809, -- 4x4 big flame (FT "Recolorable Big Fire"); not seen as a thumbnail
+		-- [clear, white, 1 part, eff ~49, fill 28%]
 		FireShard = 118422915306523, -- 4x4 flame shard (FT "edgier_fire_shard"); not seen as a thumbnail
+		-- [clear, grey, 1 part, eff ~60, fill 16%]
 		FireDark = 119387723789903, -- 4x4 flame (FT "fire3", used dark); not seen as a thumbnail
+		-- [clear, white, 1 part, eff 70, fill 31%]
 		FlameFlip = 13528076463, -- 4x4 flame flick (FT "flameflip3"); not seen as a thumbnail
+		-- [clear, white, 1 part, eff 69, fill 12%]
 		FireRise = 15730376453, -- 4x4 rising toon flame (FT "diff_angle_fire_shard")
+		-- [clear, grey, 1 part, eff 90, fill 29%]
 		ShockRing = 18707464177, -- 4x4 crackling ring, only ~6 of 16 cells filled = built-in early cut
+		-- [clear, white, 4 parts, eff ~63, fill 13%, 5/16 cells]
 		FireRing = 13800461961, -- 4x4 ring of fire puffs spreading (FT "2P_RBurst5_Contrast")
+		-- [clear, white, 3 parts, eff 75, fill 10%, 15/16 cells]
 		Scorch = 82556288879264, -- 4x4 dark fractal wisps (FT dark crack twin)
+		-- [FAINT, white, 7 parts, eff ~55, fill 21%]
 		Cracks = 124744903601692, -- 4x4 glowing ground cracks (FT); not seen as a thumbnail
+		-- [FAINT, white, 5 parts, eff ~46 smooth, fill 24%]
 		Smoke = 15072761142, -- 4x4 soft smoke (SLOP maroon smoke)
+		-- [clear, grey, 2 parts, eff 41 smooth, fill 37%, 12/16 cells]
 		InkSmoke = 16867492882, -- 4x4 toon smoke (SLOP Br 0 black smoke)
+		-- [clear, white, 1 part, eff 34 smooth, fill 16%, 13/16 cells]
 		Ember = 115530057206994, -- F2 "EMBER"; not seen as a thumbnail
+		-- [clear, grey, 1 part, eff ~46 smooth, fill 3%, 11/16 cells]
 		Twinkle = 12224333321, -- 2x2 looping sparkle (CUBE "sparkles"); not seen as a thumbnail
+		-- [BLACK card, white, 1 part, eff 122, fill 11%]
 	},
 	layers = {
 		------------------------------------------------------------------ charge (0 - 0.35)

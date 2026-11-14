@@ -21,7 +21,10 @@ You find references in the vfxmith library and return a short, exact brief.
 Reply in terse bullets, per part:
 - **References:** id, file :: instance, frames path (if any), one line on why it fits.
 - **Layers to copy:** role -> texture id, LE/LI/Br, lifetime, size curve, speed/drag/spread, orientation, emit count
-  and time (exact numbers from the cards).
+  and time (exact numbers from the cards). Add each texture's traits from `<ROOT>/gallery/textures/traits.json` (or
+  `python3 -I <ROOT>/kit/scripts/texture_traits.py <id>`) and flag traps: coloured texture, black or faint card used
+  below LightEmission 1, multi-part streak, low effective resolution for its on-screen size (a particle is 2x its Size
+  across).
 - **Typical timing:** from the category table.
 - **Avoid:** 1-2 mistakes from the category study.
 - **Start from:** `knowledge/categories/<type>_recipe.luau`.

@@ -18,6 +18,12 @@
 -- Recolour: change palette.body / bodyLight / glow (Yuji = #446FF9 / #529AF9 / #3D91F9); keep white and ink.
 -- Out-of-range values copied on purpose (LightEmission -7 / -10, Transparency -50): if Studio refuses or they look
 -- wrong after an engine update, use LightEmission 0 and Transparency 0.
+-- Texture traits pass (2026-11-14, kit/scripts/texture_traits.py): Flash 18118762332 (420 px starburst with an
+-- effective resolution of ~110 px: soft, stair-stepped spikes at Size 13) -> 17296456452 (radial spike burst, 1024 px,
+-- eff 247); StarCross 17062416111 (an RGB-split chromatic cross: tinted "body" its fringes go muddy) -> 17062452122
+-- (plain white short cross of the same Star series); SpikyRing 14538969234 (a 128 px image drawn at Size 14) ->
+-- 7417145436 (the same ragged spiky ring at 420 px), shockRing Brightness 1 -> 0.5 because the new ring is white where
+-- the old one was mid-grey (tone 0.49). Other layer values unchanged.
 
 return {
 	name = "GroundSlam",
@@ -32,24 +38,29 @@ return {
 		ink = "#000000",
 	},
 	textures = {
-		Flash = 18118762332, -- spiky starburst flash (WC, YJ)
-		FlashInk = 79229618038296, -- YJ black twin under the flash
-		SpeedLines = 18465146997, -- BW / YJ stab cross
-		Fire42 = 16860398159, -- 8x8 fire burst (WK, YJ)
-		Bezier1 = 15423151910, -- 4x4 (WK, YJ)
-		RImpact = 101995042384072, -- 4x4 flash swell (WK, YJ, HK)
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		Flash = 17296456452, -- radial spike burst; was WC / YJ's 18118762332 (low-res)
+		-- [clear, white, 1 part, eff 247, fill 32%]
+		FlashInk = 79229618038296, -- YJ black twin under the flash [clear, multicolour, 1 part, eff 283, fill 53%]
+		SpeedLines = 18465146997, -- BW / YJ stab cross [clear, white, 3 parts, eff 160, fill 25%]
+		Fire42 = 16860398159, -- 8x8 fire burst (WK, YJ) [clear, grey, 1 part, eff 38 smooth, fill 8%, 31/64 cells]
+		Bezier1 = 15423151910, -- 4x4 (WK, YJ) [clear, white, 1 part, eff 91, fill 1%, 15/16 cells]
+		RImpact = 101995042384072, -- 4x4 flash swell (WK, YJ, HK) [clear, white, 2 parts, eff ~73, fill 9%, 8/16 cells]
 		FixedCircle = 134557993252093, -- 4x4 disc -> ring (WK, HK)
-		SphereRim = 14457094589, -- Impact333 (WK, YJ): the dome
-		Ring = 18765326355, -- Impact145 (WK, YJ)
-		SpikyRing = 14538969234, -- KB spiky shock ring
-		Swirl = 127940423551603, -- 4x4 wind swirl (WK, YJ, BW)
-		StarCross = 17062416111, -- Star3 chromatic cross (WK, YJ)
-		ShortImpact = 14379744080, -- 4x4 bolt flicks (WK, YJ)
-		Spec = 11448304274, -- specs (WC, HK, YJ)
-		Plume = 8527116276, -- Plume5 (WK, YJ, KB)
-		Billow = 15415212938, -- 4x4 Billowing (WK, YJ, KB)
-		FadingGlow = 107821950776778, -- WK ground glow
-		Crack = 17137667240, -- 4x4 crack (WK, KB)
+		-- [clear, white, 1 part, eff ~70, fill 14%, 8/16 cells]
+		SphereRim = 14457094589, -- Impact333 (WK, YJ): the dome [DARK haze, grey, 1 part, eff ~171, fill 42%]
+		Ring = 18765326355, -- Impact145 (WK, YJ) [clear, white, 1 part, eff 58, fill 45%]
+		SpikyRing = 7417145436, -- ragged spiky shock ring (Impact446); was KB's 14538969234 (128 px)
+		-- [clear, white, 1 part, eff 72, fill 17%]
+		Swirl = 127940423551603, -- 4x4 wind swirl (WK, YJ, BW) [clear, white, 3 parts, eff 75, fill 4%, 10/16 cells]
+		StarCross = 17062452122, -- Star12 short white cross; was WK / YJ's Star3 chromatic cross 17062416111
+		-- [clear, white, 1 part, eff 126, fill 2%]
+		ShortImpact = 14379744080, -- 4x4 bolt flicks (WK, YJ) [clear, white, 1 part, eff 104, fill 6%, 6/16 cells]
+		Spec = 11448304274, -- specs (WC, HK, YJ) [clear, white, 1 part, eff 40 smooth, fill 7%]
+		Plume = 8527116276, -- Plume5 (WK, YJ, KB) [clear, white, 1 part, eff 84, fill 57%]
+		Billow = 15415212938, -- 4x4 Billowing (WK, YJ, KB) [clear, grey, 1 part, eff 54, fill 50%]
+		FadingGlow = 107821950776778, -- WK ground glow [FAINT, white, 1 part, eff 523, fill 40%]
+		Crack = 17137667240, -- 4x4 crack (WK, KB) [clear, white, 4 parts, eff ~42 smooth, fill 25%, 15/16 cells]
 	},
 	layers = {
 		------------------------------------------------------------------ flash (0 - 0.06)
@@ -58,7 +69,8 @@ return {
 			props = {
 				Texture = "Flash", Color = "white", LightEmission = 0.5, Brightness = 6, LightInfluence = 0,
 				Orientation = "FacingCamera", Speed = 0.002, Rotation = { -360, 360 }, ZOffset = 2,
-				Size = { { 0, 13 }, { 0.26, 10.7 }, { 1, 0 } }, Transparency = 0, Lifetime = 0.05,
+				-- Size x0.7 (13 -> 9): the new flash texture fills 32 % of its card, the old one 22 % (checked in Studio)
+				Size = { { 0, 9 }, { 0.26, 7.5 }, { 1, 0 } }, Transparency = 0, Lifetime = 0.05,
 			},
 			emit = { { 0, 1 } },
 		},
@@ -182,7 +194,7 @@ return {
 		{ -- spiky shock ring, punchier: 48 % of final at 10 % life, 0.67 transparent by then (KB 14538969234, 0 -> 21, x0.67)
 			id = "shockRing", kind = "emitter", t = 0, life = 0.05, at = { 0, 0.12, 0 },
 			props = {
-				Texture = "SpikyRing", Color = "white", LightEmission = 0, Brightness = 1, LightInfluence = 0,
+				Texture = "SpikyRing", Color = "white", LightEmission = 0, Brightness = 0.5, LightInfluence = 0,
 				Orientation = "VelocityPerpendicular", EmissionDirection = "Top", Speed = 0.014, Rotation = { 0, 360 },
 				Size = { { 0, 0 }, { 0.1, 6.7 }, { 0.2, 8.9 }, { 0.3, 10.4 }, { 0.4, 11.4 }, { 0.5, 12.25 }, { 0.7, 13.3 }, { 1, 14 } },
 				Transparency = { { 0, 0 }, { 0.1, 0.67 }, { 0.2, 0.85 }, { 0.3, 0.92 }, { 0.5, 0.98 }, { 1, 1 } },

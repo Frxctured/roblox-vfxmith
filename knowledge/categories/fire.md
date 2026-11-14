@@ -158,7 +158,8 @@ FacingCameraWorldUp 5 %; flipbook Grid4x4 82 %, Grid8x8 7 %, none 10 %; 32 % of 
 
 ## b. Anatomy of a fire / flame effect
 
-Units: for bursts, **R** = final Size of the main ground ring (FireTowers 17.9 studs; Size = sprite width). For
+Units: for bursts, **R** = final Size of the main ground ring (FireTowers Size 17.9; a particle's Size is its half-width, measured 2026-11-14, so that
+ring sprite is ~36 studs across). For
 sustained flames, **H** = visible flame height on the stills (flameos ~2, Slop ~2.5 studs; flame2 is a ball ~3 studs
 in a ~8-stud halo, estimated).
 LI is 0 everywhere except the cube's haze (0.5-1) and sparkles (0.5).

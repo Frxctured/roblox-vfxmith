@@ -22,6 +22,9 @@
 -- Unverified engine behaviour used here (check in Studio): negative LightEmission (coreBody, sparkLit), how the
 -- untested textures 17062452367 / 14483718869 look (no thumbnails were available).
 -- Orientation: in the pipeline's capture rig the camera sits on -Z looking +Z, so +X (the flight) runs to screen LEFT.
+-- [..] after a Texture id = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py).
+-- Seen 2026-11-14 (thumbnail / original): 17062452367 = a black 4-point star inside a soft white glow rim; 14483718869
+-- = 8x8 frames of a white ball with swirling dark streaks (a rolling orb), 61 of 64 cells used.
 
 local Y = 3 -- flight height (studs)
 local HIT = { 32, Y, 0 } -- contact point (layer space, studs)
@@ -47,7 +50,7 @@ return {
 			-- peak held to 12 % of a 0.25 s life (v1: 1-2 frames, missed). [Artemis Weapons/Rain Flare20New]
 			id = "launchFlash", kind = "emitter", t = 0, life = 0.05, at = { 0.5, Y, 0 },
 			props = {
-				Texture = 70728001087698, Color = "hot", LightEmission = 1, Brightness = 5,
+				Texture = 70728001087698, Color = "hot", LightEmission = 1, Brightness = 5, -- [BLACK card, multicolour, 1 part, eff ~87, fill 56%]
 				Size = { { 0, 0 }, { 0.12, 3.9 }, { 0.3, 6.9 }, { 1, 7.1 } },
 				Transparency = { { 0, 0.94 }, { 0.03, 0 }, { 0.12, 0.5 }, { 1, 1 } },
 				Squash = { { 0, 0 }, { 1, -0.38 } },
@@ -59,7 +62,7 @@ return {
 			-- 0.69 -> 1.0 (the x1.38 Rain copy uses 0.95). [Artemis Weapons Flare247New]
 			id = "launchSparks", kind = "emitter", t = 0, life = 0.05, at = { 0.5, Y, 0 },
 			props = {
-				Texture = 13161986324, Color = { { 0, "white" }, { 1, "hot" } }, LightEmission = 1, Brightness = 2.8,
+				Texture = 13161986324, Color = { { 0, "white" }, { 1, "hot" } }, LightEmission = 1, Brightness = 2.8, -- [DARK haze, grey, 1 part, eff 45 smooth, fill 31%]
 				Size = { { 0, 1.0, 0.5 }, { 1, 0 } }, Transparency = 0,
 				Lifetime = { 0.2, 0.3 }, Speed = 25, Drag = 8.5, SpreadAngle = { 100, 100 }, EmissionDirection = "Right",
 				Acceleration = { 0, -10, 0 }, ZOffset = 4,
@@ -71,7 +74,7 @@ return {
 			-- LE 1, Br 1, Transparency ~0.66); texture: Artemis Fading Glow]
 			id = "coreGlow", kind = "emitter", t = 0, life = 0.4, at = { 0, Y, 0 },
 			props = {
-				Texture = 107821950776778, Color = "body", LightEmission = 1, Brightness = 1,
+				Texture = 107821950776778, Color = "body", LightEmission = 1, Brightness = 1, -- [FAINT, white, 1 part, eff 523, fill 40%]
 				Size = 9, Transparency = 0.55, Lifetime = 0.42, Speed = 0, LockedToPart = true, ZOffset = 1,
 			},
 			tracks = { Offset = flight() },
@@ -81,7 +84,7 @@ return {
 			-- black). v2: 2.5 -> 3.75 studs. [Event Ball Enabled/Ball2]
 			id = "coreBody", kind = "emitter", t = 0, life = 0.4, at = { 0, Y, 0 },
 			props = {
-				Texture = 14483718869, FlipbookLayout = 8, FlipbookMode = "OneShot",
+				Texture = 14483718869, FlipbookLayout = 8, FlipbookMode = "OneShot", -- [clear, white, 1 part, eff ~29 smooth, fill 57%, 61/64 cells]
 				Color = "body", LightEmission = -1, Brightness = 6,
 				Size = 3.75, Transparency = 0, Lifetime = 0.42, Speed = 0,
 				Rotation = { 90, 150 }, LockedToPart = true, ZOffset = 5,
@@ -92,7 +95,7 @@ return {
 		{ -- white-hot centre (0.44 D). v2: 1.1 -> 1.6. [Yoru impact texture / Shards2 role: hard orb core]
 			id = "coreHot", kind = "emitter", t = 0, life = 0.4, at = { 0, Y, 0 },
 			props = {
-				Texture = 15153511168, Color = "white", LightEmission = 1, Brightness = 3,
+				Texture = 15153511168, Color = "white", LightEmission = 1, Brightness = 3, -- [FAINT, white, 1 part, eff 76, fill 47%]
 				Size = 1.6, Transparency = 0, Lifetime = 0.42, Speed = 0, LockedToPart = true, ZOffset = 6,
 			},
 			tracks = { Offset = flight() },
@@ -102,7 +105,7 @@ return {
 			-- [random orb star]
 			id = "coreFlare", kind = "emitter", t = 0, life = 0.4, at = { 0, Y, 0 },
 			props = {
-				Texture = 14590086212, Color = "hot", LightEmission = 1, Brightness = 3,
+				Texture = 14590086212, Color = "hot", LightEmission = 1, Brightness = 3, -- [FAINT, white, 1 part, eff 354, fill 14%]
 				Size = 5, Squash = { { 0, -2.85 }, { 1, -2.85 } }, Transparency = 0.34,
 				Lifetime = 0.42, Speed = 0, LockedToPart = true, ZOffset = 6,
 			},
@@ -113,7 +116,7 @@ return {
 			-- 1.0 -> 2.4 (half way to 1 D; Christmas trails are 1 D wide). [Christmas `middle` role, Event Trail2 texture]
 			id = "trail", kind = "beam", t = 0, life = 0.55, a = { 0, Y, 0 }, b = { 0, Y, 0 },
 			props = {
-				Width0 = 2.4, Width1 = 0, Texture = 12781750620, TextureMode = "Stretch",
+				Width0 = 2.4, Width1 = 0, Texture = 12781750620, TextureMode = "Stretch", -- [clear, white, 1 part, eff 33 smooth, fill 44%]
 				Color = { { 0, "hot" }, { 1, "body" } }, LightEmission = 1, Brightness = 5,
 				Transparency = { { 0, 0 }, { 0.6, 0.35 }, { 1, 1 } },
 			},
@@ -126,7 +129,7 @@ return {
 			-- [Christmas `middle2` (LE 1, life 0.5) and `dark` (colour to near-black) trail stack]
 			id = "trailBody", kind = "beam", t = 0, life = 0.7, a = { 0, Y, 0 }, b = { 0, Y, 0 },
 			props = {
-				Width0 = 3.2, Width1 = 0, Texture = 126171454491178, TextureMode = "Stretch",
+				Width0 = 3.2, Width1 = 0, Texture = 126171454491178, TextureMode = "Stretch", -- [clear, grey, 1 part, eff ~302, fill 14%]
 				Color = { { 0, "body" }, { 1, "deep" } }, LightEmission = 1, Brightness = 2,
 				Transparency = { { 0, 0.2 }, { 0.5, 0.45 }, { 1, 1 } },
 			},
@@ -139,7 +142,7 @@ return {
 			-- 0.4 -> 0.7 (Don's 0.25-0.4 on ~1.5-stud limbs = ~0.2 D). [Don Lorenzo OffCentered Spec 46]
 			id = "wake", kind = "emitter", t = 0, life = 0.4, at = { 0, Y, 0 },
 			props = {
-				Texture = 16171528032, Color = "body", LightEmission = 0, Brightness = 25,
+				Texture = 16171528032, Color = "body", LightEmission = 0, Brightness = 25, -- [clear, white, 1 part, eff 57, fill 3%]
 				Size = { { 0, 0.7 }, { 1, 0 } }, Transparency = { { 0, 1 }, { 0.5, 0 }, { 1, 1 } },
 				Lifetime = { 0.4, 0.7 }, Speed = { 4, 8 }, Drag = 7, SpreadAngle = { 360, 360 },
 				Rotation = { -360, 360 }, RotSpeed = { -250, 250 }, Acceleration = { 0, 1, 0 },
@@ -152,7 +155,7 @@ return {
 		{ -- white flash one frame after contact: swell to 4 D at 15 % of 0.1 s. [Christmas `center`]
 			id = "impactFlash", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 15888463683, Color = "white", LightEmission = 1, Brightness = 5,
+				Texture = 15888463683, Color = "white", LightEmission = 1, Brightness = 5, -- [clear, white, 1 part, eff ~140, fill 5%]
 				Size = { { 0, 0 }, { 0.15, 15 }, { 0.39, 13 }, { 1, 0 } }, Transparency = 0,
 				Lifetime = 0.1, Speed = 0, Rotation = { -360, 360 }, ZOffset = 6,
 			},
@@ -163,7 +166,7 @@ return {
 			-- instead of the source's LE 0 / Br 16, so it does not become a second opaque dome. [Event Ball Explode/Dots]
 			id = "impactGlow", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 107821950776778, Color = "hot", LightEmission = 1, Brightness = 1.5,
+				Texture = 107821950776778, Color = "hot", LightEmission = 1, Brightness = 1.5, -- [FAINT, white, 1 part, eff 523, fill 40%]
 				Size = 18, Transparency = { { 0, 0.98 }, { 0.12, 0.64 }, { 0.28, 0.05 }, { 0.6, 0 }, { 0.8, 0.5 }, { 1, 1 } },
 				Lifetime = 0.65, Speed = 0, ZOffset = 0,
 			},
@@ -173,7 +176,7 @@ return {
 			-- then COLLAPSES in its last 15 % (no fade). [Event Ball Explode/Circle, sizes x0.13]
 			id = "impactDisc", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 107251295851688, Color = "body", LightEmission = 0, Brightness = 4,
+				Texture = 107251295851688, Color = "body", LightEmission = 0, Brightness = 4, -- [clear, white, 1 part, eff 53, fill 32%]
 				Size = { { 0, 10 }, { 0.22, 13 }, { 0.85, 13.6 }, { 1, 4.5 } }, Transparency = 0,
 				Lifetime = 0.24, Speed = 0, ZOffset = 5,
 			},
@@ -183,7 +186,7 @@ return {
 			-- whatever the texture art (the source, #FF8A47 Br 5, renders black to dark bronze). [Event Ball Explode/Star]
 			id = "inkStar", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 17062452367, Color = "ink", LightEmission = 0, Brightness = 5,
+				Texture = 17062452367, Color = "ink", LightEmission = 0, Brightness = 5, -- [clear, grey, 1 part, eff 348, fill 24%]
 				Size = { { 0, 1.3 }, { 0.11, 5.2 }, { 0.73, 8 }, { 1, 4 } }, Transparency = 0,
 				Lifetime = 0.3, Speed = 0, Rotation = { -90, 90 }, ZOffset = 7,
 			},
@@ -192,7 +195,7 @@ return {
 		{ -- toon smack flipbook takes over as the disc collapses (handoff at C + 0.2). [Event Ball Explode/Impact2]
 			id = "toonPop", kind = "emitter", t = 0.6, life = 0.05, at = HIT,
 			props = {
-				Texture = 18140248952, FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Texture = 18140248952, FlipbookLayout = 4, FlipbookMode = "OneShot", -- [clear, white, 2 parts, eff ~67, fill 11%, 7/16 cells]
 				Color = { { 0, "hot" }, { 1, "body" } }, LightEmission = 0, Brightness = 12,
 				Size = { { 0, 5.3 }, { 0.3, 8.6 }, { 1, 11 } }, Transparency = 0,
 				Lifetime = 0.4, Speed = 0, Rotation = { -360, 360 }, ZOffset = 6,
@@ -204,7 +207,7 @@ return {
 			-- rings end at ~0.8x the flash). [Event Ball Circle flipbook; recipe from Yoru/Artemis flat rings]
 			id = "ring", kind = "emitter", t = 0.44, life = 0.05, at = HIT,
 			props = {
-				Texture = 126034245450101, FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Texture = 126034245450101, FlipbookLayout = 4, FlipbookMode = "OneShot", -- [clear, white, 1 part, eff ~69, fill 15%, 12/16 cells]
 				Color = { { 0, "white" }, { 1, "hot" } }, LightEmission = 1, Brightness = 3,
 				Orientation = "VelocityPerpendicular", Speed = 0.005, SpreadAngle = { 360, 360 },
 				Size = { { 0, 4 }, { 1, 13 } }, Transparency = { { 0, 0 }, { 0.7, 0.3 }, { 1, 1 } },
@@ -216,7 +219,7 @@ return {
 			-- source count), z 1.5 -> 6 (in front of the disc). [Christmas shinyShard2]
 			id = "shards", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 14271209798, FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Texture = 14271209798, FlipbookLayout = 4, FlipbookMode = "OneShot", -- [clear, white, 1 part, eff 57, fill 7%]
 				Color = { { 0, "white" }, { 1, "hot" } }, LightEmission = 0, Brightness = 10,
 				Orientation = "VelocityParallel", Squash = { { 0, 0 }, { 1, 3 } },
 				Size = { { 0, 0 }, { 0.31, 2.2 }, { 0.77, 1.1 }, { 1, 0 } }, Transparency = 0,
@@ -228,7 +231,7 @@ return {
 			-- [Yoru Spec9 dark]
 			id = "sparkInk", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 16879585719, FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Texture = 16879585719, FlipbookLayout = 4, FlipbookMode = "OneShot", -- [clear, white, 1 part, eff 51, fill 20%]
 				Color = "deep", LightEmission = 0, Brightness = 1,
 				Size = { { 0, 1.8 }, { 1, 0 } }, Squash = { { 0, 1 }, { 1, 1 } }, Transparency = 0,
 				Lifetime = { 0.25, 0.45 }, Speed = { 15, 60 }, Drag = 4.5, SpreadAngle = { 360, 360 },
@@ -240,7 +243,7 @@ return {
 			-- [Yoru Spec9 bright]
 			id = "sparkLit", kind = "emitter", t = 0.42, life = 0.05, at = HIT,
 			props = {
-				Texture = 16879585719, FlipbookLayout = 4, FlipbookMode = "OneShot",
+				Texture = 16879585719, FlipbookLayout = 4, FlipbookMode = "OneShot", -- [clear, white, 1 part, eff 51, fill 20%]
 				Color = "hot", LightEmission = -1, Brightness = 8,
 				Size = { { 0, 1.8 }, { 1, 0 } }, Squash = { { 0, 1 }, { 1, 1 } }, Transparency = 0,
 				Lifetime = { 0.25, 0.45 }, Speed = { 15, 60 }, Drag = 4.5, SpreadAngle = { 360, 360 },
@@ -253,7 +256,7 @@ return {
 			-- [Don Lorenzo Black Smoke 3 ramp; motion from Yoru smoke_0]
 			id = "smokeInk", kind = "emitter", t = 0.45, life = 0.05, at = HIT,
 			props = {
-				Texture = 15222191191, FlipbookLayout = 8, FlipbookMode = "OneShot",
+				Texture = 15222191191, FlipbookLayout = 8, FlipbookMode = "OneShot", -- [FAINT, black, 2 parts, eff 33 smooth, fill 30%]
 				Color = { { 0, "body" }, { 1, "shadow" } }, LightEmission = 0, Brightness = 6,
 				Size = { { 0, 0 }, { 1, 7.5 } }, Transparency = { { 0, 0.1 }, { 1, 1 } },
 				Lifetime = { 0.5, 0.8 }, Speed = { 6, 18 }, Drag = 5, SpreadAngle = { 180, 180 },

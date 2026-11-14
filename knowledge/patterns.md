@@ -62,7 +62,7 @@ colours (texture x Color x opacity, Neon hotter and more saturated), so convert 
 oscillate (linger) by the coverage curve, not words; a world grade with high Contrast clips dark violets to pure blue
 (keep ~0.25 on dark effects). The worked run (9 versions, 4 review rounds, 4.5 -> 6.2) is in its kit/examples/VoidRend/log.
 
-## 14. What the open-source library teaches (11 category studies, ~1,900 effects, 2026-11-14)
+## 14. What the open-source library teaches (11 category studies over the ~1,900-effect catalogue, 2026-11-14)
 Category notes and recipes: `os-library/<category>.md` + `<category>_recipe.luau`. Rules seen in most categories:
 1. **Fire everything at t = 0; lifetimes make the timeline.** Flash 0.015-0.16 s (one frame = 0.0153 s), core
    0.05-0.2, rings 0.1-1.1, smoke 0.35-2.5 (about 2.5x the ring's life), ground marks 0.5-2.5 (up to 7). Visible length
@@ -94,3 +94,37 @@ Category notes and recipes: `os-library/<category>.md` + `<category>_recipe.luau
 11. **Mistakes that recur**: thousands of particles per second (Rate above the 400/s cap), stacked additive cards
     washing to white and showing card edges, layers held at transparency 0.85-0.98 (invisible), EmitCount below 1
     (emits nothing), lifetimes shorter than a frame, no ink layer, no white core.
+
+## 15. Lessons from the blind test (2026-11-14)
+An agent with this plugin and one without built "a cool light beam with an explosion"; 6 blind reviewers scored both.
+The plugin's effect won (7.5 vs 6.0 on each side's own frames) but only 7.5 vs 7.0 when both were re-captured in the
+same daylight scene. What cost it, as rules:
+1. **Daylight decides.** Most games are daylight: tune on the default baseplate (`C.stage("day")`) or the user's map as
+   much as on the void stage. In daylight, **ink smoke cools to warm dark grey and thins out** (fade by transparency
+   from about half its life) instead of ending pure black; a solid black puff ball floating mid-air reads as a hole.
+   **A dark band on a beam stays thin and warm** (amber-brown, about a third of the body width), or it reads as a
+   grey-brown smear. Pure-black twins work at small sizes and short lives (sparks, a 1-2 frame flash twin).
+2. **One hero shape per beat; cap the peak, not just the total.** At the payoff only one big shape leads (the
+   fireball, or the ring, or the pillar); streaks, needles and shards support it. The reviewers called the blast
+   cluttered at 1.25 s, where `VFXTimeline.check` counts 58 bright-white elongated particles (white streaks and
+   needles: VelocityParallel / FacingCameraWorldUp / Squash with a near-white colour) over a ~170-particle peak. Keep
+   bright-white elongated particles at the payoff to about 25 or fewer (most recipes peak at 0-23), unless the
+   streaks ARE the hero shape (lightning bolts), and no more than 2-3 white layers overlapping at any moment.
+   `VFXTimeline.check(spec)` prints these peaks.
+3. **Two beats, two different flashes.** When a combined effect has a flash at each beat (beam slam, then blast), give
+   them different shapes (slam: a narrow vertical pillar or a cross; blast: a round burst) and make the later one
+   bigger and longer. The same starburst twice made the payoff feel like a repeat.
+4. **An explosion needs body and a slow cool.** All 6 reviewers said the blast went white -> flat red puffs -> a
+   floating black ball in under 0.5 s, and nothing was left at 2 s; the baseline's plain fireball read better. Keep
+   the library's phases (explosion.md c): reach orange by ~0.2 s, as the library does, and give the body time AFTER
+   that (fire puffs and flame tongues living ~0.6-0.9 s, spending the extra time in orange -> red -> ember). Tested in
+   daylight (explosion_recipe body pass): holding the yellow-hot colour longer, or starting white, clips to a
+   shapeless white blob at Brightness 4.5-8; longer orange/red stages did not. Smoke that cools to warm grey and
+   thins (not pure black) and rises from low down; a dust skirt in front of it; a crack, embers and thin dust to
+   ~2.2-2.6 s. Then at 0.6 s the blast shows an orange core inside translucent smoke instead of a black mass.
+5. **Textures carry traps.** A coloured texture tinted to another hue goes muddy (a blue rune tinted gold turned
+   olive), a texture on a black or faint card shows its square at LightEmission < 1, a multi-line texture used as one
+   streak clumps into a comb, low-resolution art drawn big is stair-stepped. `knowledge/texture-vocab.md` lists
+   measured traits; check any other id with `kit/scripts/texture_traits.py <id>`.
+6. **Particle Size is a half-width** (Size N = 2N studs across; Beam widths and part sizes are full widths):
+   `knowledge/gotchas.md`.

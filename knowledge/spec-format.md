@@ -47,7 +47,8 @@ LightInfluence 0, Segments 1. Tracks: `A`, `B` (offsets), `Width` (multiplies Wi
 authored, 1 = gone; keeps the Transparency shape), `CurveSize0/1`. A Beam runs its texture's HEIGHT along its length.
 
 ## kind = "emitter"
-ParticleEmitter on an invisible anchored part (`box = {x,y,z}` = emission volume, with `Shape = "Box"`). Rate defaults
+**Size is a half-width:** a particle of Size N is 2N studs across (measured; beam widths and part sizes are full
+widths). ParticleEmitter on an invisible anchored part (`box = {x,y,z}` = emission volume, with `Shape = "Box"`). Rate defaults
 0; `emit = { {t, count[, over]} }` (spread over `over` s), counts x `VFXTimeline.Quality`. Tracks: `Rate`, `Offset`.
 Ground decal trick: `Orientation = "VelocityPerpendicular", EmissionDirection = "Top", Speed = 0.01` lies the sprite flat.
 Dark ink sprite: `Color = "ink", LightEmission = 0`.
@@ -61,4 +62,15 @@ Dark ink sprite: `Color = "ink", LightEmission = 0`.
 
 ## Handle
 `play` returns `{ stop(), time(), setSpeed(s) }` (0 freezes, 0.25 slow motion). `VFXTimeline.length(spec)`,
-`VFXTimeline.preload(spec)`, `VFXTimeline.CullDistance` (260), `VFXTimeline.Quality` (1; 0.6 on touch).
+`VFXTimeline.preload(spec)` (call once when a game loads the spec: the first play otherwise misses textures),
+`VFXTimeline.CullDistance` (260), `VFXTimeline.Quality` (1; 0.6 on touch).
+
+## Check
+`local report, problems, stats = VFXTimeline.check(spec)` (or `C.check(name)` in the capture harness) sets every prop
+on a scratch instance and reports **ERROR** (unknown property, bad enum or colour, unknown texture or palette name: the
+value never reaches the instance), **WARN** (a key the layer's kind ignores, e.g. `Width0` outside `props`; a track the
+kind ignores, e.g. `Transparency` on an emitter; an unknown ease; no Transparency anywhere, so the layer is opaque its
+whole life and then cuts; an emit or key after the layer's life; an emitter that never emits; no Lifetime or Texture;
+more than one light), then the peaks: live particles, elongated particles and the bright-white ones among them (white streaks and
+needles: the clutter count), active layers, the widest particle in
+studs, and every texture id with the layers and LightEmission that use it.

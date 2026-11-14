@@ -12,11 +12,21 @@ video) run the scripts; Studio is driven through the Studio MCP server (`execute
 Good effects come from a process, not from the prompt: find real references, build the effect as editable data, LOOK
 at your result next to the references, let blind reviewers list the differences, fix, repeat.
 
+**Quick or full.** The full loop is expensive: in the blind test (2026-11-14) it took ~55 min and ~720k tokens, 1.5x a
+plain attempt, for a clearly better result. Pick by the request and say which you picked:
+- **Quick** (default for a casual description, "make me a cool X"): steps 1-4, ONE capture set on both backdrops
+  (step 5), ONE review panel with the absolute scale (step 6), apply its shared fixes, re-capture once, done. About
+  20-30 min.
+- **Full** (a reference video, "make it great / polished", a signature effect, or the user asks): iterate steps 5-6 to
+  the score bar (step 7).
+
 ## 0. Read first
-- `knowledge/patterns.md` (section 14: rules shared by ~1,900 effects from experienced artists; 1-13: three tones,
-  pops not fades, impact frames, escalation, aftermath).
+- `knowledge/patterns.md` (section 14: rules seen across the library's ~1,900 catalogued effects by experienced
+  artists; 1-13: three tones, pops not fades, impact frames, escalation, aftermath).
 - `knowledge/categories/<type>.md` for every effect type in the request (index: `knowledge/README.md`).
 - `knowledge/spec-format.md` (how an effect is written) and `knowledge/gotchas.md` (Studio and capture traps).
+- `knowledge/patterns.md` section 15 (what lost points in the blind test: daylight, clutter, repeated flashes,
+  explosion body, texture traps) and the "Traps" section at the top of `knowledge/texture-vocab.md`.
 
 ## 1. References (never build from nothing)
 - **From a description:** run the `vfx-find` skill, or directly
@@ -35,11 +45,21 @@ at your result next to the references, let blind reviewers list the differences,
 - **Combined effects** ("a light beam with an explosion"): one spec, both recipes' layers in one `layers` list. Prefix
   ids per part (`beam_core`, `boom_flash`), shift the second part's `t` values to where it should start (e.g. the
   explosion at the beam's impact, t = beam length), move its `at` positions to that point, merge palettes and texture
-  tables, and drop duplicate roles (one flash, one light, one grade). Keep the total around 150 particles at the peak.
+  tables, and drop duplicate roles (one light, one grade). If both parts keep a flash, give them DIFFERENT shapes
+  (slam: a narrow pillar or cross; blast: a round burst) and make the later one bigger. Keep the total around 150
+  particles at the peak, bright-white streaks and needles at the payoff to ~25, and one hero shape per beat
+  (patterns.md 15).
 - Adapt to the request: palette (three tones: white core, saturated body, dark ink), size (`scale` or the recipe's
   base size), extra layers from the category note's anatomy table, values from the library cards.
 - Textures: `knowledge/texture-vocab.md` by role (contact sheets: `gallery/textures/`); avoid the ids it lists as not
-  loading. Own textures/meshes: section 7.
+  loading. Its `traits` column (also `gallery/textures/traits.json`) says per texture: white or coloured, transparent
+  or on a black/faint card, single or multi-part, effective resolution. Check every id your spec uses
+  (`python3 -I "ROOT/kit/scripts/texture_traits.py" <id> ...`; `C.check` lists them) and avoid: a coloured texture
+  tinted to another hue (muddy), a black or faint card at LightEmission < 1 (a dark square), a multi-line texture as
+  one streak (combs), art drawn bigger on screen than its effective resolution (stair steps). When you swap a
+  texture, scale the layer's Size by old fill / new fill, or the shape grows or shrinks on screen. Own
+  textures/meshes: section 7.
+- Sizes: a particle's Size is its HALF-width (Size N = 2N studs across); beam widths and part sizes are full widths.
 
 ## 3. Install the kit in Studio (no Rojo, no upload)
 ```bash
@@ -62,21 +82,33 @@ end
 Re-install only what changed (usually the spec). When done: `C.clear()` and destroy `ServerStorage.VFXDev` unless the
 user wants the kit kept in that place.
 
-## 4. First play: does it run?
+## 4. Check, then first play: does it run?
 ```lua
 local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone())
-C.stage("void")                                        -- black box far above the map ("day" = grey floor under the sky)
+return C.check("<Name>")      -- ERROR / WARN lines, then peaks (particles, streaks, layers) and the textures used
+```
+Fix every ERROR and WARN before capturing (run it after EVERY spec edit: in the blind test a comment that swallowed a
+layer's Transparency went unseen for two review rounds). Then:
+```lua
+local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone())
+C.stage("void")                                        -- black box far above the map ("day" = default baseplate)
 C.camera({ dist = 30, height = 6, lookUp = 4, fov = 70 }) -- frame like your reference; world +X is screen LEFT
 return C.hold("<Name>", 0.15)                           -- plays and freezes at t = 0.15 s
 ```
 Then MCP `screen_capture` and LOOK. Check the Output (MCP `get_console_output`) for `[VFXTimeline]` warnings: a layer
 with a bad property or a texture that does not load. Fix before going on. Adjust the camera until the effect fills about
-half the frame height and sits where the reference has it.
+half the frame height and sits where the reference has it. The capture functions preload textures; the very first
+play after a load can still miss a few: hold again if a frame looks incomplete.
 
 ## 5. Capture a timeline
 - **Any OS (default):** for t in 0.03, 0.1, 0.2, 0.35, 0.55, 0.8, 1.2, 1.8, 2.6 (to the effect's end): `C.hold("<Name>", t)`
   then `screen_capture`; the tool result names the saved file: copy it to `<effect>/vN/t<t>.jpg`. Take one frame of the
   empty stage first as `<effect>/vN/base.jpg`. LOOK at every frame.
+- **Both backdrops, every version.** The void stage flatters (dark layers vanish into it, additive ones look
+  brighter); the blind-test effect lost most of its lead on a daylight baseplate. After the void set, capture the same
+  times on `C.stage("day")` (a copy of the default Roblox baseplate; add `{ lighting = "default" }` if the place is
+  dark) into `<effect>/vN_day/`, at gameplay distance (`dist` about 1.5x the void framing). When the effect is for
+  the user's open place, use `C.stage("place", { at = <Vector3 on their map> })` instead.
 - **Real-time video** (only when the user has Studio focused, or asks for it): `C.playLater("<Name>", 3.5)` then
   `kit/scripts/record.sh <effect>/vN.mp4 9` (Linux/Wayland with wf-recorder; elsewhere use any screen recorder).
 - **Many stills unattended (Linux + niri):** `VFXCapture.batch(items)` + `kit/scripts/stills.py --follow` (frames are
@@ -94,15 +126,26 @@ python3 -I "ROOT/kit/scripts/compare.py" --ref <effect>/ref|<ref.mp4> --ours <ef
 ```
 (`--ref` = a folder of frames or a video with `--ref-t0`; `--ours-crop x,y,w,h` if your frames include more than the
 viewport.) Match framing first (box, ground line, centre). Then run `vfx-review` (3 blind reviewers) on
-`cmp_vN/pairs.png`, `curves.png`, `metrics.json`. Merge: fix what 2+ reviewers flag first, change by half steps when one
-says "much too much", never break what they said matches. Log each round in `<effect>/LOG.md`.
+`cmp_vN/pairs.png`, `curves.png`, `metrics.json` and the `vN_day/` frames, with the scale that fits the request:
+"match" for a reference video, ABSOLUTE quality for a description (a resemblance scale stalls at ~6 on new effects).
+Merge: fix what 2+ reviewers flag first, change by half steps when one says "much too much", never break what they
+said works. Log each round in `<effect>/LOG.md`.
 
 ## 7. Iterate, then finish
-Repeat 5-6 until every lens scores >= 8.5, or 2 rounds gain < 0.5 (then report what still differs and why). Then a
-daylight check (`C.stage("day")`), a game-fit pass (scale, Reduced Motion: no grade flashes, `VFXTimeline.Quality` 0.6
-on phones, ~150 particles at the peak, one light), and only if the user wants it in a game: copy
-`kit/runtime/VFXTimeline.luau` + the spec (+ assets) into the project, played on the client
-(`VFXTimeline.play(spec, cframe)`; the server only sends "play <Name> at <cframe>").
+Full mode: repeat 5-6 until every lens scores >= 8.5, or until two rounds IN A ROW each gain < 0.5 on average.
+After the first flat round, change approach for the next one (attack the biggest shared complaint with a bigger
+change) instead of stopping; after the second, report what still differs and why. Then a game-fit pass (scale,
+Reduced Motion: no grade flashes, `VFXTimeline.Quality` 0.6 on phones, ~150 particles and ~25 bright-white streaks at
+the peak, one light; `C.check` prints these), and only if the user wants it in a game: copy
+`kit/runtime/VFXTimeline.luau` + the spec (+ assets) into the project, played on the client; the server only sends
+"play <Name> at <cframe>":
+```lua
+local VFXTimeline = require(ReplicatedStorage.VFXTimeline)
+local spec = require(ReplicatedStorage.VFX.<Name>)
+VFXTimeline.preload(spec)            -- once at load, or the first play misses textures
+-- on the server's message:
+VFXTimeline.play(spec, cframe)
+```
 
 Own textures (PIL) and meshes (Blender; vertex colours white -> light grey >= 0.85 so Neon tints them): upload with
 `kit/scripts/rbx_assets.py upload <files> --ids ids.json` (Open Cloud key in `~/.config/roblox/env`: `RBX_API_KEY`,

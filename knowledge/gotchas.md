@@ -19,13 +19,41 @@
 - **ParticleEmitter.TimeScale = 0** freezes live particles exactly; Beam TextureSpeed must be zeroed separately.
   `VFXTimeline` `freezeAt` does both and clamps the timeline clock.
 - A void stage made of SmoothPlastic black parts is not black (ambient + atmosphere tint it blue). Neon black parts are.
-- MCP `screen_capture` returns the image to the model only (no file) and leaves BillboardGuis out: not usable for
-  compare.
+- MCP `screen_capture` leaves BillboardGuis out. Its result names the saved image file (newer Studio MCP versions;
+  older ones returned the image only): copy that file into your version folder for compare.
 - Get dev modules into a place with `rbx_assets.py push ... --universe <id>` + InsertService:LoadAsset (no Rojo, no
   pasting). A pushed model owned by the user fails LoadAsset in a GROUP place until granted ("Requester does not have
   permission"). Don't add/remove folders inside a project's Rojo-watched tree for this: deleting a watched folder
   crashed Rojo 7.7 (canonicalize NotFound) and Rojo also deletes instances it created when their files go.
 - `require` caches per ModuleScript: require a `:Clone()` to get the latest synced source.
+
+## Measured 2026-11-14 (blind test follow-up)
+- **A particle's Size is its HALF-width: Size N draws a sprite 2N studs across.** Measured in Studio with a fully
+  opaque square texture, FacingCamera, next to 1-, 2- and 4-stud parts: Size 1 = 2.0 studs, Size 4 = 8.0 studs (a disc
+  texture the same). **Beam Width0/Width1 and Part Size are full widths** (Width 2 = 2 studs). So a particle and a
+  beam or part "of the same size" differ 2x: to cover a 10-stud ring with a glow sprite use Size 5. Ratios between
+  particles in the category studies still hold; numbers called "diameter" or "sprite width" there are half-widths.
+- `game.Lighting.Technology` cannot be read from MCP `execute_luau` ("lacking capability RobloxScript"). Don't
+  read it; judge the lighting from a capture.
+- **First play after loading misses textures** for a few frames (ContentProvider still fetching): call
+  `VFXTimeline.preload(spec)` once when the game (or the capture) loads the spec. The capture functions do it; game
+  code must do it itself.
+- **The void stage flatters.** On black, dark layers (ink smoke, black spikes, a dark band) vanish and every additive
+  layer looks brighter. The blind test effect lost most of its lead on a daylight baseplate: its ink band, ink smoke
+  and black spikes read as dirt there. Capture every version on `C.stage("void")` AND `C.stage("day")` (a copy of
+  the default Roblox baseplate) or the user's own map (`C.stage("place")`).
+- Low-resolution art magnified shows stair-stepped edges, worst on black (LE 0) twins of spiky shapes drawn big.
+  Check a texture's effective resolution with `kit/scripts/texture_traits.py <id>` before drawing it large.
+- **Swapping a texture changes the on-screen size** when the new art fills more or less of its square: scale the
+  layer's Size by old fill / new fill (the `fill` trait). Two recipe flashes swapped to a texture filling 32 % instead
+  of 22 % whited out half the frame until their Size was cut x0.7.
+- **Particles of an emitter far from the camera do not simulate.** Nine frozen copies set up away from the camera and
+  shot by flying the camera to each (`screen_capture` camera_position) all showed newborn particles. Play each
+  capture where the camera already looks (`C.hold`), one at a time. (Heartbeat and particle ageing are fine with the
+  Studio window off screen: a 20 studs/s particle frozen at 1.0 s sat exactly 20 studs up.)
+- **A comment in the middle of a props line swallows the rest of it** (`Size = ..., -- note Transparency = 0,
+  Lifetime = 0.06,`): the layer silently gets Roblox defaults (Lifetime 5-10 s). It happened again while fixing the
+  recipes; `C.check` flags it (no Lifetime / no Transparency). Put notes on their own line.
 
 ## Building
 - **Beam Segments 1 + a Transparency/Color sequence = invisible beam** when the sequence is 1 at both ends (a fade-in /

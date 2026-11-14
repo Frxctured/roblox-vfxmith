@@ -227,6 +227,8 @@ rings that grow from 0, smoke at ~0.45 D living 2.5x the ring, sparks at ~0.13 D
 
 ## b. Anatomy of an explosion effect
 
+**Recipe note (2026-11-14):** after measuring texture traits (`gallery/textures/traits.json`) the recipe replaced several ids cited below (low-resolution starbursts, a faint-card black flash, a multi-line streak, a dark-haze crack): the evidence keeps the original ids, the recipe header lists each swap.
+
 Unit: **D** = peak Size of the effect's main ring (LightingBurst 98, Ice 50, Jingliu 40, Fire 37, Cid 13 studs). All
 layers fire at t=0 as single bursts (88 % of library designs carry EmitCount); the order on screen comes only from
 lifetimes. LI 0 everywhere unless noted. "Tr a -> 1" = Transparency starts at a and ends at 1.

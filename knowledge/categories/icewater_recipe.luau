@@ -37,25 +37,34 @@ return {
 		ink = "#0A1430",
 	},
 	textures = {
-		FadingGlow = 107821950776778, -- poly: soft round glow (flash)
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		FadingGlow = 107821950776778, -- poly: soft round glow (flash) [FAINT, white, 1 part, eff 523, fill 40%]
 		SpikyRing = 18397658030, -- Ice: soft ring with a spiky fringe (flash ring)
+		-- [clear, grey, 2 parts, eff 75, fill 28%]
 		HitRing = 16125610617, -- Ice: ring of sparkle flashes, 4x4
+		-- [clear, white, 4 parts, eff 89, fill 12%, 5/16 cells]
 		HitCross = 13778611432, -- Ice: cross sparkle that grows and breaks, 4x4
-		ShockDisc = 75353285142738, -- WW: soft radial-streak ring
-		Whirl = 99030912594735, -- WW: whirl ring arcs (not previewed)
+		-- [clear, white, 4 parts, eff ~58, fill 4%, 6/16 cells]
+		ShockDisc = 75353285142738, -- WW: soft radial-streak ring [clear, white, 1 part, eff 80, fill 27%]
+		Whirl = 99030912594735, -- WW: whirl ring arcs (not previewed) [clear, white, 1 part, eff 186, fill 3%]
 		Ripple = 11541772958, -- icy: long-life flat ring, reads as a water ripple (not previewed)
+		-- [clear, white, 4 parts, eff 269, fill 3%]
 		Crater = 130658933079638, -- Ice: white frost splash / crater with cracks
+		-- [clear, white, 1 part, eff 110, fill 41%]
 		CrossStitch = 8133845150, -- icy: V of streaks on BLACK (additive only)
-		Mist = 16867447521, -- Ice: smoke2 4x4
-		DenseSmoke = 83337784980211, -- Ice: dense realistic smoke 4x4
+		-- [BLACK card, white, 2 parts, eff 357, fill 16%]
+		Mist = 16867447521, -- Ice: smoke2 4x4 [clear, white, 1 part, eff 28 smooth, fill 16%, 15/16 cells]
+		DenseSmoke = 83337784980211, -- Ice: dense realistic smoke 4x4 [clear, white, 1 part, eff 63, fill 27%]
 		ToonPuff = 138231890129613, -- Ice: toon puff breaking up 4x4
-		SoftDot = 12222002958, -- icy: soft white dot
-		Star = 8180428772, -- WW: fat 4-point star
-		Rocks = 15441282898, -- WW: four rocks 2x2
-		SoftDisc = 2065086791, -- Frost: soft white disc (ground pool)
-		Crack = 99911247720869, -- Ice: bright crack starburst
+		-- [clear, white, 1 part, eff 43 smooth, fill 26%, 12/16 cells]
+		SoftDot = 12222002958, -- icy: soft white dot [clear, white, 1 part, eff 38 smooth, fill 5%]
+		Star = 8180428772, -- WW: fat 4-point star [clear, white, 1 part, eff 202, fill 13%]
+		Rocks = 15441282898, -- WW: four rocks 2x2 [clear, grey, 1 part, eff 51, fill 52%]
+		SoftDisc = 2065086791, -- Frost: soft white disc (ground pool) [clear, white, 1 part, eff ~23 smooth, fill 65%]
+		Crack = 99911247720869, -- Ice: bright crack starburst [clear, white, 1 part, eff 129, fill 16%]
 		IceDisc = 13781849388, -- icy: cracked ice disc crumbling, 4x4
-		Fog = 11447021694, -- icy: Outward Fog 8x8
+		-- [clear, white, 1 part, eff 89, fill 34%, 15/16 cells]
+		Fog = 11447021694, -- icy: Outward Fog 8x8 [clear, white, 1 part, eff 38 smooth, fill 9%, 47/64 cells]
 	},
 	layers = {
 		------------------------------------------------------------------ flash (0 - 0.15): white core

@@ -53,24 +53,30 @@ return {
 		ink = "#000000",
 	},
 	textures = {
-		InkLines = 18751910490, -- LOS "lines" (Grid4x4); no thumbnail
-		Starburst = 16151520120, -- PIL "Impact" starburst (D)
-		Star4 = 7160024951, -- HAND 4-point star with glow, on black (A)
-		Glow = 12159555294, -- LOS "Glow" medium soft glow (M)
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		InkLines = 18751910490, -- LOS "lines" (Grid4x4); no thumbnail [clear, white, 2 parts, eff ~74, fill 18%]
+		Starburst = 16151520120, -- PIL "Impact" starburst (D) [clear, white, 1 part, eff ~112, fill 21%]
+		Star4 = 7160024951, -- HAND 4-point star with glow on a dark haze card: additive only (A) [DARK haze, grey, 1 part, eff 127, fill 15%]
+		Glow = 12159555294, -- LOS "Glow" medium soft glow (M) [FAINT, white, 1 part, eff 29 smooth, fill 25%]
 		BoltSheet = 13622252312, -- PIL Lightning1 jagged bolts (Grid4x4 per the texture index; PIL played it as 8x8)
-		ToonBoltA = 98371801305515, -- LOS ToonLightning (Grid4x4, D)
+		-- [clear, white, 6 parts, eff 107, fill 3%, 15/16 cells]
+		ToonBoltA = 98371801305515, -- LOS ToonLightning (Grid4x4, D) [clear, white, 1 part, eff 85, fill 3%]
 		ToonBoltB = 98016283117283, -- LOS ToonLightning / Bolt model LE -1 variant (Grid4x4, D)
-		Needle = 14080708584, -- LOS "FingerHit" arrow streak (M)
-		Disc = 1084982817, -- LB "dotsburst" solid disc (M)
-		RadialCard = 12043778355, -- PIL "Shockwave2" radial streak burst (M)
-		ShockRing = 13478831328, -- HAND "Shock" ring (D)
+		-- [clear, white, 1 part, eff 71, fill 11%, 12/16 cells]
+		Needle = 14080708584, -- LOS "FingerHit" arrow streak (M) [clear, white, 1 part, eff 30 smooth, fill 20%]
+		Disc = 1084982817, -- LB "dotsburst" solid disc (M) [clear, white, 1 part, eff 28 smooth, fill 70%]
+		RadialCard = 12043778355, -- PIL "Shockwave2" radial streak burst (M) [clear, white, 7 parts, eff ~182, fill 6%]
+		ShockRing = 13478831328, -- HAND "Shock" ring (D) [FAINT, white, 1 part, eff 43 smooth, fill 36%]
 		Arc = 1084996536, -- LB "wind4" sharp arc on BLACK: additive only (A)
+		-- [BLACK card, white, 1 part, eff 198, fill 1%]
 		Crescents = 17085222506, -- LOS "wind stuff" crescents (Grid4x4, M)
-		Clouds = 14006773822, -- DEB realistic clouds (Grid4x4, D)
-		Shards = 10439119562, -- LOS "Shards" lens streak (M)
-		Crater = 17745162015, -- TH ground crater; no thumbnail
-		OrbitDot = 8414194072, -- LB "Specs" dot in the top-left corner (A)
+		-- [clear, white, 2 parts, eff 87, fill 5%, 8/16 cells]
+		Clouds = 14006773822, -- DEB realistic clouds (Grid4x4, D) [clear, grey, 1 part, eff 21 smooth, fill 25%]
+		Shards = 10439119562, -- LOS "Shards" lens streak (M) [clear, white, 1 part, eff 105, fill 3%]
+		Crater = 17745162015, -- TH ground crater; no thumbnail [clear, white, 1 part, eff 110, fill 41%]
+		OrbitDot = 8414194072, -- LB "Specs" dot in the top-left corner (A) [clear, white, 1 part, eff 199, fill 1%]
 		Lines = 8415143764, -- PIL pillar beam "Lines": vertical streaks on BLACK, additive only (A)
+		-- [BLACK card, white, 2 parts, eff 307, fill 30%]
 	},
 	layers = {
 		------------------------------------------------------------------ ink frame (0 - 0.05)

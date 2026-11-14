@@ -173,7 +173,9 @@ table / dump; **Script** = from the effect's own scripts; **Unclear** where neit
 ## b. Anatomy of an ice / water effect
 
 R = radius of the largest ground ring at the end of its life (Ice 20, icy 12, Whirlwind 10, FrostOs ~17 studs).
-Sizes are diameters (ParticleEmitter Size). "Flat" = VelocityPerpendicular, EmissionDirection Top, Speed 0.0006-0.03.
+Sizes are ParticleEmitter Size values, which are HALF-widths (a sprite is 2x its Size across, measured
+2026-11-14): where this note says "diameter", read "Size". Multiples of R compare particles with particles correctly;
+compare with beam widths or part sizes at 2x. "Flat" = VelocityPerpendicular, EmissionDirection Top, Speed 0.0006-0.03.
 Reach = how far a particle travels, about Speed / Drag.
 
 | # | Role (firing order) | Textures seen here | Orientation / emission | LE / Br | Life s | Size (diam vs R) and curve | Transparency | Motion | Count / flip / ZOffset |

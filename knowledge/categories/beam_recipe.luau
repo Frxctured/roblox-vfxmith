@@ -21,6 +21,11 @@
 -- negative LightEmission, particle counts cut to roughly a third of proto / zolt.
 -- World-space caveat: streamSpecks uses Acceleration along +X (proto technique 10). If the effect origin is rotated,
 -- set that Acceleration from the aim direction in code.
+-- Texture traits pass (2026-11-14, kit/scripts/texture_traits.py): Sigil 75751709312199 (zolt's rune circle is a
+-- DARK BLUE 16:9 card: tinted it turns blue / olive, and it is stretched on a square particle) -> 135141028133816
+-- (white rune circle, square, clear, effective resolution 458 px); the sigil layer's Brightness 10 -> 5 for it.
+-- SpikyStar 16892226410 (Impact13 is a 128 px image: blurry at hitFlash's Size 10) -> 17296456452 (radial spike burst
+-- round a hollow centre like Impact13, 1024 px). Other layer values unchanged.
 return {
 	name = "ArcLance",
 	scale = 1,
@@ -38,23 +43,35 @@ return {
 		ink = "#000000",
 	},
 	textures = {
-		ThinRing = 7394759196, -- zolt "2.5": thin ring with gaps
+		-- [..] at the end of a texture comment = measured traits (gallery/textures/traits.json, legend in kit/scripts/texture_traits.py)
+		ThinRing = 7394759196, -- zolt "2.5": thin ring with gaps [clear, white, 2 parts, eff 125, fill 7%]
 		WaveLine = 13801691431, -- blue / yav "BeamWave": spiky white waveform
+		-- [clear, white, 1 part, eff ~137, fill 44%]
 		DustyImpact = 10198439352, -- zolt "HIT EFFECTS 2": Grid4x4 spiky burst
-		Sigil = 75751709312199, -- zolt "Sigil": rune circle (Seen in the zolt stills)
+		-- [clear, white, 2 parts, eff 96, fill 5%, 14/16 cells]
+		Sigil = 135141028133816, -- white rune circle (beam.md row 5 sigil list); was zolt's 75751709312199, a dark-blue card
+		-- [clear, white, 2 parts, eff 458, fill 26%]
 		SoftBar = 16892386886, -- proto Beam7 "Real2": soft-edged white band along the beam
+		-- [FAINT, white, 1 part, eff 44 smooth, fill 91%]
 		SmokeNoise = 15824130839, -- proto "Beam": wavy smoke-noise lines on BLACK (additive only)
-		WavyLine = 12713360567, -- yav "BeamAura": one sinuous white line
+		-- [BLACK card, white, 1 part, eff ~163, fill 58%]
+		WavyLine = 12713360567, -- yav "BeamAura": one sinuous white line [clear, white, 1 part, eff 99, fill 39%]
 		ToonStreak = 10240434007, -- yav "Beam101" / "BeamDrag smoke": hard-edged toon blob streak
+		-- [clear, white, 2 parts, eff 170, fill 19%]
 		Streaks8 = 131290109763904, -- zolt "IMG_9350": Grid8x8 streak flipbook
+		-- [clear, grey, 1 part, eff ~23 smooth, fill 10%, 50/64 cells]
 		Spec37 = 16879834064, -- proto "Spec37" (look not checked on a contact sheet)
-		TwoArcRing = 15269685466, -- zolt "decay16": two-arc ring
-		Disc = 7922645282, -- zolt "SparksLinger": solid white disc
-		SpikyStar = 16892226410, -- bloody / yav "Impact13": spiky star with long rays
-		FuzzyRing = 133650067075481, -- zolt "shock": fuzzy radial ring
-		JaggedBurst = 127136593142768, -- zolt impact ink: jagged starburst
+		-- [clear, white, 1 part, eff 117, fill 6%]
+		TwoArcRing = 15269685466, -- zolt "decay16": two-arc ring [clear, black+white, 3 parts, eff 137, fill 6%]
+		Disc = 7922645282, -- zolt "SparksLinger": solid white disc [clear, white, 1 part, eff 115, fill 8%]
+		SpikyStar = 17296456452, -- radial spike burst, hollow centre; was bloody / yav "Impact13" 16892226410 (128 px)
+		-- [clear, white, 1 part, eff 247, fill 32%]
+		FuzzyRing = 133650067075481, -- zolt "shock": fuzzy radial ring [clear, white, 1 part, eff 78, fill 17%]
+		JaggedBurst = 127136593142768, -- zolt impact ink: jagged starburst [clear, white, 10 parts, eff 79, fill 14%]
 		Sparkle4 = 14006783533, -- yav "Star" / "Flash": fat concave 4-point sparkle
+		-- [clear, white, 1 part, eff 564, fill 8%]
 		ToonPuff = 138231890129613, -- zolt "smh": toon puff with dark speckles, Grid4x4
+		-- [clear, white, 1 part, eff 43 smooth, fill 26%, 12/16 cells]
 	},
 	layers = {
 		------------------------------------------------------------------ charge (0 - 0.3)
@@ -110,10 +127,13 @@ return {
 			-- LE 1 Br 5, life 1.17; proto pentagon: hidden until 0.28 of life, RotSpeed -500..-250). Recapture 2026-11-14:
 			-- the zolt sigil fades in from 0.20 s after the fire and is full 0.35-0.80 s. v2: starts in the charge (proto's
 			-- muzzle sigils run from t 0, Rate 2) so the charge reads; forms over 0.26 s, full at the fire, Br 6 -> 10
-			-- (half step toward proto pentagon Br 15) because Br 6 read as a dark disc in the first capture
+			-- (half step toward proto pentagon Br 15) because Br 6 read as a dark disc in the first capture.
+			-- Traits pass: white texture now, so Br 10 -> 5 (zolt's own Br 5). The old dark-blue texture passed only
+			-- (0.17, 0.26, 0.34) of sigilDark x 10 = a dim blue disc; on white, d14 (dark colour x Brightness) gives
+			-- the palette's violet at about the old peak intensity
 			id = "sigil", kind = "emitter", t = 0.05, life = 0.05, at = { 0.3, 3, 0 },
 			props = {
-				Texture = "Sigil", Color = "sigilDark", LightEmission = 1, Brightness = 10,
+				Texture = "Sigil", Color = "sigilDark", LightEmission = 1, Brightness = 5,
 				Orientation = "VelocityPerpendicular", EmissionDirection = "Right", Speed = 0.02,
 				Size = 8, Transparency = { { 0, 1 }, { 0.12, 0.5 }, { 0.2, 0 }, { 0.75, 0.1 }, { 1, 1 } },
 				Lifetime = 1.3, Rotation = { 0, 360 }, RotSpeed = { 60, 90 }, ZOffset = 0.5,
