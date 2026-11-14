@@ -9,7 +9,7 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 |---|---|
 | `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number). Read first. |
 | `knowledge/categories/<type>.md` | one deep study per effect type: explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy/light/character). Anatomy with typical values, timing table, techniques, mistakes. |
-| `knowledge/categories/<type>_recipe.luau` | a working starting effect per type (layer list for `kit/runtime/VFXTimeline.luau`) |
+| `knowledge/categories/<type>_recipe.luau` | a working starting effect per type (layer list for `kit/runtime/VFXTimeline.luau`); how each one plays: `gallery/recipes/<type>_recipe.jpg` |
 | `knowledge/texture-vocab.md` | texture asset ids by role (glows, stars, rings, crescents, smoke, fire, lightning...) that load in any game |
 | `knowledge/spec-format.md` | how to write an effect as data |
 | `library/` | ~1,200 real effects: one card each with exact layer values (`library/cards/<type>/<id>.md`); search with `kit/scripts/find_effects.py` |

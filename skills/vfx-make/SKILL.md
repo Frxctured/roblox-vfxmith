@@ -31,6 +31,7 @@ at your result next to the references, let blind reviewers list the differences,
 
 ## 2. Start from a recipe
 - Copy `knowledge/categories/<type>_recipe.luau` into your effect folder as `<Name>.luau` and change its `name`.
+  How each recipe plays as it is: `gallery/recipes/<type>_recipe.jpg` (look first: know what you start from).
 - **Combined effects** ("a light beam with an explosion"): one spec, both recipes' layers in one `layers` list. Prefix
   ids per part (`beam_core`, `boom_flash`), shift the second part's `t` values to where it should start (e.g. the
   explosion at the beam's impact, t = beam length), move its `at` positions to that point, merge palettes and texture
