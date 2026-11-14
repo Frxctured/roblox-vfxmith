@@ -20,12 +20,13 @@ For each plan:
    per frame: `base <path>` or `0.45 <path>`. Repeat until the label is `done` (that message's shot is not used).
 3. Write the lines to `<out>/shots.txt` with ONE Bash call (a heredoc), then run
    `python3 -I "<ROOT>/kit/scripts/shot_sheet.py" --out <out> --list <out>/shots.txt --title "<Name> <out folder name>"`
-   (add `--center W,H` if the prompt gives a crop). Use `python` or `py` if `python3` is missing.
+   (add `--center W,H` if the prompt gives a crop, and `--focus <times>` if it names focus times: the payoff
+   moments). Use `python` or `py` if `python3` is missing.
 
 If the capture result names no file (an older Studio MCP), say so and stop: the builder will capture itself.
 If a call fails, report the exact error and stop; do not retry more than once.
 
-Reply in under 120 words: each sheet path, each frame folder, the frame count, and only OBVIOUS capture problems seen in
+Reply in under 120 words: each sheet path (and focus.jpg), each frame folder, the frame count, and only OBVIOUS capture problems seen in
 the frames you received: a frame with nothing of the effect where the times say it plays, the effect cut off by the
 frame edge, all frames identical (the freeze did not move), Studio dialogs or UI over the view. Otherwise "no capture
 problems". Do not describe how the effect looks; the builder and the reviewers judge that.

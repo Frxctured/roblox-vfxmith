@@ -6,9 +6,10 @@ looks at a single image per version instead of every frame (most of a build's to
     python3 -I shot_sheet.py --out <effect>/v2_day --list shots.txt        # lines: "0.40 <file>" or "base <file>"
 
 Options: --crop x,y,w,h (source pixels) or --center W,H (a W x H box around the frame centre), --cols 4,
---w 400 (cell width), --title "v2 daylight".
-Writes <out>/t<time>.jpg (full frames, for reviewers and compare.py), <out>/base.jpg if given, and <out>/sheet.jpg
-(cells cropped and labelled with the effect time). Prints one line.
+--w 400 (cell width), --title "v2 daylight", --focus 3.1,3.2,3.3,3.45 (the payoff moments).
+Writes <out>/t<time>.jpg (full frames, for reviewers and compare.py), <out>/base.jpg if given, <out>/sheet.jpg (all
+times, cells cropped and labelled with the effect time) and, with --focus, <out>/focus.jpg: those times only, two per
+row at 640 px, so the builder sees the payoff's detail and size without opening single frames. Prints one line.
 """
 import argparse
 import os
@@ -47,6 +48,7 @@ def main():
     ap.add_argument("--cols", type=int, default=4)
     ap.add_argument("--w", type=int, default=400)
     ap.add_argument("--title", default="")
+    ap.add_argument("--focus", default="", help="comma-separated times for focus.jpg (2 per row, 640 px)")
     a = ap.parse_args()
     pairs = parse_pairs(a)
     if not pairs:
@@ -74,27 +76,39 @@ def main():
         x, y = (W - w) // 2, (H - h) // 2
     else:
         x, y, w, h = 0, 0, W, H
-    cw = a.w
-    ch = round(cw * h / w)
-    cols = min(a.cols, len(frames))
-    rows = (len(frames) + cols - 1) // cols
-    head = 30 if a.title else 0
-    sheet = Image.new("RGB", (cols * cw, head + rows * ch), (12, 12, 16))
-    d = ImageDraw.Draw(sheet)
-    f = font(16)
-    if a.title:
-        d.text((8, 6), a.title[:120], fill=(255, 255, 255), font=f)
-    for i, (t, im) in enumerate(frames):
-        cell = im.crop((x, y, x + w, y + h)).resize((cw, ch), Image.LANCZOS)
-        px, py = (i % cols) * cw, head + (i // cols) * ch
-        sheet.paste(cell, (px, py))
-        label = "%.2f s" % t
-        tw = d.textlength(label, font=f)
-        d.rectangle((px, py, px + tw + 10, py + 22), fill=(0, 0, 0))
-        d.text((px + 5, py + 2), label, fill=(255, 220, 120), font=f)
-    out = os.path.join(a.out, "sheet.jpg")
-    sheet.save(out, quality=88)
-    print("%s: %d frames, sheet %dx%d" % (out, len(frames), sheet.size[0], sheet.size[1]))
+    def make(items, cols, cw, name, title):
+        ch = round(cw * h / w)
+        cols = min(cols, len(items))
+        rows = (len(items) + cols - 1) // cols
+        head = 30 if title else 0
+        sheet = Image.new("RGB", (cols * cw, head + rows * ch), (12, 12, 16))
+        d = ImageDraw.Draw(sheet)
+        f = font(16)
+        if title:
+            d.text((8, 6), title[:120], fill=(255, 255, 255), font=f)
+        for i, (t, im) in enumerate(items):
+            cell = im.crop((x, y, x + w, y + h)).resize((cw, ch), Image.LANCZOS)
+            px, py = (i % cols) * cw, head + (i // cols) * ch
+            sheet.paste(cell, (px, py))
+            label = "%.2f s" % t
+            tw = d.textlength(label, font=f)
+            d.rectangle((px, py, px + tw + 10, py + 22), fill=(0, 0, 0))
+            d.text((px + 5, py + 2), label, fill=(255, 220, 120), font=f)
+        path = os.path.join(a.out, name)
+        sheet.save(path, quality=88)
+        return path, sheet.size
+
+    out, size = make(frames, a.cols, a.w, "sheet.jpg", a.title)
+    msg = "%s: %d frames, sheet %dx%d" % (out, len(frames), size[0], size[1])
+    if a.focus:
+        want = [float(v) for v in a.focus.split(",") if v.strip()]
+        pick = [fr for fr in frames if any(abs(fr[0] - t) < 0.006 for t in want)]
+        if pick:
+            fout, fsize = make(pick, 2, 640, "focus.jpg", (a.title + " - focus").strip(" -"))
+            msg += "; focus %s: %d frames %dx%d" % (fout, len(pick), fsize[0], fsize[1])
+        else:
+            msg += "; focus: none of those times were captured"
+    print(msg)
 
 
 if __name__ == "__main__":

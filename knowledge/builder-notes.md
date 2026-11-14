@@ -10,9 +10,13 @@ In blind test 3 the 0.1.5 full loop cost 3.3x a plain agent. About two thirds of
 screenshots it had taken one by one, and every one of its 212 turns re-read them. The reviewers were only 13%.
 - **Never capture frame by frame yourself.** Take at most ONE framing shot per version (`C.hold` + `screen_capture`).
   The `vfx-capturer` helper (fast model) takes the timeline on both backdrops and returns one sheet per backdrop.
-- **Look at one sheet per backdrop per version.** Open a single full frame only when one moment is disputed.
-- **Get references from the librarian** (`vfx-librarian`, fast model): it reads the cards and returns the values to
-  copy. Do not read library cards, `texture-vocab.md` or the runtime source yourself.
+- **Look at the capturer's sheets, not frames:** the daylight overview, the payoff focus sheet (the peak at 640 px)
+  and the void overview, per version. Open a single full frame only when one moment is disputed.
+- **References: the librarian finds, you read.** The `vfx-librarian` (fast model) searches the library and ranks the
+  best cards. Then read the category study (`knowledge/categories/<type>.md`, ~10k tokens) and the 2-3 best cards
+  yourself: 15-20k tokens, about $0.50 over a whole run. In test 4 a 2.5 KB librarian summary replaced them and the
+  effect came out generic (a smooth lens, layering 5/10 against 8.5 for the run that read the cards). Never read
+  `texture-vocab.md` whole or the runtime source.
 - **Edit, don't rewrite**: change the spec with small edits; never write the whole file again.
 - **One Studio call per step**: re-install the spec and return `C.check` in the same `execute_luau`.
 - **Keep tool output short**: pipe long output through `head`/`tail`; never `cat` a whole long file.
@@ -21,8 +25,9 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
 ## Sizes, timing and the check
 - A particle's `Size` is its HALF-width (Size N = 2N studs across); beam widths and part sizes are full widths. On
   screen at 1080p and FOV 70, a particle is about 1540 x Size / distance px across, a beam about 770 x width / distance.
-- Size every beat to the brief's numbers in studs. In test 3 one shockwave came out 24-28 studs against 15-20 asked
-  (shape reviewer) and another about 13: both lost points.
+- Size every beat from the brief in studs, and treat the PAYOFF's size as a minimum, not a cap. Payoffs smaller than
+  asked lost every time (test 3: ~13 studs for 15-20 asked; test 4: a 7-stud flash and a 12-14 stud ring, scored last
+  in every lens); one 40% over (24-28 studs) still won both panels.
 - After every edit: `C.check("<Name>", { length = <the brief's length in s> })`. Fix every ERROR and WARN. It also
   reports the peak particle count, bright-white streaks, the widest particle and when the effect is last visible.
 
@@ -32,9 +37,11 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    grey-blue mist, reads as dirt.
 2. **One hero shape per beat.** About 25 bright-white streaks or needles at most at any beat; 2-3 white layers at most
    overlapping.
-3. **The payoff is the biggest and brightest beat**, sized per the brief (a signature move fills ~1/3 of the screen at
-   gameplay distance), then an aftermath that ends at the brief's length. Ending early (an empty screen) reads as a hard
-   cut; running long reads as muddy.
+3. **The payoff is the biggest thing on screen at its peak.** Its bloom and ring are wider than anything before it
+   (about 1.5x the hold's height or more; a signature move fills ~1/3 of the screen at gameplay distance) and it is the
+   brightest beat. Check it on the payoff frames of your sheet: if the open portal, the charge or the hold looks bigger
+   than the payoff, the payoff is too small. Then an aftermath that ends at the brief's length: an empty screen before
+   the end reads as a hard cut, running long reads as muddy.
 4. **Anticipation and no dead air.** At least ~0.2 s of wind-up (0.5-1.5 s for a big move). Keep the collapsing or
    charging shape on screen until the payoff fires (a hot slit shrinking to a pinpoint); a quiet beat is ~0.05-0.1 s,
    not an empty frame.
@@ -43,13 +50,20 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    to +-12% and speeding up, a rim getting hotter, a pull that accelerates. A pull needs visible debris or streaks
    converging, not faint wisps.
 7. **Rings and shockwaves travel.** Start at 20% of the final size or less, ease out (quad/quint out), keep growing
-   while fading (about 80% of the size in the first 40% of the life). Give the ring thickness or a soft glow band
-   behind it. In daylight no dark twin ring unless it is thin, deep, saturated ink (a grey twin reads as a soap bubble).
-8. **Flashes in daylight:** a 3-6 stud white core inside a coloured falloff, full white for 0.08 s or less, never wider
-   than half the payoff. White only at the hottest moment (`C.check` warns on a near-white sprite over 8 studs).
+   while fading (about 80% of the size in the first 40% of the life) to at least the brief's width. Give the ring
+   thickness or a soft glow band behind it. In daylight no dark twin ring unless it is thin, deep, saturated ink (a grey
+   twin reads as a soap bubble).
+8. **Flashes in daylight: a hot core inside a BIG coloured bloom.** The pure-white core stays small (3-6 studs, full
+   white for about 0.1 s) and the coloured bloom around it (the effect's hot colour, bright) carries the size: as wide as
+   the payoff. Both extremes lost points: a solid white disc 14-16 studs across hid the implosion (tests 3 and 4, every
+   reviewer), and a 4-stud core with no real bloom read as "a tiny sparkle, no white-hot moment" (test 4, last place).
+   White only at the hottest moment (`C.check` warns on a near-white sprite over 8 studs).
 9. **One rendering style**, the user's: toon (flat shapes, outlines, cel steps) or soft glow. Never fix one beat by
    switching style.
 10. **Fire and explosions:** reach orange by ~0.2 s, give the body 0.6-0.9 s, cool slowly (explosion.md).
+11. **Hero shapes with character.** A smooth, symmetric primitive (a clean lens, a plain disc, an even hoop) reads as
+   generic ("a portal or an eye", "a UI circle"). Torn, jagged, asymmetric, layered shapes won (a jagged tear with a
+   nebula inside and a hot rim). Take the shape language from the references you read.
 
 ## Textures
 Check every id: `python3 -I "ROOT/kit/scripts/texture_traits.py" <id> ...` (`C.check` lists the ids used).

@@ -37,18 +37,22 @@ general-purpose agent told to read and follow `ROOT/agents/vfx-builder.md`) with
 Studio id and the mode, and wait for its report: it runs steps 1-7 in a fresh context. If the request opened the
 conversation, or you are an agent spawned for this effect, run steps 1-7 yourself.
 
-## 1. Read (only these)
+## 1. Read
 - `knowledge/builder-notes.md`: the look rules, texture and Studio traps, and the token rules. Keep to them.
 - `knowledge/spec-format.md`: how an effect is written.
-- `knowledge/categories/<type>.md` for each effect type in the request: its anatomy and timing tables (index:
-  `knowledge/README.md`).
-Anything else: `grep -n` the term in `knowledge/`, then read that section only.
+- `knowledge/categories/<type>.md` for each effect type in the request, in full (~10k tokens each; index:
+  `knowledge/README.md`). Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
+  darkportal + explosion).
+Anything else: `grep -n` the term in `knowledge/`, then read that section only. Reading text is cheap (a whole study
+costs cents over a run); images you load are what costs.
 
 ## 2. References (never build from nothing)
 - **From a description:** spawn the librarian (`vfxmith:vfx-librarian`, or a general-purpose agent with model `haiku`
   told to follow `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request and the brief's beats. Save its reply
-  as `<effect>/refs.md`. Look at the frame sheets of the 1-2 references it ranks best (`gallery/effects/...`, one image
-  each) for framing, size, phases and colour.
+  as `<effect>/refs.md`: it is the map, not the material. Then READ the 2-3 cards it ranks best yourself
+  (`library/cards/...`, 2-8 KB each: the exact layers, textures and numbers) and look at their frame sheets
+  (`gallery/effects/...`, one image each) for shape language, framing, size, phases and colour. In test 4 a builder
+  that worked from the summary alone built a generic shape and came last.
 - **From a video:** give it a folder (`refs/<slug>/`: `source.mp4`, contact sheets at 2 fps, one cycle at 30 fps with
   frame numbers burnt in, full-size key frames, all with ffmpeg). Look at the sheets. Write `analysis.md`: phase
   timeline in seconds and frames (t0 = first frame of the effect), one row per layer (look + likely build), palette
@@ -107,8 +111,9 @@ ERROR and WARN before capturing.
    - `plan void -> <effect>/vN: { times = {...}, stage = "void", camera = { dist = <about 0.7 x day> , ... }, base = true }`
    Pick 10-14 times that cover the brief: the start, each beat's peak, the payoff and 0.1 s either side, the linger,
    the end. When the effect is for the user's open place, use `stage = "place", stageOpts = { at = <Vector3> }` for
-   the day plan. It returns `vN_day/sheet.jpg` and `vN/sheet.jpg` (full frames beside them). **Look at the two sheets,
-   not the frames.**
+   the day plan. Add `focus = <3-4 payoff times>` to the day plan. It returns `vN_day/sheet.jpg`, `vN_day/focus.jpg`
+   (the payoff at 640 px) and `vN/sheet.jpg`, with the full frames beside them. **Look at these three images, not the
+   frames.** On the focus sheet check builder-notes rule 3: the payoff must be the biggest thing on screen.
 - Real-time video (only when the user has Studio focused or asks): `C.playLater("<Name>", 3.5)` then
   `kit/scripts/record.sh <effect>/vN.mp4 9` (Linux/Wayland; elsewhere any screen recorder).
 - Many stills unattended on Linux + niri: `VFXCapture.batch(items)` + `kit/scripts/stills.py --follow` (no images in

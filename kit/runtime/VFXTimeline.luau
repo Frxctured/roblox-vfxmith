@@ -971,8 +971,8 @@ function VFXTimeline.check(spec, opts)
 			end
 			if worst > 8 then
 				add("WARN", where, string.format("near-white sprite up to %.1f studs across: in daylight a white flash "
-					.. "this big reads as a flat white ball; keep a 3-6 stud white core inside a coloured glow, full "
-					.. "white for 0.08 s or less (patterns.md 15.10)", worst))
+					.. "this big reads as a flat white ball; keep the pure-white core 3-6 studs (about 0.1 s) and give "
+					.. "the SIZE to a bright coloured bloom around it, as wide as the payoff (patterns.md 15.10, 15.14)", worst))
 			end
 		end
 		for i = 1, copies.n or 1 do

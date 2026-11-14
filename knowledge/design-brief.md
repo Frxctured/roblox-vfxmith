@@ -60,7 +60,8 @@ check on the dark stage too.
   - travel (projectile, beam, dash): launch -> travel -> impact -> linger;
   - sustained (aura, portal, field): start burst -> loop (1-3 s cycle with pulses) -> end;
   - build-up (charge, ultimate): long build with rising intensity -> quiet beat -> payoff -> aftermath.
-- **Rules to check later:** the payoff is the biggest and brightest beat; anticipation is long enough to read (at least
+- **Rules to check later:** the payoff is the biggest and brightest beat (its size in the brief is a minimum: bigger
+  than anything before it, never smaller than asked); anticipation is long enough to read (at least
   ~0.2 s, more for big moves); every repeated beat escalates and differs; the linger matches the scale (big moves
   leave smoke, marks or embers for 1-3 s); one hero shape per beat.
 - **Motion:** where it sits (on the ground, in the air, on the character), whether it moves, and what it pulls in,

@@ -146,11 +146,14 @@ Test 3 (a void rift: a boss ultimate held open, peak at the END, dark effect in 
    Start at 20% of the final size or less, ease out (quad/quint out) and keep growing while fading, reaching about 80%
    of the size in the first 40% of the life; give it thickness or a soft glow band behind; in daylight no grey dark
    twin ring (it reads as a soap bubble): only thin, deep, saturated ink, or none.
-10. **A daylight flash is a small white core in a coloured falloff.** The winning effect's flash was a shapeless white
-   ball about 14 studs across that hid the implosion (all 3 reviewers). Keep full white to a 3-6 stud core for 0.08 s
-   or less, never wider than half the payoff; `VFXTimeline.check` warns on a near-white sprite over 8 studs.
-11. **Sizes come from the brief, in studs, and get checked.** Asked 15-20 studs, the shockwaves came out ~13, ~18-21
-   and 24-28. Write each beat's size in the brief and compare the capture against it before the panel.
+10. **A daylight flash is a small white core inside a big coloured bloom.** The winning effect's flash was a
+   shapeless white ball about 14 studs across that hid the implosion (all 3 reviewers). Keep full white to a 3-6 stud
+   core for about 0.1 s, and let a bright coloured bloom around it carry the size (as wide as the payoff);
+   `VFXTimeline.check` warns on a near-white sprite over 8 studs. Do not shrink the whole flash: in test 4 a 4-stud core
+   with no real bloom read as "a tiny sparkle, no white-hot moment" and that effect came last (rule 14).
+11. **Sizes come from the brief, in studs, and get checked; the payoff's size is a floor.** Asked 15-20 studs, the
+   shockwaves came out ~13, ~18-21 and 24-28; the 24-28 one won. Write each beat's size in the brief and compare the
+   capture against it before the panel; a payoff under the asked size always lost.
 12. **No dead air at the snap.** The collapsing rift vanished 0.1 s before the payoff fired and the reviewers read the
    gap as an empty frame. Keep the closing shape on screen (a hot slit shrinking to a pinpoint) until the payoff; a
    quiet beat is 0.05-0.1 s of reduced light, not nothing.
@@ -158,5 +161,13 @@ Test 3 (a void rift: a boss ultimate held open, peak at the END, dark effect in 
    brief (a hard cut for an ultimate); another's smoke ran to 4.6 s and turned muddy. `C.check(name, { length = s })`
    reports when the effect is last visible. A sustained hold must also BUILD (pulses growing and speeding up, a hotter
    rim, an accelerating pull with visible debris): the thin, static holds lost points in every lens.
+
+Test 4 (2026-11-14, the same void rift with plugin 0.1.6-beta, one panel with all four effects: 0.1.5 full 8.0,
+no plugin 6.5, 0.1.5 quick 6.5, 0.1.6-beta 6.0) added one more:
+14. **Don't let a rule shrink the payoff, and read the references.** The beta's builder copied rules 10 and 11 as
+   caps (a 4-stud white core, a ring to 18 studs) and got a 7-stud flash and a 12-14 stud ring: "the biggest beat
+   reads as the smallest", last in every lens. It also worked from a 2.5 KB summary of the references instead of the
+   cards, and built a smooth, symmetric lens ("a portal or an eye"). The payoff is the biggest thing on screen at its
+   peak (rule 3), and the shape language comes from the cards you read.
    A fireball also needs a value range (a hot core, an orange body, dark red-brown edges, dark smoke behind): test 2's
    flat single-value orange read as "jelly". Smoke cools to warm grey, rises from low down, with a dust skirt in front.
