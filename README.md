@@ -32,6 +32,8 @@ effect in Studio); without it you still get references and a ready spec.
 2. **Start from recipes**: one spec with both recipes' layers (the explosion shifted to the beam's impact), adapted to
    the request with values from the cards ([`knowledge/spec-format.md`](knowledge/spec-format.md)); every texture
    checked for traps (`texture_traits.py`: coloured, black or faint card, multi-part, low resolution).
+   Fresh textures per role come from one search over ~10,000 textures (`find_textures.py`): the library's own and
+   the free VFX Studio plugin's catalogue (~2,750 animated flipbooks), each with measured traits.
 3. **Check it, play it in Studio and look**: the kit installs without Rojo or uploads; `C.check(name)` catches silent
    spec mistakes; `C.hold(name, t)` + a screenshot captures frozen frames on any OS, on a black stage AND a default
    daylight baseplate (dark layers that vanish on black can read as dirt in daylight).

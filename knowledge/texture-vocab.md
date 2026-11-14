@@ -1,5 +1,10 @@
 # Texture vocabulary (open-source Roblox VFX)
 
+**Search first:** `kit/scripts/find_textures.py "<role words>" --sheet out.jpg` searches this vocabulary's textures and
+the ~9,200-texture VFX Studio catalogue (gallery/textures/vfxstudio_index.json, ~2,750 flipbooks) together, with the
+measured traits below, and shows the hits on one sheet. The tables here are the textures real library effects use.
+
+
 Pick a texture by ROLE ("soft glow", "4-point star", "crescent flipbook", "dark smoke 4x4") instead of guessing ids.
 Built 2026-11-13 from the pack (decoded with `kit/scripts/rbxdump.py`) (378 open-source VFX pack files shared on Discord,
 6,148 effects, 106k distinct emitter designs). Every id below was looked at on a contact sheet.

@@ -75,7 +75,16 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    nebula inside and a hot rim). Take the shape language from the references you read.
 
 ## Textures
-Check every id: `python3 -I "ROOT/kit/scripts/texture_traits.py" <id> ...` (`C.check` lists the ids used).
+- **Fresh textures, not the recipe's defaults.** Every effect in the first five blind tests drew all its 14-16
+  textures from the same 185 the recipes use, so different effects started to look alike. Two libraries are
+  searchable together (~10,000 textures, ~2,750 animated flipbooks): the open-source library and VFX Studio (a free
+  Roblox plugin's catalogue). The librarian's `textures.jpg` shows 5 candidates per role;
+  `kit/scripts/find_textures.py "<words>" [--flipbook] --sheet out.jpg` finds more (one image).
+- **Flipbooks animate on their own** (a ring that breaks up, smoke that rolls, an impact that bursts):
+  `FlipbookLayout = 4` (2, 4 or 8 = the grid), `FlipbookMode = "OneShot"` plays the frames once over the particle's
+  Lifetime.
+Check every id you pick outside the sheet: `python3 -I "ROOT/kit/scripts/texture_traits.py" <id> ...` (`C.check`
+lists the ids used).
 - A coloured texture tinted another hue goes muddy; a texture on a black or faint card shows its square below
   LightEmission 1; several streaks in one image used as one streak make a comb; low-resolution art drawn big is
   stair-stepped.

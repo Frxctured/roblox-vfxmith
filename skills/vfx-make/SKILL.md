@@ -44,14 +44,15 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
 
 ## 1-2. References, then ONE read of everything (never build from nothing)
 - **Librarian:** spawn `vfxmith:vfx-librarian` (or a general-purpose agent with model `haiku` told to follow
-  `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request and the brief's beats. Save its reply as
-  `<effect>/refs.md`: it is the map (which cards, which types), not the material.
+  `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request, the brief's beats and the effect folder. Save its
+  reply as `<effect>/refs.md`: it is the map (which cards, which types), not the material. It also writes
+  `<effect>/textures.jpg`: 5 fresh texture candidates per role from both texture libraries.
 - **Pack:** `python3 -I "ROOT/kit/scripts/builder_pack.py" --types <type>[,<type>] --cards <the 2-3 best card ids>
   --out <effect>/pack`. Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
   darkportal + explosion; index: `knowledge/README.md`). It writes builder-notes + spec-format, each category study
   with its starting recipe, and the cards, in files of ~15k tokens or less.
-- **Read them all in ONE message** (parallel Read calls), together with the frame sheets of the 1-2 best references
-  (`gallery/effects/...`, the paths are in the pack) and the recipe's gallery strip. That is the whole reading: about
+- **Read them all in ONE message** (parallel Read calls), together with `textures.jpg`, the frame sheets of the 1-2
+  best references (`gallery/effects/...`, the paths are in the pack) and the recipe's gallery strip. That is the whole reading: about
   40k tokens of text, a few cents over the run. Take the shape language from the cards (in test 4 a builder that
   worked from the librarian's summary alone built a generic shape and came last). Anything else later: `grep -n`
   the term in `knowledge/`, then read that one section.
@@ -76,8 +77,11 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   its `at` moved to that point, palettes and texture tables merged, duplicate roles dropped (one light, one grade). A
   later flash or burst gets a different shape and is bigger.
 - Palette: three tones (white core, saturated body, dark ink). ONE rendering style, the user's.
-- Textures: from `refs.md` and the recipe; check every id with `kit/scripts/texture_traits.py` (builder-notes lists
-  the traps). Own textures and meshes: step 7.
+- Textures: the recipe's textures are defaults, not the palette. Pick per role from `textures.jpg` (the open-source
+  library and VFX Studio: ~10,000 textures, ~2,750 animated flipbooks) and keep a recipe texture only where it is the
+  best candidate; search more with `kit/scripts/find_textures.py "<role words>" --sheet ...` (one image). Flipbooks:
+  `FlipbookLayout = 4` (the grid), `FlipbookMode = "OneShot"` over the particle's Lifetime. Check ids you pick outside
+  the sheet with `kit/scripts/texture_traits.py` (builder-notes lists the traps). Own textures and meshes: step 7.
 
 ## 4. Install the kit and check (no Rojo, no upload)
 ```bash

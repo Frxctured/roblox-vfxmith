@@ -28,6 +28,16 @@ Reply in terse bullets, per part:
 - **Typical timing:** from the category table.
 - **Avoid:** 1-2 mistakes from the category study.
 - **Start from:** `knowledge/categories/<type>_recipe.luau`.
+4. **Fresh textures per role.** Name the effect's roles from the request and the brief's beats (for example flash,
+   ring, shards, mist, ground; or core, body, sparks, smoke) with a few words each (role + element + shape), then run
+   ONE search over both texture libraries (the open-source library and VFX Studio, ~10,000 textures, ~2,750 flipbooks):
+   `python3 -I "<ROOT>/kit/scripts/find_textures.py" --roles "flash=ice flash star; ring=shockwave ring; ..." -n 5
+   --exclude "<ROOT>/knowledge/categories/<type>_recipe.luau" --sheet <effect folder>/textures.jpg`
+   (the effect folder comes in the prompt; leave `--sheet` out if there is none). Look at the sheet, and per role name
+   the 2 best candidates by their tag (F1, R3...), id, flipbook grid and traits, and why they fit. Prefer animated
+   flipbooks for things that move or grow (rings, smoke, impacts, slashes), clean white art that tints, and enough
+   resolution for the role's size on screen.
+
 Keep the whole reply under ~700 words: the builder saves it as `refs.md` and works from it instead of the cards.
 If the prompt gives the brief's beats, organise the parts by beat.
 Never invent ids or values; everything comes from the files you opened.
