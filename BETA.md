@@ -1,5 +1,9 @@
 # vfxmith 0.1.6-beta2 (beta channel)
 
+> **0.1.6 is now the stable release (2026-11-15).** It grew out of this beta (beta3 to beta5 were built after
+> beta2) and won its blind test. Switch back to stable with the commands under "Go back to stable", then
+> `/plugin update vfxmith@vfxmith`. This channel will carry the next betas.
+
 A test build of the next version. The main goal is **much cheaper runs** at the same quality. Please try it on
 effects you actually want and tell us how it went.
 
