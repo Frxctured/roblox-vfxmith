@@ -70,6 +70,13 @@ effect type; the effect named in the evidence is only where it was seen. Update 
   bright colour that outshines the rest (v1's grabbing beams were "too white compared to the rest").
 - **Rich, varied particles:** many kinds and sizes (stars, glints, motes, embers), not a few plain specks.
 - **Glints stay where the reference has them:** a glint that scrolls across the hero reads as a glitch.
+- **Hero art is made outside the engine, at high resolution.** (golden sigil v2: an emblem and rune circle painted in
+  code inside Roblox read as clip art next to the reference, "ours just looks horrible compared to the original")
+  Emblems, logos, sigils and magic circles: a Blender mesh (bevels, emissive details) or a 1024-2048 px image drawn
+  with anti-aliasing, gradients and inner glow, uploaded; or a fitting library/VFX Studio texture. Code-drawn images
+  are for simple masks and gradients only. Smoke that carries the look needs a real smoke texture or flipbook.
+- **Match the composition and the overall grade first:** positions, tilt and overlaps, then the haze and bloom that tie
+  the layers together; details on the wrong layout still look wrong.
 
 ## Who it is for
 - Effects should be good enough to ship as is in a fighting or ability game (owner: "I would use it as is").
