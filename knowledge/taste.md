@@ -55,6 +55,11 @@ effect type; the effect named in the evidence is only where it was seen. Update 
   `FlipbookMode = "OneShot"`; find one with `kit/scripts/find_textures.py "shockwave ring" --flipbook`), expanding
   and thinning out. Keep it within the glow rules: textured detail, not a bright halo.
 - **Designed, characterful hero shapes.** (test 5 poll; owner: the ice spikes were "very good")
+- **Soft effects use soft particles.** (owner, healing aura 7/10: the plus sparkles looked "too pixely, for a healing
+  effect like this I'd expect them to be soft") Check each texture's effective resolution against its size on screen
+  (`texture_traits.py`, the `eff` trait) and pick soft, high-resolution art for gentle effects.
+- **Curves look continuous.** (healing aura: "I can tell each segment apart ... not fully smooth") Spirals, ribbons and
+  trails need enough Beam segments or curved Beams/Trails with overlapping joins; check the joins in a close-up.
 - **Basic stretched sprites look cheap.** (test 6 poll: the plain fire tornado looked "made of REALLY basic
   parts/textures (stretched ovals only basically) and just low quality") Vary shapes and sizes; use fitting textures or
   geometry, not the same oval stretched everywhere.
