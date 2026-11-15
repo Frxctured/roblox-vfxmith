@@ -68,11 +68,18 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   timeline in seconds and frames (t0 = first frame of the effect), one row per layer (look + likely build), palette
   hex, how colour ages, rhythm (build -> quiet beat -> payoff -> linger), world grade. Then still ask the librarian for
   the closest library effects and pack them: their layer values are your starting numbers.
-- **From a video:** give it a folder (`refs/<slug>/`: `source.mp4`, contact sheets at 2 fps, one cycle at 30 fps with
-  frame numbers burnt in, full-size key frames, all with ffmpeg). Look at the sheets. Write `analysis.md`: phase
-  timeline in seconds and frames (t0 = first frame of the effect), one row per layer (look + likely build), palette
-  hex, how colour ages, rhythm (build -> quiet beat -> payoff -> linger), world grade. Then still ask the librarian for
-  the closest library effects: their layer values are your starting numbers.
+- **From a still image (a screenshot people liked):** a deep reading comes BEFORE any build, because one glance
+  misses most of it (a recreation built from a quick read scored 5/10: "the emblem looks cheap", "the smoke is in the
+  background", "way more particles in the original"). In `refs/<slug>/`: crop every element with PIL and upscale it
+  3-4x (the hero as a whole and its parts, beams or ribbons, the ground mark, smoke, each particle field, the area
+  around the character, the floor's soft light, the sky). Read every crop. Write `analysis.md`, one section per
+  element: silhouette details, edge treatment (hard edge, bevel highlight, rim light, glow falloff), inner shading
+  and texture (gradients, streaks, noise), palette in hex from sampled pixels (darkest to brightest, including the
+  dark bands inside bright streaks), solid vs additive, depth (in front of / behind what), and the light it throws,
+  even faint. Ask the person only what a still can't show (motion, timing, purpose).
+- **Compare region by region** (still or video): at every capture, crop the same regions from your frame and the
+  reference at the same framing and put them side by side (reference left). Fix what differs per region before a
+  review panel; a whole-frame look hides most differences.
 
 ## 3. Design, then build on the recipe's scaffold
 - **Design first (write it in `LOG.md` before any spec):** per beat, the hero shape, what it is built from (sprite,

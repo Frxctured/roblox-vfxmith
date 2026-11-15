@@ -59,6 +59,17 @@ effect type; the effect named in the evidence is only where it was seen. Update 
   parts/textures (stretched ovals only basically) and just low quality") Vary shapes and sizes; use fitting textures or
   geometry, not the same oval stretched everywhere.
 
+## Recreating a reference (owner, golden sigil v1: 5/10)
+- **Read the reference deeply first:** every element zoomed, its details, edges, inner shading, colours and the soft
+  light it throws. A quick read gave "the emblem looks cheap" and "way more particles in the original".
+- **Smoke and atmosphere belong to the effect:** wrapped around and through it at its depth, overlapping the hero,
+  never a separate cloud in the background.
+- **Nothing extra:** no element the reference or the person didn't show or ask for (an unexpected third beam stood out).
+- **Bright streaks are layered:** dark, gold and white bands together ("black between gold"); a flat white ribbon looks
+  cheap and outshines the rest.
+- **Rich, varied particles:** many kinds and sizes (stars, glints, motes, embers), not a few plain specks.
+- **Glints stay where the reference has them:** a glint that scrolls across the hero reads as a glitch.
+
 ## Who it is for
 - Effects should be good enough to ship as is in a fighting or ability game (owner: "I would use it as is").
 
