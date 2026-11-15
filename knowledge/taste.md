@@ -65,8 +65,9 @@ effect type; the effect named in the evidence is only where it was seen. Update 
 - **Smoke and atmosphere belong to the effect:** wrapped around and through it at its depth, overlapping the hero,
   never a separate cloud in the background.
 - **Nothing extra:** no element the reference or the person didn't show or ask for (an unexpected third beam stood out).
-- **Bright streaks are layered:** dark, gold and white bands together ("black between gold"); a flat white ribbon looks
-  cheap and outshines the rest.
+- **Match the reference's colours inside streaks and beams:** copy the colour bands the reference shows (in the golden
+  sigil: darker and brighter streaks, "black ... and also white, like between gold"); don't flatten them into one
+  bright colour that outshines the rest (v1's grabbing beams were "too white compared to the rest").
 - **Rich, varied particles:** many kinds and sizes (stars, glints, motes, embers), not a few plain specks.
 - **Glints stay where the reference has them:** a glint that scrolls across the hero reads as a glitch.
 

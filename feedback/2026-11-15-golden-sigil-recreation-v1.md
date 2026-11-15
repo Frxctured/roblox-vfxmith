@@ -41,6 +41,7 @@ original image, like really look at it closely."
   frames with the reference region by region at the same framing, not only as a whole.
 - Smoke and atmosphere belong to the effect: wrapped around and through it at its depth, not a backdrop behind it.
 - No extra elements the reference or the person didn't ask for (a third grabbing beam).
-- Bright streaks are layered: dark, gold and white bands together, never a flat white ribbon that outshines the rest.
+- Match the reference's colours inside streaks and beams (here darker and brighter bands, black and white between
+  gold); a flat single-colour ribbon brighter than the rest looks cheap. (The colours are this reference's, not a rule.)
 - Particle variety and density matter: a few plain specks read as cheap next to rich, varied sparkles.
 - Glints and sparks stay where the reference has them; moving them (scrolling across a hero) reads as a glitch.
