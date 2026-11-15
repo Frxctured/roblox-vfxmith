@@ -14,6 +14,21 @@ by frame.
 | **Kit** | effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## What's new in 0.1.6
+- **About a third of the cost of 0.1.5.** Helpers on a fast, cheap model find references and take the Studio
+  screenshots, the builder reads everything it needs in one go, and it stops after two review panels. A full build
+  cost $15.47 at API prices in blind test 6, against $40-57 for 0.1.5 and $26.44 for the same agent with no plugin.
+- **The library is a guide, not a template.** The builder designs the effect first and borrows techniques, timing and
+  values from real effects; it builds the hero shape itself when nothing in the library fits.
+- **Shapes built in code:** `ctx.Crystal` makes faceted solids (rocks, debris, crystals, gems, shards) with their own
+  light-to-dark colours, no upload needed.
+- **~10,000 textures to choose from:** one search over the open-source library and the free VFX Studio catalogue,
+  ~2,750 animated flipbooks, each with measured traits.
+- **Reviewers calibrated on people:** an Appeal score, bold colour counts as a plus, and real human poll results as
+  the reference.
+- Tested blind: in test 6 (a fire tornado) people picked the 0.1.6 effect over the same agent without the plugin by a
+  wide margin. Update: `/plugin marketplace update vfxmith`, then `/plugin update vfxmith@vfxmith`.
+
 ## Install (Claude Code)
 ```
 /plugin marketplace add Frxctured/roblox-vfxmith

@@ -174,8 +174,8 @@ no plugin 6.5, 0.1.5 quick 6.5, 0.1.6-beta 6.0) added one more:
    flat single-value orange read as "jelly". Smoke cools to warm grey, rises from low down, with a dust skirt in front.
 
 Test 5 (2026-11-14, ice slam, a NEW prompt; one panel with four effects, then a human poll): no plugin 8.0 and the
-people's clear favourite; 0.1.5 full 7.0; beta3 7.0; beta2 6.5 for the panel but the people's second choice. Full
-analysis: blindtest run_2026-11-14e COMPARE_B2_N2.md and PROCESS_B2_N2.md. It added:
+people's clear favourite; 0.1.5 full 7.0; beta3 7.0; beta2 6.5 for the panel but the people's second choice. A side-by-side
+analysis of the winner and the runner-up (effect values and both build processes) added:
 15. **A flash is about shape, not size.** The winner's hit: an 8-stud white Neon dome for 0.11 s, a 32-stud sparkle
    STAR, 22 thin Neon speed lines; one frame after contact the white was at 88% of its peak (the runner-up 33%, its
    brightest moment 83 ms late). A builder that shrank its flash under the old 8-stud warning ended with "a roundish
