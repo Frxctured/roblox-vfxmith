@@ -10,7 +10,8 @@ description: Roblox VFX router - use for ANY Roblox visual effect request (explo
 anything (it may contain spaces: quote it).
 
 ## Read first (keep it short: every turn re-reads what you load)
-1. `knowledge/builder-notes.md`: one page with the rules that decided the blind tests, the traps, and the token rules.
+1. `knowledge/taste.md`: what people liked and disliked in real effects (outranks everything else), then
+   `knowledge/builder-notes.md`: the rules that decided the blind tests, the traps, and the token rules.
 2. The category study for the effect type(s), its anatomy and timing tables: `knowledge/categories/<type>.md`, types:
    explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy, light,
    character). Index: `knowledge/README.md`.
@@ -24,11 +25,13 @@ For anything else, grep `knowledge/` and read only the matching section.
 | examples / "how do pros make X" | `vfxmith:vfx-find` (or grep `knowledge/` and `library/cards/` for a quick answer) |
 | a review or "make this better" | `vfxmith:vfx-review`, then fixes with `vfx-make` |
 | to learn from or clean a downloaded VFX pack | `vfxmith:vfx-study-pack` |
+| to give their opinion of an effect ("rate this", "I liked...", "feedback") | `vfxmith:vfx-feedback` (saves it, teaches the plugin) |
 
 If the skills are not loaded (plain folder use), open `skills/<name>/SKILL.md` and follow it as instructions.
 
 ## Non-negotiables
-- Never build an effect from nothing: start from library references + the category note + its recipe.
+- Design the effect first; library references, house examples and the category note are a guide (techniques,
+  timing, values), not a template. Build the hero shape yourself when nothing fits closely.
 - Never call an effect done without capturing it in Studio and comparing it with the references.
 - Studio is reached through the Studio MCP server. Without it, deliver the spec + install steps and say it is untested.
 - Optional: if `lihfolk:*` skills are listed in the session, the LihFolk vault can answer engine-limit questions.

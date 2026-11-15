@@ -30,9 +30,10 @@ Evidence (Read every image; they are your evidence):
   card (library/cards/...) and frames.
 - The brief: <effect folder>/brief.md (what the user asked for: purpose, length, peak time, sizes, style). Read it as
   INTENT: hue family, timing, size, motion, mood. An effect that ignores the brief is wrong even if it looks good,
-  but a bolder, more saturated or more glowing take on the asked palette is a PLUS, not a deviation, as long as the
-  hue family and the shapes still read. Mark colour down only when it leaves the hue family, turns muddy, or white
-  hides the shapes.
+  but a different take on the asked palette is not a fault by itself. Judge colour by whether it suits the effect:
+  a clear value range (white core or tips, a body colour, a deeper tone) in the asked hue family is right; washed-out
+  grey-white, neon-loud saturation on a natural material, and glow that floods the floor or hides the shapes are
+  wrong. Read `knowledge/taste.md` (what people liked and disliked) before scoring; it overrides your own taste.
 - Our effect spec: <effect folder>/<Name>.luau; runtime + format: kit/runtime/
   VFXTimeline.luau and knowledge/spec-format.md (layers: t start, life, at, rot, pivot, size, props, tracks
   {time, value, ease}, copies, emit {t, count, over}). A particle's Size is its HALF-width (Size N = 2N studs across);
@@ -68,8 +69,9 @@ colour, tiny payoffs. The two polls:
   white tips, lighter/darker facets), a falling "fist comet" into the impact, and spikes that break into 3-7 chunky
   shards leaving stumps; second, a VIVID electric-blue one whose spikes come up white-hot and cool to saturated blue
   with neon glow. Far behind: pale smooth cones ("a pincushion") and blown-out white. The AI panel had ranked the vivid
-  one LAST for being "sapphire, not icy cyan": people loved exactly that. Do not mark down saturation or glow that
-  stays in the asked hue family.
+  one LAST for being "sapphire, not icy cyan": people liked it more than the panel did. Later the owner rated the
+  winner 8/10 and preferred it over 0.1.6's ice for LESS glow and frost that stayed longer, and said the winner could be
+  a little LESS saturated: saturation should suit the effect, and glow should be restrained (`knowledge/taste.md`).
 - Test 3, void rift (2026-11-14): people picked the jagged, torn rift with a nebula inside and a layered, big payoff
   (5 of 7 votes); the panel agreed.
 
@@ -85,10 +87,13 @@ Deliver (under 500 words):
    layer"), what is wrong (concrete numbers: "~1.5x wider", "3 studs too high", "0.1 s late", "#hex vs #hex"),
    which backdrop shows it (void, daylight, both), and a CONCRETE spec fix (field and value, or a new layer with its
    key params).
-3. If a problem can't be fixed by values (the mesh, texture or construction can't reach the look), write REBUILD and
+3. Never recommend removing, shortening or fading out early something the brief asks for or `knowledge/taste.md`
+   says people like (residue, resting pieces, a break flash): say how it should look instead. In the ice re-run a
+   panel's "frost plate" and "shards freezing" advice made the builder remove exactly what the owner liked most.
+4. If a problem can't be fixed by values (the mesh, texture or construction can't reach the look), write REBUILD and
    what to build instead (e.g. "REBUILD the hero: a jagged shape with its own white edge and deep shadow side,
    not the tinted library mesh").
-4. One sentence on what already works well (so the fixes don't break it).
+5. One sentence on what already works well (so the fixes don't break it).
 Be honest and specific; do not edit any files.
 ```
 

@@ -13,6 +13,8 @@ the request closely (a hero shape, a material), say so plainly so the builder de
 `${CLAUDE_PLUGIN_ROOT}` if `echo "$CLAUDE_PLUGIN_ROOT"` is a real folder holding `library/index.jsonl`. Otherwise reply
 "library root needed" and stop.
 
+0. Read `<ROOT>/library/house/INDEX.md` (effects people rated 8+). Name any that fits the request first, with its slug
+   (the builder adds its note with `builder_pack.py --house <slug>`).
 1. Run `python3 -I "<ROOT>/kit/scripts/find_effects.py" "<request>" -k 6` (`python` or `py` if `python3` is missing).
 2. Per part of the request: open the 3 best cards (`<ROOT>/library/cards/...`). Prefer cards with frames and with
    "Fired by: EmitCount attributes". From each, keep only the layers that matter for the request (core/flash, body,

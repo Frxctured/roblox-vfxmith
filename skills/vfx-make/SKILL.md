@@ -53,7 +53,8 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   reply as `<effect>/refs.md`: it is the map (which cards, which types), not the material. It also writes
   `<effect>/textures.jpg`: 5 fresh texture candidates per role from both texture libraries.
 - **Pack:** `python3 -I "ROOT/kit/scripts/builder_pack.py" --types <type>[,<type>] --cards <the 2-3 best card ids>
-  --out <effect>/pack`. Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
+  [--house <slug>] --out <effect>/pack` (`--house` for a house example the librarian named; the pack always starts
+  with `knowledge/taste.md`: what people liked and disliked, which outranks every other rule). Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is
   darkportal + explosion; index: `knowledge/README.md`). It writes builder-notes + spec-format, each category study
   with its starting recipe, and the cards, in files of ~15k tokens or less.
 - **Read them all in ONE message** (parallel Read calls), together with `textures.jpg`, the frame sheets of the 1-2
@@ -95,8 +96,9 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   its `at` moved to that point, palettes and texture tables merged, duplicate roles dropped (one light, one grade). A
   later flash or burst gets a different shape and is bigger.
 - Palette: three tones (white core, saturated body, a deep tone). In daylight put the deep tone on geometry and
-  decals (bases, crack cores, facet shadows), not on sprite twins. Saturated, glowing colour in the asked hue family
-  is good; people preferred it. ONE rendering style, the user's.
+  decals (bases, crack cores, facet shadows), not on sprite twins. Saturation should suit the effect (natural
+  materials slightly below full; energy and fire higher) and glow stays restrained: read `knowledge/taste.md`. ONE
+  rendering style, the user's.
 - Textures: the recipe's textures are defaults, not the palette. Pick per role from `textures.jpg` (the open-source
   library and VFX Studio: ~10,000 textures, ~2,750 animated flipbooks) and keep a recipe texture only where it is the
   best candidate; search more with `kit/scripts/find_textures.py "<role words>" --sheet ...` (one image). Flipbooks:
@@ -165,12 +167,16 @@ Fix every ERROR and WARN before capturing. **Every later version is two turns:**
   `cmp_vN` outputs if any, `brief.md` and the spec. Scale: "match" for a reference video, ABSOLUTE quality for a
   description.
 - Merge: fix what 2+ reviewers flag first, change by half steps when one says "much too much", never break what they
-  said works. **Rebuild, don't re-value,** when a reviewer writes REBUILD, when 2+ say a hero's shape or colour is
+  said works. Check every fix against `knowledge/taste.md` and the brief first: never remove, shorten or fade early
+  something the brief asks for because a reviewer disliked how it looks; change how it looks. **Rebuild, don't re-value,** when a reviewer writes REBUILD, when 2+ say a hero's shape or colour is
   wrong, or when the same problem comes back in the next panel: change how that layer is built (mesh, `ctx.Crystal`,
   decal instead of particle, Neon lines instead of a sprite). Log the round in `<effect>/LOG.md`.
 
 ## 7. Iterate, then finish
-- Full: panel 1 -> fixes -> capture -> panel 2 -> apply its shared fixes -> a final capture by the capturer; check its
+- **With the user present (the default when they can answer):** panel 1 -> fixes -> capture -> show the user the
+  effect and run `vfx-feedback` (its questionnaire replaces panel 2: people judge better than the AI panel and it
+  costs nothing) -> apply what they asked for -> final capture. Their answers are saved and teach the plugin.
+- Full, user away: panel 1 -> fixes -> capture -> panel 2 -> apply its shared fixes -> a final capture by the capturer; check its
   sheets against the brief and panel 2's top complaints yourself, then finish. No third panel (polish mode only, and
   only if panel 2 gained 0.5 or more). Quick: one panel, fixes, the final capture.
 - Game-fit pass: scale, Reduced Motion (no grade flashes), `VFXTimeline.Quality` 0.6 on phones, ~150 particles and ~25
@@ -199,6 +205,8 @@ lists the details). Own textures (PIL) and meshes (Blender; vertex colours white
 in Studio for a few minutes. Worked example of a full run: `kit/examples/VoidRend/`.
 
 ## 8. Learn
+People's opinions first: `vfx-feedback` saves them (`feedback/`), updates `knowledge/taste.md` and adds effects rated
+8+ to `library/house/`. Then:
 New traps -> `knowledge/gotchas.md` (and a line in `builder-notes.md` if it cost real time); rules that hold across
 effects -> `knowledge/patterns.md`; type-specific lessons -> `knowledge/categories/<type>.md`.
 

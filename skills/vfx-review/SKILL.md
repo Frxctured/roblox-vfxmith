@@ -23,7 +23,8 @@ filling the paths. Lenses: (1) shape, scale and composition, (2) timing, rhythm 
 layering. Each returns scores 0-10 (its lens criteria, Appeal and Overall), the 6 biggest problems with effect
 time, layer id, numbers, the backdrop that shows it and a concrete spec fix, and one sentence on what already works.
 The prompts carry "What people preferred" from the human polls: the AI panel alone had ranked the effect people
-liked second LAST for bold colour (test 5), so keep that section in every prompt.
+liked second LAST (test 5), so keep that section in every prompt, and give every reviewer `knowledge/taste.md`
+(what people liked and disliked: restrained glow, residue that stays, endings as highlights).
 
 **Pick the scale by the request** (texts in `knowledge/reviewer-prompts.md`):
 - a reference video or "make it look like this": 10 = indistinguishable from the reference;

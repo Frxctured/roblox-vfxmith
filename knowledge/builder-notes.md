@@ -100,7 +100,9 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
 13. **Every object tells its whole story in the first draft:** how it is born (where, staggered, with an overshoot),
    what keeps it alive while it holds, the warning before it ends (a shake, a flicker, a 2-3 frame white flash), how
    it ends (it breaks, bursts, dissolves, collapses), where its pieces go (3-7 per object by size, on arcs with gravity
-   about 60 studs/s^2 that LAND and stop, then shrink) and what stays (stumps, scorch, embers, a fading mark). This
+   about 60 studs/s^2 that LAND and stop, then shrink) and what stays (stumps, scorch, embers, a fading mark). The
+   ending is the moment people remember (owner's favourite: "when the ice crystals exploded"), and what stays holds at
+   70%+ until ~80% of the asked linger before it fades (0.1.6 dropped its frost ~0.5 s early and lost on it). This
    holds for crystals, rocks, shields, portals, projectiles, fireballs. Reviewers had to ask the test-5 runner-up for
    each of these one round at a time; the winner had them all in v1.
 14. **Ground marks are Decals in daylight.** Scorch, cracks, frost, magic circles, splashes: a flat part with a Decal
@@ -108,9 +110,10 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    daylight and sink at low y (test 5 panel, 3 of 3: "gone early in day").
 15. **Colour that lives, glow as its own layer.** Animate the hero's colour: white-hot at birth, cooling to its body
    colour over ~0.15-0.2 s; a slight shimmer or pulse while it holds (about +-10%); a hot glint just before it ends.
-   Vivid, saturated glow in the asked hue family is a plus (people liked it, test 5); keep the hero's edges crisp and
-   give the glow its OWN layer (a soft bloom sprite, a thin Neon core); a glow baked into the hero washes its edges
-   out. Smoke, mist and dust in daylight: tint them and give them LightEmission ~0.3-0.8 for magic or cold effects,
+   Glow is restrained (`knowledge/taste.md`: the owner preferred the ice slam with LESS glow; 0.1.6's light and halos
+   changed 52% of the screen at the hit against 21%): solid heroes don't glow while they hold, flashes last 0.1-0.15 s,
+   the effect light stays near the effect. Where glow helps, give it its OWN small layer (a soft sprite, a thin Neon
+   core); a glow baked into the hero washes its edges out. Saturation should suit the material, not be maxed. Smoke, mist and dust in daylight: tint them and give them LightEmission ~0.3-0.8 for magic or cold effects,
    warm grey with a darker core for fire; flat grey (LightEmission ~0.1) reads as dust.
 16. **Anime lines are thin Neon.** Speed lines, slash streaks, impact rays: Neon parts or beams 0.07-0.16 studs thick
    that thin out to nothing instead of fading (fading Neon turns grey in daylight).
