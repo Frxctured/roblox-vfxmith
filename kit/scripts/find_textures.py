@@ -309,8 +309,8 @@ def main():
     ap.add_argument("--exclude", default="", help="a spec .luau (its ids) or comma-separated ids to leave out")
     ap.add_argument("--sheet")
     ap.add_argument("--json", action="store_true")
-    ap.add_argument("--visual", action="store_true", help="(default when the CLIP index exists) rank by what the picture shows")
-    ap.add_argument("--no-visual", action="store_true", help="keywords, visual tags and quality only")
+    ap.add_argument("--visual", action="store_true",
+                    help="maintainer only (needs ~/.vfxmith/clipenv + the CLIP index): also rank by what the picture shows")
     ap.add_argument("--why", action="store_true", help="print the score breakdown per hit")
     a = ap.parse_args()
     rows = load()
@@ -323,7 +323,7 @@ def main():
             ex.add(part)
     def clip_ranks(query):
         py = os.path.expanduser("~/.vfxmith/clipenv/bin/python")
-        if not (not a.no_visual and os.path.exists(py) and os.path.exists(os.path.expanduser("~/.vfxmith/clip/ids.json"))):
+        if not (a.visual and os.path.exists(py) and os.path.exists(os.path.expanduser("~/.vfxmith/clip/ids.json"))):
             return {}
         try:
             import subprocess
