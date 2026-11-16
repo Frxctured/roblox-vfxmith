@@ -96,7 +96,8 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
   needs, and replace any whose look does not serve it. Skip a dome or a dark twin the design does not need (test 5: a
   recipe dark twin and dark sprite cracks read as "fur" and "dirt"). How it
   plays as it is: `gallery/recipes/<type>_recipe.jpg`.
-- **Fit it to the brief** (`design-brief.md` section 4): scale each part to the brief's size in studs, retime its
+- **Fit it to the brief** (`design-brief.md` section 4): scale each part to the brief's size in studs (a floor; also
+  write each beat's size in character heights, H = 5 studs, and check it against builder-notes "Sizes"), retime its
   layers to the brief's beats, keep one hero shape per beat. Borrow values from `refs.md` where they serve the design.
 - **Combined effects** ("a beam with an explosion", "a portal that spits fire"): one spec, both recipes' layers in one
   `layers` list, ids prefixed per part (`beam_core`, `boom_flash`), the second part's `t` shifted to where it starts,
@@ -132,6 +133,9 @@ end
 local C = require(dev.VFXCapture:Clone())
 return C.check("<Name>", { length = <the brief's length in s> })
 ```
+If the Studio MCP tools are not in the session (search once: ToolSearch "Roblox Studio"), say so before building
+and deliver ONE careful draft marked unseen: four blind builds (round 1, 2026-11-16) scored 4.5-7 on the owner's
+scale with faults one look would have caught (a static hold, flat smoke, a small slash).
 Fix every ERROR and WARN before capturing. **Every later version is two turns:**
 1. one Bash call that edits the spec (a small Python patch, or the Edit tool first in the same message) AND re-packs
    it: `... && python3 -I "ROOT/kit/scripts/rbx_assets.py" local <Name>.luau --name devkit`;
@@ -140,8 +144,10 @@ Fix every ERROR and WARN before capturing. **Every later version is two turns:**
    (reload + check + the framing frame) AND the MCP `screen_capture` after it.
 
 ## 5. Capture: one framing shot, then the capturer
-1. **Framing (yourself, once per version):** the `C.update(..., { frame = <payoff time>, stage = "day", camera = {
-   dist = 42, height = 8, lookUp = 6, fov = 70 } })` call of step 4 plus ONE MCP `screen_capture` in the same message
+1. **Framing (yourself, once per version):** the `C.update(..., { frame = <payoff time>, stage = "day", stageOpts = {
+   figure = true }, camera = { dist = 42, height = 8, lookUp = 6, fov = 70 } })` call of step 4 (`figure` = a grey
+   5.2-stud block character at the origin, or at a Vector3 offset where the target stands: the scale and contrast
+   check, in every plan below too; leave it out only for scenery effects no character stands near) plus ONE MCP `screen_capture` in the same message
    (gameplay distance; world +X is screen LEFT; "void" = black box, "place" = their map). Adjust the camera until the
    payoff fills what the brief says. Look at the Output (`get_console_output`) only if `C.check` or the frame looks
    wrong.
@@ -151,15 +157,22 @@ Fix every ERROR and WARN before capturing. **Every later version is two turns:**
    you spend a panel on it.
 2. **Timeline (the capturer):** spawn `vfxmith:vfx-capturer` (or a general-purpose agent with model `haiku` told to
    follow `ROOT/agents/vfx-capturer.md`) with `ROOT=<root>`, the Studio id, the spec name and two plans:
-   - `plan day -> <effect>/vN_day: { times = {...}, stage = "day", camera = { <the framing above> }, base = true }`
-   - `plan void -> <effect>/vN: { times = {...}, stage = "void", camera = { dist = <about 0.7 x day> , ... }, base = true }`
+   - `plan day -> <effect>/vN_day: { times = {...}, stage = "day", stageOpts = { figure = true }, camera = { <the framing above> }, base = true }`
+   - `plan void -> <effect>/vN: { times = {...}, stage = "void", stageOpts = { figure = true }, camera = { dist = <about 0.7 x day> , ... }, base = true }`
+   - `plan motion -> <effect>/vN_motion: { times = {...}, stage = "day", stageOpts = { figure = true }, camera = { <the framing> } }`:
+     8 consecutive frames 1/30 s apart from 2 before the payoff (e.g. 0.73, 0.77, 0.80 ...), plus 8 frames 0.1 s
+     apart through a hold or loop if there is one.
    Pick 10-14 times that cover the brief: the start, each beat's peak, the payoff and 0.1 s either side, the linger,
    the end. When the effect is for the user's open place, use `stage = "place", stageOpts = { at = <Vector3> }` for
    the day plan. Add `focus = <3-4 payoff times>` to the day plan. It returns `vN_day/sheet.jpg`, `vN_day/focus.jpg`
-   (the payoff at 640 px) and `vN/sheet.jpg`, with the full frames beside them. **Read these three images in ONE
+   (the payoff at 640 px) and `vN/sheet.jpg`, with the full frames beside them. **Read these images (and `vN_motion/sheet.jpg`) in ONE
    message, not the frames.** On the focus sheet check builder-notes rule 3: the payoff must be the biggest thing on
-   screen. The reviewers (step 6) need the capturer's frames: spawn them after it returns, all three in one message.
-- Real-time video (only when the user has Studio focused or asks): `C.playLater("<Name>", 3.5)` then
+   screen, and its size against the figure in H. On the motion strip read frame to frame (builder-notes "Motion is
+   judged from consecutive frames"): full size one frame after contact, sharp shapes gone or changed within 1-3
+   frames, a tail after the body, no two hold frames alike. The reviewers (step 6) need the capturer's frames: spawn them after it returns, all three in one message.
+- Real-time video is the best motion evidence (particle paths, loops, flicker); freeze frames re-roll particles.
+  Take one before a panel whenever it is possible (only when the user has Studio focused or asks) and give the
+  reviewers a strip cut from it (`ffmpeg -vf fps=30,scale=480:-1,tile=8x2`): `C.playLater("<Name>", 3.5)` then
   `kit/scripts/record.sh <effect>/vN.mp4 9` (Linux/Wayland; elsewhere any screen recorder).
 - Many stills unattended on Linux + niri: `VFXCapture.batch(items)` + `kit/scripts/stills.py --follow` (no images in
   any context).
@@ -170,7 +183,7 @@ Fix every ERROR and WARN before capturing. **Every later version is two turns:**
   <effect>/ref` (library) and `python3 -I "ROOT/kit/scripts/compare.py" --ref <effect>/ref|<ref.mp4> --ours
   <effect>/vN --times <your times> --out <effect>/cmp_vN --label vN` (`--ref-t0` for a video). Do not open its
   outputs yourself; they are reviewer evidence.
-- Run `vfx-review`: three blind reviewers, fresh each round, with the sheets AND frame folders on both backdrops, the
+- Run `vfx-review`: three blind reviewers, fresh each round, with the sheets AND frame folders on both backdrops, the motion strip, the
   `cmp_vN` outputs if any, `brief.md` and the spec. Scale: "match" for a reference video, ABSOLUTE quality for a
   description.
 - Merge: fix what 2+ reviewers flag first, change by half steps when one says "much too much", never break what they

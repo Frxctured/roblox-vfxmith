@@ -305,6 +305,14 @@ Shape and motion:
 
 ## e. Mistakes and weak spots
 
+- **A ground portal that reads as a flat disc (round 1, 2026-11-16, owner ~4.5: depth was asked; "the smoke is kinda
+  low quality").** Bright swirl bands ran right across the centre at one height and one brightness, so the pit was a
+  painted plate. Depth cues to stack (drafts from this one case, check them in a capture): a true-black centre
+  covering a third or more of the radius; arms that thin, dim and speed up toward it; 2-3 swirl layers at different
+  heights turning at different speeds; the rim as the one hot mass with a lip that hides the near edge of the
+  inside; debris and streaks that shrink and fade as they go in. Rim smoke is a volume (overlapping, two-tone,
+  rising from the lip), not 8 faint separate puffs; pulled-in rocks are faceted (`ctx.Crystal`), not plain cubes.
+
 - **Particle rate abuse**: Crucible 3,270 particles/s from one weapon (44 dot emitters alone 2,674/s, one at 293/s).
   Use one emitter with a Shape along the blade.
 - **Too many layers for the payoff**: Doom 88 emitters / 936 particles in one frame; 10 identical smoke_4 emitters at

@@ -338,6 +338,15 @@ Variation: ignitions all fall within 0.05-0.13 s; builds range from 0.5 s to the
 
 ## e. Mistakes and weak spots (avoid)
 
+- **Round 1 + four reference auras (2026-11-16; the rules are in `taste.md` "Character effects" and "Motion and
+  rhythm").** Our dark charge aura (owner ~7) was a ribbon cage turning as one piece: the same in every hold frame,
+  no ground layer, no head accent, symmetric, a pale haze over a pale body. Auras the owner rates 8.5-9 have: a
+  ground layer 1.4-3.4 H wide as the biggest element (this study's role 10 is too small and too short-lived for a
+  held aura: keep it for the whole hold); still structure with moving textures and particles; heartbeat pulses (1
+  frame on, 0.4-0.8 s decay, every ~0.7-1.1 s with jitter) on unsynced periods; one head accent in a shifted hue
+  with the face clear; one tall off-centre accent; ink beside the white cores; ~50+ tiny particles (0.02 H). A
+  release needs a tail (cool smoke, falling embers, a fading ground mark for 0.3-0.8 s): ours was over in ~0.3 s.
+
 - **Cost.** Sukuna ~2,600 live particles, Angel ~3,200 (Rate 500 on one emitter, above the documented 400/s cap;
   4 x 133-particle bursts), Voidflare 1,350/s. Whole-body auras need a budget: 1-2 emitters per role per body, not
   38 per limb. Thin counts on mobile yourself (Emit and Rate ignore graphics quality).

@@ -23,6 +23,11 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
   about a third of the frame (about 1x the effect's width away). Shapes, facets and colour can't be judged from 400-px
   cells: in test 5 the beta2 builder never saw its spikes up close and kept "chubby pale teardrops"; the winner looked
   at 8-9 full frames per version from ~16 studs.
+- **Motion is judged from consecutive frames, not from a sheet of moments.** Every version the capturer also takes a
+  motion strip (vfx-make step 5): 8 frames 1/30 s apart through the payoff, and 8 frames 0.1 s apart through any
+  hold. Read along it: does the hit reach full size in one frame, do sharp shapes change every frame or two, is there
+  a tail, does the hold ever look the same twice? Round 1's aura cage was identical in every hold frame and nobody
+  looked. Freeze frames re-roll particle positions: judge layers and brightness, not single particles.
 - **References: the librarian finds, you read.** The `vfx-librarian` (fast model) searches the library and ranks the
   best cards. Then read the category study (`knowledge/categories/<type>.md`, ~10k tokens) and the 2-3 best cards
   yourself: 15-20k tokens, about $0.50 over a whole run. In test 4 a 2.5 KB librarian summary replaced them and the
@@ -38,6 +43,11 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
 ## Sizes, timing and the check
 - A particle's `Size` is its HALF-width (Size N = 2N studs across); beam widths and part sizes are full widths. On
   screen at 1080p and FOV 70, a particle is about 1540 x Size / distance px across, a beam about 770 x width / distance.
+- **Think in character heights (H = 5 studs) and capture with the figure** (`stageOpts = { figure = true }`, or a
+  Vector3 offset for a target): every version, read each beat's size against it. Round 1 (2026-11-16): a 1.3 H slash
+  with a thin band read "a bit small, unclear what it is for"; its 2.5 H finisher read. Attack arcs 2-3 H with a band
+  thicker than a limb; a hit spills past its target on every side (2 H or more); ground layers under a character
+  1.4-3.4 H; small particles 0.02-0.05 H (Size 0.05-0.12) in numbers. The brief's studs are a floor.
 - Size every beat from the brief in studs, and treat the PAYOFF's size as a minimum, not a cap. Payoffs smaller than
   asked lost every time (test 3: ~13 studs for 15-20 asked; test 4: a 7-stud flash and a 12-14 stud ring, scored last
   in every lens); one 40% over (24-28 studs) still won both panels.
@@ -64,9 +74,12 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    charging shape on screen until the payoff fires (a hot slit shrinking to a pinpoint); a quiet beat is ~0.05-0.1 s,
    not an empty frame.
 5. **Repeated beats differ and escalate**: a second flash, ring or pulse gets a different shape and is bigger.
-6. **Sustained effects build.** A hold (portal, rift, aura, charge) must visibly rise: pulses growing from about +-5%
-   to +-12% and speeding up, a rim getting hotter, a pull that accelerates. A pull needs visible debris or streaks
-   converging, not faint wisps.
+6. **Sustained effects live and build.** Keep the big structure still (rings, sigil, envelope) and put the motion
+   in textures, particles and brightness: a shape that only turns as a whole reads static (round 1's aura). Give it
+   a heartbeat: on in one frame, decaying over 0.4-0.8 s, every ~0.7-1.1 s with jitter, a second layer answering in
+   the same frames; layers on unsynced periods (0.5, 1, 2, 4 s) and random emits so no loop shows. Over a hold the
+   pulses grow and speed up, the rim gets hotter, a pull accelerates (visible debris or streaks converging, not
+   faint wisps).
 7. **Rings and shockwaves travel.** Start at 20% of the final size or less, ease out (quad/quint out), keep growing
    while fading (about 80% of the size in the first 40% of the life) to at least the brief's width. Give the ring
    thickness or a soft glow band behind it. One crisp, thin bright ring racing out (test 5: 4 -> 34 studs in 0.3 s)
@@ -119,6 +132,26 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
    that thin out to nothing instead of fading (fading Neon turns grey in daylight).
 17. **Gaps are yours to design.** Where `refs.md` says no reference fits (a "gap"), build that beat yourself; don't
    fill it with the nearest texture. In test 5 the three listed gaps became the three weakest beats.
+
+18. **A payoff has three clocks.** Sharp energy (flash, needles, slashes, arcs) for 1-3 frames; the body (bloom,
+   splash, crescent) 0.15-0.3 s; then a tail of a different kind, cooler and less saturated (smoke, glints, embers,
+   a mark), for 0.3-0.8 s or the brief's linger. Round 1's hits and release were gone in ~0.15-0.3 s with a few dots
+   behind them. Lifetime by energy: lightning and slashes 1-3 frames, flames ~0.2 s, smoke and ink 0.3 s+, embers
+   0.4-2 s.
+19. **Ink beside the white.** Every bright core gets a dark, hue-tinted layer right next to it (ink crescent,
+   dark-cored smoke, a darkened ground patch, a deep ring behind the flash), and one bright mass dominates. Whites
+   are hue-shifted (warm, cyan or pink white). Pale effect on pale target on pale sky has nothing to read against
+   (round 1's missile hit): the dark layer is what survives both daylight and night.
+20. **Smoke and leftovers (the cheap-looking part of round 1).** Smoke: overlapping puffs (a third or more), birth
+   Transparency 0.2-0.4, sizes varied ~3x, two tones (dark core or underside, lighter edge), born at its source,
+   moving one way with Drag, a different value from what is behind it; 8 faint separate puffs read as stickers and
+   a white cloud over a pale character hides it. Leftover particles: 3-4 size tiers and 2+ shapes, mostly tiny and
+   many, fast at birth with Drag, velocity-stretched, cooling white -> body -> deep, shrinking to nothing; a dozen
+   identical round dots drifting read as low quality.
+21. **On a character** (aura, buff, charge, a hit taken): most of the mass on the ground (the biggest layer, feet
+   buried in glow); one small head accent in a shifted hue with the face clear; one tall accent or second mass to one
+   side; soft layers behind the body, hard bright ones in front; the body stays darker than, or a different value
+   from, the effect (never a pale haze or cage over it). Details in `taste.md`.
 
 ## Textures
 - **Fresh textures, not the recipe's defaults.** Every effect in the first five blind tests drew all its 14-16

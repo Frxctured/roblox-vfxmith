@@ -83,6 +83,26 @@ end
 --   to use Roblox's default daylight while the stage is up (restored by clearStage/clear).
 -- "place": no stage; the effect plays on the user's own map at `o.at` (Vector3), or on the ground under the camera's
 --   focus: what players will see. "none" = the same without moving the origin.
+-- Any stage: o.figure = true (or a Vector3 offset from the effect origin) adds a plain grey block figure, 5.2 studs
+--   tall (H, one character), facing the camera: the scale and contrast check. Sizes read as multiples of H, and a
+--   pale figure shows at once when an effect washes the character out. Put it where the caster or the target stands.
+local function figure(o)
+	if not o.figure then return "" end
+	local at = (S.origin or VFXCapture.Origin) + (if typeof(o.figure) == "Vector3" then o.figure else Vector3.zero)
+	local folder = Instance.new("Folder")
+	folder.Name = "VFXStageFigure"
+	local grey = Color3.fromRGB(163, 162, 165)
+	local function limb(sx, sy, sz, x, y)
+		block(folder, Vector3.new(sx, sy, sz), CFrame.new(at + Vector3.new(x, y, 0)), grey)
+	end
+	limb(1, 2, 1, -0.5, 1) limb(1, 2, 1, 0.5, 1) -- legs
+	limb(2, 2, 1, 0, 3) -- torso
+	limb(1, 2, 1, -1.5, 3) limb(1, 2, 1, 1.5, 3) -- arms
+	limb(1.2, 1.2, 1.2, 0, 4.6) -- head
+	folder.Parent = Workspace
+	return ", figure (H = 5.2 studs) at " .. tostring(at)
+end
+
 local DEFAULT_LIGHTING = { Brightness = 3, ClockTime = 14.5, Ambient = Color3.fromRGB(70, 70, 70),
 	OutdoorAmbient = Color3.fromRGB(70, 70, 70), ExposureCompensation = 0, EnvironmentDiffuseScale = 1,
 	EnvironmentSpecularScale = 1 }
@@ -91,7 +111,7 @@ function VFXCapture.stage(kind, o)
 	o = o or {}
 	VFXCapture.clearStage()
 	S.kind = kind
-	if kind == "none" then return "no stage" end
+	if kind == "none" then return "no stage" .. figure(o) end
 	if kind == "place" then
 		local at = o.at
 		if not at then
@@ -100,7 +120,7 @@ function VFXCapture.stage(kind, o)
 			at = if hit then hit.Position else focus
 		end
 		S.origin = at
-		return "place: effect origin " .. tostring(at)
+		return "place: effect origin " .. tostring(at) .. figure(o)
 	end
 	local folder = Instance.new("Folder")
 	folder.Name = "VFXStage"
@@ -140,7 +160,7 @@ function VFXCapture.stage(kind, o)
 		S.origin = origin
 	end
 	folder.Parent = Workspace
-	return "stage " .. kind .. " at " .. tostring(S.origin)
+	return "stage " .. kind .. " at " .. tostring(S.origin) .. figure(o)
 end
 
 -- Authoring check of a spec (see VFXTimeline.check): returns the report text. opts.length = the brief's length (s).
@@ -435,8 +455,10 @@ function VFXCapture.update(file, specName, o)
 end
 
 function VFXCapture.clearStage()
-	local old = Workspace:FindFirstChild("VFXStage")
-	if old then old:Destroy() end
+	for _, name in ipairs({ "VFXStage", "VFXStageFigure" }) do
+		local old = Workspace:FindFirstChild(name)
+		if old then old:Destroy() end
+	end
 	if S.savedLighting then
 		local Lighting = game:GetService("Lighting")
 		for prop, v in pairs(S.savedLighting) do Lighting[prop] = v end

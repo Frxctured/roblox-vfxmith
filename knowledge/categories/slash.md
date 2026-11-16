@@ -247,6 +247,14 @@ effectively invisible after ~45% of life (Transparency 0.9).
 
 ## e. Mistakes and weak spots (avoid)
 
+- **Too small and too thin against the swinger (round 1, 2026-11-16: "the slash is a bit small; unclear what it is
+  meant for").** Two quick slashes ~7 studs wide (1.3 H) with a narrow band read as weightless next to the
+  character; the same combo's ~13-stud (2.5 H) finisher read. The studied slashes are 10-19.6 studs (2-4 H): keep
+  light attacks at 2 H or more with the band's widest point thicker than a limb (0.4 H+), show where the blade is
+  (the arc starts at the hand and sweeps through the target side), give each one white edge, body and a dark
+  trailing ink, and capture beside the figure. Dust from a ground hit stays low and off the body (a pale cloud
+  over a pale character hid it).
+
 - **Missing first-frame pop**: pizza has no flash layer and every layer starts at Size 0 or Transparency 1, so 0.03 s
   is empty in both captures and the hit starts with thin streaks at 0.10 s. Give the hit one full-size layer on frame 1
   (glass: 20.5-24.6 -> 0; Molten's 0.051-s needle shows at 0.03 s).

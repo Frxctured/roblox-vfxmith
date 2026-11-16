@@ -266,6 +266,8 @@ Read from the sheets:
 
 ## e. Mistakes and weak spots seen here
 
+- **A hit that stays inside its target, with nothing after it (round 1, 2026-11-16: "the particles at the end could be higher quality").** A ~1.5 H ice-white impact on a pale target was over in ~0.15 s and left a dozen identical round dots drifting. The impact is the payoff: 2 H or more so it spills past the target's silhouette, a dark tinted layer behind the white so it reads in daylight, then three clocks (flash 1-3 frames, splash 0.15-0.3 s, a tail 0.3-0.8 s of a different kind). Leftovers: 3-4 size tiers, streaks and glints and chunks rather than dots, fast with Drag, cooling and shrinking (`builder-notes.md` 18-20).
+
 - **Slow build-up on an "instant" orb.** Transparency min at 50 % of a 4 s life means 2 s to full (random orb); a 90 % fade-in on 0.4-0.7 s puffs leaves the first ~0.2-0.35 s faint (Don: nothing at 0.1 s, specks at 0.2, full at 0.55). For a fired projectile, fade in over ≤10 % of life, or emit the core as one burst at full value.
 - **Impact 7-13x the core.** Event Ball (pieces up to 109 studs on a 10-stud core, then x2.5 by script) and the Christmas flash (17.6 on a 1.3-stud trail) fill the screen. Fine for an ultimate; for an ordinary shot keep the flash at 4-6 D.
 - **Additive on additive.** The random orb's centre washes to white; Rain's core goes white-green (readable in the recapture, washed out in the first). The cleaner effects (Event disc, Don, Yoru blade) use LE 0 or below with high Brightness for colour and keep LE 1 for small or short sprites.

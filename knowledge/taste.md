@@ -11,6 +11,59 @@ effect type; the effect named in the evidence is only where it was seen. Update 
   composition decide the look. Pick a fitting texture and move on; spend the effort on how the layers move and
   stack, never on hunting for a perfect sprite.
 
+## The bar
+- **10 = professional, expensive work.** (owner, 2026-11-16) A casual viewer's 9 was the owner's 7, and his 8.5-9 goes
+  to effects like the four reference auras in "Character effects" below. Score and aim on that scale.
+
+## Size against the character
+- **Size every beat in character heights (H = about 5 studs) and look at it beside a character.** (round 1: a sword
+  slash about 1.3 H wide with a thin band was "a bit small; unclear what it is meant for", while the same combo's
+  2.5 H finisher read; a 1.5 H missile hit was a pop on the target's chest. The four reference auras put a 1.4-3.4 H
+  layer on the ground under a 1.2-1.3 H body envelope.) An attack must clearly out-size the body that makes or takes
+  it: arcs 2-3 H with a band thicker than a limb, a hit that spills past the target's silhouette on every side. The
+  brief's stud numbers are a floor.
+
+## Smoke, dust and small particles
+- **Smoke is a volume or it is nothing.** (round 1: "the smoke effect is kinda low quality" for 8 faint, separate,
+  same-size puffs, each showing its whole sprite; a flat white dust cloud the same value as the pale character
+  behind it hid the character) Puffs overlap by a third or more, start fairly opaque (Transparency 0.2-0.4), vary ~3x
+  in size, carry two tones (darker core or underside, lighter edge), are born on the thing that makes them and move
+  one way (rise, roll out, get pulled in) with Drag. Its value differs from whatever is behind it.
+- **Leftover particles are designed, not sprinkled.** (round 1: "the particles at the end could be higher quality"
+  for a dozen identical round dots drifting at 2-5 studs/s) Mix 3-4 size tiers and 2+ shapes (streak, glint, chunk,
+  dot), mostly tiny (about 0.02-0.05 H across) and many; fast at birth, slowed by Drag, stretched along their
+  motion, cooling white -> body -> deep and shrinking to nothing.
+- **A payoff has three clocks.** (reference pulses; round 1's hits were over in ~0.15 s with nothing behind them)
+  Sharp energy for 1-3 frames, the body for 0.15-0.3 s, then a tail of a DIFFERENT kind (cool, desaturated smoke,
+  glints, a mark) for 0.3-0.8 s. Don't fade everything together.
+
+## Value and contrast
+- **Dark ink is a real layer, next to the brightest shape.** (all four references; round 1's pale blue-white hit on a
+  pale target under a pale sky had no dark value and read weak in daylight) One hue family, values from near-black
+  ink to a white-hot core. This is what keeps contrast in daylight and at night.
+- **Exactly one dominant bright mass**; everything else is line art or dim. White only at 1-3 focal points, and
+  hue-shifted (warm white for red/orange, cyan-white for blue, pink-white for violet), not flat #FFFFFF.
+- **The character is never washed out.** Keep the body darker than, or a different value from, the effect around
+  it; no pale haze, cage or cloud over a pale body.
+
+## Motion and rhythm
+- **Big structure holds still; the life is in textures, particles and brightness.** (references: structure pin-sharp
+  in an 18 s average, interior never repeating. Round 1's aura did the opposite: one ribbon cage turning as a whole,
+  the same in every frame, so it "barely moves")
+- **Heartbeats: on in 1 frame, decay over 0.4-0.8 s, every ~0.7-1.1 s with jitter**, and a second layer answers in
+  the same frames. Several unsynced periods (0.5, 1, 2, 4 s) plus random emitters, so no loop shows; every repeat
+  differs while the average stays the same.
+- **Lifetime by energy:** slashes, needles and lightning 1-3 frames (longer reads as a sticker); flames ~0.2 s;
+  smoke and ink 0.3 s and up; embers 0.4-2 s. Don't ease electricity.
+
+## Character effects (auras, buffs, charges; four reference auras the owner rates 8.5-9)
+- **Most of it is on the ground:** the ground layer (sigil, rings, glow) is the biggest element, 1.4-3.4 H wide,
+  feet buried in its glow. Huge power-ups may go 5-10 H and swallow the character on purpose.
+- **One small accent at the head** in a hue shifted 30-50 degrees (eye glow, flames or steam around the head): the
+  face itself stays clear; bright shapes cross it for a frame at most.
+- **Asymmetry:** one tall accent (~2 H) or a second mass to one side. Perfect symmetry reads static.
+- **Soft layers behind the body, hard bright ones in front**; a few thin outliers poke past the main envelope.
+
 ## Glow and light
 - **Less glow; let the shapes carry the look.** (owner feedback, ice slam; test 7 panel: the 0.1.6 ice was "the most
   blown out of five")

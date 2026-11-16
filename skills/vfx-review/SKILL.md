@@ -7,7 +7,8 @@ description: Blind 3-reviewer panel for a Roblox VFX effect - shape/scale, timin
 
 `ROOT` = `<base directory>/../..`. Evidence comes from `vfx-make` steps 5-6: our contact sheets and full frames on
 BOTH backdrops (`vN_day/sheet.jpg` + `vN_day/t*.jpg`, `vN/sheet.jpg` + `vN/t*.jpg`, from the capturer), `brief.md`
-(what the user asked for), the effect spec, and with a reference `cmp_vN/pairs.png` (reference left, ours right, same
+(what the user asked for), the motion strip (`vN_motion/`: consecutive frames through the payoff and the hold; a
+real-time video when one exists), the effect spec, and with a reference `cmp_vN/pairs.png` (reference left, ours right, same
 effect times), `compare.png`, `curves.png`, `metrics.json`, the reference frames or video, the reference analysis
 (video) or the librarian's `refs.md` (description). The reviewers read the frames; the builder only reads their
 reports.
@@ -28,8 +29,8 @@ liked second LAST (test 5), so keep that section in every prompt, and give every
 
 **Pick the scale by the request** (texts in `knowledge/reviewer-prompts.md`):
 - a reference video or "make it look like this": 10 = indistinguishable from the reference;
-- a description ("make a cool ..."): ABSOLUTE quality, 10 = a professional would ship it as a signature effect in a
-  top game. The library references are the quality bar, not a target. A resemblance scale here stalls around 6 and
+- a description ("make a cool ..."): ABSOLUTE quality on the owner's scale, 10 = professional, expensive work (8.5-9 = a
+  signature effect in a top game). The library references are the quality bar, not a target. A resemblance scale here stalls around 6 and
   stops the loop early (blind test, 2026-11-14).
 
 ## Merge
