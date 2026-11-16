@@ -5,10 +5,22 @@ flipbooks), each with measured traits. Use it to pick FRESH textures per role in
 
     python3 -I find_textures.py "spiky ice shard" [-n 12] [--flipbook | --single] [--bg clear|any] [--colour white|any]
                                 [--min-eff 96] [--source all|library|vfxstudio] [--exclude <spec.luau or ids>]
-                                [--sheet out.jpg] [--json]
+                                [--sheet out.jpg] [--json] [--why] [--visual]
     python3 -I find_textures.py --roles "flash=ice flash star; ring=shockwave ring; shards=ice shard crystal" \
-                                -n 5 --exclude <recipe or spec .luau> --sheet <effect>/textures.jpg
+                                -n 8 --exclude <recipe or spec .luau> --sheet <effect>/textures.jpg
       (one row of candidates per role on ONE sheet: what the librarian hands the builder)
+
+Ranking: the keyword match (name, keywords, roles; synonyms count less) is the gate and the main score. On top:
+  score = relevance + W_Q * quality + W_O * outcome + tiny usage term
+quality (0..1) is gallery/textures/quality.json, built by texture_quality.py (resolution, clear background, no cut-off
+edges, no pixel-art/JPEG blocks, flipbook cells used...; terms in its docstring). outcome is how well the effects that
+used the texture scored (knowledge/texture-outcomes.json, optional, shrunk towards neutral when few runs). The top N are
+then picked for variety: a texture whose picture is a near-duplicate (dHash distance <= 8) of one already chosen is
+skipped, and a light MMR pushes similar ones down. gallery/textures/visual_tags.json (CLIP words per texture, made
+by texture_clip.py) lets a query word match what the image SHOWS (count ~1.5-2.5 per word, by z-score) and lowers
+quality for "pixelated", "blurry", "jagged", text, logo, or a frame grid on a single texture. --visual (maintainer
+machine, needs ~/.vfxmith/clipenv) adds a similarity bonus from the CLIP image index. --why prints the breakdown per hit. Without quality.json the search
+falls back to keyword + traits only (no numpy needed here).
 
 Prints one line per hit: rank, id, source, name, flipbook grid, traits (bg, colour, parts, eff, fill), keywords/roles.
 --sheet writes one contact sheet of the hits (thumbnails from the traits cache, fetched if missing), labelled with the
@@ -54,6 +66,15 @@ SYN = {
     "glow": "glow soft light orb bloom", "star": "star flare glint spark", "spike": "spike spiky star burst needle",
     "wind": "wind swirl air streak speed", "magic": "magic rune circle energy glyph", "rune": "rune glyph magic circle",
 }
+W_Q = 4.5       # quality 0..1 (spread ~0.3-0.75 in practice) -> about +-1 point: under one word match
+W_O = 1.5       # outcome prior, -1..+1 -> +-1.5 points
+W_USE = 0.15    # tiny: log10(1 + effects using it) / 3
+OUT_K = 3.0     # Bayesian shrink: this many "neutral" runs (score 5) are mixed into every texture's outcome
+MMR_L = 2.0     # diversity: points subtracted for a visually identical pick (scaled down to 0 at dHash distance 24)
+VIS_W = 1.0      # weight of a visual-tag match relative to its z-based value
+VIS_RANK = 2.0   # --visual: bonus for CLIP rank 1, falling to 0 at rank 200
+BAD_TAGS = {"pixelated": 0.12, "blurry": 0.10, "jagged": 0.10, "text": 0.15, "letters": 0.15, "logo": 0.15}
+DUP_HAM = 8     # dHash distance at or below this = near-duplicate, skipped
 TEXT_PENALTY = {"text"}  # VFX Studio "Text" keyword: letters and words, rarely wanted
 
 
@@ -102,6 +123,44 @@ def load():
             for tid, t in json.load(open(p)).items():
                 if tid in rows and isinstance(t, dict) and "fail" not in t:
                     rows[tid]["t"] = t
+    qp = os.path.join(TEX, "quality.json")
+    if os.path.exists(qp):
+        try:
+            for tid, v in json.load(open(qp)).items():
+                if tid in rows and isinstance(v, dict) and "q" in v:
+                    rows[tid]["q"] = v["q"]
+                    rows[tid]["h"] = int(v["h"], 16) if v.get("h") else None
+        except Exception:
+            pass
+    op = os.path.join(ROOT, "knowledge", "texture-outcomes.json")
+    if os.path.exists(op):
+        try:
+            for tid, v in json.load(open(op)).items():
+                if tid in rows and isinstance(v, dict) and v.get("n"):
+                    n = float(v["n"])
+                    post = (n * float(v.get("score", 5)) + OUT_K * 5.0) / (n + OUT_K)
+                    rows[tid]["o"] = (post - 5.0) / 5.0
+                    rows[tid]["on"] = int(n)
+        except Exception:
+            pass
+    vp = os.path.join(TEX, "visual_tags.json")
+    if os.path.exists(vp):
+        try:
+            for tid, tags in json.load(open(vp)).items():
+                if tid not in rows or not isinstance(tags, list):
+                    continue
+                vt, dq = {}, 0.0
+                for word, z in tags:
+                    z = float(z)
+                    for w in words(word):
+                        vt[w] = max(vt.get(w, 0.0), z)
+                    if word in BAD_TAGS:
+                        dq += BAD_TAGS[word] * min(1.0, 0.5 + 0.25 * (z - 1.6))
+                    if word == "grid of frames" and not rows[tid]["grid"]:
+                        dq += 0.10
+                rows[tid]["vt"], rows[tid]["vq"] = vt, dq
+        except Exception:
+            pass
     return rows
 
 
@@ -130,6 +189,18 @@ def score(r, q, a):
             s += 1.5
         elif any(x in bag for x in SYN.get(w, "").split()):
             s += 1.2
+    vt = r.get("vt")
+    if vt:
+        for w in q:
+            z = vt.get(w)
+            sy = 1.0
+            if z is None:
+                alts = [vt[x] for x in SYN.get(w, "").split() if x in vt]
+                z, sy = (max(alts), 0.7) if alts else (None, 1.0)
+            if z is not None:
+                s += VIS_W * sy * min(2.5, 1.5 + 0.5 * (z - 1.6))
+    if s == 0 and r.get("clip_ok"):
+        s = 0.5  # no keyword or tag match, but CLIP ranks the picture among the closest 200
     if s == 0:
         return None
     t = r.get("t") or {}
@@ -138,14 +209,15 @@ def score(r, q, a):
         return None
     if a.colour == "white" and t and str(t.get("colour", "")) not in ("white", "grey"):
         return None
-    eff = t.get("eff") or 0
-    if isinstance(eff, str):
-        m = re.search(r"\d+", eff)
-        eff = int(m.group()) if m else 0
-    if t and eff and eff < a.min_eff and "smooth" not in str(t.get("eff_note", "")):
-        s -= 1.0
-    if "card" in bg or "faint" in bg:
-        s -= 1.5
+    if "q" not in r:  # no quality index: the old trait penalties stand in for it
+        eff = t.get("eff") or 0
+        if isinstance(eff, str):
+            m = re.search(r"\d+", eff)
+            eff = int(m.group()) if m else 0
+        if t and eff and eff < a.min_eff and "smooth" not in str(t.get("eff_note", "")):
+            s -= 1.0
+        if "card" in bg or "faint" in bg:
+            s -= 1.5
     if "lines" in str(t.get("parts", "")) and not ({"streak", "line", "lines", "speed"} & set(q)):
         s -= 1.0
     if kw & TEXT_PENALTY and "text" not in q:
@@ -205,18 +277,25 @@ def sheet(hits, out, rows_of=None):
                 im.paste(bg.convert("RGB"), (x + 5, y + 5))
             except Exception:
                 pass
-        label = f"{tag}. {r['id']}" + (f" g{r['grid']}" if r["grid"] else "")
+        label = f"{tag}. {r['id']}" + (f" g{r['grid']}" if r["grid"] else "") + (f" q{r['q']:.2f}" if "q" in r else "")
         d.text((x + 5, y + ch - 32), label, fill=(255, 220, 120), font=font)
         d.text((x + 5, y + ch - 18), (r["name"] or "")[:34], fill=(220, 220, 230), font=font)
     im.save(out, quality=88)
     return out
 
 
+def why(r):
+    w = r.get("why") or {}
+    q = f" q{r['q']:.2f}" if "q" in r else " q-"
+    o = f" n{r['on']}" if "on" in r else ""
+    return ("      " + " ".join(f"{k} {v:+.2f}" for k, v in w.items()) + q + o)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("query", nargs="?", default="")
     ap.add_argument("--roles", help='"role=words; role=words": one row of candidates per role')
-    ap.add_argument("-n", type=int, default=12)
+    ap.add_argument("-n", type=int, default=8)
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--flipbook", action="store_true")
     g.add_argument("--single", action="store_true")
@@ -227,6 +306,8 @@ def main():
     ap.add_argument("--exclude", default="", help="a spec .luau (its ids) or comma-separated ids to leave out")
     ap.add_argument("--sheet")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--visual", action="store_true", help="CLIP similarity bonus (maintainer machine only)")
+    ap.add_argument("--why", action="store_true", help="print the score breakdown per hit")
     a = ap.parse_args()
     rows = load()
     ex = set()
@@ -236,8 +317,21 @@ def main():
             ex |= set(re.findall(r"(?<![\d.])(\d{8,15})(?![\d.])", open(part).read()))
         elif part.isdigit():
             ex.add(part)
+    def clip_ranks(query):
+        py = os.path.expanduser("~/.vfxmith/clipenv/bin/python")
+        if not (a.visual and os.path.exists(py) and os.path.exists(os.path.expanduser("~/.vfxmith/clip/ids.json"))):
+            return {}
+        try:
+            import subprocess
+            out = subprocess.run([py, os.path.join(HERE, "texture_clip.py"), "query", query, "-n", "200", "--ids"],
+                                 capture_output=True, text=True, timeout=180).stdout.split()
+            return {t: i for i, t in enumerate(x for x in out if x.isdigit())}
+        except Exception:
+            return {}
+
     def search(query, n):
         q = words(query)
+        cr = clip_ranks(query)
         hits = []
         for r in rows.values():
             if r["id"] in ex:
@@ -248,19 +342,49 @@ def main():
                 continue
             if a.single and r["grid"]:
                 continue
+            r["clip_ok"] = r["id"] in cr
             s = score(r, q, a)
             if s is not None:
                 hits.append((s, r))
-        hits.sort(key=lambda x: (-x[0], -x[1]["uses"]))
+        for i, (rel, r) in enumerate(hits):
+            qv = r.get("q")
+            parts = {"rel": rel, "q": W_Q * (qv - 0.5 - r.get("vq", 0.0)) if qv is not None else 0.0,
+                     "out": W_O * r.get("o", 0.0), "use": W_USE * math.log10(1 + r["uses"]) / 3}
+            if r["id"] in cr:
+                parts["clip"] = VIS_RANK * (1 - cr[r["id"]] / 200)
+            r["why"] = parts
+            hits[i] = (sum(parts.values()), r)
+        hits.sort(key=lambda x: -x[0])
+        # pool: close enough in relevance to the best hit; then greedy pick with dedupe + light MMR
+        best_rel = max((r["why"]["rel"] for _, r in hits[:50]), default=0)
+        pool = [(sc, r) for sc, r in hits[:400] if r["why"]["rel"] >= 0.5 * best_rel][:150]
         top, seen = [], set()
-        for _, r in hits:  # the same art uploaded under two ids: keep the first
-            key = (r["name"].lower(), r["grid"], short(r.get("t")))
-            if r["name"] and key in seen:
-                continue
-            seen.add(key)
-            top.append(r)
-            if len(top) == n:
+        while pool and len(top) < n:
+            bi, bv = None, None
+            for i, (sc, r) in enumerate(pool):
+                key = (r["name"].lower(), r["grid"], short(r.get("t")))
+                if r["name"] and key in seen:
+                    continue  # the same art uploaded under two ids
+                pen, dup = 0.0, False
+                for c in top:
+                    if r.get("h") is not None and c.get("h") is not None and r["h"] and c["h"]:
+                        d = bin(r["h"] ^ c["h"]).count("1")
+                        if d <= DUP_HAM:
+                            dup = True
+                            break
+                        pen = max(pen, MMR_L * max(0.0, 1 - d / 24))
+                if dup:
+                    continue
+                v = sc - pen
+                if bv is None or v > bv:
+                    bi, bv, bp = i, v, pen
+            if bi is None:
                 break
+            sc, r = pool.pop(bi)
+            r["why"]["div"] = -bp
+            r["why"]["total"] = bv
+            seen.add((r["name"].lower(), r["grid"], short(r.get("t"))))
+            top.append(r)
         return hits, top
 
     if a.roles:
@@ -275,6 +399,8 @@ def main():
             for i, r in enumerate(top, 1):
                 grid = f" flipbook {r['grid']}" if r["grid"] else ""
                 print(f"  {role[:1].upper()}{i}. {r['id']}  [{r['src']}]{grid}  {r['name'][:28]}  | {short(r.get('t'))}")
+                if a.why:
+                    print(why(r))
         if a.sheet:
             print("sheet:", sheet(None, a.sheet, rows_of))
         return
@@ -282,7 +408,7 @@ def main():
         ap.error("give a query or --roles")
     hits, top = search(a.query, a.n)
     if a.json:
-        print(json.dumps([{k: (sorted(v) if isinstance(v, set) else v) for k, v in r.items() if k != "text"} for r in top],
+        print(json.dumps([{k: (sorted(v) if isinstance(v, set) else v) for k, v in r.items() if k not in ("text", "h")} for r in top],
                          indent=1))
     else:
         print(f"{len(hits)} matches for '{a.query}' ({len(rows)} textures searched); top {len(top)}:")
@@ -290,6 +416,8 @@ def main():
             kws = ", ".join(sorted(r["kw"]))[:60]
             grid = f" flipbook {r['grid']}" if r["grid"] else ""
             print(f"{i:2d}. {r['id']}  [{r['src']}]{grid}  {r['name'][:30]}  | {short(r.get('t'))}  | {kws}")
+            if a.why:
+                print(why(r))
     if a.sheet and top:
         print("sheet:", sheet(top, a.sheet))
 

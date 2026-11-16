@@ -51,7 +51,7 @@ conversation, or you are an agent spawned for this effect, run steps 1-7 yoursel
 - **Librarian:** spawn `vfxmith:vfx-librarian` (or a general-purpose agent with model `haiku` told to follow
   `ROOT/agents/vfx-librarian.md`) with `ROOT=<root>`, the request, the brief's beats and the effect folder. Save its
   reply as `<effect>/refs.md`: it is the map (which cards, which types), not the material. It also writes
-  `<effect>/textures.jpg`: 5 fresh texture candidates per role from both texture libraries.
+  `<effect>/textures.jpg`: 8 fresh texture candidates per role (with a quality score) from both texture libraries.
 - **Pack:** `python3 -I "ROOT/kit/scripts/builder_pack.py" --types <type>[,<type>] --cards <the 2-3 best card ids>
   [--house <slug>] --out <effect>/pack` (`--house` for a house example the librarian named; the pack always starts
   with `knowledge/taste.md`: what people liked and disliked, which outranks every other rule). Pick the types by what the effect DOES, not its name (a rift that collapses into a blast is

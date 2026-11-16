@@ -124,7 +124,7 @@ screenshots it had taken one by one, and every one of its 212 turns re-read them
 - **Fresh textures, not the recipe's defaults.** Every effect in the first five blind tests drew all its 14-16
   textures from the same 185 the recipes use, so different effects started to look alike. Two libraries are
   searchable together (~10,000 textures, ~2,750 animated flipbooks): the open-source library and VFX Studio (a free
-  Roblox plugin's catalogue). The librarian's `textures.jpg` shows 5 candidates per role;
+  Roblox plugin's catalogue). The librarian's `textures.jpg` shows 8 candidates per role, ranked by keyword match + a measured quality score (`q0.82` on the sheet; low = pixelated, cut off, faint or on a card) and chosen to look different from each other (`--why` shows the score parts);
   `kit/scripts/find_textures.py "<words>" [--flipbook] --sheet out.jpg` finds more (one image).
 - **Flipbooks animate on their own** (a ring that breaks up, smoke that rolls, an impact that bursts):
   `FlipbookLayout = 4` (2, 4 or 8 = the grid), `FlipbookMode = "OneShot"` plays the frames once over the particle's
