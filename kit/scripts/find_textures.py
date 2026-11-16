@@ -72,7 +72,7 @@ W_USE = 0.15    # tiny: log10(1 + effects using it) / 3
 OUT_K = 3.0     # Bayesian shrink: this many "neutral" runs (score 5) are mixed into every texture's outcome
 MMR_L = 2.0     # diversity: points subtracted for a visually identical pick (scaled down to 0 at dHash distance 24)
 VIS_W = 1.0      # weight of a visual-tag match relative to its z-based value
-VIS_RANK = 2.0   # --visual: bonus for CLIP rank 1, falling to 0 at rank 200
+VIS_REL = 6.0    # --visual: relevance for CLIP rank 1 (about two keyword hits), falling to 0 at rank 200
 BAD_TAGS = {"pixelated": 0.12, "blurry": 0.10, "jagged": 0.10, "text": 0.15, "letters": 0.15, "logo": 0.15}
 DUP_HAM = 8     # dHash distance at or below this = near-duplicate, skipped
 TEXT_PENALTY = {"text"}  # VFX Studio "Text" keyword: letters and words, rarely wanted
@@ -150,11 +150,13 @@ def load():
                 if tid not in rows or not isinstance(tags, list):
                     continue
                 vt, dq = {}, 0.0
+                # runes, glyphs and magic circles also read as "logo" to CLIP: not a flaw for them
+                emblem = any(w in ("rune", "glyph", "magic circle", "symbol") for w, _ in tags)
                 for word, z in tags:
                     z = float(z)
                     for w in words(word):
                         vt[w] = max(vt.get(w, 0.0), z)
-                    if word in BAD_TAGS:
+                    if word in BAD_TAGS and not (emblem and word == "logo"):
                         dq += BAD_TAGS[word] * min(1.0, 0.5 + 0.25 * (z - 1.6))
                     if word == "grid of frames" and not rows[tid]["grid"]:
                         dq += 0.10
@@ -199,8 +201,9 @@ def score(r, q, a):
                 z, sy = (max(alts), 0.7) if alts else (None, 1.0)
             if z is not None:
                 s += VIS_W * sy * min(2.5, 1.5 + 0.5 * (z - 1.6))
-    if s == 0 and r.get("clip_ok"):
-        s = 0.5  # no keyword or tag match, but CLIP ranks the picture among the closest 200
+    cr = r.get("clip_rank")
+    if cr is not None:  # --visual: how close the PICTURE is to the words counts as relevance (rank 1 ~ two keyword hits)
+        s += VIS_REL * (1 - cr / 200) ** 2
     if s == 0:
         return None
     t = r.get("t") or {}
@@ -306,7 +309,8 @@ def main():
     ap.add_argument("--exclude", default="", help="a spec .luau (its ids) or comma-separated ids to leave out")
     ap.add_argument("--sheet")
     ap.add_argument("--json", action="store_true")
-    ap.add_argument("--visual", action="store_true", help="CLIP similarity bonus (maintainer machine only)")
+    ap.add_argument("--visual", action="store_true", help="(default when the CLIP index exists) rank by what the picture shows")
+    ap.add_argument("--no-visual", action="store_true", help="keywords, visual tags and quality only")
     ap.add_argument("--why", action="store_true", help="print the score breakdown per hit")
     a = ap.parse_args()
     rows = load()
@@ -319,7 +323,7 @@ def main():
             ex.add(part)
     def clip_ranks(query):
         py = os.path.expanduser("~/.vfxmith/clipenv/bin/python")
-        if not (a.visual and os.path.exists(py) and os.path.exists(os.path.expanduser("~/.vfxmith/clip/ids.json"))):
+        if not (not a.no_visual and os.path.exists(py) and os.path.exists(os.path.expanduser("~/.vfxmith/clip/ids.json"))):
             return {}
         try:
             import subprocess
@@ -342,7 +346,7 @@ def main():
                 continue
             if a.single and r["grid"]:
                 continue
-            r["clip_ok"] = r["id"] in cr
+            r["clip_rank"] = cr.get(r["id"])
             s = score(r, q, a)
             if s is not None:
                 hits.append((s, r))
@@ -350,8 +354,6 @@ def main():
             qv = r.get("q")
             parts = {"rel": rel, "q": W_Q * (qv - 0.5 - r.get("vq", 0.0)) if qv is not None else 0.0,
                      "out": W_O * r.get("o", 0.0), "use": W_USE * math.log10(1 + r["uses"]) / 3}
-            if r["id"] in cr:
-                parts["clip"] = VIS_RANK * (1 - cr[r["id"]] / 200)
             r["why"] = parts
             hits[i] = (sum(parts.values()), r)
         hits.sort(key=lambda x: -x[0])

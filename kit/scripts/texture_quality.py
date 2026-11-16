@@ -24,8 +24,8 @@ q = clamp(0.70 + sum of the terms below, 0, 1). A term only ever explains one vi
     hard       stair-stepped cut-out: alpha is almost binary (< 4% of the art pixels are partial) on art that is
                not tiny (fill >= 8%), originals under 600 px. -0.10
     band       banded gradient: soft art with only a handful (< 24) of distinct alpha levels. -0.08
-    flat       a flat blob: luminance std inside the art < 0.04 and fill > 25%: -0.08; a solid opaque silhouette (80%+
-               of the art at full alpha): -0.20
+    flat       measured only (no penalty: solid fills are valid art, owner 2026-11-16): flat blob = luminance std
+               inside the art < 0.04 and fill > 25%; solid silhouette = 80%+ of the art at full alpha
     cells      flipbooks: share of grid cells holding art < 0.6 -> -0.20 x (0.6 - share) / 0.6 (empty cells waste frames)
   The dHash (9x8, alpha-weighted luminance; flipbooks: mean of all cells) lets the search skip near-duplicates (Hamming <= 8).
 """
@@ -226,7 +226,7 @@ def measure(args):
         q -= 0.10
     q -= 0.10 * hard
     q -= 0.08 * band
-    q -= 0.08 * flat  # 1.0 flat blob, 2.5 solid silhouette (-0.20)
+    # flat blobs and solid fills are NOT penalised (owner, 2026-11-16: "solid fills arent bad"); kept in f for info
     if cells_used is not None and cells_used < 0.6:
         q -= 0.20 * (0.6 - cells_used) / 0.6
     return tid, {"q": round(float(clamp(q)), 3), "h": h, "f": f}

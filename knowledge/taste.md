@@ -5,6 +5,12 @@ effects (`feedback/*.md`) and blind polls, not from AI reviews, and it overrides
 it. Each rule says how much evidence it has: one person's answer is a lean, not a law. Rules are written for every
 effect type; the effect named in the evidence is only where it was seen. Update it with the `vfx-feedback` skill.
 
+## Craft over texture
+- **Okay textures can look awesome; the craft is in how they are used.** (owner, 2026-11-16: "vfx isn't all about
+  texture. You can have okayish textures but make them look awesome") Timing, motion, layering, scale, colour and
+  composition decide the look. Pick a fitting texture and move on; spend the effort on how the layers move and
+  stack, never on hunting for a perfect sprite.
+
 ## Glow and light
 - **Less glow; let the shapes carry the look.** (owner feedback, ice slam; test 7 panel: the 0.1.6 ice was "the most
   blown out of five")
@@ -60,6 +66,9 @@ effect type; the effect named in the evidence is only where it was seen. Update 
   (`texture_traits.py`, the `eff` trait) and pick soft, high-resolution art for gentle effects.
 - **Curves look continuous.** (healing aura: "I can tell each segment apart ... not fully smooth") Spirals, ribbons and
   trails need enough Beam segments or curved Beams/Trails with overlapping joins; check the joins in a close-up.
+- **Solid fills are fine.** (owner, 2026-11-16: "solid fills arent bad") A flat, solid-colour shape (a filled
+  crescent, a hard-edged disc, a solid streak) is a valid texture choice; don't avoid or down-rank it just for having no
+  gradient.
 - **Basic stretched sprites look cheap.** (test 6 poll: the plain fire tornado looked "made of REALLY basic
   parts/textures (stretched ovals only basically) and just low quality") Vary shapes and sizes; use fitting textures or
   geometry, not the same oval stretched everywhere.
