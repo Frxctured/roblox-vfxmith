@@ -40,15 +40,20 @@ motion, style, palette, lighting, anything the user said they like (the director
 and the caster (a character move, a weapon, an object, a spot on the ground). Everything after this serves the brief.
 `<effect>` is a new folder in the user's project (`vfx/<slug>/`) unless they name one.
 
+**Run every agent in the FOREGROUND and wait for its reply** (never `run_in_background`, never end your turn while
+an agent is still building or directing): the whole loop runs to the end in one go. A turn that ends while the
+builder works leaves the user with nothing, and headless hosts stop background agents.
+
 ## 2. Builder round 1 (and, in the same message, references for the director)
-Spawn both in ONE message:
+Spawn both in ONE message (both in the foreground):
 - **Builder:** `vfxmith:vfx-builder` with `ROOT=<root>`, the effect folder, the Studio id, where the stage may stand,
   `mode directed`, `round 1`. It builds v1, runs the whole self-check and writes `<effect>/builder_reply1.md`.
 - **References:** `vfxmith:vfx-librarian` (fast model) with `ROOT=<root>`, the request, the brief's beats and the
   effect folder. Save its reply as `<effect>/refs.md`. It is for the director (what good looks like for this type:
   gallery sheets of real effects) and for the builder from round 2 on. Skip it only if the user is in a hurry.
-Keep the builder's agent id: continue the SAME builder in later rounds when you can message it (it keeps what it
-learned). If you cannot, a fresh builder continues from `effect.luau`, `LOG.md` and the director's message.
+Use a FRESH builder each round: it continues from `effect.luau`, `LOG.md` (the builder keeps it up to date: what
+worked, what failed, values) and the director's message. Continuing one builder makes every round dearer as its
+context grows (in the test: $7, $15, $23 for rounds 1-3); a fresh one reads the log instead.
 
 ## 3. Director round N (N = 1, 2, 3 at most)
 Spawn a FRESH `vfxmith:vfx-director` with `ROOT=<root>`, the effect folder, the Studio id, `round N of 3`, and the path
@@ -65,7 +70,7 @@ give one; anything they say outranks the director and goes into the next hand-of
 less than 0.3 with nothing but polish left on the list.
 
 ## 4. Builder round N+1
-Message the builder (or spawn a fresh one, `mode directed`, `round N+1`): "Director round N: read
+Spawn a fresh builder (foreground, `mode directed`, `round N+1`): "Director round N: read
 `<effect>/dir_msgN.md` and apply it in rank order; keep everything under 'Keep'; run the self-check; write
 `builder_reply<N+1>.md`." Then back to step 3. After the third director round the builder makes the final version and
 there is no further director round.
