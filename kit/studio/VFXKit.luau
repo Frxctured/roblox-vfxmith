@@ -1,7 +1,10 @@
 --!nocheck
--- VFXKit 1.2: tested building blocks for melee / ability effects (strokes with an ink rim, mesh slashes fitted to the
+-- VFXKit 1.3: tested building blocks for melee / ability effects (strokes with an ink rim, mesh slashes fitted to the
 -- swing, impact frame, bolt, rings, ground marks, debris, smoke, flash, charge, one freeze-safe clock, camera shake,
 -- R15 pose helpers with a two-handed grip, review cameras, Lint).
+-- New in 1.3: a "why" reason on every layer (fx:Layers() prints the table), an additive stack gain applied at Build,
+-- scrolling-beam curtains (fx:Curtain: walls, pillars, waterfalls, energy sheets), mask / baked texture tags with a
+-- recolour that only tints masks (K.TagOf, K.Tint, fx:Recolor), and an aftermath group for impacts (fx:Aftermath).
 -- Guide: knowledge/vfxkit.md. Demo: kit/studio/VFXKitDemo.luau. Load both with kit/scripts/kit_push.py.
 -- Edit mode, one clock, freeze-safe. Returns a table; nothing is built until you call K.new().
 --
@@ -19,7 +22,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local Lighting = game:GetService("Lighting")
 
-local K = { VERSION = "1.2" }
+local K = { VERSION = "1.3" }
 
 ---------------------------------------------------------------- small helpers
 local VP, FC, VPAR = Enum.ParticleOrientation.VelocityPerpendicular, Enum.ParticleOrientation.FacingCamera, Enum.ParticleOrientation.VelocityParallel
@@ -75,7 +78,34 @@ K.Tex = {
 	Crack = { 125427453566131 }, -- radial ground crack (one copy, never tiled)
 	Rock = { 15441282898, "2x2" }, -- dark texture: unlit light grey reads as stone
 	Smoke = { 13013256540, "4x4" }, Steam = { 16845391847, "4x4" },
+	-- beam textures for FX:Curtain (white, clear background; a Beam runs the texture's HEIGHT along its length)
+	Flow = { 16892453445 }, -- smeared flowing soft noise: the body of a sheet (the most used beam texture in the library)
+	FlowStreaks = { 6091474388 }, -- glittery vertical noise streaks: thin fast detail
+	FlowWisps = { 12251461261 }, -- soft vertical fog wisps: hot wisps, halo, edge feather
 }
+-- Texture tags. "mask" = white / grey art: Color tints it freely. "baked:<hue>" = colour painted into the art: Color
+-- only MULTIPLIES it (blue x gold = olive), so leave it untinted or pick a mask twin. Measured with
+-- kit/scripts/texture_traits.py on the original uploads (2026-11-17). Unknown ids return "unknown": measure them and
+-- K.Tag(id, "mask") before you recolour them. "card" marks a black background (additive only, LE 1).
+K.TexTag = {}
+function K.Tag(id, tag) K.TexTag[tostring(id)] = tag end
+function K.TagOf(id)
+	if type(id) == "table" then id = id[1] end
+	id = tostring(id):match("%d+") or tostring(id)
+	return K.TexTag[id] or "unknown"
+end
+function K.IsMask(id) return K.TagOf(id):sub(1, 4) == "mask" end
+for _, t in K.Tex do K.Tag(t[1], "mask") end
+K.Tag(K.Tex.Flash[1], "mask card") -- white on a black card: tint freely, but LE 1 only
+K.Tag(120758508542035, "baked:orange") -- MeshSlash "Hot" decal
+K.Tag(98079913503816, "baked:blue") -- MeshSlash "Body" decal: tinted warm it goes dark / muddy
+K.Tag(18227621394, "mask") -- MeshSlash "Band" decal
+-- Tint helper that only tints masks: Color3 for a layer using `tex`. Baked art gets white (its own colour) unless
+-- `force` (then it multiplies; check it on a sheet).
+function K.Tint(tex, c, force)
+	if K.IsMask(tex) or force then return c end
+	return WH
+end
 -- Slash meshes for FX:MeshSlash (an invisible Part + SpecialMesh + Decal; ids from the open-source pack, looked at in
 -- Studio). nat = the mesh's native size (SpecialMesh.Scale = wanted size / nat), tex = decal(s), span = degrees of arc
 -- the decal paints, a0 = where the arc's middle sits (degrees from the mesh's -Z toward -X), rad = arc radius / mesh
@@ -116,6 +146,33 @@ K.Tier = {
 	Smoke = { 0, 0.8 },
 }
 
+-- Why each layer reads: "<what it does for the read>; keep: <the values that carry it>; free: <safe to change>".
+-- Every emitter / beam / mesh layer stores one (attribute "why"); a layer you make yourself takes `why = "..."` in its
+-- props, or inherits the line of its role. fx:Layers() prints the table for LOG.md; directors change "free" values
+-- for taste and "keep" values only with a reason.
+K.Why = {
+	core = "hero stroke: mid-tone colour x high Brightness clips to a white-hot centre with a hue rim; keep: Br 25-40, LE <= 0, constant size, life 0.15-0.4; free: size within +-15 %, hue",
+	ink = "dark partner: a thin black rim keeps the bright shape readable on light floors; keep: 0.9x size, Transparency >= 0.45, black, Br 0; free: ZOffset +-0.02..0.06",
+	highlight = "thin white line on the leading edge = the hottest value; keep: Br ~60, thinner than the core; free: rotation offset",
+	wind = "faint air arc for volume; keep: LE 1, Br <= 1.5, Transparency >= 0.65; free: size, life",
+	fan = "tilted faint copies = volume when the stroke plane is edge-on; keep: faint (Transparency >= 0.55); free: fan angle",
+	needle = "thin tapered speed lines: direction and force; keep: Size <= 0.8, Squash 3, life <= 0.18 s; free: count 8-14, speed",
+	dot = "tumbling spark dots: volume and heat after a hit; keep: LE -3, Br 20-30, small; free: count, spread, gravity",
+	pop = "one-frame white star on contact: says WHEN; keep: life <= 0.08 s; free: size",
+	sparkle = "<= 4 tiny star glints; keep: life <= 0.15 s, count <= 4 (else stickers); free: colour within the palette",
+	flash = "short additive flash: the beat's peak; keep: life <= 0.06 s, LE 1, below the hero's Brightness; free: size",
+	glow = "soft additive pool round the hit; keep: LE 1, Br <= 6, short; free: size, colour",
+	ring = "shock ring on the ground: reads from above and past the caster; keep: flat (VelocityPerpendicular), fast growth; free: diameters",
+	dust = "grey dust: weight and contact with the ground; keep: LE 0, low Brightness, see-through; free: count, size",
+	hotcrack = "hot crack cooling: heat stays where it hit; keep: one copy, ZOffset <= 0.25; free: rotation, diameter",
+	scorch = "dark scorch under the crack: the hit leaves a mark; keep: black, Transparency >= 0.5; free: life",
+	rock = "stone debris in three sizes: mass; keep: unlit light grey, <= 8 per size, gravity; free: speed, spread",
+	smoke = "lingering smoke: the end of the beat; keep: LE 0, dark-ish, slow; free: size, count",
+	bolt = "strobing electric crackle; keep: life 0.05 s, LE < 0 and high Br; free: size, count",
+	linger = "aftermath: faint, low and radial so the hit leaves something for 1-2 s without forming a dome; keep: Transparency >= 0.7 (dust), no upward acceleration, low; free: count, colour",
+	curtain = "scrolling beam sheet: flowing surface; keep: speeds not multiples of each other, LightInfluence 0; free: width, length, colour",
+}
+
 ---------------------------------------------------------------- effect object
 local FX = {}
 FX.__index = FX
@@ -130,7 +187,7 @@ function K.new(name, originCF, palette)
 	if typeof(originCF) == "Vector3" then originCF = CFrame.new(originCF) end
 	local fx = setmetatable({
 		name = name, root = root, CF = originCF or CFrame.new(0, 0, 45), pal = palette or K.Palettes.Storm,
-		events = {}, emitters = {}, beams = {}, updaters = {}, shakes = {}, strokes = {}, weapon = {}, ghosts = nil, meshes = {}, meshSlashes = {},
+		events = {}, emitters = {}, beams = {}, _emitT = {}, curtains = {}, gain = "auto", updaters = {}, shakes = {}, strokes = {}, weapon = {}, ghosts = nil, meshes = {}, meshSlashes = {},
 		keys = nil, hip = 3.2, shake = true, duration = 4.5, T = 0,
 	}, FX)
 	_G.VFXKitLive = _G.VFXKitLive or {}
@@ -193,8 +250,9 @@ function FX:E(parent, tex, props)
 	e.Rate = 0; e.LightInfluence = 0; e.Speed = R(0.001); e.SpreadAngle = Vector2.zero
 	e.Orientation = VP; e.EmissionDirection = Enum.NormalId.Top; e.LockedToPart = false
 	e.Rotation = R(0); e.RotSpeed = R(0); e.Transparency = NS(0); e.ZOffset = 0
-	for k, v in props do if k ~= "n" and k ~= "role" then e[k] = v end end
+	for k, v in props do if k ~= "n" and k ~= "role" and k ~= "why" then e[k] = v end end
 	e:SetAttribute("n", props.n or 1); e:SetAttribute("ts", e.TimeScale); e:SetAttribute("role", props.role or "")
+	e:SetAttribute("why", props.why or K.Why[props.role or ""] or ""); e:SetAttribute("tag", K.TagOf(id))
 	e.Parent = parent
 	table.insert(self.emitters, e)
 	return e
@@ -202,12 +260,22 @@ end
 
 ---------------------------------------------------------------- timeline
 function FX:At(t, fn) table.insert(self.events, { t = t, fn = fn }) end
-function FX:EmitAt(t, e, n) self:At(t, function() e:Emit(n or e:GetAttribute("n")) end); return e end
+function FX:EmitAt(t, e, n)
+	self._emitT[e] = self._emitT[e] or {}; table.insert(self._emitT[e], t) -- for the stack gain
+	self:At(t, function() e:Emit(n or e:GetAttribute("n")) end); return e
+end
+-- set / read the reason of any layer instance (emitter, beam, part, decal)
+function FX:Why(inst, text) inst:SetAttribute("why", text); return inst end
 -- fn(T) runs every frame with the effect clock (and once at the freeze time): drive parts, lights, beams from T
 -- so a frozen frame and a live frame are identical. Never use task.delay / tweens / os.clock of your own.
 function FX:OnUpdate(fn) table.insert(self.updaters, fn) end
 -- register a Beam / Trail so a freeze stops its texture scroll
-function FX:TrackBeam(b) b:SetAttribute("spd", b:IsA("Beam") and b.TextureSpeed or 0); table.insert(self.beams, b); return b end
+function FX:TrackBeam(b, why)
+	b:SetAttribute("spd", b:IsA("Beam") and b.TextureSpeed or 0); table.insert(self.beams, b)
+	if why then b:SetAttribute("why", why) end
+	if b:IsA("Beam") and b:GetAttribute("tag") == nil then b:SetAttribute("tag", K.TagOf(b.Texture)) end
+	return b
+end
 -- camera shake: decaying, only in live plays (never in freezes). Proven: light hit 0.15 / 0.1 s, heavy 0.6 / 0.35 s
 function FX:Shake(t, amp, dur) table.insert(self.shakes, { t, amp or 0.15, dur or 0.1 }) end
 
@@ -688,6 +756,9 @@ function FX:MeshSlash(s)
 			on = lOn, hold = lHold, off = L.off or (lHold + (L.fade or fade)),
 			r = L.r or 1, th = L.th or 0.3, col = L.col or K.HDR(pal.main), col1 = L.col1, lag = L.lag or (M.span / 2), tr0 = L.tr0 or 0,
 			offN = L.offN or 0, g0 = L.g0 or 0.92, g1 = L.g1 or 1.1, kind = L.kind,
+			why = L.why or ((L.col and L.col.R + L.col.G + L.col.B <= 0.3) and "dark copy: depth behind the bright layers; keep: r 0.86-0.9x, tr0 >= 0.5, ends first"
+				or ({ Band = "band: the slash body with height, so it keeps a wall when its plane is edge-on; keep: HDR colour (shine); free: height", Body = "body: the thick soft crescent in the deep tone under the hot layer; keep: HDR > 1",
+					Hot = "hot crescent: the white-hot leading edge cooling to the main colour; keep: brightest layer, HDR 8-10" })[L.kind] or "mesh slash layer"),
 			sign = ((M.lead == "cw") ~= (L.flip == true)) and -1 or 1,
 		}
 		table.insert(self.meshes, lay); table.insert(rec.layers, lay)
@@ -1033,11 +1104,376 @@ function FX:Strike(s)
 		self:Debris({ t = t + 0.02, att = sa, n = 3, speed = { 20, 40 }, spread = 30, size = 0.6 })
 	end
 	self:Smoke({ t = t + 0.04, p = p })
+	if s.aftermath ~= false then self:Aftermath({ t = t + 0.15, p = p, d = 12 }) end
 	if s.crackle ~= false then
-		local lc = self:E(ga, K.Tex.BoltSmall, { role = "bolt", Size = NS(2.5, 4), Lifetime = R(0.06), Rotation = R(-180, 180), Speed = R(0.01), SpreadAngle = Vector2.new(40, 40), Color = CS(self.pal.main), LightEmission = -5, Brightness = 40, ZOffset = 0.6 })
+		local lc = self:E(ga, K.Tex.BoltSmall, { role = "linger", why = "residual crackle on the hit spot for 1.5 s: the energy stays; keep: 0.06 s flickers, spacing grows; free: size", Size = NS(2.5, 4), Lifetime = R(0.06), Rotation = R(-180, 180), Speed = R(0.01), SpreadAngle = Vector2.new(40, 40), Color = CS(self.pal.main), LightEmission = -5, Brightness = 40, ZOffset = 0.6 })
 		for _, tt in { 0.05, 0.11, 0.17, 0.23, 0.3, 0.42, 0.6, 0.75, 0.95, 1.2, 1.5 } do self:EmitAt(t + tt, lc, 1) end
 	end
 	return ga
+end
+
+---------------------------------------------------------------- aftermath (every impact gets one)
+-- What stays after a hit, for 1-2 s: FAINT, LOW and RADIAL. Dust haze rolling outward along the ground
+-- (Transparency >= 0.78, no upward acceleration, so it never forms a dome), tiny glints skidding outward with a double
+-- twinkle, and optional residual arcs flickering on the ground. Emitted over ~0.4 s starting at t (use hit + 0.1..0.2).
+--   t, p (caster space, on the floor), d = reach in studs (10), life = longest piece (1.4 s), dust = directions (8),
+--   sparks = glints in total (14), arcs = number of residual arc flickers (0; 5-7 for electric / magic hits),
+--   color = glint colour (palette hot), dustColor
+-- Every layer has role "linger"; Lint warns when an effect has an impact and no linger layer.
+function FX:Aftermath(s)
+	local pal = s.pal or self.pal
+	local t, p, d, life = s.t, s.p, s.d or 10, s.life or 1.4
+	local nd, ng = s.dust or 8, s.sparks or 14
+	local dustCol = s.dustColor or Color3.fromRGB(150, 151, 158):Lerp(pal.deep, 0.12)
+	local F = Enum.NormalId.Front
+	local per = nd > 0 and math.max(1, math.ceil(ng / nd)) or 0
+	for i = 0, nd - 1 do
+		local ang = (i + 0.5) * 2 * math.pi / nd
+		local a = self:AimAtt(p + Vector3.new(0, 0.3, 0), Vector3.new(math.sin(ang), 0.06, -math.cos(ang)), "Aftermath")
+		local dust = self:E(a, K.Tex.Smoke, { role = "linger", Orientation = FC, EmissionDirection = F, Size = NS(0, d * 0.09, 1, d * 0.26),
+			Lifetime = R(life * 0.7, life), Speed = R(d * 0.3, d * 0.55), Drag = 2.5, SpreadAngle = Vector2.new(12, 4), Rotation = R(-180, 180), RotSpeed = R(-30, 30),
+			Color = CS(dustCol), LightEmission = 0, Brightness = 1, Transparency = NS(0, 1, 0.15, 0.8, 0.6, 0.87, 1, 1), ZOffset = -0.4,
+			why = "aftermath dust: a faint low haze rolling outward says the hit had weight; keep: sideways, Transparency >= 0.78, no upward acceleration; free: count, colour, reach" })
+		self:EmitAt(t, dust, 1); self:EmitAt(t + 0.3, dust, 1)
+		if per > 0 then
+			local sz = s.size or 0.2
+			local gl = self:E(a, K.Tex.Dot, { role = "linger", Orientation = FC, EmissionDirection = F, Size = NS(0, 0, 0.08, sz, 0.3, sz * 0.35, 0.5, sz, 1, 0),
+				Lifetime = R(life * 0.4, life * 0.85), Speed = R(d * 0.25, d * 0.8), Drag = 3, SpreadAngle = Vector2.new(25, 10), Acceleration = Vector3.new(0, -5, 0),
+				Rotation = R(-180, 180), Color = CS(s.color or pal.hot), LightEmission = -3, Brightness = s.br or 22, Transparency = NS(0, 0.15, 0.7, 0.45, 1, 1), ZOffset = 1,
+				why = "aftermath glints: a few tiny sparks skidding low and outward with a double twinkle keep the hit alive; keep: tiny (<= 0.25), low, few; free: colour, count" })
+			self:EmitAt(t + 0.02, gl, math.ceil(per * 0.6)); self:EmitAt(t + 0.25, gl, math.max(1, math.floor(per * 0.4)))
+		end
+	end
+	if (s.arcs or 0) > 0 then
+		local rng = Random.new(s.seed or 3)
+		local arc = {}
+		for k = 1, 3 do
+			local ang, rr = rng:NextNumber(0, 2 * math.pi), d * rng:NextNumber(0.15, 0.4)
+			local a = self:PlaneAtt(p + Vector3.new(math.sin(ang) * rr, 0.1, -math.cos(ang) * rr), Vector3.yAxis, "AftermathArc")
+			arc[k] = self:E(a, K.Tex.BoltSmall, { role = "linger", Size = NS(d * 0.13), Lifetime = R(0.06), Rotation = R(-180, 180), Speed = R(0.01),
+				Color = CS(pal.main), LightEmission = -3, Brightness = 30, Transparency = NS(0.3), ZOffset = 0.5,
+				why = "aftermath arcs: residual flickers on the ground after an energy hit; keep: flat, 0.06 s each, spaced 0.08-0.15 s; free: count, size" })
+		end
+		for j = 0, s.arcs - 1 do self:EmitAt(t + 0.05 + j * (0.6 / s.arcs) + rng:NextNumber(0, 0.03), arc[j % 3 + 1], 1) end
+	end
+end
+
+---------------------------------------------------------------- curtains: scrolling-beam sheets
+-- A flowing surface (fire wall, waterfall, lava fall, energy or wind wall, aura sheet, portal rim) made of Beams
+-- between attachment pairs, each layer scrolling at its own TextureSpeed and TextureLength so the pattern never
+-- visibly repeats. Wrapped for 3D: a LINE becomes 2+ staggered rows of overlapping panels with alternating yaw (reads
+-- from the front, the side and the ends); a RING becomes 6-8 panels round a vertical axis (a pillar that reads from
+-- every side; 5 or fewer show a polygon with bright corners from above, where neighbours overlap). One flat sheet is a slab from above and a stick from the side: never use one.
+-- Axes (measured): with FaceCamera off the ribbon's WIDTH follows the attachments' Y axis and CurveSize bends along
+-- their X axis. The kit sets X = the panel's front (normal), Y = across; upright attachments collapse it to a line.
+-- Soft edges: neighbouring panels overlap (`overlap` 0.35), each layer has its own width (narrow dense layers inside
+-- wide faint ones = a gradient across the width) and a faint wide halo layer blends the seams; Transparency fades at
+-- the foot and to 1 at the top along the length. No hard prism corners.
+--   t (start), rise (0.35 s, eased out), hold (2 s), fall (0.6 s: sinks to `sink` x height and fades)
+--   line = { from = Vector3, to = Vector3 } on the floor (caster space)   or   ring = { c = Vector3, r = 3 }
+--   h height (6), n panels (line: one per `panel` studs (3); ring: 8, overlap 0.2), rows (2), depth between rows (0.9),
+--   yaw alternating panel turn in degrees (8), lean = CurveSize bulge toward the front / outward (0.6, sways with the
+--   clock), flicker = height variation (0.1), sweep = seconds the rise travels along the line (0.25; `from` =
+--   "start" | "centre" | "end"), base = ground strip glow (true), scorch = dark ground line after the fall (true),
+--   layers = your own stack (default K.CurtainLayers(palette)); each layer:
+--     { name, tex, w = width x panel width, w1 = width at the top (x panel width), spd = TextureSpeed, len =
+--       TextureLength (repeats), col, le, br, tr = Transparency, foot = extra Transparency at the foot, curve, z, why }
+-- Clock-driven (frozen frame = live frame); beams are tracked, so freezes stop their scroll. Returns { panels, folder }.
+function K.CurtainLayers(pal)
+	return {
+		{ name = "deep", tex = K.Tex.Flow, w = 1.15, w1 = 0.8, spd = 0.45, len = 2.6, col = pal.dark, le = 0, br = 2, tr = 0.45, foot = 0.2,
+			why = "dark body: a darker value under the bright layers gives the sheet depth on a light floor; keep: LE 0, dark colour, Transparency 0.4-0.5; free: width, speed" },
+		{ name = "body", tex = K.Tex.Flow, w = 1.0, w1 = 0.65, spd = 0.7, len = 1.9, col = pal.main, le = 0, br = 12, tr = 0.3, foot = 0.1,
+			why = "body: mid-tone x Brightness 10-15 clips to a hot centre with a hue rim (pro rule 2); keep: LE 0, mid-tone colour; free: Br 8-18, length" },
+		{ name = "streaks", tex = K.Tex.FlowStreaks, w = 0.75, w1 = 0.45, spd = 1.35, len = 1.2, col = pal.main, le = 0, br = 22, tr = 0.45, foot = 0.1,
+			why = "streaks: thin fast detail sells the flow direction; keep: speed not a multiple of the body's, narrower than the body; free: Br 15-30" },
+		{ name = "wisps", tex = K.Tex.FlowWisps, w = 0.85, w1 = 0.5, spd = 2.2, len = 0.8, col = pal.hot, le = 1, br = 1.6, tr = 0.5, foot = 0,
+			why = "hot wisps: the fastest additive layer, the lit inside of the sheet; keep: LE 1, Br <= 3 (counts toward the stack gain); free: colour within the palette" },
+		{ name = "halo", tex = K.Tex.FlowWisps, w = 1.6, w1 = 1.25, spd = 0.3, len = 3.5, col = pal.main, le = 1, br = 0.7, tr = 0.78, foot = 0, curve = 1.3,
+			why = "halo: a faint wide veil that softens panel edges and blends the seams (no hard prism corners); keep: wider than the body, Transparency >= 0.75; free: width" },
+	}
+end
+function FX:Curtain(s)
+	local pal = s.pal or self.pal
+	local rng = Random.new(s.seed or 7)
+	local up = self:V(Vector3.yAxis)
+	local h, t0 = s.h or 6, s.t or 0
+	local rise, hold, fall = s.rise or 0.35, s.hold or 2, s.fall or 0.6
+	local overlap, lean, flick, sink = s.overlap or 0.35, s.lean or 0.6, s.flicker or 0.1, s.sink or 0.7
+	local layers = s.layers or K.CurtainLayers(pal)
+	local panels = {}
+	local footA, footB, footW
+	if s.ring then
+		local c, r, n = s.ring.c or Vector3.zero, s.ring.r or 3, s.n or 8
+		local w = 2 * r * math.sin(math.pi / n) * (1 + (s.overlap or 0.2))
+		for i = 0, n - 1 do
+			local a = i / n * 2 * math.pi + math.rad(s.ring.a0 or 0)
+			local out = Vector3.new(math.sin(a), 0, -math.cos(a))
+			table.insert(panels, { pos = c + out * r * math.cos(math.pi / n), across = Vector3.new(math.cos(a), 0, math.sin(a)), normal = out, w = w, k = i / n, row = 0 })
+		end
+	else
+		local A, B = s.line.from, s.line.to
+		local dir = Vector3.new(B.X - A.X, 0, B.Z - A.Z)
+		local L = dir.Magnitude; dir = dir.Unit
+		local nrm = Vector3.yAxis:Cross(dir).Unit
+		local rows, depth = s.rows or 2, s.depth or 0.9
+		local n = s.n or math.max(2, math.ceil(L / (s.panel or 3)))
+		local seg = L / n
+		for row = 0, rows - 1 do
+			local off = (row - (rows - 1) / 2) * depth
+			local odd = row % 2 == 1
+			for i = 0, n - (odd and 2 or 1) do
+				local along = odd and seg * (i + 1) or seg * (i + 0.5)
+				local yaw = math.rad(((i + row) % 2 == 0 and 1 or -1) * (s.yaw or 8) + rng:NextNumber(-3, 3))
+				local across = CFrame.fromAxisAngle(Vector3.yAxis, yaw):VectorToWorldSpace(dir)
+				table.insert(panels, { pos = A + dir * along + nrm * off, across = across, normal = Vector3.yAxis:Cross(across).Unit, w = seg * (1 + overlap), k = along / L, row = row })
+			end
+		end
+		footA, footB, footW = A, B, (rows - 1) * depth + 1.6
+	end
+	local sweep, from = s.sweep or (s.ring and 0 or 0.25), s.from or "start"
+	local folder = Instance.new("Folder"); folder.Name = s.name or "Curtain"; folder.Parent = self.root
+	local tEnd = t0
+	for pi, P in panels do
+		local k = from == "centre" and math.abs(P.k - 0.5) * 2 or (from == "end" and 1 - P.k or P.k)
+		P.delay = k * sweep + rng:NextNumber(0, 0.04)
+		P.hk = (1 + rng:NextNumber(-0.12, 0.12)) * (P.row > 0 and 0.88 or 1)
+		P.seed = pi * 1.37
+		tEnd = math.max(tEnd, t0 + P.delay + rise + hold + fall)
+		local holder = part(folder, { Size = Vector3.one * 0.2, Transparency = 1, CFrame = CFrame.new(self:P(P.pos)), Name = "Panel" .. pi })
+		local X, Y = self:V(P.normal), self:V(P.across)
+		local base = CFrame.fromMatrix(self:P(P.pos), X, Y, X:Cross(Y))
+		local a0 = Instance.new("Attachment"); a0.Name = "Foot"; a0.Parent = holder; a0.WorldCFrame = base
+		local a1 = Instance.new("Attachment"); a1.Name = "Top"; a1.Parent = holder; a1.WorldCFrame = base + up * 0.05
+		P.a0, P.a1, P.base, P.beams = a0, a1, base, {}
+		for li, L in layers do
+			local tex = type(L.tex) == "table" and L.tex[1] or L.tex
+			local b = Instance.new("Beam"); b.Name = ("L%d_%s"):format(li, L.name or "layer")
+			b.Attachment0, b.Attachment1 = a0, a1
+			b.Texture = "rbxassetid://" .. tex; b.TextureMode = Enum.TextureMode.Stretch
+			b.TextureLength = L.len * rng:NextNumber(0.85, 1.15); b.TextureSpeed = L.spd * rng:NextNumber(0.85, 1.15)
+			b.FaceCamera = false; b.LightInfluence = 0; b.LightEmission = L.le or 0; b.Brightness = L.br or 1
+			b.Color = CS(K.Tint(tex, L.col or pal.main)); b.Width0 = P.w * L.w; b.Width1 = P.w * (L.w1 or L.w)
+			b.Segments = 16; b.ZOffset = L.z or (li * 0.02); b.Transparency = NS(1)
+			b:SetAttribute("role", "curtain"); b:SetAttribute("why", L.why or K.Why.curtain); b:SetAttribute("tag", K.TagOf(tex))
+			b:SetAttribute("w0", t0 + P.delay); b:SetAttribute("w1", t0 + P.delay + rise + hold + fall); b:SetAttribute("h", h * P.hk); b:SetAttribute("trMin", L.tr or 0.3)
+			b.Parent = holder
+			self:TrackBeam(b)
+			table.insert(P.beams, { b = b, tr = L.tr or 0.3, foot = L.foot or 0.1, curve = L.curve or 1 })
+		end
+	end
+	local strips = {}
+	if footA and s.base ~= false then
+		local function strip(name, tex, col, le, br, tr, w, spd, why)
+			local A, B = self:P(footA + Vector3.new(0, 0.06, 0)), self:P(footB + Vector3.new(0, 0.06, 0))
+			local along = (B - A).Unit
+			local Y = up:Cross(along).Unit -- width across the wall, flat on the ground
+			local X = Y:Cross(along).Unit
+			local holder = part(folder, { Size = Vector3.one * 0.2, Transparency = 1, CFrame = CFrame.new(A), Name = name })
+			local a0 = Instance.new("Attachment"); a0.Parent = holder; a0.WorldCFrame = CFrame.fromMatrix(A, X, Y, X:Cross(Y))
+			local a1 = Instance.new("Attachment"); a1.Parent = holder; a1.WorldCFrame = CFrame.fromMatrix(B, X, Y, X:Cross(Y))
+			local b = Instance.new("Beam"); b.Name = name; b.Attachment0, b.Attachment1 = a0, a1
+			b.Texture = "rbxassetid://" .. tex; b.TextureMode = Enum.TextureMode.Stretch; b.TextureLength = 2; b.TextureSpeed = spd
+			b.FaceCamera = false; b.LightInfluence = 0; b.LightEmission = le; b.Brightness = br; b.Color = CS(col)
+			b.Width0, b.Width1 = w, w; b.Segments = 1; b.ZOffset = -0.1; b.Transparency = NS(1)
+			b:SetAttribute("role", name == "Scorch" and "scorch" or "glow"); b:SetAttribute("why", why); b:SetAttribute("tag", K.TagOf(tex))
+			b:SetAttribute("trMin", tr); b.Parent = holder; self:TrackBeam(b)
+			table.insert(strips, { b = b, tr = tr, kind = name })
+		end
+		strip("FootGlow", K.Tex.FlowWisps[1], pal.main, 1, 2, 0.35, footW + 1.2, 0.25,
+			"foot glow: a flat additive strip along the base reads from above, where vertical sheets are thin; keep: flat, LE 1; free: width, Br 1-3")
+		if s.scorch ~= false then
+			strip("Scorch", K.Tex.Flow[1], Color3.new(0, 0, 0), 0, 0, 0.55, footW + 0.4, 0,
+				"scorch line: the ground keeps a dark mark for ~1 s after the collapse; keep: black, Transparency >= 0.5; free: width, life")
+		end
+	elseif s.ring and s.base ~= false then
+		local a = self:PlaneAtt(s.ring.c or Vector3.zero, Vector3.yAxis, "CurtainBase")
+		local e = self:E(a, K.Tex.Glow, { role = "glow", Size = NS((s.ring.r or 3) * 1.4), Lifetime = R(rise + hold + fall), Color = CS(pal.main), LightEmission = 1, Brightness = 2,
+			Transparency = NS(0, 1, 0.12, 0.5, 0.85, 0.55, 1, 1), ZOffset = 0.1,
+			why = "base pool: a flat additive glow under the pillar reads from above; keep: flat, LE 1; free: size" })
+		self:EmitAt(t0, e, 1)
+	end
+	local function env(x, hk)
+		if x < 0 then return 0.05, 1 end
+		if x < rise then local k = x / rise; return h * hk * math.max(0.02, 1 - (1 - k) ^ 3), math.max(0, 1 - k / 0.4) end
+		if x < rise + hold then return h * hk, 0 end
+		if x < rise + hold + fall then local k = (x - rise - hold) / fall; return h * hk * (1 - sink * k ^ 1.5), k ^ 1.2 end
+		return 0.05, 1
+	end
+	self:OnUpdate(function(T)
+		for _, P in panels do
+			local ht, fade = env(T - t0 - P.delay, P.hk)
+			if fade < 1 then ht = ht * (1 + flick * math.noise(T * 2.3, P.seed, 0.5)) end
+			P.a1.WorldCFrame = P.base + up * math.max(ht, 0.05)
+			local sway = 1 + 0.3 * math.sin(T * 1.6 + P.seed)
+			for _, B in P.beams do
+				B.b.CurveSize0 = lean * B.curve * sway; B.b.CurveSize1 = -lean * B.curve * sway * 0.5
+				if fade ~= P.lastFade then
+					local tr = B.tr + (1 - B.tr) * fade
+					B.b.Transparency = fade >= 1 and NS(1) or NS(0, math.min(1, tr + B.foot), 0.15, tr, 0.62, tr, 1, 1)
+				end
+			end
+			P.lastFade = fade
+		end
+		for _, S in strips do
+			local x = T - t0
+			local fade
+			if S.kind == "Scorch" then -- appears with the wall, stays ~1.2 s after it
+				fade = x < 0 and 1 or math.clamp(1 - x / 0.3, 0, 1)
+				if T > tEnd then fade = math.clamp((T - tEnd) / 1.2, 0, 1) end
+			else
+				local _, f = env(x, 1); fade = f
+			end
+			if fade ~= S.last then S.b.Transparency = fade >= 1 and NS(1) or NS(0, 1, 0.08, S.tr + (1 - S.tr) * fade, 0.92, S.tr + (1 - S.tr) * fade, 1, 1); S.last = fade end
+		end
+	end)
+	self.duration = math.max(self.duration, tEnd + 1.6)
+	table.insert(self.curtains, { name = folder.Name, t0 = t0, t1 = tEnd, n = #panels, rows = s.rows or (s.ring and 0 or 2), ring = s.ring ~= nil })
+	return { panels = panels, folder = folder }
+end
+
+---------------------------------------------------------------- recolour (masks only)
+-- fx:Recolor(newPalette): re-tints a built effect. Layers whose texture is a MASK (K.TagOf) get their Color ramp
+-- remapped: exact palette colours go to the new palette's same role, other colours turn by the hue difference keeping
+-- saturation and value; near-white, grey and near-black keypoints stay. Baked and unknown textures are left alone and
+-- listed (tag unknown ones with K.Tag(id, "mask") after texture_traits.py says white / grey). Neon parts are recoloured
+-- too. Closures that read the palette while playing (Burst) keep the old one: for a new palette, rebuild instead.
+local function hdrSplit(c) local m = math.max(c.R, c.G, c.B, 1); return Color3.new(c.R / m, c.G / m, c.B / m), m end
+function FX:Recolor(newPal)
+	local old = self.pal
+	local dh = (newPal.main:ToHSV()) - (old.main:ToHSV())
+	local function map(c)
+		local base, m = hdrSplit(c)
+		for _, k in { "main", "deep", "hot", "dark" } do
+			local o = old[k]
+			if o and math.abs(o.R - base.R) + math.abs(o.G - base.G) + math.abs(o.B - base.B) < 0.02 then local n = newPal[k]; return Color3.new(n.R * m, n.G * m, n.B * m) end
+		end
+		local h, sat, v = base:ToHSV()
+		if sat < 0.12 or v < 0.08 then return c end
+		local n = Color3.fromHSV((h + dh) % 1, sat, v)
+		return Color3.new(n.R * m, n.G * m, n.B * m)
+	end
+	local function seq(cs) local kp = {}; for _, k in cs.Keypoints do table.insert(kp, ColorSequenceKeypoint.new(k.Time, map(k.Value))) end; return ColorSequence.new(kp) end
+	local done, skipped = 0, {}
+	local function one(inst, tex)
+		if K.IsMask(tex) then inst.Color = seq(inst.Color); done += 1 else skipped[tostring(tex):match("%d+") or "?"] = K.TagOf(tex) end
+	end
+	for _, e in self.emitters do one(e, e.Texture) end
+	for _, b in self.beams do if b:IsA("Beam") then one(b, b.Texture) end end
+	for _, L in self.meshes do
+		if K.IsMask(L.M.tex[1]) then L.col = map(L.col); if L.col1 then L.col1 = map(L.col1) end; done += 1 else skipped[tostring(L.M.tex[1])] = K.TagOf(L.M.tex[1]) end
+	end
+	local parts = 0
+	for _, p in self.root:GetDescendants() do
+		if p:IsA("BasePart") and p.Material == Enum.Material.Neon then p.Color = map(p.Color); parts += 1 end
+	end
+	self.pal = newPal
+	local out = { ("recoloured %d layers and %d Neon parts"):format(done, parts) }
+	for id, tag in skipped do table.insert(out, ("left alone: %s (%s)"):format(id, tag)) end
+	return table.concat(out, "\n")
+end
+
+---------------------------------------------------------------- stack gain (additive layers)
+-- Additive layers (LightEmission > 0) add up: stacked at one spot they clip to a white blob that hides the hero
+-- shape. At Build the kit finds, for every additive layer, which additive layers cover its centre while it is alive
+-- (emitters: attachment and Size; beams: their mid point and width) and sums their light, Brightness x (1 - the
+-- lowest Transparency). At the busiest spot that sum S is the stack's light and N the number of layers. One
+-- per-effect gain then scales the Brightness of every additive layer that sits in a stack (2+):
+--   fx.gain = "auto" (default): the lower of  fx.budget / S  (budget 2) and the count rule 1 - 0.04 x (N - 6)
+--             (12 layers -> 0.76), never below 0.1. Flashes and pops (life <= 0.12 s) are left out: they are meant
+--             to clip for a few frames.
+--   fx.gain = <number>: that gain (1 = off). Set Brightness BEFORE Build; the original is kept as attribute br0.
+-- Measured (Studio, daylight, against the sky): additive light ADDS TO THE BACKGROUND, so on a light backdrop a stack
+-- clips long before its own sum reaches 1. 12 soft glows over a stroke: one white disc at gain 1, 0.76 and 0.28
+-- (summed Br 36 / 27 / 10); at summed Br ~2 still white; at ~0.9 the stroke shows at the rim only. The gain keeps
+-- big stacks from burning whiter than lean ones; it cannot rescue a heavy stack. The real fix is fewer additive
+-- layers: give the body to LE 0 layers with a dark partner (pro guide rules 1-4). fx.gainInfo = { g, N, S, at } after
+-- Build; Lint prints it. Opaque (LE <= 0) layers are never touched: they carry the shape.
+function FX:_applyGain()
+	local items = {}
+	local function maxKP(ns) local m = 0; for _, k in ns.Keypoints do m = math.max(m, k.Value) end; return m end
+	for _, e in self.emitters do
+		local br0 = e:GetAttribute("br0"); if br0 then e.Brightness = br0 end
+		if e.LightEmission > 0 and e.Brightness > 0 and e.Lifetime.Max > 0.12 then -- flashes / pops may clip for 3 frames
+			local par = e.Parent
+			local pos = par:IsA("Attachment") and par.WorldPosition or (par:IsA("BasePart") and par.Position)
+			if pos then
+				local ws, ts = {}, self._emitT[e]
+				if e.Rate > 0 or not ts then ws = { { 0, self.duration } } else for _, t in ts do table.insert(ws, { t, t + e.Lifetime.Max }) end end
+				local trMin = 1; for _, k in e.Transparency.Keypoints do trMin = math.min(trMin, k.Value) end
+				table.insert(items, { i = e, p = pos, r = maxKP(e.Size), w = ws, l = e.Brightness * (1 - trMin) })
+			end
+		end
+	end
+	for _, b in self.beams do
+		if b:IsA("Beam") then
+			local br0 = b:GetAttribute("br0"); if br0 then b.Brightness = br0 end
+			if b.LightEmission > 0 and b.Brightness > 0 and b.Attachment0 and b.Attachment1 then
+				local p0, p1 = b.Attachment0.WorldPosition, b.Attachment1.WorldPosition
+				local hh = b:GetAttribute("h")
+				local mid = hh and (p0 + self:V(Vector3.yAxis) * hh / 2) or (p0 + p1) / 2
+				local w0, w1 = b:GetAttribute("w0"), b:GetAttribute("w1")
+				local trMin = b:GetAttribute("trMin") -- animated beams (curtains) store their hold Transparency
+				if not trMin then trMin = 1; for _, k in b.Transparency.Keypoints do trMin = math.min(trMin, k.Value) end end
+				table.insert(items, { i = b, p = mid, r = math.max(b.Width0, b.Width1) / 2, w = { { w0 or 0, w1 or self.duration } }, l = b.Brightness * (1 - trMin) })
+			end
+		end
+	end
+	local function overlapT(a, b) for _, x in a do for _, y in b do if x[1] < y[2] and y[1] < x[2] then return true end end end return false end
+	local N, S, at = 1, 0, nil
+	for _, A in items do
+		local c, l = 0, 0
+		for _, B in items do if (A.p - B.p).Magnitude <= math.max(B.r * 0.8, 0.3) and overlapT(A.w, B.w) then c += 1; l += B.l end end
+		A.c = c
+		if c > N then N = c end
+		if l > S then S, at = l, A.i end
+	end
+	local auto = math.min(math.clamp((self.budget or 2) / math.max(S, 1e-3), 0, 1), 1 - 0.04 * math.max(0, N - 6))
+	local g = type(self.gain) == "number" and self.gain or math.clamp(auto, 0.1, 1)
+	for _, A in items do
+		if A.c >= 2 and g ~= 1 then A.i:SetAttribute("br0", A.i.Brightness); A.i.Brightness = A.i.Brightness * g end
+	end
+	self.gainInfo = { g = g, N = N, S = S, at = at and (at.Parent and at.Parent.Parent and at.Parent.Parent.Name .. "/" or "") .. at.Name or "-", auto = type(self.gain) ~= "number" }
+	return self.gainInfo
+end
+
+---------------------------------------------------------------- layer table with reasons
+-- fx:Layers() -> a markdown table of every layer: name, role, texture (mask / baked), LE, Brightness (x gain),
+-- size, life, min Transparency, ZOffset and WHY it reads. Curtain beams are grouped per layer. Paste it into LOG.md
+-- with every version: the builder writes the reasons, the director sees what is safe to change ("free") and what
+-- carries the read ("keep").
+function FX:Layers()
+	local rows = { "| layer | role | texture (tag) | LE | Br | size | life s | min Tr | Z | why |", "|---|---|---|---|---|---|---|---|---|---|" }
+	local function mm(ns) local a, b = math.huge, -math.huge; for _, k in ns.Keypoints do a = math.min(a, k.Value); b = math.max(b, k.Value) end; return a, b end
+	local function br(x) local b0 = x:GetAttribute("br0"); return b0 and ("%.3g x%.2f"):format(b0, x.Brightness / b0) or ("%.3g"):format(x.Brightness) end
+	local function id(tex) return tostring(tex):match("%d+") or "?" end
+	for _, e in self.emitters do
+		local holder = e.Parent and e.Parent.Parent
+		local _, size = mm(e.Size); local trMin = mm(e.Transparency)
+		table.insert(rows, ("| %s | %s | %s (%s) | %g | %s | %.2f | %.2f-%.2f | %.2f | %.2f | %s |"):format(holder and holder.Name or "?", e:GetAttribute("role") or "", id(e.Texture),
+			e:GetAttribute("tag") or K.TagOf(e.Texture), e.LightEmission, br(e), size, e.Lifetime.Min, e.Lifetime.Max, trMin, e.ZOffset, e:GetAttribute("why") or ""))
+	end
+	local groups, order = {}, {}
+	for _, b in self.beams do
+		if b:IsA("Beam") then
+			local f = b:FindFirstAncestorOfClass("Folder")
+			local key = (f and f.Name or "?") .. "/" .. b.Name
+			if not groups[key] then groups[key] = { b = b, n = 0 }; table.insert(order, key) end
+			groups[key].n += 1
+		end
+	end
+	for _, key in order do
+		local g = groups[key]; local b = g.b
+		local trMin = mm(b.Transparency)
+		local w0, w1 = b:GetAttribute("w0"), b:GetAttribute("w1")
+		table.insert(rows, ("| %s x%d | %s | %s (%s) | %g | %s | w %.2f>%.2f | %s | %s | %.2f | %s |"):format(key, g.n, b:GetAttribute("role") or "beam", id(b.Texture), b:GetAttribute("tag") or K.TagOf(b.Texture),
+			b.LightEmission, br(b), b.Width0, b.Width1, w0 and ("%.2f-%.2f"):format(w0, w1) or "-", trMin < 1 and ("%.2f"):format(trMin) or "(animated)", b.ZOffset, b:GetAttribute("why") or ""))
+	end
+	for _, L in self.meshes do
+		table.insert(rows, ("| %s | mesh | %s (%s) | - | decal %.1f | r %.2f | %.2f-%.2f | %.2f | - | %s |"):format(L.p.Name, tostring(L.M.tex[1]), K.TagOf(L.M.tex[1]), math.max(L.col.R, L.col.G, L.col.B), L.r, L.on, L.off, L.tr0, L.why or ""))
+	end
+	if self.gainInfo then table.insert(rows, ("\ngain %.2f (%s; peak %d additive layers, light %.1f at %s)"):format(self.gainInfo.g, self.gainInfo.auto and "auto" or "set", self.gainInfo.N, self.gainInfo.S, self.gainInfo.at)) end
+	return table.concat(rows, "\n")
 end
 
 ---------------------------------------------------------------- impact frame + dark beat
@@ -1168,7 +1604,8 @@ function FX:Build()
 	for _, e in self.events do last = math.max(last, e.t) end
 	self.duration = math.max(self.duration, last + 2.2)
 	self:Update(0)
-	return ("%s built: %d emitters, %d events, %.2f s"):format(self.name, #self.emitters, #self.events, self.duration)
+	self:_applyGain()
+	return ("%s built: %d emitters, %d beams, %d events, %.2f s, gain %.2f (peak %d additive, light %.1f)"):format(self.name, #self.emitters, #self.beams, #self.events, self.duration, self.gainInfo.g, self.gainInfo.N, self.gainInfo.S)
 end
 function FX:_halt()
 	if self.conn then self.conn:Disconnect(); self.conn = nil end
@@ -1317,6 +1754,7 @@ function FX:Lint()
 	local out = {}
 	local function warn(m) table.insert(out, "WARN " .. m) end
 	local maxBr, sparkle, darkBig = 0, {}, 0
+	local noWhy, linger, impact = 0, false, self.impact ~= nil
 	local mh = hue(self.pal.main)
 	for _, e in self.emitters do
 		local role = e:GetAttribute("role")
@@ -1339,6 +1777,13 @@ function FX:Lint()
 		if role == "flash" and e.Brightness > 20 then warn(where .. ": flash Brightness > 20 outshines the hero shape") end
 		if e.Orientation == VPAR and size > 1 and e.Squash.Keypoints[1].Value < 2 then warn(where .. ": wide VelocityParallel sprite = pale planks; Size <= 0.8, Squash 3") end
 		if role == "rock" and (size > 1.5 or e:GetAttribute("n") > 8) then warn(where .. ": rocks 0.3-1.4 studs, <= 8 per size (big dark blobs)") end
+		if (e:GetAttribute("why") or "") == "" then noWhy += 1 end
+		if role == "linger" then linger = true end
+		if role == "flash" or role == "ring" or role == "hotcrack" or role == "pop" then impact = true end
+		local tag = e:GetAttribute("tag") or K.TagOf(e.Texture)
+		if tag:sub(1, 5) == "baked" then
+			for _, k in e.Color.Keypoints do local _, s2 = k.Value:ToHSV(); if s2 > 0.15 then warn(where .. ": texture is " .. tag .. " but Color is tinted: Color only multiplies baked colour (muddy). Leave it white (K.Tint) or use a mask texture"); break end end
+		end
 		if (role == "core" or role == "highlight" or role == "fan") then
 			for _, k in e.Color.Keypoints do
 				local h, s, v = hue(k.Value)
@@ -1349,7 +1794,22 @@ function FX:Lint()
 			if role == "core" and (size >= 14 or e.Lifetime.Max >= 0.25) and minTr == 0 and e.Transparency.Keypoints[#e.Transparency.Keypoints].Value < 1 and e.RotSpeed.Max == 0 then warn(where .. ": big / long stroke without an early fade: tail detaches in live play") end
 		end
 	end
+	for _, b in self.beams do
+		if b:IsA("Beam") then
+			if b.LightInfluence > 0 then warn(b:GetFullName() .. ": beam LightInfluence > 0 (matte, dark at night)") end
+			if (b:GetAttribute("why") or "") == "" then noWhy += 1 end
+			maxBr = math.max(maxBr, b.Brightness)
+		end
+	end
 	if maxBr < 40 then warn("no layer above Brightness 40: timid (accents 40-60)") end
+	if noWhy > 0 then warn(("%d layers have no `why`: give every layer you make a reason (props.why = \"<reads because>; keep: ...; free: ...\")"):format(noWhy)) end
+	if impact and not linger then warn("an impact without an aftermath group: add fx:Aftermath{ t = hit + 0.15, p = ... } (faint, low, radial, 1-2 s)") end
+	local gi = self.gainInfo
+	if gi and (gi.N > 6 or gi.S > (self.budget or 2)) and gi.g >= 1 then warn(("%d additive layers (light %.1f) overlap at %s with gain 1: white-blob risk (leave fx.gain = \"auto\" or set it < 1)"):format(gi.N, gi.S, gi.at)) end
+	for _, c in self.curtains do
+		if c.ring and c.n < 6 then warn(c.name .. ": a ring curtain with fewer than 6 panels shows a polygon with bright overlap corners from above (6-8)") end
+		if not c.ring and c.rows < 2 then warn(c.name .. ": one row of panels = a stick from the end and a slab from above; rows = 2+ (and keep the foot glow)") end
+	end
 	for _, d in self.root:GetDescendants() do
 		if d:IsA("PointLight") or d:IsA("SpotLight") or d:IsA("SurfaceLight") then
 			if d.Range > 16 then warn(d:GetFullName() .. ": light Range > 16 is not local") end
@@ -1359,6 +1819,7 @@ function FX:Lint()
 	local ts = {}
 	for _, e in self.events do table.insert(ts, e.t) end
 	for _, L in self.meshes do for i = 0, 4 do table.insert(ts, lerp(L.on, L.hold, i / 4)) end end -- mesh layers move every frame from on to hold
+	for _, c in self.curtains do for x = c.t0, c.t1, 0.1 do table.insert(ts, x) end end -- curtains scroll and move all through their life
 	table.sort(ts)
 	for i = 2, #ts do
 		if ts[i] - ts[i - 1] > 0.2 and ts[i - 1] < ts[#ts] - 1.0 then warn(("dead time: nothing is emitted from %.2f to %.2f s"):format(ts[i - 1], ts[i])) end
@@ -1421,7 +1882,8 @@ function FX:Lint()
 	end
 	if #self.shakes == 0 then warn("no camera shake declared (light hit 0.15 / 0.1 s, heavy 0.6 / 0.35 s)") end
 	if not self.impact then warn("no ImpactFrame on the payoff") end
-	table.insert(out, 1, ("LINT %s: %d emitters, %d events, max Brightness %d, %d warnings"):format(self.name, #self.emitters, #self.events, maxBr, #out))
+	table.insert(out, 1, ("LINT %s: %d emitters, %d beams, %d events, max Brightness %d, gain %s, %d warnings"):format(self.name, #self.emitters, #self.beams, #self.events, maxBr,
+		gi and ("%.2f (peak %d additive, light %.1f at %s)"):format(gi.g, gi.N, gi.S, gi.at) or "not built", #out))
 	return table.concat(out, "\n")
 end
 
