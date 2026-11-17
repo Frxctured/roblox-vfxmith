@@ -1,6 +1,6 @@
 ---
 name: vfx-make
-description: The classic vfxmith build loop (vfx-direct is the default for new effects in this beta) - build a Roblox VFX effect end to end from a description ("a cool light beam with an explosion", "ice slam", "purple aura") or a reference video - with library references, a data-driven spec, capture in Roblox Studio, comparison and blind review, iterated to a score bar. Use for "make a VFX", "make it look like this", "improve this effect", any new or reworked effect.
+description: The classic vfxmith build loop (vfx-direct is the default for new effects in this beta) - build a Roblox VFX effect end to end from a description ("a cool light beam with an explosion", "ice slam", "purple aura") or a reference video - with library references, a data-driven spec, capture in Roblox Studio, comparison and blind review, iterated to a score bar. Use only when the user asks for the classic loop ("/vfx classic", "use the classic loop") or wants a recreation of a reference video ("make it look like this video"); plain new-effect requests go to vfx-direct.
 ---
 
 # Make a Roblox effect (classic loop)
