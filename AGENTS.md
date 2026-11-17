@@ -4,13 +4,19 @@ You are in **vfxmith**: everything needed to make Roblox visual effects the way 
 learned from ~1,900 catalogued open-source effects (~1,200 read layer by layer, 75 played frame by frame). Works with any AI coding agent (as a Claude Code plugin it adds the
 skills in `skills/`; as a plain folder, follow this file). All paths below are relative to this folder.
 
+**Making an effect?** Go straight to `skills/vfx-direct/SKILL.md` (the directed loop: a builder with tested blocks and
+a 5-camera self-check, a director with one ranked fix list per round) and follow it. The classic loop is
+`skills/vfx-make/SKILL.md` (it says what to read, in one batch: `kit/scripts/builder_pack.py`). Don't open the docs below one by one first: every turn re-reads everything loaded.
+
 ## What is here
 | Folder | Use it for |
 |---|---|
 | `knowledge/design-brief.md` | the short questionnaire to ask the user first (length, peak moment, purpose, style...; skip what the request answers) and the brief that sets size and timing before any recipe |
-| `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number; section 15: what the blind tests taught). Read first. |
+| `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number; section 15: what the blind tests taught). Condensed for builders in `knowledge/builder-notes.md`. |
 | `knowledge/categories/<type>.md` | one deep study per effect type: explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy/light/character). Anatomy with typical values, timing table, techniques, mistakes. |
 | `knowledge/categories/<type>_recipe.luau` | a working starting effect per type (layer list for `kit/runtime/VFXTimeline.luau`); how each one plays: `gallery/recipes/<type>_recipe.jpg` |
+| `knowledge/pro-guide.md`, `checklist.md`, `selfcheck.md`, `vfxkit.md`, `short-guide.md` | the directed loop's reading: how professional effects are built (with values), the 28 yes/no checks before showing a version, the every-round self-check (5 cameras, dense stills, works on every OS), the VFXKit guide, the one-page guide |
+| `kit/studio/VFXKit.luau` | tested building blocks (stroke with ink rim, mesh slash fitted to the swing, impact frame, bolt, rings, ground marks, debris, smoke, flash, charge, one freeze-safe clock, shake, R15 poses, stage + 5 review cameras, `Lint()`); demo in `VFXKitDemo.luau`; load with `kit/scripts/kit_push.py` |
 | `knowledge/texture-vocab.md` | texture asset ids by role (glows, stars, rings, crescents, smoke, fire, lightning...) that load in any game |
 | `knowledge/spec-format.md` | how to write an effect as data |
 | `library/` | ~1,200 real effects: one card each with exact layer values (`library/cards/<type>/<id>.md`); search with `kit/scripts/find_effects.py` |
@@ -22,10 +28,15 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
 ## What the user wants -> what to do
 1. **"Make a ... effect"** (from a description, e.g. "a cool light beam with an explosion", "an ice slam"): first
    the short questionnaire and brief (`knowledge/design-brief.md`: ask only what the request leaves open), then
-   `skills/vfx-make/SKILL.md`: read `knowledge/builder-notes.md`, let the librarian (`agents/vfx-librarian.md`, a
-   fast model) pull references from the library, start from `<type>_recipe.luau` (merge two for a combined effect),
-   let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review, fix. Look at contact sheets, not
-   single frames: every image you load is re-read on every later turn.
+   `skills/vfx-direct/SKILL.md`: a builder agent (`agents/vfx-builder.md`) builds with `kit/studio/VFXKit.luau` and
+   checks itself, a director agent (`agents/vfx-director.md`) watches and sends one ranked fix list, at most three
+   rounds, then the user's opinion (`skills/vfx-feedback/SKILL.md`). Classic alternative,
+   `skills/vfx-make/SKILL.md`: let the librarian (`agents/vfx-librarian.md`, a fast model) pick references, run
+   `kit/scripts/builder_pack.py` and read the pack in ONE message (the rules, the category study, its recipe, the best
+   cards) as a guide, design the effect, build it on the recipe's scaffold (library assets are options; build hero
+   shapes yourself when none fits closely), let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review,
+   fix, finish with `kit/scripts/export_effect.py`. Look at contact sheets, not single frames, and put independent
+   calls in one message: every turn re-reads everything loaded so far. Don't read the other docs one by one first.
 2. **"Make it look like this video"**: `skills/vfx-make/SKILL.md` (reference breakdown first).
 3. **"Find me examples of ..."**: `skills/vfx-find/SKILL.md`.
 4. **"Review / improve this effect"**: `skills/vfx-review/SKILL.md` (blind 3-reviewer panel).
@@ -35,6 +46,8 @@ skills in `skills/`; as a plain folder, follow this file). All paths below are r
    the numbers you find and say where they came from.
 
 ## Rules
+- **Caster space, always.** Build every plane, path and landing spot in the caster's look / right / up vectors.
+  Never turn, move, lengthen or brighten anything toward a camera; check from above and from the front.
 - **Never build from nothing.** Every effect starts from library references and the category note.
 - **Look at your result, in daylight too.** An effect is not done until you have captured it in Studio and compared
   it with the references (`kit/studio/VFXCapture.luau`: `C.hold(name, t)` + a screenshot works on every OS). Capture

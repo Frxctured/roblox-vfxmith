@@ -13,6 +13,8 @@
 --   return C.stills("VoidRend", { times = {0.03, 0.1, ...}, hold = 2.5, gap = 0.3, lead = 8, seed = 7 })
 --     -> start epoch ms + marker pixels; then run kit/scripts/stills.py with the SAME times/hold/gap and those values
 --   C.hold("VoidRend", 0.3)                           -- ANY OS: freeze at t, then MCP screen_capture (see hold())
+--   C.update("devkit", "VoidRend", { length = 4, frame = 3.2, stage = "day", camera = {...} }) -- reload + check +
+--                                                     -- one framing frame, in ONE call per version
 --   C.plan("VoidRend", { times = {...}, stage = "day" }) then `return C.next()` + screen_capture until "done"
 --                                                     -- the cheap loop the vfx-capturer helper agent runs
 --   C.clear()                                         -- remove the stage, restore the camera
@@ -81,6 +83,26 @@ end
 --   to use Roblox's default daylight while the stage is up (restored by clearStage/clear).
 -- "place": no stage; the effect plays on the user's own map at `o.at` (Vector3), or on the ground under the camera's
 --   focus: what players will see. "none" = the same without moving the origin.
+-- Any stage: o.figure = true (or a Vector3 offset from the effect origin) adds a plain grey block figure, 5.2 studs
+--   tall (H, one character), facing the camera: the scale and contrast check. Sizes read as multiples of H, and a
+--   pale figure shows at once when an effect washes the character out. Put it where the caster or the target stands.
+local function figure(o)
+	if not o.figure then return "" end
+	local at = (S.origin or VFXCapture.Origin) + (if typeof(o.figure) == "Vector3" then o.figure else Vector3.zero)
+	local folder = Instance.new("Folder")
+	folder.Name = "VFXStageFigure"
+	local grey = Color3.fromRGB(163, 162, 165)
+	local function limb(sx, sy, sz, x, y)
+		block(folder, Vector3.new(sx, sy, sz), CFrame.new(at + Vector3.new(x, y, 0)), grey)
+	end
+	limb(1, 2, 1, -0.5, 1) limb(1, 2, 1, 0.5, 1) -- legs
+	limb(2, 2, 1, 0, 3) -- torso
+	limb(1, 2, 1, -1.5, 3) limb(1, 2, 1, 1.5, 3) -- arms
+	limb(1.2, 1.2, 1.2, 0, 4.6) -- head
+	folder.Parent = Workspace
+	return ", figure (H = 5.2 studs) at " .. tostring(at)
+end
+
 local DEFAULT_LIGHTING = { Brightness = 3, ClockTime = 14.5, Ambient = Color3.fromRGB(70, 70, 70),
 	OutdoorAmbient = Color3.fromRGB(70, 70, 70), ExposureCompensation = 0, EnvironmentDiffuseScale = 1,
 	EnvironmentSpecularScale = 1 }
@@ -89,7 +111,7 @@ function VFXCapture.stage(kind, o)
 	o = o or {}
 	VFXCapture.clearStage()
 	S.kind = kind
-	if kind == "none" then return "no stage" end
+	if kind == "none" then return "no stage" .. figure(o) end
 	if kind == "place" then
 		local at = o.at
 		if not at then
@@ -98,7 +120,7 @@ function VFXCapture.stage(kind, o)
 			at = if hit then hit.Position else focus
 		end
 		S.origin = at
-		return "place: effect origin " .. tostring(at)
+		return "place: effect origin " .. tostring(at) .. figure(o)
 	end
 	local folder = Instance.new("Folder")
 	folder.Name = "VFXStage"
@@ -138,7 +160,7 @@ function VFXCapture.stage(kind, o)
 		S.origin = origin
 	end
 	folder.Parent = Workspace
-	return "stage " .. kind .. " at " .. tostring(S.origin)
+	return "stage " .. kind .. " at " .. tostring(S.origin) .. figure(o)
 end
 
 -- Authoring check of a spec (see VFXTimeline.check): returns the report text. opts.length = the brief's length (s).
@@ -398,9 +420,45 @@ function VFXCapture.next()
 	return string.format("t=%.2f (%d/%d)", t, p.i, #p.times)
 end
 
+-- One call per version (after the first install): reloads every module in <content>/vfxlib/<file>.rbxmx (the kit
+-- modules into VFXDev, specs into VFXDev.Effects), checks the spec and, with o.frame, sets the stage and camera and
+-- freezes the effect at that time for ONE framing screenshot (send MCP screen_capture in the same message):
+--   return require(game.ServerStorage.VFXDev.VFXCapture:Clone()).update("devkit", "IceSlam",
+--       { length = 1.5, frame = 0.3, stage = "day", camera = { dist = 32, height = 10, lookUp = 2 } })
+-- Write the rbxmx first with `kit/scripts/rbx_assets.py local <spec>.luau --name devkit` (only the spec is enough).
+function VFXCapture.update(file, specName, o)
+	o = o or {}
+	local SS = game:GetService("ServerStorage")
+	local d = SS:FindFirstChild("VFXDev") or Instance.new("Folder")
+	d.Name = "VFXDev"; d.Parent = SS
+	local fx = d:FindFirstChild("Effects") or Instance.new("Folder")
+	fx.Name = "Effects"; fx.Parent = d
+	local assets = d:FindFirstChild("Assets") or Instance.new("Folder")
+	assets.Name = "Assets"; assets.Parent = d
+	local loaded = {}
+	for _, m in ipairs(game:GetObjects("rbxasset://vfxlib/" .. file .. ".rbxmx")[1]:GetChildren()) do
+		local parent = (m.Name == "VFXTimeline" or m.Name == "VFXCapture" or m.Name == "VFXLibPlayer") and d or fx
+		local old = parent:FindFirstChild(m.Name); if old then old:Destroy() end
+		m.Parent = parent
+		table.insert(loaded, m.Name)
+	end
+	local out = { "loaded " .. table.concat(loaded, ", ") }
+	if specName then
+		table.insert(out, VFXCapture.check(specName, { length = o.length }))
+		if o.frame then
+			if o.stage ~= false then VFXCapture.stage(o.stage or "day", o.stageOpts) end
+			if o.camera then VFXCapture.camera(o.camera) end
+			table.insert(out, VFXCapture.hold(specName, o.frame, o.holdOpts))
+		end
+	end
+	return table.concat(out, "\n")
+end
+
 function VFXCapture.clearStage()
-	local old = Workspace:FindFirstChild("VFXStage")
-	if old then old:Destroy() end
+	for _, name in ipairs({ "VFXStage", "VFXStageFigure" }) do
+		local old = Workspace:FindFirstChild(name)
+		if old then old:Destroy() end
+	end
 	if S.savedLighting then
 		local Lighting = game:GetService("Lighting")
 		for prop, v in pairs(S.savedLighting) do Lighting[prop] = v end

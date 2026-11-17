@@ -533,6 +533,18 @@ local function setSpeed(fx, speed)
 			st.inst.TextureSpeed = st.texSpeed * speed
 		end
 	end
+	-- emitters and beams a custom layer made itself (anywhere under the effect's folder) freeze and resume too
+	local folder = fx.ctx.folder
+	if folder and folder.Parent then
+		for _, d in ipairs(folder:GetDescendants()) do
+			if d:IsA("ParticleEmitter") then
+				d.TimeScale = math.clamp((d:GetAttribute("VFXBaseTimeScale") or 1) * speed, 0, 1)
+			elseif d:IsA("Beam") then
+				if d:GetAttribute("VFXBaseTexSpeed") == nil then d:SetAttribute("VFXBaseTexSpeed", d.TextureSpeed) end
+				d.TextureSpeed = d:GetAttribute("VFXBaseTexSpeed") * speed
+			end
+		end
+	end
 end
 
 local function stepEffect(fx, dt)
@@ -647,6 +659,7 @@ function VFXTimeline.play(spec, origin, opts)
 		onDone = opts.onDone,
 		warned = {},
 		folder = folder,
+		Crystal = VFXTimeline.Crystal, -- faceted crystals/shards for custom layers (see Crystal below)
 	}
 	ctx.holder = newAnchor(ctx)
 	ctx.holder.Name = "Holder"
@@ -668,7 +681,8 @@ function VFXTimeline.play(spec, origin, opts)
 	}
 end
 
--- Preloads every texture/mesh id a spec uses (call once before the first play).
+-- Preloads every texture/mesh id a spec uses and runs each custom layer's `preload(L, VFXTimeline)` (e.g. building
+-- Crystal meshes). Call once before the first play; it yields while custom preloads run.
 function VFXTimeline.preload(spec)
 	local ids, seen = {}, {}
 	local function add(v)
@@ -686,6 +700,12 @@ function VFXTimeline.preload(spec)
 		if L.props and L.props.Texture then add(spec.textures and spec.textures[L.props.Texture] or L.props.Texture) end
 	end
 	task.spawn(function() pcall(ContentProvider.PreloadAsync, ContentProvider, ids) end)
+	for _, L in ipairs(spec.layers) do
+		if L.kind == "custom" and type(L.preload) == "function" then
+			local ok, err = pcall(L.preload, L, VFXTimeline)
+			if not ok then warn("[VFXTimeline] preload of " .. tostring(L.id) .. " failed: " .. tostring(err)) end
+		end
+	end
 end
 
 -- Total length of a spec in seconds (latest layer end), for capture tools.
@@ -715,7 +735,8 @@ end
 -- peak active layers, the widest particle in studs (a particle's width is 2 x Size), the time the last particle dies
 -- (the visible end), and every texture id with the layers and LightEmission that use it (check those ids with
 -- kit/scripts/texture_traits.py).
--- Also WARNs on a big near-white sprite (a white flash over ~8 studs across reads as a flat white ball in daylight) and,
+-- Also WARNs on a big near-white camera-facing sprite (a ROUND white flash over ~8 studs across reads as a flat white
+-- ball in daylight; starbursts, rays and flat ground layers are fine) and,
 -- with opts.length (the brief's total length in s), on an effect visible much longer or shorter than asked.
 local COMMON_KEYS = { id = true, kind = true, t = true, life = true, at = true, rot = true, props = true, tracks = true,
 	copies = true, enabled = true, data = true }
@@ -726,7 +747,7 @@ local KIND_KEYS = {
 	emitter = { box = true, emit = true },
 	light = { class = true },
 	grade = {},
-	custom = { start = true, update = true, stop = true },
+	custom = { start = true, update = true, stop = true, preload = true },
 }
 local KIND_TRACKS = {
 	part = { Scale = true, Offset = true, Rot = true, Color = true, Transparency = true, DecalColor = true,
@@ -957,10 +978,13 @@ function VFXTimeline.check(spec, opts)
 			local ok, c = pcall(color, c0 or "#FFFFFF", ctx)
 			white = ok and (0.299 * c.R + 0.587 * c.G + 0.114 * c.B) > 0.9 -- near white (pale yellow flames do not count)
 		end
-		if kind == "emitter" and not streak and props.Brightness ~= 0 then
-			-- a big near-white sprite: the white-ball flash all three reviewers flagged in blind test 3. Size, colour
-			-- and transparency are sampled together over the first half of the life, so a ring that is white only
-			-- while it is still tiny does not count.
+		local flat = props.Orientation == "VelocityPerpendicular" -- ground marks and flat rings: not a ball
+		if kind == "emitter" and not streak and not flat and props.Brightness ~= 0 then
+			-- a big ROUND near-white sprite: the white-ball flash all three reviewers flagged in blind test 3. Size,
+			-- colour and transparency are sampled together over the first half of the life, so a ring that is white
+			-- only while it is still tiny does not count. The fault is the round soft shape, not the size: in test 5
+			-- a 32-stud white starburst + thin Neon lines won, and a builder that shrank its flash under this warning
+			-- ended with "a roundish white blob".
 			local worst = 0
 			for k = 0, 10 do
 				local u = k / 20
@@ -970,9 +994,10 @@ function VFXTimeline.check(spec, opts)
 				end
 			end
 			if worst > 8 then
-				add("WARN", where, string.format("near-white sprite up to %.1f studs across: in daylight a white flash "
-					.. "this big reads as a flat white ball; keep the pure-white core 3-6 studs (about 0.1 s) and give "
-					.. "the SIZE to a bright coloured bloom around it, as wide as the payoff (patterns.md 15.10, 15.14)", worst))
+				add("WARN", where, string.format("near-white sprite up to %.1f studs across: if its texture is a ROUND soft "
+					.. "blob it reads as a flat white ball in daylight; carry the size with a starburst (thin rays), thin "
+					.. "Neon lines or a hard neon shell for 0.1-0.15 s, or a bright coloured bloom. A star, rays or a ring "
+					.. "texture is fine: ignore this then (builder-notes rule 8)", worst))
 			end
 		end
 		for i = 1, copies.n or 1 do
@@ -1081,5 +1106,289 @@ function VFXTimeline.check(spec, opts)
 	table.insert(lines, "textures: " .. table.concat(ids, "; "))
 	return table.concat(lines, "\n"), problems, stats
 end
+
+--------------------------------------------------------------------------------------------------------------------
+-- Crystal: faceted solids built in code (rock or earth spikes, debris, crystals, gems, ice, glass or metal shards,
+-- lava rock), for custom layers.
+-- Every facet gets its own colour: a height gradient (deep at the base -> mid -> body -> tip) with alternating
+-- lighter and darker facets, so the shape reads as sharp crystal in daylight (the look that won blind test 5).
+-- Two backends, picked automatically:
+--   "mesh":  EditableMesh MeshParts with vertex colours (smooth gradient, the best look). Works in Studio; in a live
+--            game only with Experience Settings > Security > "Allow Mesh / Image APIs" on and client memory budget
+--            left. When creation fails (nil or error) the wedge backend is used instead, never an error.
+--   "wedge": each facet drawn from two thin WedgeParts with its own Color: works in every game, no setting, no upload.
+-- Use, in a custom layer:
+--   preload = function(L, VFX) VFX.Crystal.prepare({ palette = P }) end,   -- once; yields (VFXTimeline.preload runs it)
+--   start = function(ctx, L) local c = ctx.Crystal.new("spike", { seed = 3, palette = P, parent = ctx.folder }) ... end
+--   c:set(baseCFrame, Vector3.new(width, height, depth))  -- base on the ground, grows along the CFrame's UpVector
+--   c:hot(0..1)        -- white-hot (Neon) for a flash or the moment before a shatter
+--   c:fade(0..1)       -- transparency
+--   c:destroy()
+-- Kinds: "spike" (base ring, shoulder ring, tip), "shard" (an irregular bipyramid for the pieces of a shatter).
+-- opts: seed, palette { deep, mid, body, tip } (Color3; defaults: ice), sides (5-6 spike, 4-5 shard), parent,
+-- backend ("auto" | "mesh" | "wedge"). Budget: a wedge spike is 2 parts per facet (5 sides = 30 parts); keep about
+-- 30 spikes or fewer at once, or pass `simple = true` (a 4-sided pyramid, 8 parts).
+local Crystal = {}
+do
+	local AssetService = game:GetService("AssetService")
+	local ICE = {
+		deep = Color3.fromRGB(22, 64, 160), mid = Color3.fromRGB(60, 150, 240),
+		body = Color3.fromRGB(140, 225, 255), tip = Color3.fromRGB(240, 252, 255),
+	}
+	local TONES = { 0.34, -0.14, 0.16, -0.3, 0.06, -0.08 }
+	local VARIANTS = { spike = 6, shard = 5 }
+	local THICK = 0.04
+	local templates = {} -- [paletteKey] = { spike = {MeshPart...}, shard = {...} } or false (mesh backend unavailable)
+	local function clamp01(x) return if x < 0 then 0 elseif x > 1 then 1 else x end
+
+	local function pal(p)
+		p = p or ICE
+		return { deep = p.deep or ICE.deep, mid = p.mid or p.deep:Lerp(p.body or ICE.body, 0.45),
+			body = p.body or ICE.body, tip = p.tip or ICE.tip }
+	end
+	local function palKey(p)
+		return string.format("%s|%s|%s|%s", tostring(p.deep), tostring(p.mid), tostring(p.body), tostring(p.tip))
+	end
+	-- y in [-0.5, 0.5]: deep at the base, mid, body, tip at the top
+	local function heightColour(p, y)
+		if y < -0.25 then return p.deep:Lerp(p.mid, clamp01((y + 0.5) / 0.25))
+		elseif y < 0.1 then return p.mid:Lerp(p.body, clamp01((y + 0.25) / 0.35))
+		else return p.body:Lerp(p.tip, clamp01((y - 0.1) / 0.4)) end
+	end
+	local function toned(p, c, tone)
+		if tone > 0 then return c:Lerp(p.tip, tone) elseif tone < 0 then return c:Lerp(p.deep, -tone) end
+		return c
+	end
+
+	-- Geometry in a unit box (x, z in [-0.5, 0.5], y from -0.5 at the base to 0.5 at the tip). tris: {a, b, c, tone, out}
+	local function spikeGeo(seed, sides, simple)
+		local r = Random.new(seed)
+		local v, t = {}, {}
+		if simple then
+			sides = 4
+			for i = 0, 3 do
+				local a = (i + r:NextNumber(-0.12, 0.12)) / 4 * 2 * math.pi
+				v[#v + 1] = Vector3.new(math.cos(a) * 0.5, -0.5, math.sin(a) * 0.5)
+			end
+			v[5] = Vector3.new(r:NextNumber(-0.05, 0.05), 0.5, r:NextNumber(-0.05, 0.05))
+			for i = 1, 4 do t[#t + 1] = { i, i % 4 + 1, 5, TONES[i] } end
+			return v, t
+		end
+		local shY, shR = r:NextNumber(-0.05, 0.12), r:NextNumber(0.6, 0.75)
+		for i = 0, sides - 1 do
+			local a = (i + r:NextNumber(-0.18, 0.18)) / sides * 2 * math.pi
+			local rb = 0.5 * r:NextNumber(0.82, 1)
+			v[#v + 1] = Vector3.new(math.cos(a) * rb, -0.5, math.sin(a) * rb)
+		end
+		for i = 1, sides do
+			local b, rs = v[i], shR * r:NextNumber(0.88, 1.06)
+			v[#v + 1] = Vector3.new(b.X * rs, shY + r:NextNumber(-0.07, 0.07), b.Z * rs)
+		end
+		v[#v + 1] = Vector3.new(r:NextNumber(-0.05, 0.05), 0.5, r:NextNumber(-0.05, 0.05))
+		local tip = #v
+		for i = 1, sides do
+			local j = i % sides + 1
+			local tone = TONES[(i - 1) % #TONES + 1]
+			t[#t + 1] = { i, j, sides + j, tone }
+			t[#t + 1] = { i, sides + j, sides + i, tone }
+			t[#t + 1] = { sides + i, sides + j, tip, math.min(0.6, tone + 0.2) }
+		end
+		return v, t
+	end
+	local function shardGeo(seed, sides)
+		local r = Random.new(seed)
+		local v, t = {}, {}
+		local midY = r:NextNumber(-0.25, 0.05)
+		for i = 0, sides - 1 do
+			local a = (i + r:NextNumber(-0.2, 0.2)) / sides * 2 * math.pi
+			local rr = 0.5 * r:NextNumber(0.7, 1)
+			v[#v + 1] = Vector3.new(math.cos(a) * rr, midY + r:NextNumber(-0.08, 0.08), math.sin(a) * rr)
+		end
+		v[#v + 1] = Vector3.new(r:NextNumber(-0.1, 0.1), 0.5, r:NextNumber(-0.1, 0.1))
+		v[#v + 1] = Vector3.new(r:NextNumber(-0.1, 0.1), -0.5, r:NextNumber(-0.1, 0.1))
+		local top, bot = sides + 1, sides + 2
+		for i = 1, sides do
+			local j = i % sides + 1
+			local tone = TONES[(i - 1) % #TONES + 1]
+			t[#t + 1] = { i, j, top, tone + 0.1, true }
+			t[#t + 1] = { j, i, bot, -tone * 0.3, true }
+		end
+		return v, t
+	end
+	local function geometry(kind, seed, sides, simple)
+		if kind == "shard" then return shardGeo(seed, sides or ((seed % 2 == 0) and 4 or 5)) end
+		return spikeGeo(seed, sides or ((seed % 2 == 0) and 6 or 5), simple)
+	end
+	-- normalise into the unit box (so Size maps 1:1) and orient every triangle outward
+	local function normalise(v, t)
+		local mn, mx = Vector3.one * math.huge, -Vector3.one * math.huge
+		for _, p in ipairs(v) do mn = mn:Min(p); mx = mx:Max(p) end
+		local size, centre = mx - mn, (mx + mn) / 2
+		local n = {}
+		for i, p in ipairs(v) do n[i] = (p - centre) / size end
+		for _, tri in ipairs(t) do
+			local a, b, c = n[tri[1]], n[tri[2]], n[tri[3]]
+			local centroid = (a + b + c) / 3
+			local axis = if tri[5] then Vector3.zero else Vector3.new(0, centroid.Y, 0)
+			if (b - a):Cross(c - a):Dot(centroid - axis) < 0 then tri[2], tri[3] = tri[3], tri[2] end
+		end
+		return n, t
+	end
+
+	local function buildMesh(kind, seed, p)
+		local v, t = normalise(geometry(kind, seed))
+		local em = AssetService:CreateEditableMesh()
+		if not em then return nil end
+		local ids = {}
+		for i, q in ipairs(v) do ids[i] = em:AddVertex(q) end
+		for _, tri in ipairs(t) do
+			local a, b, c = v[tri[1]], v[tri[2]], v[tri[3]]
+			local f = em:AddTriangle(ids[tri[1]], ids[tri[2]], ids[tri[3]])
+			local nid = em:AddNormal((b - a):Cross(c - a).Unit)
+			em:SetFaceNormals(f, { nid, nid, nid })
+			local cols = {}
+			for k = 1, 3 do
+				local y = v[tri[k]].Y
+				if kind == "shard" then y = y * 0.55 + 0.2 end
+				cols[k] = em:AddColor(toned(p, heightColour(p, y), tri[4]), 1)
+			end
+			em:SetFaceColors(f, cols)
+		end
+		local mp = AssetService:CreateMeshPartAsync(Content.fromObject(em), { CollisionFidelity = Enum.CollisionFidelity.Box })
+		mp.Anchored, mp.CanCollide, mp.CanQuery, mp.CanTouch, mp.CastShadow = true, false, false, false, false
+		mp.Color, mp.Material = Color3.new(1, 1, 1), Enum.Material.SmoothPlastic
+		return mp
+	end
+
+	-- Builds the mesh templates for a palette once (yields). Returns "mesh" or "wedge" (the backend new() will use).
+	function Crystal.prepare(opts)
+		opts = opts or {}
+		local p = pal(opts.palette)
+		local key = palKey(p)
+		if templates[key] ~= nil then return templates[key] and "mesh" or "wedge" end
+		local ok, res = pcall(function()
+			local set = {}
+			for kind, n in pairs(VARIANTS) do
+				set[kind] = {}
+				for k = 1, n do
+					local mp = buildMesh(kind, (kind == "shard" and 200 or 100) + k, p)
+					if not mp then error("no mesh budget") end
+					set[kind][k] = mp
+				end
+			end
+			return set
+		end)
+		templates[key] = ok and res or false
+		return ok and "mesh" or "wedge"
+	end
+	function Crystal.backend(palette)
+		local v = templates[palKey(pal(palette))]
+		return if v then "mesh" elseif v == false then "wedge" else "unprepared"
+	end
+
+	-- one triangle from two wedges (both halves of the triangle split at the foot of its height)
+	local function drawTri(w1, w2, a, b, c)
+		local ab, ac, bc = b - a, c - a, c - b
+		local abd, acd, bcd = ab:Dot(ab), ac:Dot(ac), bc:Dot(bc)
+		if abd > acd and abd > bcd then c, a = a, c
+		elseif acd > bcd and acd > abd then a, b = b, a end
+		ab, ac, bc = b - a, c - a, c - b
+		local right = ac:Cross(ab)
+		if right.Magnitude < 1e-5 or bc.Magnitude < 1e-4 then return false end
+		right = right.Unit
+		local up = bc:Cross(right).Unit
+		local back = bc.Unit
+		local h = math.abs(ab:Dot(up))
+		if h < 1e-3 then return false end
+		w1.Size = Vector3.new(THICK, h, math.max(0.001, math.abs(ab:Dot(back))))
+		w1.CFrame = CFrame.fromMatrix((a + b) / 2, right, up, back)
+		w2.Size = Vector3.new(THICK, h, math.max(0.001, math.abs(ac:Dot(back))))
+		w2.CFrame = CFrame.fromMatrix((a + c) / 2, -right, up, -back)
+		return true
+	end
+
+	local Obj = {}
+	Obj.__index = Obj
+	function Obj:set(cf, size)
+		self.cf, self.size = cf, size
+		if self.part then
+			self.part.Size = Vector3.new(math.max(size.X, 0.001), math.max(size.Y, 0.001), math.max(size.Z, 0.001))
+			self.part.CFrame = cf * CFrame.new(0, size.Y / 2, 0)
+			return
+		end
+		local tiny = size.X < 0.02 or size.Y < 0.02
+		for i, tri in ipairs(self.tris) do
+			local w1, w2 = self.wedges[2 * i - 1], self.wedges[2 * i]
+			local ok = false
+			if not tiny then
+				local function P(k) local q = self.verts[tri[k]]; return cf:PointToWorldSpace(Vector3.new(q.X * size.X, (q.Y + 0.5) * size.Y, q.Z * size.Z)) end
+				ok = drawTri(w1, w2, P(1), P(2), P(3))
+			end
+			local tr = if ok then self.alpha else 1
+			w1.Transparency, w2.Transparency = tr, tr
+		end
+	end
+	function Obj:hot(a)
+		a = clamp01(a or 0)
+		local neon = a > 0.4
+		if self.part then
+			self.part.Material = if neon then Enum.Material.Neon else Enum.Material.SmoothPlastic
+			return
+		end
+		for i, w in ipairs(self.wedges) do
+			w.Color = self.colours[(i + 1) // 2]:Lerp(Color3.new(1, 1, 1), a)
+			w.Material = if neon then Enum.Material.Neon else Enum.Material.SmoothPlastic
+		end
+	end
+	function Obj:fade(tr)
+		self.alpha = clamp01(tr or 0)
+		if self.part then self.part.Transparency = self.alpha return end
+		if self.cf then self:set(self.cf, self.size) end
+	end
+	function Obj:destroy()
+		if self.part then self.part:Destroy() end
+		if self.model then self.model:Destroy() end
+		self.part, self.model, self.wedges = nil, nil, {}
+	end
+
+	-- A crystal ready to place (no yield). Uses the mesh templates if prepare() built them for this palette.
+	function Crystal.new(kind, opts)
+		opts = opts or {}
+		kind = if kind == "shard" then "shard" else "spike"
+		local seed = opts.seed or 1
+		local p = pal(opts.palette)
+		local o = setmetatable({ alpha = 0, kind = kind }, Obj)
+		local set = templates[palKey(p)]
+		if set and opts.backend ~= "wedge" and not opts.simple and not opts.sides then
+			local list = set[kind]
+			o.part = list[(seed - 1) % #list + 1]:Clone()
+			o.part.Parent = opts.parent or workspace
+			o.instance = o.part
+			return o
+		end
+		local v, t = normalise(geometry(kind, (kind == "shard" and 200 or 100) + ((seed - 1) % 50) + 1, opts.sides, opts.simple))
+		o.verts, o.tris, o.wedges, o.colours = v, t, {}, {}
+		local model = Instance.new("Model")
+		model.Name = "Crystal_" .. kind
+		for i, tri in ipairs(t) do
+			local cy = (v[tri[1]].Y + v[tri[2]].Y + v[tri[3]].Y) / 3
+			if kind == "shard" then cy = cy * 0.55 + 0.2 end
+			o.colours[i] = toned(p, heightColour(p, cy), tri[4])
+			for _ = 1, 2 do
+				local w = Instance.new("WedgePart")
+				w.Anchored, w.CanCollide, w.CanQuery, w.CanTouch, w.CastShadow = true, false, false, false, false
+				w.Material, w.Color, w.Transparency = Enum.Material.SmoothPlastic, o.colours[i], 1
+				w.TopSurface, w.BottomSurface = Enum.SurfaceType.Smooth, Enum.SurfaceType.Smooth
+				w.Size = Vector3.one * 0.05
+				w.Parent = model
+				table.insert(o.wedges, w)
+			end
+		end
+		model.Parent = opts.parent or workspace
+		o.model, o.instance = model, model
+		return o
+	end
+end
+VFXTimeline.Crystal = Crystal
 
 return VFXTimeline

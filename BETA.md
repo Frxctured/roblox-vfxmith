@@ -1,38 +1,39 @@
-# vfxmith 0.1.6-beta2 (beta channel)
+# vfxmith 0.1.9-beta1 (beta channel)
 
-> **0.1.6 is now the stable release (2026-11-15).** It grew out of this beta (beta3 to beta5 were built after
-> beta2) and won its blind test. Switch back to stable with the commands under "Go back to stable", then
-> `/plugin update vfxmith@vfxmith`. This channel will carry the next betas.
-
-A test build of the next version. The main goal is **much cheaper runs** at the same quality. Please try it on
+A test build of the next version. The main change is a new way of building: the **directed loop**. Please try it on
 effects you actually want and tell us how it went.
 
-## What is different from 0.1.5 (stable)
-- **Cheaper runs.** Two helper agents on a fast, cheap model do the heavy lifting: a librarian reads the library and
-  hands back the references, and a capture helper takes the Studio screenshots and returns one contact sheet per
-  backdrop. The main builder keeps a small context and stops after two review rounds.
-- **Better questions first.** For portals, rifts, auras and other effects that stay on screen, it always asks how the
-  effect moves, what it pulls in or throws out, and whether it stands on the ground or hangs in the air.
-- **A stronger payoff.** The biggest moment has to be the biggest thing on screen: a small white-hot core inside a
-  big coloured glow, never a tiny sparkle and never a flat white ball.
-- **Checks that catch more.** The spec check warns about giant white flashes and about effects that run much longer
-  or shorter than you asked; the builder gets a close-up sheet of the payoff moments.
+## What is different from 0.1.6 (stable)
+- **Two agents instead of one.** A builder makes the effect. A separate director only watches each version, from
+  behind the character, from the side, from the front, from straight above and at night, plus frame-by-frame stills
+  around every hit, and sends back one ranked list of at most 8 fixes. That repeats up to three times, then you rate
+  the result and your answers are saved for the next effect.
+- **It starts from tested parts.** `VFXKit` has building blocks that already survived many review rounds (slash
+  strokes with a dark rim, an impact frame, a lightning bolt, shock rings, ground cracks, debris, smoke, camera shake,
+  character poses), so the first version starts at a higher level.
+- **Mesh slashes.** Sword and limb swings can use glowing mesh slashes that are fitted to the weapon's real path and
+  turn with it, the way the brightest slashes in the library are made, instead of a flat picture stamped once.
+- **Characters hold the weapon properly.** Two hands on the hilt, a step into each hit, guard poses between hits
+  instead of a T-pose; the checklist has four animation checks for it.
+- **It knows how professionals set their values.** A new pro guide covers brightness, dark outlines, flipbooks and
+  timing, with numbers. The most common fault of AI-made effects (dim, matte, glow everywhere) is addressed first.
+- **It checks itself before it shows you anything:** 28 yes/no checks every round.
+- **Effects are built around the character, not the camera.** Nothing is tilted toward the screen to look better, so
+  the effect holds up from every angle.
+- **No special model needed.** The builder and the director run on Opus.
+- The previous loop is still there: `/vfx classic <your effect>`.
 
 ## What we measured so far
-The same request and the same answers, run by each version (an ice slam, 2026-11-14), priced at API rates and scored
-blind by three reviewers who did not know which effect was which:
+Early numbers from the maintainer's own tests (one run each, not a blind poll yet):
 
-| | 0.1.5 full | **0.1.6-beta2** | no plugin |
-|---|---|---|---|
-| Cost | $57.41 | **$13.18** | $9.78 |
-| Time | 70 min | **42 min** | 33 min |
-| Blind score (median, 0-10) | 7.0 | **6.5** | 8.0 |
+| Test | Result |
+|---|---|
+| Fire punch combo, builder + automatic director, 3 versions | director 6.0 -> 6.8 -> 7.3; a separate blind AI reviewer gave the final 6.3 (directors rate their own build about a point high; that blind reviewer runs about a point harsher than people) |
+| Lightning strike, `/vfx` in a clean session (this beta, end to end) | director 6.0 -> 7.0 -> 7.6 over 3 rounds, 4 versions; about 70 min and $28 at API prices (Opus) |
+| Sword combo with a lightning finisher, directed by hand through the same loop | rated 8/10 by a person |
+| One builder round | about 25 minutes |
 
-beta2 costs 77% less than 0.1.5 full and scored half a point lower, which is about the spread between two panels. On
-this ice slam the run without the plugin scored best. The plugin steered every build toward the same library crystal
-meshes, which read as smooth cones, while the plugin-free run built its own faceted crystals. The next beta makes
-library assets optional for hero shapes like these. On a void rift (an earlier test) the plugin scored clearly above
-no plugin. A later build (beta3, not released yet) scored 7.0 on the ice slam for $12.05.
+A blind comparison against 0.1.6 and against no plugin has not been run yet. That is what this beta is for.
 
 ## Install
 You need Claude Code, Roblox Studio with the Studio MCP connected, and Python 3 with Pillow.
@@ -42,16 +43,23 @@ claude plugin disable vfxmith@vfxmith          # only if the stable version is i
 claude plugin install vfxmith@vfxmith-beta
 ```
 No SSH key for GitHub? Run `export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` first.
+Already on the beta: `claude plugin marketplace update vfxmith-beta`, then `claude plugin update vfxmith@vfxmith-beta`.
 
 ## Use
-In Claude Code: `/vfx <your effect>`, for example `/vfx a cool ice slam`. It asks a few short questions, then builds
-and checks the effect in your open Studio place. A full build takes about 40-60 minutes.
+In Claude Code: `/vfx <your effect>`, for example `/vfx a fire punch combo` or `/vfx a lightning sword slash`. It
+asks a few short questions, then builds in your open Studio place (Edit mode, in its own `LAB_...` folder, on a small
+test stage: an empty place is best). Expect about an hour for a full run with three director rounds. It tells you the
+score after each round; you can stop it or steer it at any time, and what you say outranks the director.
+
+It works on Windows, macOS and Linux. Screen recording is not needed.
 
 ## What to send back
 - what you asked for, and your answers to its questions;
-- the result: a short screen recording, or the final frames it shows you;
+- the result: a short screen recording, or the final sheet it shows you;
+- your own rating from 1 to 10, and the director's scores per round (did they match what you saw?);
 - how long it took and how much of your usage it took (`/usage` before and after);
-- anything that broke, looked wrong, or felt slow.
+- anything that broke, looked wrong, or felt slow. Especially: anything that looks tilted toward the camera, and
+  whether the captures worked on your system.
 Open an issue on the repository, or tell the maintainer directly.
 
 ## Go back to stable
@@ -62,9 +70,12 @@ claude plugin enable vfxmith@vfxmith
 ```
 
 ## Known issues
-- Hero shapes come from library meshes, so ice or crystal spikes can look like smooth cones. If that happens, ask
-  it to build faceted crystals itself.
-- The capture helper needs a Studio MCP whose screenshot result names the saved image file (current versions do).
-  With an older one the builder takes the screenshots itself, which costs more.
-- Textures still come mostly from the built-in recipes. A search over a much larger texture set (including the free
-  VFX Studio library and its animated flipbooks) is coming in a later beta.
+- The building blocks cover melee moves, abilities, impacts and strikes best. For beams, projectiles, auras and
+  loops the builder uses the kit's stage, cameras and checks but builds the layers itself, so results vary more.
+- The result is one effect file that plays on the test stage. Putting it into your game is a separate step; ask for
+  it afterwards.
+- The test character is posed with simple keyframes. Stiff or odd poses can happen; say so and it will redo them.
+- The capture needs a Studio MCP whose screenshot result names the saved image file (current versions do). With an
+  older one the agents look at the screenshots directly, which costs more.
+- On a machine where the Studio window is hidden or minimised, stills can show an older frame. Keep Studio visible.
+- The AI director's scores jump around by about a point between rounds. Trust your own eyes over its number.

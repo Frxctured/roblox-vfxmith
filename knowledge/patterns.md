@@ -149,8 +149,9 @@ Test 3 (a void rift: a boss ultimate held open, peak at the END, dark effect in 
 10. **A daylight flash is a small white core inside a big coloured bloom.** The winning effect's flash was a
    shapeless white ball about 14 studs across that hid the implosion (all 3 reviewers). Keep full white to a 3-6 stud
    core for about 0.1 s, and let a bright coloured bloom around it carry the size (as wide as the payoff);
-   `VFXTimeline.check` warns on a near-white sprite over 8 studs. Do not shrink the whole flash: in test 4 a 4-stud core
-   with no real bloom read as "a tiny sparkle, no white-hot moment" and that effect came last (rule 14).
+   `VFXTimeline.check` warns on a big ROUND near-white sprite. Do not shrink the whole flash: in test 4 a 4-stud core
+   with no real bloom read as "a tiny sparkle, no white-hot moment" and that effect came last (rule 14). Test 5 refined
+   this (rule 15): the fault is the round soft shape, not the size; a 32-stud white starburst with thin Neon lines won.
 11. **Sizes come from the brief, in studs, and get checked; the payoff's size is a floor.** Asked 15-20 studs, the
    shockwaves came out ~13, ~18-21 and 24-28; the 24-28 one won. Write each beat's size in the brief and compare the
    capture against it before the panel; a payoff under the asked size always lost.
@@ -168,6 +169,23 @@ no plugin 6.5, 0.1.5 quick 6.5, 0.1.6-beta 6.0) added one more:
    caps (a 4-stud white core, a ring to 18 studs) and got a 7-stud flash and a 12-14 stud ring: "the biggest beat
    reads as the smallest", last in every lens. It also worked from a 2.5 KB summary of the references instead of the
    cards, and built a smooth, symmetric lens ("a portal or an eye"). The payoff is the biggest thing on screen at its
-   peak (rule 3), and the shape language comes from the cards you read.
+   peak (rule 3); read the cards for ideas and technique (test 5 showed the shape itself should be designed, rule 16).
    A fireball also needs a value range (a hot core, an orange body, dark red-brown edges, dark smoke behind): test 2's
    flat single-value orange read as "jelly". Smoke cools to warm grey, rises from low down, with a dust skirt in front.
+
+Test 5 (2026-11-14, ice slam, a NEW prompt; one panel with four effects, then a human poll): no plugin 8.0 and the
+people's clear favourite; 0.1.5 full 7.0; beta3 7.0; beta2 6.5 for the panel but the people's second choice. A side-by-side
+analysis of the winner and the runner-up (effect values and both build processes) added:
+15. **A flash is about shape, not size.** The winner's hit: an 8-stud white Neon dome for 0.11 s, a 32-stud sparkle
+   STAR, 22 thin Neon speed lines; one frame after contact the white was at 88% of its peak (the runner-up 33%, its
+   brightest moment 83 ms late). A builder that shrank its flash under the old 8-stud warning ended with "a roundish
+   white blob". The wind-up must peak INTO contact (a falling comet brightest on the frame before), not fade out.
+16. **Design the hero; the library is a guide (any effect).** Build the hero shape for the design, with its own value
+   range on it, and let references supply technique and numbers. In test 5 three plugin builds used library meshes
+   tinted as a whole:
+   "smooth cones", "a pincushion", "one flat colour" after two panels. The winner built faceted crystals in code
+   (deep base -> cyan -> white tip, alternating facet tones; now `ctx.Crystal`), pieces as their own angular shapes
+   (7 / 4 / 3 per spike, landing with gravity), stumps that stay. Its whole object story was in v1.
+17. **People reward bold colour.** The panel marked the runner-up down for vivid azure glow ("sapphire, not icy cyan";
+   its hue was in fact on brief); people liked it. Saturation and glow in the asked hue family are a plus. Ground
+   marks as Decals stay visible in daylight; flat particles wash out; grey smoke reads as dust.

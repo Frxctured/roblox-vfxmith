@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Browse the VFX Studio texture library (owner-approved for this user's games) as labelled contact sheets, so effects
-can be built from textures you have actually looked at.
+"""Browse the VFX Studio texture library (a free Roblox Studio plugin's catalogue) as labelled contact sheets, so
+effects can be built from textures you have actually looked at. To SEARCH it together with the open-source library,
+with measured traits, use kit/scripts/find_textures.py (gallery/textures/vfxstudio_index.json is the shipped copy of
+this index).
 
   python3 -I kit/scripts/vfx_studio_browse.py --out <dir> [--keyword Fire] [--search swirl] [--grid 4|8|2|none|any]
                                             [--offset 0] [--count 30] [--ids 123,456]

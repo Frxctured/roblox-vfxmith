@@ -1,6 +1,6 @@
 # vfxmith: make Roblox VFX like experienced artists do
 
-> **Beta channel: 0.1.6-beta2.** Cheaper runs, still being tested. What changed, how to install it and how to go
+> **Beta channel: 0.1.9-beta1.** The directed loop (builder + director), tested building blocks, mesh slashes. What changed, how to install it and how to go
 > back to stable: [BETA.md](BETA.md).
 
 A Claude Code plugin (or a plain folder for any AI agent) that lets you say **"make a cool light beam with an
@@ -13,9 +13,50 @@ by frame.
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
 | **Knowledge** | 11 effect-type studies with anatomy tables, timing, technique recipes and mistakes, plus a starting recipe each; cross-effect rules; texture ids by role ([`knowledge/`](knowledge/)) |
-| **Skills** | `vfx` (router), `vfx-make` (build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
-| **Kit** | effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
+| **Skills** | `vfx` (router), `vfx-direct` (directed build loop, beta default), `vfx-make` (classic build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
+| **Kit** | tested building blocks (`VFXKit`), effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
+
+## What's new in 0.1.9-beta1 (beta channel: see [`BETA.md`](BETA.md))
+- **The directed loop** (`vfx-direct`, what `/vfx` now runs): two agents instead of one. A **builder** builds the
+  effect and checks every version itself; a separate **director** only watches (five views and consecutive frames)
+  and sends one ranked list of at most 8 fixes per round, for at most three rounds. Then you rate it.
+  In its first test a fire punch went from 6.0 to 6.8 in one director round, and a sword combo directed the same way
+  was rated 8/10 by a person.
+- **VFXKit** ([`kit/studio/VFXKit.luau`](kit/studio/VFXKit.luau)): tested building blocks so round 1 starts where
+  earlier builds ended: strokes with an ink rim, an impact frame, a bolt, shock and dust rings, ground cracks, debris,
+  smoke, flash, charge-up, one clock that freezes exactly, camera shake, character poses, a stage with five review
+  cameras and a `Lint()` that catches common faults.
+- **Mesh slashes and better poses** (VFXKit 1.2): `fx:MeshSlash` builds a slash from meshes fitted to the real blade
+  path (an invisible part + mesh + a decal brighter than white: it shines in daylight and turns with the blade;
+  [`knowledge/mesh-slash.md`](knowledge/mesh-slash.md) says when meshes beat sprites). Poses gained a step, stride,
+  head turn, lean, a two-handed grip and guard poses, and `Lint()` now warns about T-poses and arms through the body.
+- **Pro guide** ([`knowledge/pro-guide.md`](knowledge/pro-guide.md)): how professional Roblox effects are built, with
+  values: brightness tiers (first drafts are 5-10x too dim), the three uses of LightEmission, dark partners,
+  flipbooks, timing in frames, and what causes "matte", "sticker", "pencil" and "solid disk" complaints.
+- **A checklist and a self-check** ([`checklist.md`](knowledge/checklist.md), [`selfcheck.md`](knowledge/selfcheck.md)):
+  28 yes/no checks and an every-round routine: player, side, front, bird's-eye and night views plus dense stills
+  around each hit. It works on Windows, macOS and Linux with only the Studio MCP; a live screen recording is an
+  optional extra.
+- **Everything in the caster's space:** nothing is turned toward a camera to look better. Builder and director both
+  follow it, and the bird's-eye view checks it.
+- **Works for everyone:** the builder, director and reviewers run on Opus; no agent needs a newer model.
+- The 0.1.8 loop is still there: `/vfx classic <effect>` (`vfx-make`).
+
+## What's new in 0.1.6
+- **About a third of the cost of 0.1.5.** Helpers on a fast, cheap model find references and take the Studio
+  screenshots, the builder reads everything it needs in one go, and it stops after two review panels. A full build
+  cost $15.47 at API prices in blind test 6, against $40-57 for 0.1.5 and $26.44 for the same agent with no plugin.
+- **The library is a guide, not a template.** The builder designs the effect first and borrows techniques, timing and
+  values from real effects; it builds the hero shape itself when nothing in the library fits.
+- **Shapes built in code:** `ctx.Crystal` makes faceted solids (rocks, debris, crystals, gems, shards) with their own
+  light-to-dark colours, no upload needed.
+- **~10,000 textures to choose from:** one search over the open-source library and the free VFX Studio catalogue,
+  ~2,750 animated flipbooks, each with measured traits.
+- **Reviewers calibrated on people:** an Appeal score, bold colour counts as a plus, and real human poll results as
+  the reference.
+- Tested blind: in test 6 (a fire tornado) people picked the 0.1.6 effect over the same agent without the plugin by a
+  wide margin. Update: `/plugin marketplace update vfxmith`, then `/plugin update vfxmith@vfxmith`.
 
 ## Install (Claude Code)
 ```
@@ -35,6 +76,8 @@ effect in Studio); without it you still get references and a ready spec.
 2. **Start from recipes**: one spec with both recipes' layers (the explosion shifted to the beam's impact), adapted to
    the request with values from the cards ([`knowledge/spec-format.md`](knowledge/spec-format.md)); every texture
    checked for traps (`texture_traits.py`: coloured, black or faint card, multi-part, low resolution).
+   Fresh textures per role come from one search over ~10,000 textures (`find_textures.py`): the library's own and
+   the free VFX Studio plugin's catalogue (~2,750 animated flipbooks), each with measured traits.
 3. **Check it, play it in Studio and look**: the kit installs without Rojo or uploads; `C.check(name)` catches silent
    spec mistakes; `C.hold(name, t)` + a screenshot captures frozen frames on any OS, on a black stage AND a default
    daylight baseplate (dark layers that vanish on black can read as dirt in daylight).
