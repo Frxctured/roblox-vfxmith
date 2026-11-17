@@ -28,7 +28,8 @@ Early numbers from the maintainer's own tests (one run each, not a blind poll ye
 
 | Test | Result |
 |---|---|
-| Fire punch combo, builder + automatic director | 6.0 after the first version, 6.8 after one director round (AI director's own scale, which is about a point harsher than people) |
+| Fire punch combo, builder + automatic director, 3 versions | director 6.0 -> 6.8 -> 7.3; a separate blind AI reviewer gave the final 6.3 (directors rate their own build about a point high; that blind reviewer runs about a point harsher than people) |
+| Lightning strike, `/vfx` in a clean session (this beta, end to end) | director 6.0 -> 7.0 -> 7.6 over 3 rounds, 4 versions; about 70 min and $28 at API prices (Opus) |
 | Sword combo with a lightning finisher, directed by hand through the same loop | rated 8/10 by a person |
 | One builder round | about 25 minutes |
 
