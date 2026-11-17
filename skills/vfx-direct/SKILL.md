@@ -38,6 +38,15 @@ descriptive; defaults from the wording if the user is away). Write `<effect>/bri
 length, the beats with their hero shape and size in studs and in character heights (H = 5 studs), the peak moment,
 motion, style, palette, lighting, anything the user said they like (the director may never remove or shorten those),
 and the caster (a character move, a weapon, an object, a spot on the ground). Everything after this serves the brief.
+Every brief states, for any effect type:
+- **at least 3 distinct beats** that each look different (not one shape rising, standing and fading);
+- **one hero shape that reads on its own**: its silhouette (outline, tallest point, how the ends look), not a texture
+  area;
+- for a **sustained, placed or persistent** effect: how the hold stays alive (variation along the shape, travelling
+  surges, flare-ups on unsynced periods, things moving through it). A long hold is fine; a still one is a billboard;
+- **style = the target game's look** (stylised for a Roblox game) unless the user asks for realism, and which
+  texture families fit it (`knowledge/texture-vocab.md` sections) and which are out;
+- a **caster tie-in only for cast moves** (slash, punch, shield, a beam from the hands); placed effects need none.
 `<effect>` is a new folder in the user's project (`vfx/<slug>/`) unless they name one.
 
 **Run every agent in the FOREGROUND and wait for its reply** (never `run_in_background`, never end your turn while
@@ -72,8 +81,8 @@ less than 0.3 with nothing but polish left on the list.
 ## 4. Builder round N+1
 Spawn a fresh builder (foreground, `mode directed`, `round N+1`): "Director round N: read
 `<effect>/dir_msgN.md` and apply it in rank order; keep everything under 'Keep'; run the self-check; write
-`builder_reply<N+1>.md`." Then back to step 3. After the third director round the builder makes the final version and
-there is no further director round.
+`builder_reply<N+1>.md`." Then back to step 3. After the third director round the builder makes the final version; it
+gets no new fix list, but a final director check scores it (step 5) when the budget allows.
 
 ## 5. Final capture and the person's opinion
 The last builder reply names the final 5-view sheet and the dense strips. Show the user the sheet (and a live
@@ -81,6 +90,9 @@ recording if one was made; never block on it: `knowledge/selfcheck.md` section 3
 and how to play it (`_G.kitfx:Play()`), then run `vfx-feedback`: people judge better than any AI director, their
 answers are saved and teach the plugin. What they ask for is one more builder round (no director), then a final sheet.
 User away: finish with the last version and say which checklist lines are still open.
+**Check the final version too.** When the budget allows, spawn one more fresh director on the final version (`round
+final`: score and open issues only, no fix list) so the last builder round is not unscored; say the score. If the
+budget does not allow it, say plainly that the final version has no director score.
 
 ## 6. Finish
 - The result is `<effect>/effect.luau`: one file that needs `kit/studio/VFXKit.luau` loaded first

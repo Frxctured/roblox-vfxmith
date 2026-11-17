@@ -134,3 +134,10 @@
   heavy effects and then flashes the late stills for one frame, so they get missed.
 - With Studio focused, holds of ~0.8 s are enough; with Studio in the background it redraws about once a second and
   runs slower than real time: use holds of ~1.9 s.
+- **A sheet at one height is a billboard** (any flowing surface: wall, fall, pillar, aura sheet). Vary heights along
+  it, taper the ends, keep the hold alive with surges and flare-ups, collapse as a wave. A dark layer drawn with a
+  hard-sided beam texture shows its quad edges as dark rectangles: use a soft-sided texture or feather it.
+- **Realistic photo flipbooks clash with a Roblox world.** Default to stylised textures (toon flames, toon or soft
+  smoke) unless the user asks for realism; one style per effect.
+- **Smoke over the peak hides the hero.** Dark smoke at the peak turned a fire wall muddy brown and its ending into a
+  grey blob: smoke comes after the peak, above or behind, and thin.

@@ -57,7 +57,8 @@ layers cover it while alive, and their summed Brightness x opacity) and scales e
 per-effect gain (`fx.gain = "auto"` default; a number to set it; 1 = off; `fx.budget` 2). Flashes and pops (life <=
 0.12 s) are left out. `Build` and `Lint` print `gain 0.85 (peak 5 additive, light 2.4 at ...)`. Measured: the gain keeps
 big stacks from burning whiter than lean ones, but it cannot rescue a heavy stack (12 soft glows still clip at summed
-Br 2 against the sky). The fix for a white blob is fewer additive layers: carry the body with LE 0 layers and a dark
+Br 2 against the sky). Lint also counts the DIFFERENT additive layers (a curtain layer's panels count once; flashes and
+pops left out) that cover one spot at one moment and warns above 4. The fix for a white blob is fewer additive layers: carry the body with LE 0 layers and a dark
 partner (pro guide rules 1-4).
 
 **3. Curtains: scrolling-beam sheets (`fx:Curtain`).** For anything that FLOWS across a surface: fire and energy walls,
@@ -76,6 +77,21 @@ front, Y = across. Tested from player, side (end-on), front and top-down views: 
 and reads as a burning strip from above; a 5-panel ring shows a pentagon with bright overlap corners from above, so
 rings default to 8 panels. Default textures are white masks (`K.Tex.Flow`, `FlowStreaks`, `FlowWisps`); pass your own
 `layers` for a different material (search "beam" / "trail" textures with `find_textures.py`).
+**Never a flat rectangle (1.3.1).** A curtain at one height reads as a billboard (fire wall test, 2026-11-17). By
+default every panel now gets its own height from a smooth skyline along the line (`vary` 0.3), the two ends taper
+down (`taper` 0.45: no square ends), humps travel along the hold (`surge = { amp = 0.25, waves = 1.5, speed = 0.45 }`),
+single panels flare up on unsynced noise (`flare` 0.3), the density differs per panel and drifts slowly (`density`
+0.12), and the collapse runs as a wave (`fallSweep`, `fallFrom` = "start" | "centre" | "end" | "edges") with a short
+flare before each panel drops (`fallFlare` 0.15). Your own curve: `height = function(k, x, T, h, P) return h2 [, fade]
+end` (k = 0..1 along the line or round the ring, x = seconds since this panel began to rise, h = the default height):
+a breathing loop, a surge from the middle, a collapse wave of your own, without touching `hold`. Per layer:
+`ramp = { col = { foot, ..., top } or a ColorSequence, tr = { {t, v}, ... } }` sets the colour and the hold
+Transparency along the length (the fade is added on top), and `feather = 2-3` splits a layer into nested beams,
+narrower and denser inside, for a soft edge on any texture. **Dark layers must be soft-sided:** the default `deep`
+layer uses the soft wisps texture inside the body's width (a hard-sided texture's quad edges drew dark rectangles in
+the fire wall test); Lint warns on a dark curtain layer with a hard-sided texture and on a curtain with one height.
+Rings keep 8 panels; seen straight overhead they still show a faint polygon (the base pool under the pillar hides most
+of it). Checked in Studio (daylight, player / side / front / bird; shots in the lab's `firewall2/blocktests/`).
 
 **4. Mask and baked textures.** `K.TagOf(id)` returns `"mask"` (white / grey art: Color tints it freely), `"baked:<hue>"`
 (colour painted in: Color only MULTIPLIES it, so blue art tinted orange goes dark and muddy) or `"unknown"`. All

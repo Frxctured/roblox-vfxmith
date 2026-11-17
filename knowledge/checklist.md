@@ -71,3 +71,13 @@ Take it with the effects off: `fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, l
 | 30 | [L] No white blob where additive layers stack: the hero shape stays visible at the busiest moment; Lint's gain line is below 1 when more than ~6 additive layers or a summed light over 2 overlap. | Leave `fx.gain = "auto"`; if it is still white, move body layers to LE 0 with a dark partner and drop additive ones. |
 | 31 | A flowing surface (wall, fall, pillar, sheet) holds from every side: rows or a ring of panels, not one flat sheet; no hard prism corners or seams; something flat reads from above. | `fx:Curtain{ line = ..., rows = 2 }` or `{ ring = ..., n = 8 }`; overlap, nested widths, halo; foot glow strip. |
 | 32 | [L] Colour comes from tinting MASK textures; baked-colour art is left untinted or swapped for a mask twin. | `K.TagOf`, `K.Tint`, `fx:Recolor`; `find_textures.py` prints MASK / BAKED. |
+
+## Big picture (0.1.9-beta2; answer these FIRST, every round, for every effect type)
+| # | Check | Fix |
+|---|---|---|
+| 33 | One hero shape reads on its own from the player camera: a silhouette (outline, tallest point, shaped ends), not a texture filling a band or rectangle with a straight top and square ends. | Shape the outline: uneven heights, tapered or curled ends, one dominant mass (`fx:Curtain` varies heights and tapers by default; `height` hook for your own curve). |
+| 34 | At least 3 distinct beats that each look different; a sustained or placed effect's hold is alive (variation along the shape, travelling surges, flare-ups on unsynced periods, things moving through it). | Add the missing beat; `fx:Curtain` `surge` / `flare` / `density`, embers or sparks passing through, a collapse wave with a flare. |
+| 35 | Style matches the brief (stylised for a Roblox game unless realism was asked); no photo-real flipbooks in a stylised effect, no beat in another style. | Swap textures for the brief's families (`texture-vocab.md`: toon fire rows in 14, smoke 13, not 12). |
+| 36 | [L] Smoke and dark layers never cover the hero at its peak, and the ending is not a grey blob; no more than 4 glowing (LE > 0) layers overlap at one spot at one moment. | Smoke after the peak, above or behind, thin; ending = embers and a scorch fading. Lint warns on > 4 additive layer groups. |
+| 37 | The director scored the FINAL version (or the lead says it is unscored). | `round final` director check when the budget allows. |
+

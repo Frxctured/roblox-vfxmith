@@ -47,8 +47,10 @@ Also ask for a reference (video, image, a game moment) if the user mentions one;
 | aura, buff, power-up, idle, charging | sustained | heartbeat pulses every ~0.7-1.1 s with jitter, no visible loop (plus an optional burst on start) | pulses, no single peak | body envelope ~1.3 characters, a ground layer 1.4-3.4 characters wide, face clear |
 | portal, rift, vortex, field, zone | sustained with phases | open 0.3-1 s, hold (loop), close 0.3-1 s | the open or the collapse (say which) | an area |
 | pickup, reward, level up, UI | feedback | 0.5-1.2 s | early (0.05-0.2 s), then a sparkle linger | small to one character |
+| wall, barrier, pillar, trap, ground fire (placed) | placed, may persist | rise 0.3-0.8 s, a living hold (seconds, or until removed), collapse 0.5-1 s | the rise's crest, then flare-ups in the hold | an area; the skyline taller than a character |
 | ambient, environment, torch, waterfall | ambient loop | seamless loop | none, steady with variation | as the scene needs |
-No style given: say which one you chose and keep to it (patterns.md 15.7). No lighting given: tune for daylight and
+No style given: use the target game's look (stylised for a Roblox game), say so in the brief and keep to it
+(patterns.md 15.7). No lighting given: tune for daylight and
 check on the dark stage too.
 
 ## 3. The brief (write `<effect>/brief.md` before building)
@@ -60,13 +62,35 @@ check on the dark stage too.
   - travel (projectile, beam, dash): launch -> travel -> impact -> linger;
   - sustained (aura, portal, field): start burst -> loop (heartbeat pulses on unsynced periods, no visible repeat) -> end;
   - build-up (charge, ultimate): long build with rising intensity -> quiet beat -> payoff -> aftermath.
+- **At least 3 distinct beats, each with its own look** (not "rise, hold, fade" of one shape). A fire wall
+  test (2026-11-17) built exactly that: a flat band of fire rose, stood for 3 s at one height and faded; the owner
+  called it a billboard. Every beat changes something a player sees: shape, size, colour, speed, or what moves.
+- **One hero shape that reads on its own**: a silhouette you could draw in one line (a crescent, a spire, a
+  skyline of uneven tongues, a dome, a ring), not "a texture filling an area". Write the silhouette down: its
+  outline from the player camera, where it is tallest, how its ends look (tapered, curled, broken: never square).
+- **Sustained, placed or persistent effects** (a wall, a field, an aura, a zone, a pillar, something cast once that
+  then stays): a long hold is fine, but write how it stays ALIVE, with at least two of: variation along the shape
+  (height, density, colour), travelling waves or surges, flare-ups or events on unsynced periods, things moving
+  through it (embers, sparks, debris, wisps). A hold that is one still picture for more than ~1 s reads as a
+  billboard.
 - **Rules to check later:** the payoff is the biggest and brightest beat (its size in the brief is a minimum: bigger
   than anything before it, never smaller than asked); anticipation is long enough to read (at least
   ~0.2 s, more for big moves); every repeated beat escalates and differs; the linger matches the scale (big moves
   leave smoke, marks or embers for 1-3 s); one hero shape per beat.
 - **Motion:** where it sits (on the ground, in the air, on the character), whether it moves, and what it pulls in,
   throws out or leaves behind.
-- **Style** (one), **palette** (three tones: core, body, a deep tone for depth, placed on the hero's geometry), **lighting** (day, dark or both), **budget** (~150
+- **Style** (one): **default to the target game's look**. For Roblox that is STYLISED (clean shapes, soft toon
+  flames, toon or soft smoke, flat value steps), because photo-real flipbooks pasted into a blocky world clash with
+  it (fire wall test: realistic photo flames next to a stylised shield; the shield fitted, the wall did not). Use
+  realism only when the user asks for it or shows a realistic game. Name the **texture families** that fit the
+  style in the brief, by `knowledge/texture-vocab.md` section (e.g. stylised fire = section 14's toon rows, smoke =
+  section 13 "toon and stylised", not 12 "soft and realistic"; beams = section 20 soft or toon streaks), and
+  which families are out. Dark smoke never covers the hero at its peak: it comes after the peak, sits above or
+  behind the hero, or is thin.
+- **Caster tie-in only for cast moves** (slash, punch, shield, beam from the hands, a stomp): the caster's pose
+  and a link from the body to the effect matter there. A placed or persistent effect (a wall, a zone, a trap, a
+  pillar) needs no caster link; spend that effort on the hero shape and the hold.
+- **Palette** (three tones: core, body, a deep tone for depth, placed on the hero's geometry), **lighting** (day, dark or both), **budget** (~150
   particles at the peak by default; mobile = `VFXTimeline.Quality` 0.6).
 - **Sizes in character heights too** (H = about 5 studs): the user's "one character wide" is a floor, and round 1's
   1.3 H slash, built exactly as asked, still read "a bit small". Say where the character or target stands.

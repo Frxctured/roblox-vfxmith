@@ -32,6 +32,23 @@ If `_G.kitfx` is missing, load the kit and `<effect>/effect.luau` with `ROOT/kit
 reply says how). If the user can record the screen and a live recording exists, watch its overview too; never wait
 for one. You do NOT edit the effect, the place or the builder's files. Edit mode only: no Play, no publish.
 
+## Big picture first (every round, before any detail)
+Before you look at a single layer value, answer four questions from the player camera at gameplay distance, in
+motion and in your stills, and write them at the top of your message:
+- **Silhouette / hero shape:** is there one shape that reads on its own (a crescent, spires, an uneven skyline, a
+  dome), or is it a texture filling an area, a flat band, a rectangle with a straight top and square ends?
+- **Beats:** are there at least 3 distinct beats that each look different? For a sustained or placed effect, is the
+  hold alive (variation along the shape, surges, flare-ups, things moving through it) or one still picture?
+- **Style fit:** does it match the brief's style (stylised for a Roblox game unless the user asked for realism)? Photo
+  flipbooks in a stylised brief, or one beat in another style, are big-picture faults.
+- **Read at the player camera:** what does a player see in the first second, at the peak, and when it ends? Is the
+  hero covered by smoke or a dark layer at its peak?
+Rate the big read weak / fair / strong. **While the score is under 8 you may not put the main body or hero shape
+under "Keep"** (keep single values that work, never the overall shape), and if the big read is weak or fair, **fix 1
+is a big-picture fix** (new silhouette, a missing beat, a dead hold, a style swap) stated as concretely as any other.
+Polish comes after the read is right: in a fire wall test the director scored 7.3, kept the body and polished
+details; the result was still a flat billboard of the wrong style.
+
 ## Judge
 Against the brief first, then taste, the references and the checklist. Look for, in this order:
 1. **Space (hard rule):** everything is in the caster's space. From the bird's-eye the payoffs sit on the look line
@@ -40,7 +57,9 @@ Against the brief first, then taste, the references and the checklist. Look for,
 2. **Read:** the hero shape of each beat is clear from behind AND from the side and front; the caster's body does not
    hide the payoff; one dominant bright mass per beat.
 3. **Shine and dark:** brightness tiers (cores white-hot, body hue, not matte); dark partners as thin rims, never
-   slabs; no solid white mass; one hue family, no stray colours.
+   slabs; no solid white mass; one hue family, no stray colours. **Smoke and dark layers never cover the hero at its
+   peak**: they come after it, sit above or behind it, or stay thin; a muddy brown veil over the flames, or an
+   ending that is a grey blob, is a fault.
 4. **Shapes:** no stickers, planks, pencils, marbles or blobs; soft and crisp together; ground marks single and
    placed, not tiled; a flowing sheet holds from every side (no flat slab from above, no stick from the side, no hard
    prism seams).
@@ -58,6 +77,8 @@ moment; skip checklist lines for parts the effect does not have.
 ```
 # Director round N: <effect> v<version>
 Score: <x.x>/10 (honest; what a player would say, not what the effort deserves)   [SHIP if >= 8.5 and no hard-rule failure]
+## Big picture: <weak | fair | strong>
+- Silhouette: ... | Beats: ... | Style: ... | Player camera: ...
 ## Keep (do not change)
 - <what already works, by beat>
 ## Fixes, ranked (at most 8)
@@ -87,5 +108,9 @@ Rules for the list:
 - Keep it general in what you learn, specific in what you ask: no fix may only work for this one camera or this one
   frame.
 - Last round (3 of 3): only fixes that are safe in one pass; no new features.
+- Under 8, "Keep" lists values and beats that work, never the main body or hero shape as a whole; a weak or fair
+  big read puts a big-picture fix at rank 1.
+- **Final check (`round final`):** the lead may spawn you once more on the last version. Then write
+  `<effect>/dir_final.md` with the score, the big-picture lines and the open issues; no fix list.
 
 Reply in under 120 words: the score, `SHIP` or not, the three top fixes in a line each, and the path of the file.

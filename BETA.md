@@ -17,7 +17,7 @@ effects you actually want and tell us how it went.
   instead of a T-pose; the checklist has four animation checks for it.
 - **It knows how professionals set their values.** A new pro guide covers brightness, dark outlines, flipbooks and
   timing, with numbers. The most common fault of AI-made effects (dim, matte, glow everywhere) is addressed first.
-- **It checks itself before it shows you anything:** 32 yes/no checks every round.
+- **It checks itself before it shows you anything:** 37 yes/no checks every round.
 - **Effects are built around the character, not the camera.** Nothing is tilted toward the screen to look better, so
   the effect holds up from every angle.
 - **No special model needed.** The builder and the director run on Opus.
@@ -35,6 +35,21 @@ Five lessons from studying another agent's VFX research notes, rewritten for eve
 - **Textures you can and cannot recolour.** Every texture is marked as tintable (white art) or with its colour baked
   in, and a recolour helper only tints the tintable ones.
 - **Something stays after every hit.** A faint, low, outward aftermath (dust, glints, small arcs) for 1-2 seconds.
+
+### beta2 update: big picture first (from the fire wall test)
+The fire wall came out as a flat billboard of realistic flames: one height, a straight top, square ends, a long
+still hold, muddy smoke over the peak. Fixed for every effect type, not just walls:
+- **The brief** now names at least 3 beats that each look different, one hero shape that reads on its own (a
+  silhouette, not a texture area), and for held or placed effects how the hold stays alive. The style defaults to
+  your game's look (stylised for Roblox) unless you ask for realism, and the brief says which texture families fit.
+  A caster link is only asked for cast moves.
+- **The director** starts every round with the big picture (silhouette, beats, style, the read from the player
+  camera) before any detail; below 8/10 it may not "keep" the main shape, and a weak big read is fix number one.
+  Smoke may not cover the hero at its peak. The final version gets a director score when the budget allows.
+- **Walls, falls and pillars** (`fx:Curtain`) no longer stand at one height: uneven skyline, tapered ends, surges
+  and flare-ups during the hold, a collapse wave; a soft dark layer (no dark rectangles), per-layer colour and
+  transparency ramps and a height hook for your own curves.
+- **Lint** warns when more than 4 glowing layers stack on one spot at one moment.
 
 ## What we measured so far
 Early numbers from the maintainer's own tests (one run each, not a blind poll yet):

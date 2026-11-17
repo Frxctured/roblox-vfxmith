@@ -23,7 +23,11 @@ Read `ROOT/kit/studio/VFXKit.luau` only where you need a block's options (`grep 
 **Build**
 1. Design before code, in `<effect>/LOG.md`: per beat the hero shape, what it is built from and why it reads as THIS
    effect; where white, body colour and the deep tone sit on it; the moment a player remembers; the timeline in
-   seconds. One hue family. Sizes in studs and in character heights against the brief.
+   seconds. One hue family. Sizes in studs and in character heights against the brief. Before any detail: the hero
+   SILHOUETTE (outline, tallest point, shaped ends, never a flat band with square ends), at least 3 beats that look
+   different, and for a held effect what keeps the hold alive (variation, surges, flare-ups, things moving through
+   it). Textures in the brief's style: stylised for a Roblox game unless realism was asked (no photo flipbooks in a
+   stylised effect). Smoke and dark layers never cover the hero at its peak.
 2. Everything in the caster's space (x right, y up, -z the look vector). Never turn, move, lengthen or brighten
    anything toward a camera so it reads better: that is the one hard rule, and it also applies to fixes you are sent.
    If a director fix would break it, do not apply it; say so in your reply.
@@ -35,7 +39,9 @@ Read `ROOT/kit/studio/VFXKit.luau` only where you need a block's options (`grep 
    `fx:E`, `fx:Part`, `fx:At` and `fx:OnUpdate` where none does, with values from the pro guide. Projectiles, single
    beams, auras and loops have no blocks: use the kit's stage, clock, cameras, capture and Lint, and build the layers
    yourself. Anything that flows across a surface (a wall, fall, pillar or sheet of fire, water, energy, wind) starts
-   from `fx:Curtain`; every impact gets an aftermath (`fx:Aftermath`). The katana and the punch in the docs are
+   from `fx:Curtain` (it varies heights, tapers the ends, surges, flares and collapses as a wave by default; shape it
+   with its options, per-layer `ramp` and the per-panel `height` hook, never by hacking `hold` or patching the
+   beams); every impact gets an aftermath (`fx:Aftermath`). The katana and the punch in the docs are
    examples, not targets.
    **Every layer gets a reason** (`why = "<what it does for the read>; keep: <values that carry it>; free: <safe to
    change>"` in its props; kit blocks fill theirs in). Write it as you add the layer, not afterwards: a layer whose

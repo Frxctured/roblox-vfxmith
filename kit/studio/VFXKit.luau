@@ -5,6 +5,9 @@
 -- New in 1.3: a "why" reason on every layer (fx:Layers() prints the table), an additive stack gain applied at Build,
 -- scrolling-beam curtains (fx:Curtain: walls, pillars, waterfalls, energy sheets), mask / baked texture tags with a
 -- recolour that only tints masks (K.TagOf, K.Tint, fx:Recolor), and an aftermath group for impacts (fx:Aftermath).
+-- 1.3.1: curtains vary their height per panel (skyline, tapered ends, travelling surges, flare-ups, density), collapse
+-- as a wave with a flare, take a per-panel `height` hook, per-layer `ramp` and `feather`, and a soft-sided dark layer;
+-- Lint warns when more than 4 additive layer groups overlap at one moment.
 -- Guide: knowledge/vfxkit.md. Demo: kit/studio/VFXKitDemo.luau. Load both with kit/scripts/kit_push.py.
 -- Edit mode, one clock, freeze-safe. Returns a table; nothing is built until you call K.new().
 --
@@ -22,7 +25,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local Lighting = game:GetService("Lighting")
 
-local K = { VERSION = "1.3" }
+local K = { VERSION = "1.3.1" }
 
 ---------------------------------------------------------------- small helpers
 local VP, FC, VPAR = Enum.ParticleOrientation.VelocityPerpendicular, Enum.ParticleOrientation.FacingCamera, Enum.ParticleOrientation.VelocityParallel
@@ -1163,26 +1166,48 @@ end
 -- between attachment pairs, each layer scrolling at its own TextureSpeed and TextureLength so the pattern never
 -- visibly repeats. Wrapped for 3D: a LINE becomes 2+ staggered rows of overlapping panels with alternating yaw (reads
 -- from the front, the side and the ends); a RING becomes 6-8 panels round a vertical axis (a pillar that reads from
--- every side; 5 or fewer show a polygon with bright corners from above, where neighbours overlap). One flat sheet is a slab from above and a stick from the side: never use one.
+-- every side; 5 or fewer show a polygon with bright corners from above, where neighbours overlap; even 8 leave a faint
+-- polygon seen straight overhead: put a flat pool or a ground ring under it). One flat sheet is a slab from above and
+-- a stick from the side: never use one.
 -- Axes (measured): with FaceCamera off the ribbon's WIDTH follows the attachments' Y axis and CurveSize bends along
 -- their X axis. The kit sets X = the panel's front (normal), Y = across; upright attachments collapse it to a line.
 -- Soft edges: neighbouring panels overlap (`overlap` 0.35), each layer has its own width (narrow dense layers inside
 -- wide faint ones = a gradient across the width) and a faint wide halo layer blends the seams; Transparency fades at
--- the foot and to 1 at the top along the length. No hard prism corners.
+-- the foot and to 1 at the top along the length. No hard prism corners. Dark (LE <= 0, low-value) layers use a
+-- SOFT-SIDED texture (K.SoftSide) and sit inside the body's width, or set `feather` on the layer: a quad edge of a
+-- dark layer reads as a hard rectangle.
+-- Never a flat rectangle (1.3.1): by default every panel gets its own height (a smooth skyline along the line,
+-- `vary`), the line's ends taper down to a rounded end (`taper`), surges travel along it during the hold (`surge`),
+-- single panels flare up now and then (`flare`), the density varies per panel and slowly in time (`density`), and the
+-- collapse runs as a wave with a short flare before each panel drops (`fallSweep`, `fallFlare`).
 --   t (start), rise (0.35 s, eased out), hold (2 s), fall (0.6 s: sinks to `sink` x height and fades)
 --   line = { from = Vector3, to = Vector3 } on the floor (caster space)   or   ring = { c = Vector3, r = 3 }
 --   h height (6), n panels (line: one per `panel` studs (3); ring: 8, overlap 0.2), rows (2), depth between rows (0.9),
 --   yaw alternating panel turn in degrees (8), lean = CurveSize bulge toward the front / outward (0.6, sways with the
---   clock), flicker = height variation (0.1), sweep = seconds the rise travels along the line (0.25; `from` =
---   "start" | "centre" | "end"), base = ground strip glow (true), scorch = dark ground line after the fall (true),
+--   clock), flicker = fast height jitter (0.1), sweep = seconds the rise travels along the line (0.25; `from` =
+--   "start" | "centre" | "end"), fallSweep (line: 2 x sweep) / fallFrom (= from) = the collapse wave,
+--   vary = height variation between panels (0.3; 0 = one height), taper = how far the two line ends drop (0.45),
+--   surge = { amp = 0.25, waves = 1.5, speed = 0.45 (lines per s) } or false: humps travelling along the hold,
+--   flare = 0.3 (occasional single-panel flare-ups, x height), density = 0.12 (Transparency spread per panel),
+--   fallFlare = 0.15 (height kick just before a panel collapses),
+--   height = function(k, x, T, h, P) -> h2 [, fade2]: your own height curve per panel, called every frame after the
+--     defaults (k = 0..1 along the line or round the ring, x = seconds since this panel began to rise, T = clock,
+--     h = the default height, P = the panel: P.i, P.row, P.k). Return nil to keep h. Use it for a custom surge,
+--     a breathing loop, a collapse from the middle: never hack `hold` or rebuild the envelope.
+--   base = ground strip glow (true), scorch = dark ground line after the fall (true),
 --   layers = your own stack (default K.CurtainLayers(palette)); each layer:
 --     { name, tex, w = width x panel width, w1 = width at the top (x panel width), spd = TextureSpeed, len =
---       TextureLength (repeats), col, le, br, tr = Transparency, foot = extra Transparency at the foot, curve, z, why }
+--       TextureLength (repeats), col, le, br, tr = Transparency, foot = extra Transparency at the foot, curve, z, why,
+--       ramp = { col = ColorSequence or { Color3, ... } (foot -> top), tr = { {t, v}, ... } or a NumberSequence
+--         (the hold Transparency along the length; the fade is added on top) },
+--       feather = n (2-3: n nested beams, narrower and denser inside, for a soft edge on any texture) }
 -- Clock-driven (frozen frame = live frame); beams are tracked, so freezes stop their scroll. Returns { panels, folder }.
+K.SoftSide = {} -- textures whose sides fade out (safe for dark curtain layers)
+for _, id in { K.Tex.FlowWisps[1], K.Tex.Glow[1] } do K.SoftSide[tostring(id)] = true end
 function K.CurtainLayers(pal)
 	return {
-		{ name = "deep", tex = K.Tex.Flow, w = 1.15, w1 = 0.8, spd = 0.45, len = 2.6, col = pal.dark, le = 0, br = 2, tr = 0.45, foot = 0.2,
-			why = "dark body: a darker value under the bright layers gives the sheet depth on a light floor; keep: LE 0, dark colour, Transparency 0.4-0.5; free: width, speed" },
+		{ name = "deep", tex = K.Tex.FlowWisps, w = 0.8, w1 = 0.5, spd = 0.45, len = 2.6, col = pal.dark, le = 0, br = 2, tr = 0.35, foot = 0.25,
+			why = "dark body: a darker value inside the bright layers gives the sheet depth on a light floor; keep: LE 0, dark colour, a SOFT-SIDED texture inside the body's width (hard quad sides read as dark rectangles); free: width <= body, speed" },
 		{ name = "body", tex = K.Tex.Flow, w = 1.0, w1 = 0.65, spd = 0.7, len = 1.9, col = pal.main, le = 0, br = 12, tr = 0.3, foot = 0.1,
 			why = "body: mid-tone x Brightness 10-15 clips to a hot centre with a hue rim (pro rule 2); keep: LE 0, mid-tone colour; free: Br 8-18, length" },
 		{ name = "streaks", tex = K.Tex.FlowStreaks, w = 0.75, w1 = 0.45, spd = 1.35, len = 1.2, col = pal.main, le = 0, br = 22, tr = 0.45, foot = 0.1,
@@ -1193,6 +1218,24 @@ function K.CurtainLayers(pal)
 			why = "halo: a faint wide veil that softens panel edges and blends the seams (no hard prism corners); keep: wider than the body, Transparency >= 0.75; free: width" },
 	}
 end
+local function toCS(c, tex)
+	if typeof(c) == "ColorSequence" then return c end
+	if type(c) == "table" then
+		local kp = {}
+		for i, col in c do table.insert(kp, ColorSequenceKeypoint.new(#c == 1 and 0 or (i - 1) / (#c - 1), K.Tint(tex, col))) end
+		if #kp == 1 then table.insert(kp, ColorSequenceKeypoint.new(1, kp[1].Value)) end
+		return ColorSequence.new(kp)
+	end
+	return ColorSequence.new(K.Tint(tex, c))
+end
+local function toKP(tr) -- { {t, v}, ... } or NumberSequence -> sorted { {t, v} } from 0 to 1
+	local kp = {}
+	if typeof(tr) == "NumberSequence" then for _, k in tr.Keypoints do table.insert(kp, { k.Time, k.Value }) end else for _, k in tr do table.insert(kp, { k[1], k[2] }) end end
+	table.sort(kp, function(a, b) return a[1] < b[1] end)
+	if kp[1][1] > 0 then table.insert(kp, 1, { 0, kp[1][2] }) end
+	if kp[#kp][1] < 1 then table.insert(kp, { 1, kp[#kp][2] }) end
+	return kp
+end
 function FX:Curtain(s)
 	local pal = s.pal or self.pal
 	local rng = Random.new(s.seed or 7)
@@ -1200,7 +1243,22 @@ function FX:Curtain(s)
 	local h, t0 = s.h or 6, s.t or 0
 	local rise, hold, fall = s.rise or 0.35, s.hold or 2, s.fall or 0.6
 	local overlap, lean, flick, sink = s.overlap or 0.35, s.lean or 0.6, s.flicker or 0.1, s.sink or 0.7
-	local layers = s.layers or K.CurtainLayers(pal)
+	local vary, taper = s.vary or 0.3, s.ring and 0 or (s.taper or 0.45)
+	local surge = s.surge == nil and { amp = 0.25, waves = s.ring and 1 or 1.5, speed = 0.45 } or s.surge
+	local flareAmt, density, fallFlare = s.flare or 0.3, s.density or 0.12, s.fallFlare or 0.15
+	local layers = {}
+	for _, L in s.layers or K.CurtainLayers(pal) do -- expand feathered layers into nested beams
+		local n = L.feather or 1
+		if n <= 1 then table.insert(layers, L) else
+			local tr = L.tr or 0.3
+			local a = 1 - tr ^ (1 / n) -- n copies stack to the layer's opacity at the centre
+			for j = 1, n do
+				local c = table.clone(L); local f = 1 - 0.55 * (j - 1) / (n - 1)
+				c.w, c.w1 = L.w * f, (L.w1 or L.w) * f; c.tr = 1 - a; c.feather = nil; c.grp = L.name; c.name = (L.name or "layer") .. "_f" .. j
+				table.insert(layers, c)
+			end
+		end
+	end
 	local panels = {}
 	local footA, footB, footW
 	if s.ring then
@@ -1232,14 +1290,25 @@ function FX:Curtain(s)
 		footA, footB, footW = A, B, (rows - 1) * depth + 1.6
 	end
 	local sweep, from = s.sweep or (s.ring and 0 or 0.25), s.from or "start"
+	local fallSweep, fallFrom = s.fallSweep or (s.ring and 0 or sweep * 2), s.fallFrom or from
+	local function along(k, f) return f == "centre" and math.abs(k - 0.5) * 2 or (f == "end" and 1 - k or (f == "edges" and 1 - math.abs(k - 0.5) * 2 or k)) end
+	-- skyline: two slow waves with random phases (integer frequencies on a ring so it closes)
+	local ph1, ph2 = rng:NextNumber(0, 1), rng:NextNumber(0, 1)
+	local f1, f2 = s.ring and 1 or 1.3, s.ring and 2 or 2.7
 	local folder = Instance.new("Folder"); folder.Name = s.name or "Curtain"; folder.Parent = self.root
 	local tEnd = t0
+	local groups = {}
 	for pi, P in panels do
-		local k = from == "centre" and math.abs(P.k - 0.5) * 2 or (from == "end" and 1 - P.k or P.k)
-		P.delay = k * sweep + rng:NextNumber(0, 0.04)
-		P.hk = (1 + rng:NextNumber(-0.12, 0.12)) * (P.row > 0 and 0.88 or 1)
+		P.i = pi
+		P.delay = along(P.k, from) * sweep + rng:NextNumber(0, 0.04)
+		-- the collapse wave: each panel holds at least `hold`, then falls in the order fallFrom gives (seconds after t0)
+		P.fall = math.max(P.delay + rise + hold * 0.5, rise + hold + along(P.k, fallFrom) * fallSweep + rng:NextNumber(0, 0.04))
+		local sky = 0.6 * math.sin(2 * math.pi * (P.k * f1 + ph1)) + 0.4 * math.sin(2 * math.pi * (P.k * f2 + ph2))
+		local e = math.clamp(math.min(P.k, 1 - P.k) / 0.2, 0, 1)
+		P.hk = (1 + vary * sky + rng:NextNumber(-0.06, 0.06)) * (1 - taper * (1 - e * e * (3 - 2 * e))) * (P.row > 0 and 0.88 or 1)
+		P.dk = rng:NextNumber(-density, density)
 		P.seed = pi * 1.37
-		tEnd = math.max(tEnd, t0 + P.delay + rise + hold + fall)
+		tEnd = math.max(tEnd, t0 + P.fall + fall)
 		local holder = part(folder, { Size = Vector3.one * 0.2, Transparency = 1, CFrame = CFrame.new(self:P(P.pos)), Name = "Panel" .. pi })
 		local X, Y = self:V(P.normal), self:V(P.across)
 		local base = CFrame.fromMatrix(self:P(P.pos), X, Y, X:Cross(Y))
@@ -1253,22 +1322,31 @@ function FX:Curtain(s)
 			b.Texture = "rbxassetid://" .. tex; b.TextureMode = Enum.TextureMode.Stretch
 			b.TextureLength = L.len * rng:NextNumber(0.85, 1.15); b.TextureSpeed = L.spd * rng:NextNumber(0.85, 1.15)
 			b.FaceCamera = false; b.LightInfluence = 0; b.LightEmission = L.le or 0; b.Brightness = L.br or 1
-			b.Color = CS(K.Tint(tex, L.col or pal.main)); b.Width0 = P.w * L.w; b.Width1 = P.w * (L.w1 or L.w)
+			b.Color = toCS(L.ramp and L.ramp.col or L.col or pal.main, tex); b.Width0 = P.w * L.w; b.Width1 = P.w * (L.w1 or L.w)
 			b.Segments = 16; b.ZOffset = L.z or (li * 0.02); b.Transparency = NS(1)
+			local trMin = L.tr or 0.3
+			local prof = L.ramp and L.ramp.tr and toKP(L.ramp.tr)
+			if prof then trMin = 1; for _, k in prof do trMin = math.min(trMin, k[2]) end end
 			b:SetAttribute("role", "curtain"); b:SetAttribute("why", L.why or K.Why.curtain); b:SetAttribute("tag", K.TagOf(tex))
-			b:SetAttribute("w0", t0 + P.delay); b:SetAttribute("w1", t0 + P.delay + rise + hold + fall); b:SetAttribute("h", h * P.hk); b:SetAttribute("trMin", L.tr or 0.3)
+			b:SetAttribute("grp", folder.Name .. "/" .. (L.grp or L.name or tostring(li)))
+			b:SetAttribute("w0", t0 + P.delay); b:SetAttribute("w1", t0 + P.fall + fall); b:SetAttribute("h", h * P.hk); b:SetAttribute("trMin", trMin)
 			b.Parent = holder
 			self:TrackBeam(b)
-			table.insert(P.beams, { b = b, tr = L.tr or 0.3, foot = L.foot or 0.1, curve = L.curve or 1 })
+			table.insert(P.beams, { b = b, tr = L.tr or 0.3, foot = L.foot or 0.1, curve = L.curve or 1, prof = prof })
+			if pi == 1 then
+				local v = 1; local c = L.ramp and L.ramp.col or L.col or pal.main
+				if typeof(c) == "Color3" then local _, _, vv = c:ToHSV(); v = vv end
+				table.insert(groups, { name = L.name or tostring(li), le = L.le or 0, dark = (L.le or 0) <= 0 and v < 0.5, soft = K.SoftSide[tostring(tex)] == true or (L.grp ~= nil), w = L.w })
+			end
 		end
 	end
 	local strips = {}
 	if footA and s.base ~= false then
 		local function strip(name, tex, col, le, br, tr, w, spd, why)
 			local A, B = self:P(footA + Vector3.new(0, 0.06, 0)), self:P(footB + Vector3.new(0, 0.06, 0))
-			local along = (B - A).Unit
-			local Y = up:Cross(along).Unit -- width across the wall, flat on the ground
-			local X = Y:Cross(along).Unit
+			local alongV = (B - A).Unit
+			local Y = up:Cross(alongV).Unit -- width across the wall, flat on the ground
+			local X = Y:Cross(alongV).Unit
 			local holder = part(folder, { Size = Vector3.one * 0.2, Transparency = 1, CFrame = CFrame.new(A), Name = name })
 			local a0 = Instance.new("Attachment"); a0.Parent = holder; a0.WorldCFrame = CFrame.fromMatrix(A, X, Y, X:Cross(Y))
 			local a1 = Instance.new("Attachment"); a1.Parent = holder; a1.WorldCFrame = CFrame.fromMatrix(B, X, Y, X:Cross(Y))
@@ -1277,43 +1355,82 @@ function FX:Curtain(s)
 			b.FaceCamera = false; b.LightInfluence = 0; b.LightEmission = le; b.Brightness = br; b.Color = CS(col)
 			b.Width0, b.Width1 = w, w; b.Segments = 1; b.ZOffset = -0.1; b.Transparency = NS(1)
 			b:SetAttribute("role", name == "Scorch" and "scorch" or "glow"); b:SetAttribute("why", why); b:SetAttribute("tag", K.TagOf(tex))
+			b:SetAttribute("grp", folder.Name .. "/" .. name)
 			b:SetAttribute("trMin", tr); b.Parent = holder; self:TrackBeam(b)
 			table.insert(strips, { b = b, tr = tr, kind = name })
 		end
 		strip("FootGlow", K.Tex.FlowWisps[1], pal.main, 1, 2, 0.35, footW + 1.2, 0.25,
 			"foot glow: a flat additive strip along the base reads from above, where vertical sheets are thin; keep: flat, LE 1; free: width, Br 1-3")
 		if s.scorch ~= false then
-			strip("Scorch", K.Tex.Flow[1], Color3.new(0, 0, 0), 0, 0, 0.55, footW + 0.4, 0,
-				"scorch line: the ground keeps a dark mark for ~1 s after the collapse; keep: black, Transparency >= 0.5; free: width, life")
+			strip("Scorch", K.Tex.FlowWisps[1], Color3.new(0, 0, 0), 0, 0, 0.45, footW + 0.4, 0,
+				"scorch line: the ground keeps a dark mark for ~1 s after the collapse; keep: black, soft-sided, Transparency >= 0.45; free: width, life")
 		end
 	elseif s.ring and s.base ~= false then
 		local a = self:PlaneAtt(s.ring.c or Vector3.zero, Vector3.yAxis, "CurtainBase")
 		local e = self:E(a, K.Tex.Glow, { role = "glow", Size = NS((s.ring.r or 3) * 1.4), Lifetime = R(rise + hold + fall), Color = CS(pal.main), LightEmission = 1, Brightness = 2,
 			Transparency = NS(0, 1, 0.12, 0.5, 0.85, 0.55, 1, 1), ZOffset = 0.1,
-			why = "base pool: a flat additive glow under the pillar reads from above; keep: flat, LE 1; free: size" })
+			why = "base pool: a flat additive glow under the pillar reads from above (it also hides the faint polygon a ring shows straight overhead); keep: flat, LE 1; free: size" })
 		self:EmitAt(t0, e, 1)
 	end
-	local function env(x, hk)
-		if x < 0 then return 0.05, 1 end
-		if x < rise then local k = x / rise; return h * hk * math.max(0.02, 1 - (1 - k) ^ 3), math.max(0, 1 - k / 0.4) end
-		if x < rise + hold then return h * hk, 0 end
-		if x < rise + hold + fall then local k = (x - rise - hold) / fall; return h * hk * (1 - sink * k ^ 1.5), k ^ 1.2 end
-		return 0.05, 1
+	-- height and fade of one panel at clock T (the default envelope + variation, then the user's hook)
+	local function env(P, T)
+		local x = T - t0
+		local xr = x - P.delay
+		local hk = P.hk
+		local ht, fade
+		if xr < 0 then return 0.05, 1 end
+		if xr < rise then local k = xr / rise; ht, fade = h * hk * math.max(0.02, 1 - (1 - k) ^ 3), math.max(0, 1 - k / 0.4)
+		elseif x < P.fall then ht, fade = h * hk, 0
+		elseif x < P.fall + fall then
+			local k = (x - P.fall) / fall
+			local kick = fallFlare * math.sin(math.clamp(k / 0.25, 0, 1) * math.pi) -- a short flare-up, then the drop
+			ht, fade = h * hk * (1 + kick) * (1 - sink * math.clamp((k - 0.1) / 0.9, 0, 1) ^ 1.5), math.clamp((k - 0.1) / 0.9, 0, 1) ^ 1.2
+		else return 0.05, 1 end
+		if fade < 1 then
+			-- hold life: travelling surges, occasional flare-ups, fast flicker (all fade in after the rise)
+			local live = math.clamp((xr - rise * 0.6) / 0.4, 0, 1)
+			local m = 1 + flick * math.noise(T * 2.3, P.seed, 0.5)
+			if surge and live > 0 then
+				local ph = (P.k * (surge.waves or 1.5) - T * (surge.speed or 0.45) * (surge.waves or 1.5)) % 1
+				m += (surge.amp or 0.25) * live * math.max(0, math.cos(ph * 2 * math.pi)) ^ 3
+			end
+			if flareAmt > 0 and live > 0 then
+				local f = math.noise(T * 0.8, P.seed * 0.31, 3.7)
+				if f > 0.22 then m += flareAmt * live * math.min(1, (f - 0.22) * 4) end
+			end
+			ht *= m
+		end
+		if s.height then
+			local h2, f2 = s.height(P.k, xr, T, ht, P)
+			if h2 then ht = h2 end
+			if f2 then fade = f2 end
+		end
+		return ht, fade
 	end
 	self:OnUpdate(function(T)
+		local minFade = 1
 		for _, P in panels do
-			local ht, fade = env(T - t0 - P.delay, P.hk)
-			if fade < 1 then ht = ht * (1 + flick * math.noise(T * 2.3, P.seed, 0.5)) end
+			local ht, fade = env(P, T)
+			minFade = math.min(minFade, fade)
 			P.a1.WorldCFrame = P.base + up * math.max(ht, 0.05)
 			local sway = 1 + 0.3 * math.sin(T * 1.6 + P.seed)
+			local dk = fade < 1 and (P.dk + density * 0.6 * math.noise(T * 0.45, P.seed, 9.1)) or 0
+			local q = math.floor((fade + dk) * 50 + 0.5) -- quantised: rebuild the sequences only when they change visibly
 			for _, B in P.beams do
 				B.b.CurveSize0 = lean * B.curve * sway; B.b.CurveSize1 = -lean * B.curve * sway * 0.5
-				if fade ~= P.lastFade then
-					local tr = B.tr + (1 - B.tr) * fade
-					B.b.Transparency = fade >= 1 and NS(1) or NS(0, math.min(1, tr + B.foot), 0.15, tr, 0.62, tr, 1, 1)
+				if q ~= P.lastQ then
+					if fade >= 1 then B.b.Transparency = NS(1)
+					elseif B.prof then
+						local kp = {}
+						for _, k in B.prof do table.insert(kp, NumberSequenceKeypoint.new(k[1], math.clamp(k[2] + dk + (1 - k[2]) * fade, 0, 1))) end
+						B.b.Transparency = NumberSequence.new(kp)
+					else
+						local tr = math.clamp(B.tr + dk + (1 - B.tr) * fade, 0, 1)
+						B.b.Transparency = NS(0, math.min(1, tr + B.foot), 0.15, tr, 0.62, tr, 1, 1)
+					end
 				end
 			end
-			P.lastFade = fade
+			P.lastQ = q
 		end
 		for _, S in strips do
 			local x = T - t0
@@ -1322,13 +1439,14 @@ function FX:Curtain(s)
 				fade = x < 0 and 1 or math.clamp(1 - x / 0.3, 0, 1)
 				if T > tEnd then fade = math.clamp((T - tEnd) / 1.2, 0, 1) end
 			else
-				local _, f = env(x, 1); fade = f
+				fade = minFade
 			end
 			if fade ~= S.last then S.b.Transparency = fade >= 1 and NS(1) or NS(0, 1, 0.08, S.tr + (1 - S.tr) * fade, 0.92, S.tr + (1 - S.tr) * fade, 1, 1); S.last = fade end
 		end
 	end)
 	self.duration = math.max(self.duration, tEnd + 1.6)
-	table.insert(self.curtains, { name = folder.Name, t0 = t0, t1 = tEnd, n = #panels, rows = s.rows or (s.ring and 0 or 2), ring = s.ring ~= nil })
+	table.insert(self.curtains, { name = folder.Name, t0 = t0, t1 = tEnd, n = #panels, rows = s.rows or (s.ring and 0 or 2), ring = s.ring ~= nil,
+		flat = vary < 0.1 and not s.height and not surge, groups = groups })
 	return { panels = panels, folder = folder }
 end
 
@@ -1401,7 +1519,7 @@ function FX:_applyGain()
 				local ws, ts = {}, self._emitT[e]
 				if e.Rate > 0 or not ts then ws = { { 0, self.duration } } else for _, t in ts do table.insert(ws, { t, t + e.Lifetime.Max }) end end
 				local trMin = 1; for _, k in e.Transparency.Keypoints do trMin = math.min(trMin, k.Value) end
-				table.insert(items, { i = e, p = pos, r = maxKP(e.Size), w = ws, l = e.Brightness * (1 - trMin) })
+				table.insert(items, { i = e, g = e:GetAttribute("grp") or e, p = pos, r = maxKP(e.Size), w = ws, l = e.Brightness * (1 - trMin) })
 			end
 		end
 	end
@@ -1415,17 +1533,23 @@ function FX:_applyGain()
 				local w0, w1 = b:GetAttribute("w0"), b:GetAttribute("w1")
 				local trMin = b:GetAttribute("trMin") -- animated beams (curtains) store their hold Transparency
 				if not trMin then trMin = 1; for _, k in b.Transparency.Keypoints do trMin = math.min(trMin, k.Value) end end
-				table.insert(items, { i = b, p = mid, r = math.max(b.Width0, b.Width1) / 2, w = { { w0 or 0, w1 or self.duration } }, l = b.Brightness * (1 - trMin) })
+				table.insert(items, { i = b, g = b:GetAttribute("grp") or b, p = mid, r = math.max(b.Width0, b.Width1) / 2, w = { { w0 or 0, w1 or self.duration } }, l = b.Brightness * (1 - trMin) })
 			end
 		end
 	end
 	local function overlapT(a, b) for _, x in a do for _, y in b do if x[1] < y[2] and y[1] < x[2] then return true end end end return false end
-	local N, S, at = 1, 0, nil
+	local N, S, at, G, gat = 1, 0, nil, 1, nil
 	for _, A in items do
-		local c, l = 0, 0
-		for _, B in items do if (A.p - B.p).Magnitude <= math.max(B.r * 0.8, 0.3) and overlapT(A.w, B.w) then c += 1; l += B.l end end
+		local c, l, gs, ng = 0, 0, {}, 0
+		for _, B in items do
+			if (A.p - B.p).Magnitude <= math.max(B.r * 0.8, 0.3) and overlapT(A.w, B.w) then
+				c += 1; l += B.l
+				if not gs[B.g] then gs[B.g] = true; ng += 1 end -- distinct layers (a curtain layer's panels count once)
+			end
+		end
 		A.c = c
 		if c > N then N = c end
+		if ng > G then G, gat = ng, A.i end
 		if l > S then S, at = l, A.i end
 	end
 	local auto = math.min(math.clamp((self.budget or 2) / math.max(S, 1e-3), 0, 1), 1 - 0.04 * math.max(0, N - 6))
@@ -1433,7 +1557,8 @@ function FX:_applyGain()
 	for _, A in items do
 		if A.c >= 2 and g ~= 1 then A.i:SetAttribute("br0", A.i.Brightness); A.i.Brightness = A.i.Brightness * g end
 	end
-	self.gainInfo = { g = g, N = N, S = S, at = at and (at.Parent and at.Parent.Parent and at.Parent.Parent.Name .. "/" or "") .. at.Name or "-", auto = type(self.gain) ~= "number" }
+	local function nm(x) return x and (x.Parent and x.Parent.Parent and x.Parent.Parent.Name .. "/" or "") .. x.Name or "-" end
+	self.gainInfo = { g = g, N = N, S = S, at = nm(at), G = G, gat = nm(gat), auto = type(self.gain) ~= "number" }
 	return self.gainInfo
 end
 
@@ -1806,7 +1931,12 @@ function FX:Lint()
 	if impact and not linger then warn("an impact without an aftermath group: add fx:Aftermath{ t = hit + 0.15, p = ... } (faint, low, radial, 1-2 s)") end
 	local gi = self.gainInfo
 	if gi and (gi.N > 6 or gi.S > (self.budget or 2)) and gi.g >= 1 then warn(("%d additive layers (light %.1f) overlap at %s with gain 1: white-blob risk (leave fx.gain = \"auto\" or set it < 1)"):format(gi.N, gi.S, gi.at)) end
+	if gi and gi.G and gi.G > 4 then warn(("%d different additive layers (LE > 0) overlap at %s at one moment: more than 4 stack into a white or washed-out mass; keep 2-4 glowing layers per spot and carry the body with LE 0 layers"):format(gi.G, gi.gat)) end
 	for _, c in self.curtains do
+		if c.flat then warn(c.name .. ": one height along the whole curtain (vary < 0.1, no surge, no height hook) reads as a flat rectangle; give it a skyline, surges or flare-ups") end
+		for _, gr in c.groups or {} do
+			if gr.dark and not gr.soft then warn(("%s: dark layer '%s' uses a hard-sided texture: its quad edges read as dark rectangles; use a soft-sided texture (K.SoftSide), feather = 2, or keep it narrower than the body"):format(c.name, gr.name)) end
+		end
 		if c.ring and c.n < 6 then warn(c.name .. ": a ring curtain with fewer than 6 panels shows a polygon with bright overlap corners from above (6-8)") end
 		if not c.ring and c.rows < 2 then warn(c.name .. ": one row of panels = a stick from the end and a slab from above; rows = 2+ (and keep the foot glow)") end
 	end
