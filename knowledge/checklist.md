@@ -20,6 +20,16 @@ moved, lengthened or brightened toward a camera. A fix that asks for "more on th
 | 5 | The payoff is not hidden by the caster's body from the player camera. | Strike 10-12 studs ahead, column >= 3x caster height, dust ring / sparks / debris thrown past the silhouette to both sides. |
 | 6 | Hands / weapon stay outside the body silhouette from behind at every hit pose. | Arm az beyond +-100, lean the torso into heavy hits. |
 
+## Animation (when a character performs the effect; answer from a side pose sheet, one still every 0.1 s)
+Take it with the effects off: `fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, lastKeyTime, 0.1))`, then
+`fx:PoseOnly(false)`. The effect follows the pose (`swing = { t0, t1 }`), never the other way round.
+| # | Check | Fix |
+|---|---|---|
+| A1 | [L] No T-pose between hits: upper arms below the shoulders, elbows bent 18-80 degrees, every hit starts from and returns to a guard. | `K.Guard.Mid / Low / High` through `K.Key(t, guard, extra)`. |
+| A2 | [L] Two-handed moves have the off hand ON the hilt (guards, wind-ups, heavy cuts); a free hand is a fist at the belly or ribs, not hanging. | Pose key `two = 1` (two-joint IK onto the handle); `K.Guard.Fist / Tuck` when released. |
+| A3 | [L] Arms never pass through the body: no hand inside the torso, the swinging arm stays on its own side or goes over the top. | Turn the waist (`wy`) to carry the swing; keep the arm az in about -45..125. |
+| A4 | The body commits: a step into each hit, a stride on lunges, the head leads or follows the cut, a lean into spins; nothing slides. | Pose keys `fz`, `st`, `hy`, `rl`. |
+
 ## Dark and light
 | # | Check | Fix |
 |---|---|---|

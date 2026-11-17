@@ -1,13 +1,14 @@
 --!nocheck
--- VFXKit 1.1: tested building blocks for melee / ability effects (strokes with an ink rim, impact frame, bolt, rings,
--- ground marks, debris, smoke, flash, charge, one freeze-safe clock, camera shake, R15 pose helpers, review cameras, Lint).
+-- VFXKit 1.2: tested building blocks for melee / ability effects (strokes with an ink rim, mesh slashes fitted to the
+-- swing, impact frame, bolt, rings, ground marks, debris, smoke, flash, charge, one freeze-safe clock, camera shake,
+-- R15 pose helpers with a two-handed grip, review cameras, Lint).
 -- Guide: knowledge/vfxkit.md. Demo: kit/studio/VFXKitDemo.luau. Load both with kit/scripts/kit_push.py.
 -- Edit mode, one clock, freeze-safe. Returns a table; nothing is built until you call K.new().
 --
 --   local K = loadstring(game:GetObjects("rbxasset://vfxlib/<name>.rbxmx")[1].Value)()   -- also stored as _G.VFXKit
 --   local fx = K.new("LAB_fire", CFrame.new(0, 0, 45))      -- caster frame: origin on the floor, caster looks along -Z
 --   fx:Stage(); fx:Caster(); fx:Katana(); fx:Pose(keys)
---   fx:Stroke{...}; fx:Contact{...}; fx:Bolt{...}; fx:ImpactFrame{...}; fx:Shake(t, amp, dur) ...
+--   fx:Stroke{...}; fx:MeshSlash{...}; fx:Contact{...}; fx:Bolt{...}; fx:ImpactFrame{...}; fx:Shake(t, amp, dur) ...
 --   fx:Build(); fx:Cam("player"); fx:Play()        -- live      |  fx:Play(1.92) = freeze at 1.92 s  |  fx:Stop()
 --   print(fx:Lint())                                -- static "before you show me" checks
 --
@@ -18,7 +19,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local Lighting = game:GetService("Lighting")
 
-local K = { VERSION = "1.1" }
+local K = { VERSION = "1.2" }
 
 ---------------------------------------------------------------- small helpers
 local VP, FC, VPAR = Enum.ParticleOrientation.VelocityPerpendicular, Enum.ParticleOrientation.FacingCamera, Enum.ParticleOrientation.VelocityParallel
@@ -75,6 +76,19 @@ K.Tex = {
 	Rock = { 15441282898, "2x2" }, -- dark texture: unlit light grey reads as stone
 	Smoke = { 13013256540, "4x4" }, Steam = { 16845391847, "4x4" },
 }
+-- Slash meshes for FX:MeshSlash (an invisible Part + SpecialMesh + Decal; ids from the open-source pack, looked at in
+-- Studio). nat = the mesh's native size (SpecialMesh.Scale = wanted size / nat), tex = decal(s), span = degrees of arc
+-- the decal paints, a0 = where the arc's middle sits (degrees from the mesh's -Z toward -X), rad = arc radius / mesh
+-- radius, lead = "cw" when the thick bright end is the clockwise end seen from +Y (the kit turns it to lead the swing).
+-- Add your own: measure nat with AssetService:CreateMeshPartAsync(...).MeshSize and look at the decal from above.
+K.Mesh = {
+	Hot = { mesh = 6665452633, nat = Vector3.new(2, 0.2, 2), tex = { 120758508542035 }, span = 174, a0 = 26, rad = 0.82, lead = "cw" }, -- flat ring + thin white-hot crescent
+	Body = { mesh = 6665452633, nat = Vector3.new(2, 0.2, 2), tex = { 98079913503816 }, span = 140, a0 = 24, rad = 0.8, lead = "cw" }, -- flat ring + thick soft crescent (body, dark copy)
+	Band = { mesh = 17105621375, nat = Vector3.one, tex = { 18227621394 }, span = 200, a0 = 0, rad = 1 }, -- slash wrapped round a squat cylinder: keeps HEIGHT edge-on
+}
+-- Decal.Color3 above 1 = shine (white-hot core, coloured rim, real bloom in daylight). gain 4-10; black stays black.
+function K.HDR(c, gain) gain = gain or 7; return Color3.new(c.R * gain, c.G * gain, c.B * gain) end
+
 -- banned in this run: 13781849388 (tiles into puddles), 12018086505 (closes arcs into rings), 17612096503 (other native rotation)
 
 -- Palette: one hue family. hot = near-white tint, main = body, deep = darker same-hue, dark = ramp end.
@@ -116,7 +130,7 @@ function K.new(name, originCF, palette)
 	if typeof(originCF) == "Vector3" then originCF = CFrame.new(originCF) end
 	local fx = setmetatable({
 		name = name, root = root, CF = originCF or CFrame.new(0, 0, 45), pal = palette or K.Palettes.Storm,
-		events = {}, emitters = {}, beams = {}, updaters = {}, shakes = {}, strokes = {}, weapon = {}, ghosts = nil,
+		events = {}, emitters = {}, beams = {}, updaters = {}, shakes = {}, strokes = {}, weapon = {}, ghosts = nil, meshes = {}, meshSlashes = {},
 		keys = nil, hip = 3.2, shake = true, duration = 4.5, T = 0,
 	}, FX)
 	_G.VFXKitLive = _G.VFXKitLive or {}
@@ -306,10 +320,37 @@ end
 --   t, yaw (root turn, deg), wy / wp (waist yaw / pitch, + = lean back), ra / la = { az, el } upper-arm aim in torso space,
 --   eb / lb elbow bends, bl = { az, el } blade direction in torso space, dr = root drop (crouch), mv = Vector3 root move
 --   (caster space: lunges, steps), e = ease INTO this key ("out" | "fast" | "inout" | "lin").
+--   fz  forward travel along the look line in studs (a front-foot step into the hit; it stays, like a real step)
+--   st  stride 0..1.3: the legs spread front / back (use with fz and dr: a lunge is fz 2, st 1.3, dr 0.85)
+--   hy  head yaw in degrees (+ = left) on top of the automatic counter-turn: the head leads or follows the cut
+--   rl  root roll in degrees (+ = left): lean into a spin or a wide swing
+--   two 0..1: the off hand (left) grips the handle `fx.offHand` (0.55) studs behind the right hand, solved by a
+--       two-joint IK; la / lb are ignored while it is 1. Use it on every guard, wind-up and heavy two-handed hit and
+--       release it (two = 0 with K.Guard.Tuck / K.Guard.Fist) only where the move is one-handed.
+-- RULE: the pose leads. Never bend arms to reach an effect's plane; fit the effect to the blade (FX:MeshSlash,
+-- Stroke{ swing = }). No T-pose between hits: upper arms below the shoulders with elbows bent 18-80 degrees, pass
+-- through a guard (K.Guard) from one hit to the next. Lint() samples the pose and warns about all of this.
 -- Proven shape of one hit: anticipation key ("out", 0.07 s) -> swing key ("fast", 0.12-0.18 s) -> held follow-through
 -- ("out", 0.13 s = 8 frames). Keep hands / blade OUTSIDE the body silhouette seen from behind (az beyond +-100).
 -- Trap: lerping az across the back swings the limb round the SIDE; for an overhead cut hold az 0 and take el past 90.
-local DEF = { yaw = 0, wy = 0, wp = 0, ra = { 30, -60 }, la = { -30, -60 }, eb = 15, lb = 25, bl = { 0, -10 }, dr = 0, mv = Vector3.zero }
+local DEF = { yaw = 0, wy = 0, wp = 0, ra = { 30, -60 }, la = { -30, -60 }, eb = 15, lb = 25, bl = { 0, -10 }, dr = 0, mv = Vector3.zero, fz = 0, st = 0, hy = 0, rl = 0, two = 0 }
+-- Guard poses to pass through between hits (merge into a key with K.Key). Two-handed: Mid (blade forward and a little
+-- up, hands in front of the belly), Low (blade back-down at the right hip), High (overhead wind-up). One-handed: the
+-- free fist at the belly (Fist) or pulled to the ribs (Tuck).
+K.Guard = {
+	Mid = { wy = 15, wp = 2, ra = { 22, -48 }, eb = 55, bl = { 18, 14 }, dr = 0.4, two = 1 },
+	Low = { wy = -25, wp = -4, ra = { 30, -60 }, eb = 45, bl = { 140, -32 }, dr = 0.75, two = 1 },
+	High = { wy = 0, wp = 10, ra = { 12, 84 }, eb = 30, bl = { 0, 128 }, la = { -12, 80 }, lb = 30, dr = 0.1, two = 1 },
+	Fist = { la = { -20, -62 }, lb = 75, two = 0 },
+	Tuck = { la = { -35, -62 }, lb = 100, two = 0 },
+}
+-- K.Key(0.8, K.Guard.Low, { e = "out", fz = 1.5 }) -> one pose key
+function K.Key(t, base, over)
+	local k = { t = t }
+	for f, v in base or {} do k[f] = v end
+	for f, v in over or {} do k[f] = v end
+	return k
+end
 function FX:Pose(keys)
 	local prev = DEF
 	local out = {}
@@ -330,21 +371,54 @@ local function poseAt(keys, t)
 		end
 	end
 	local P = {}
-	for _, f in { "yaw", "wy", "wp", "eb", "lb", "dr" } do P[f] = lerp(a[f], b[f], k) end
+	for _, f in { "yaw", "wy", "wp", "eb", "lb", "dr", "fz", "st", "hy", "rl", "two" } do P[f] = lerp(a[f], b[f], k) end
 	for _, f in { "ra", "bl", "la" } do P[f] = { lerp(a[f][1], b[f][1], k), lerp(a[f][2], b[f][2], k) } end
 	P.mv = a.mv:Lerp(b.mv, k)
 	return P
+end
+local function fromTo(u, v) -- minimal rotation taking unit u to unit v
+	local axis = u:Cross(v)
+	local d = math.clamp(u:Dot(v), -1, 1)
+	if axis.Magnitude < 1e-5 then return d > 0 and CFrame.identity or CFrame.fromAxisAngle(Vector3.xAxis, math.pi) end
+	return CFrame.fromAxisAngle(axis.Unit, math.acos(d))
+end
+-- two-joint IK of one arm ("Left" | "Right"): hand centre to world point T, elbow toward down / out / back of the torso
+-- (never through the chest). Returns the upper arm, lower arm and hand CFrames.
+local function armIK(m, cf, side, T)
+	local UA, LA, H, UT = m[side .. "UpperArm"], m[side .. "LowerArm"], m[side .. "Hand"], m.UpperTorso
+	local sN, eN, wN = side .. "ShoulderRigAttachment", side .. "ElbowRigAttachment", side .. "WristRigAttachment"
+	local sU, eU = UA[sN].Position, UA[eN].Position
+	local eL, wL = LA[eN].Position, LA[wN].Position
+	local L1 = (eU - sU).Magnitude
+	local L2 = (wL - eL).Magnitude + H[wN].Position.Magnitude
+	local S = (cf.UpperTorso * UT[sN].CFrame).Position
+	local d = T - S
+	local dist = math.clamp(d.Magnitude, math.abs(L1 - L2) + 0.05, L1 + L2 - 0.02)
+	local dn = d.Unit
+	local pole = cf.UpperTorso:VectorToWorldSpace(Vector3.new(side == "Left" and -0.5 or 0.5, -1, 0.35))
+	pole = pole - dn * pole:Dot(dn)
+	pole = pole.Magnitude > 1e-3 and pole.Unit or cf.UpperTorso.RightVector * (side == "Left" and -1 or 1)
+	local a = (L1 * L1 + dist * dist - L2 * L2) / (2 * dist)
+	local h = math.sqrt(math.max(0, L1 * L1 - a * a))
+	local E = S + dn * a + pole * h
+	local Tn = S + dn * dist
+	local Rt = cf.UpperTorso.Rotation
+	local rU = fromTo(Rt:VectorToWorldSpace((eU - sU).Unit), (E - S).Unit) * Rt
+	local ua = CFrame.new(S) * rU * CFrame.new(-sU)
+	local rL = fromTo(rU:VectorToWorldSpace((wL - eL).Unit), (Tn - E).Unit) * rU
+	local la = CFrame.new(E) * rL * CFrame.new(-eL)
+	return ua, la, la * LA[wN].CFrame * H[wN].CFrame:Inverse()
 end
 -- world CFrames of every R15 part at clock time t, plus .Grip (right hand, -Z along the blade direction `bl`)
 function FX:FK(t)
 	local m = self.char
 	local P = poseAt(self.keys, t)
-	local rootCF = self.CF * CFrame.new(P.mv + Vector3.new(0, self.hip - P.dr, 0)) * CFrame.Angles(0, math.rad(P.yaw), 0)
+	local rootCF = self.CF * CFrame.new(P.mv + Vector3.new(0, self.hip - P.dr, -P.fz)) * CFrame.Angles(0, math.rad(P.yaw), 0) * CFrame.Angles(0, 0, math.rad(P.rl))
 	local rots = {
 		root = CFrame.identity, waist = CFrame.Angles(math.rad(P.wp), math.rad(P.wy), 0),
-		neck = CFrame.Angles(math.rad(-P.wp * 0.5), math.rad(-P.wy * 0.6), 0),
-		rh = CFrame.Angles(math.rad(-18), 0, math.rad(8)), rk = CFrame.Angles(math.rad(-20 - P.dr * 30), 0, 0),
-		lh = CFrame.Angles(math.rad(28 + P.dr * 20), 0, math.rad(-6)), lk = CFrame.Angles(math.rad(-30 - P.dr * 30), 0, 0),
+		neck = CFrame.Angles(math.rad(-P.wp * 0.5), math.rad(-P.wy * 0.6 + P.hy), 0),
+		rh = CFrame.Angles(math.rad(-18 - P.st * 14), 0, math.rad(8)), rk = CFrame.Angles(math.rad(-20 - P.dr * 30), 0, 0),
+		lh = CFrame.Angles(math.rad(28 + P.dr * 20 + P.st * 12), 0, math.rad(-6)), lk = CFrame.Angles(math.rad(-30 - P.dr * 30), 0, 0),
 		re = CFrame.Angles(math.rad(P.eb), 0, 0), le = CFrame.Angles(math.rad(P.lb), 0, 0),
 	}
 	local cf = { HumanoidRootPart = rootCF }
@@ -363,6 +437,11 @@ function FX:FK(t)
 	local upHint = cf.UpperTorso:VectorToWorldSpace(Vector3.new(0, 0, 1))
 	if math.abs(bl:Dot(upHint)) > 0.95 then upHint = cf.UpperTorso.RightVector end
 	cf.Grip = CFrame.lookAt(grip, grip + bl, upHint)
+	if P.two > 0.001 then -- off hand on the handle behind the right hand
+		local ua, la, hd = armIK(m, cf, "Left", grip - bl * (self.offHand or 0.55))
+		local k = math.clamp(P.two, 0, 1)
+		cf.LeftUpperArm = cf.LeftUpperArm:Lerp(ua, k); cf.LeftLowerArm = cf.LeftLowerArm:Lerp(la, k); cf.LeftHand = cf.LeftHand:Lerp(hd, k)
+	end
 	return cf
 end
 function FX:ApplyPose(t)
@@ -378,6 +457,59 @@ end
 -- caster-space samplers, so effects sit on the REAL limb path:
 function FX:BladeDir(t) return self.CF:VectorToObjectSpace(self:FK(t).Grip.LookVector) end
 function FX:PartPos(t, partName) return self.CF:PointToObjectSpace(self:FK(t)[partName or "RightHand"].Position) end
+-- the swinging tip at clock time t (caster space): the blade tip with a weapon, or a part ("RightHand", "LeftFoot" ...)
+function FX:TipPos(t, by)
+	local cf = self:FK(t)
+	if (by and by ~= "blade") or not self.bladeLen then return self.CF:PointToObjectSpace(cf[(by and by ~= "blade") and by or "RightHand"].Position) end
+	return self.CF:PointToObjectSpace(cf.Grip.Position + cf.Grip.LookVector * (self.bladeLen + 0.5))
+end
+-- Fit a swing: sample the tip path between two pose times, fit its plane and a circle in it. Returns (caster space)
+-- { c = circle centre, n = plane normal (the sweep runs counter-clockwise about n), R = radius, mid = direction from c
+-- to the path's middle, deg = swept angle, by, t0, t1 }. A straight path (a thrust) has no circle: R is then huge and
+-- `straight` is true; use a Stroke / needles for those.
+function FX:FitArc(t0, t1, by, N)
+	N = N or 16
+	local pts, m = {}, Vector3.zero
+	for i = 0, N do local p = self:TipPos(lerp(t0, t1, i / N), by); pts[i + 1] = p; m += p end
+	m /= #pts
+	local n = Vector3.zero
+	for i = 1, N do n += (pts[i] - m):Cross(pts[i + 1] - m) end
+	n = n.Magnitude > 1e-6 and n.Unit or Vector3.yAxis
+	local e1 = pts[1] - m; e1 = e1 - n * e1:Dot(n)
+	e1 = e1.Magnitude > 1e-4 and e1.Unit or n:Cross(Vector3.xAxis).Unit
+	local e2 = n:Cross(e1)
+	local sxx, sxy, syy, sx, sy, sxz, syz, sz = 0, 0, 0, 0, 0, 0, 0, 0 -- Kasa circle fit in the plane
+	for _, p in pts do
+		local x, y = (p - m):Dot(e1), (p - m):Dot(e2)
+		local z = x * x + y * y
+		sxx += x * x; sxy += x * y; syy += y * y; sx += x; sy += y; sxz += x * z; syz += y * z; sz += z
+	end
+	local A = { { sxx, sxy, sx }, { sxy, syy, sy }, { sx, sy, #pts } }
+	local B = { -sxz, -syz, -sz }
+	local function det(M) return M[1][1] * (M[2][2] * M[3][3] - M[2][3] * M[3][2]) - M[1][2] * (M[2][1] * M[3][3] - M[2][3] * M[3][1]) + M[1][3] * (M[2][1] * M[3][2] - M[2][2] * M[3][1]) end
+	local D0 = det(A)
+	local c, R, straight = m, 1, math.abs(D0) < 1e-7
+	if not straight then
+		local sol = {}
+		for col = 1, 3 do
+			local M = { { A[1][1], A[1][2], A[1][3] }, { A[2][1], A[2][2], A[2][3] }, { A[3][1], A[3][2], A[3][3] } }
+			for r = 1, 3 do M[r][col] = B[r] end
+			sol[col] = det(M) / D0
+		end
+		local cx, cy = -sol[1] / 2, -sol[2] / 2
+		R = math.sqrt(math.max(0.01, cx * cx + cy * cy - sol[3]))
+		c = m + e1 * cx + e2 * cy
+		straight = R > 60
+	end
+	local len, cum = 0, { 0 }
+	for i = 1, N do len += (pts[i + 1] - pts[i]).Magnitude; cum[i + 1] = len end
+	local im = 1
+	for i = 1, N + 1 do if cum[i] >= len / 2 then im = i; break end end
+	local md = pts[im] - c; md = md - n * md:Dot(n)
+	local d0, d1 = (pts[1] - c).Unit, (pts[N + 1] - c).Unit
+	local half = math.deg(math.acos(math.clamp(d0:Dot(md.Unit), -1, 1))) + math.deg(math.acos(math.clamp(md.Unit:Dot(d1), -1, 1)))
+	return { c = c, n = n, R = R, mid = md.Unit, deg = half, by = by, t0 = t0, t1 = t1, straight = straight, pts = pts }
+end
 -- plane of a swing between two pose times: returns centre c, normal n, mid (direction to the arc's middle), reach.
 -- `by` = "blade" (default with a weapon) or a part name ("RightHand", "LeftFoot") for punches / kicks.
 function FX:SwingPlane(t0, t1, by)
@@ -452,7 +584,7 @@ function FX:Stroke(s)
 	if early then coreTr = NS(0, 0, 0.42, 0, 0.62, 1, 1, 1); ramp = CS(pal.main:Lerp(WH, 0.25), 1, pal.deep) end
 	local tex = s.tex or (soft and K.Tex.StrokeThin or K.Tex.Stroke)
 	local out = { att = a, r = r, n = n, c = c, mid = mid, size = size }
-	table.insert(self.strokes, { name = s.name or "Stroke", n = n.Unit, fan = s.fan, soft = soft, t = t })
+	if not s._tail then table.insert(self.strokes, { name = s.name or "Stroke", n = n.Unit, fan = s.fan, soft = soft, t = t }) end
 	out.core = self:EmitAt(t, self:E(a, tex, { role = "core", Size = NS(size), Lifetime = R(life), Rotation = R(r), RotSpeed = R(rs), Color = ramp,
 		LightEmission = soft and 0 or -3, Brightness = s.br or (soft and 38 or 35), Transparency = coreTr, ZOffset = 0.04 }))
 	if s.twin ~= false and not soft then
@@ -489,6 +621,118 @@ function FX:ArcPoints(c, n, mid, radius, angles)
 	local pts = {}
 	for _, a in angles do table.insert(pts, c + CFrame.fromAxisAngle(n, math.rad(a)):VectorToWorldSpace(mid.Unit) * radius) end
 	return pts
+end
+
+---------------------------------------------------------------- mesh slashes
+-- A slash made of MESHES fitted to the swing: per layer an invisible Part + SpecialMesh + Decal whose Color3 is above
+-- 1 (shine). The kit samples the tip path of the pose (blade, hand or foot), fits its plane and circle (FX:FitArc)
+-- and drives every layer from the effect clock: the arc's middle trails the tip by `lag` degrees, the radius grows,
+-- the thickness thins, the decal holds and then fades Cubic Out. Frozen frame = live frame.
+--   swing   { t0, t1 [, by] }  pose times of the swing; by = "blade" (default with a weapon) or a part name
+--                              ("RightHand" for a punch, "RightFoot" for a kick)
+--   on      first visible time (t0 + 0.025)        hold  opaque until (t1 - 0.02)
+--   fade    seconds of the Cubic Out fade after `hold` (0.1; keep 0.08-0.25: longer = a lingering line)
+--   follow  the layers stop turning with the tip at this time (t1)
+--   height  multiplies the Band's height along the plane normal (1 = 1.1 studs; 2-2.4 for a cut seen edge-on)
+--   band    false = no Band layer (flat cuts seen from above only)
+--   gain    multiplies every layer's shine (1)
+--   layers  your own stack instead of the default (see below); each layer:
+--           { kind = "Hot" | "Body" | "Band" (K.Mesh), r = radius / fitted radius, th = thickness in studs, col =
+--             Color3 (use K.HDR), col1 = colour at the end of its life, lag = degrees its middle trails the tip
+--             (default: half the decal's span = its head sits on the blade), tr0 = start transparency, offN = offset
+--             along the normal, g0 / g1 = radius growth (0.92 -> 1.1), early = seconds it ends before the others,
+--             on / hold / off = own times, flip = mirror which end leads }
+--   tail    true or { tex, size, life, br, t }: one flipbook sprite on the same plane for an animated, eroding tail
+-- Default stack (the order pros layer it): Band in the main colour (the body with height), Body in the deep colour,
+-- a BLACK Body copy at 0.9x radius, see-through, a little behind and ending first (depth; never bigger than the
+-- bright layers: from the far side it would cover them), and the white-hot Hot crescent on top, cooling to the main
+-- colour. Shorten from the tail: add layers with a bigger `lag` and an earlier `off`.
+-- Meshes beat sprites when the slash must SHINE in daylight (HDR decal, real bloom), sit ON the blade all through the
+-- swing (they turn with it; a sprite is stamped once) and keep some height when its plane is edge-on to the player
+-- (the Band's wall). Sprites (FX:Stroke) are better for an animated, eroding shape (flipbook), a stylised ink look,
+-- many small or cheap hits, and anything that passes within a few studs of a camera. A mesh layer fades as a whole:
+-- for a tail that breaks up add `tail`, or stagger layers.
+-- Returns { fit, c, n, R, mid, on, hold, off, layers }.
+function FX:MeshSlash(s)
+	local pal = s.pal or self.pal
+	local t0, t1, by = s.swing[1], s.swing[2], s.swing[3]
+	local fit = s.fit or self:FitArc(t0, t1, by, s.samples)
+	local on, hold, fade = s.on or (t0 + 0.025), s.hold or (t1 - 0.02), s.fade or 0.1
+	local follow = s.follow or t1
+	local h, gain = s.height or 1, s.gain or 1
+	local layers = s.layers
+	if not layers then
+		layers = {
+			{ kind = "Band", r = 1.02, th = 1.1 * h, col = K.HDR(pal.main, 7 * gain) },
+			{ kind = "Body", r = 0.98, th = 0.3, col = K.HDR(pal.deep, 7 * gain), offN = -0.03 },
+			{ kind = "Body", r = 0.88, th = 0.3, col = Color3.new(0, 0, 0), tr0 = 0.5, offN = -0.09, early = 0.03 },
+			{ kind = "Hot", r = 1.04, th = 0.3, col = K.HDR(pal.hot, 9.5 * gain), col1 = K.HDR(pal.main, 7 * gain), offN = 0.04 },
+		}
+		if s.band == false then table.remove(layers, 1) end
+	end
+	local name = s.name or "MeshSlash"
+	local rec = { name = name, fit = fit, c = fit.c, n = fit.n, R = fit.R, mid = fit.mid, on = on, hold = hold, off = hold + fade, fade = fade, layers = {} }
+	for i, L in layers do
+		local M = type(L.kind) == "table" and L.kind or K.Mesh[L.kind]
+		local p = part(self.root, { Name = ("%s_%d_%s"):format(name, i, type(L.kind) == "string" and L.kind or "mesh"), Size = Vector3.one, Transparency = 1 })
+		local sm = Instance.new("SpecialMesh"); sm.MeshType = Enum.MeshType.FileMesh; sm.MeshId = "rbxassetid://" .. M.mesh; sm.Scale = Vector3.one * 0.01; sm.Parent = p
+		local decs = {}
+		for _, tx in M.tex do
+			local d = Instance.new("Decal"); d.Texture = "rbxassetid://" .. tx; d.Face = Enum.NormalId.Top; d.Color3 = L.col or K.HDR(pal.main); d.Transparency = 1; d.Parent = p
+			table.insert(decs, d)
+		end
+		local lOn = L.on or on
+		local lHold = L.hold or (hold - (L.early or 0))
+		local lay = {
+			p = p, sm = sm, decs = decs, M = M, fit = fit, by = by, follow = L.follow or follow, vis = false,
+			on = lOn, hold = lHold, off = L.off or (lHold + (L.fade or fade)),
+			r = L.r or 1, th = L.th or 0.3, col = L.col or K.HDR(pal.main), col1 = L.col1, lag = L.lag or (M.span / 2), tr0 = L.tr0 or 0,
+			offN = L.offN or 0, g0 = L.g0 or 0.92, g1 = L.g1 or 1.1, kind = L.kind,
+			sign = ((M.lead == "cw") ~= (L.flip == true)) and -1 or 1,
+		}
+		table.insert(self.meshes, lay); table.insert(rec.layers, lay)
+	end
+	table.insert(self.meshSlashes, rec)
+	if not self._meshUpd then
+		self._meshUpd = true
+		self:OnUpdate(function(T) self:_meshes(T) end)
+	end
+	if s.tail then
+		local tl = type(s.tail) == "table" and s.tail or {}
+		self:Stroke({ name = name .. "Tail", t = tl.t or (hold - 0.03), c = fit.c, n = fit.n, mid = fit.mid, size = (tl.size or 2) * fit.R, tex = tl.tex or K.Tex.Dissolve,
+			life = tl.life or 0.25, br = tl.br or 22, twin = false, highlight = false, wind = false, pal = pal, _tail = true })
+	end
+	return rec
+end
+function FX:_meshes(T)
+	local tips = {}
+	for _, L in self.meshes do
+		if T < L.on or T >= L.off then
+			if L.vis then for _, d in L.decs do d.Transparency = 1 end; L.vis = false end
+		else
+			L.vis = true
+			local fit = L.fit
+			local tf = math.min(T, L.follow)
+			local key = tf .. (L.by or "")
+			local tip = tips[key]; if not tip then tip = self:TipPos(tf, L.by); tips[key] = tip end
+			local n = fit.n
+			local d = tip - fit.c; d = d - n * d:Dot(n)
+			d = d.Magnitude > 1e-4 and d.Unit or fit.mid
+			local mid = CFrame.fromAxisAngle(n, -math.rad(L.lag)):VectorToWorldSpace(d) -- the arc's middle trails the tip
+			local k = (T - L.on) / (L.off - L.on)
+			local Rr = fit.R * L.r * lerp(L.g0, L.g1, 1 - (1 - k) ^ 2)
+			local th = L.th * (1.25 - 0.5 * k)
+			local nw, Z = self:V(n), self:V(-mid)
+			local Y = nw * L.sign
+			L.p.CFrame = CFrame.fromMatrix(self:P(fit.c + n * L.offN), Y:Cross(Z), Y, Z) * CFrame.Angles(0, -math.rad(L.M.a0 or 0), 0)
+			local nat, rad = L.M.nat, L.M.rad or 1
+			L.sm.Scale = Vector3.new(2 * Rr / rad / nat.X, th / nat.Y, 2 * Rr / rad / nat.Z)
+			local tr = L.tr0
+			if T > L.hold then tr = L.tr0 + (1 - L.tr0) * (1 - (1 - math.clamp((T - L.hold) / (L.off - L.hold), 0, 1)) ^ 3) end -- Cubic Out
+			local col = L.col1 and L.col:Lerp(L.col1, math.clamp(k * 1.2, 0, 1)) or L.col
+			for _, dc in L.decs do dc.Transparency = tr; dc.Color3 = col end
+		end
+	end
 end
 
 ---------------------------------------------------------------- sparks, contact, crackle
@@ -887,7 +1131,8 @@ function FX:Update(T)
 			elseif p.Transparency ~= 1 then p.Transparency = 1 end
 		end
 	end
-	for _, fn in self.updaters do fn(T) end
+	for _, fn in self.updaters do fn(self.poseOnly and -1 or T) end
+	if self.poseOnly then return end
 	if self.darkBeat or self.impact then
 		local c = self:_cc()
 		local dark = self.darkBeat and T >= self.darkBeat[1] and T < self.darkBeat[2]
@@ -945,7 +1190,7 @@ function FX:Play(freezeAt)
 	self.conn = RunService.Heartbeat:Connect(function()
 		local T = os.clock() - t0
 		if freezeAt and T >= freezeAt then T = freezeAt end
-		while ei <= #self.events and self.events[ei].t <= T do self.events[ei].fn(); ei += 1 end
+		while ei <= #self.events and self.events[ei].t <= T do if not self.poseOnly then self.events[ei].fn() end; ei += 1 end
 		self:Update(T)
 		if shake and self.camBase then workspace.CurrentCamera.CFrame = self.camBase * self:_shakeAt(T) end
 		if freezeAt and T >= freezeAt then
@@ -969,6 +1214,10 @@ function FX:Destroy()
 	self:Stop(); self.root:Destroy()
 	if _G.VFXKitLive then _G.VFXKitLive[self.name] = nil end
 end
+
+-- PoseOnly(true): plays and freezes show the caster and weapon alone (no events fire, updaters get T = -1), for the
+-- pose sheet: fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, lastKeyTime, 0.1)) ... then fx:PoseOnly(false).
+function FX:PoseOnly(on) self.poseOnly = on and true or false; return self.poseOnly end
 
 ---------------------------------------------------------------- cameras (review only; effects never read them)
 -- player = behind the caster, 2.5 right, 6.5 up, 12 back | side | front (3/4) | bird (top-down, look vector = screen up;
@@ -1109,6 +1358,7 @@ function FX:Lint()
 	-- dead time: gaps without any event between the first and the last "hit" (core strokes / flashes)
 	local ts = {}
 	for _, e in self.events do table.insert(ts, e.t) end
+	for _, L in self.meshes do for i = 0, 4 do table.insert(ts, lerp(L.on, L.hold, i / 4)) end end -- mesh layers move every frame from on to hold
 	table.sort(ts)
 	for i = 2, #ts do
 		if ts[i] - ts[i - 1] > 0.2 and ts[i - 1] < ts[#ts] - 1.0 then warn(("dead time: nothing is emitted from %.2f to %.2f s"):format(ts[i - 1], ts[i])) end
@@ -1121,6 +1371,53 @@ function FX:Lint()
 		if math.abs(st.n.Z) < 0.3 and math.abs(st.n.Y) < 0.8 then
 			warn(("%s: its plane contains the look vector = edge-on (a thin line) from behind the caster.%s Choose a cut whose normal leans 45-60 deg toward forward, or pair it with a crescent ACROSS the front 4-6 studs ahead + a flat ground crescent"):format(st.name, st.fan and "" or " No fan either."))
 		end
+	end
+	-- mesh slashes
+	for _, ms in self.meshSlashes do
+		if ms.fit.straight then warn(ms.name .. ": the tip path is straight (a thrust): no circle to fit, use a Stroke / needles") end
+		if ms.fade < 0.08 or ms.fade > 0.25 then warn(("%s: decal fade %.2f s (0.08-0.25: shorter pops off, longer leaves a lingering line)"):format(ms.name, ms.fade)) end
+		local bright, tall = 0, 0
+		for _, L in ms.layers do
+			if L.col.R + L.col.G + L.col.B > 0.3 then bright = math.max(bright, L.r) end
+			if L.kind == "Band" then tall = math.max(tall, L.th) end
+		end
+		for _, L in ms.layers do
+			if L.col.R + L.col.G + L.col.B <= 0.3 then
+				if L.r >= bright then warn(ms.name .. ": the dark copy is as big as the bright layers (covers them from the far side): r 0.86-0.9x") end
+				if L.tr0 < 0.4 then warn(ms.name .. ": opaque dark copy = black slab; tr0 0.5-0.6") end
+			end
+		end
+		if math.abs(ms.n.Z) < 0.3 and math.abs(ms.n.Y) < 0.8 and tall < 1.5 then
+			warn(ms.name .. ": its plane contains the look vector = edge-on from behind the caster; give it a tall Band (height 2-2.4) so its wall faces the player camera")
+		end
+	end
+	-- pose: sampled every 0.05 s over the keys
+	if self.char and self.keys and #self.keys > 1 then
+		local function arm(cf, side)
+			local T = cf.UpperTorso
+			local u = T:VectorToObjectSpace(-cf[side .. "UpperArm"].UpVector)
+			local l = T:VectorToObjectSpace(-cf[side .. "LowerArm"].UpVector)
+			local hand = T:PointToObjectSpace(cf[side .. "Hand"].Position)
+			local out = math.abs(u.X) > 0.75 and u.Y > -0.14 and math.deg(math.acos(math.clamp(u:Dot(l), -1, 1))) < 18 -- straight, sideways, at shoulder height
+			return out, (math.abs(hand.X) < 0.8 and math.abs(hand.Y) < 0.75 and math.abs(hand.Z) < 0.38)
+		end
+		local tEnd = self.keys[#self.keys].t
+		local tpose, inside, runR, runL, stiff, twoUsed = nil, nil, 0, 0, nil, false
+		for _, k in self.keys do if k.two > 0 then twoUsed = true end end
+		for i = 0, math.floor(tEnd / 0.05) do
+			local t = i * 0.05
+			local cf = self:FK(t)
+			local oR, iR = arm(cf, "Right")
+			local oL, iL = arm(cf, "Left")
+			if oR and oL and not tpose then tpose = t end
+			if (iR or iL) and not inside then inside = t end
+			runR = oR and runR + 1 or 0; runL = oL and runL + 1 or 0
+			if (runR >= 5 or runL >= 5) and not stiff then stiff = t end
+		end
+		if tpose then warn(("pose: T-pose at %.2f s (both arms straight out at shoulder height): bend the elbows 18-80 deg, upper arms below the shoulders, pass through a guard (K.Guard)"):format(tpose)) end
+		if stiff then warn(("pose: one arm is held straight out sideways for 0.25 s up to %.2f s: bend it or bring it to a guard"):format(stiff)) end
+		if inside then warn(("pose: a hand is inside the torso at %.2f s (arm through the body): keep the arm's az on its own side or lift it over"):format(inside)) end
+		if self.bladeLen and self.bladeLen >= 3 and not twoUsed then warn("pose: a long weapon is held one-handed all the way: two = 1 on guards, wind-ups and heavy cuts (off hand on the handle)") end
 	end
 	if #self.shakes == 0 then warn("no camera shake declared (light hit 0.15 / 0.1 s, heavy 0.6 / 0.35 s)") end
 	if not self.impact then warn("no ImpactFrame on the payoff") end

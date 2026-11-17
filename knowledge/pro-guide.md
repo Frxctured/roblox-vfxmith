@@ -263,6 +263,16 @@ half the spin); line cut 13780268621 Squash -3 Size 26 life 0.14 Br 25 + LE -1 t
 x10; rocks; ground crack 13781849388 Squash 0 > 5.4 life 0.9 + Br 0 copy; smoke 0 > 23 at Br 0.1 for 0.5-1.8 s;
 faint crescents 0 > 39 at Transp 0.82. At most 2 full-frame flashes.
 
+**Mesh slashes** ([I], details in `mesh-slash.md`; kit block `fx:MeshSlash`): the slashes that shine in daylight and
+sit on the blade are an invisible Part + SpecialMesh + Decal with Color3 above 1 (e.g. (2, 7, 8.5)), stacked: a band
+with height, a body, a black copy at 0.9x and see-through, a white-hot crescent on top. They grow 2-3x, turn with the
+swing, thin, and fade Cubic Out in 0.08-0.25 s. Fit them to the sampled blade path; never bend the arms to an effect.
+Sprites stay better for eroding, stylised or camera-close strokes.
+
+**Animation checks** (checklist A1-A4): no T-pose between hits (pass through a guard), the off hand on the hilt for
+two-handed moves, arms never through the body, and a side pose sheet every 0.1 s with the effects off before any
+effect is judged.
+
 ### 3c. Impact / flash
 | f | Layer | Values |
 |---|---|---|

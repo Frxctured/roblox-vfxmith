@@ -11,6 +11,10 @@ effects you actually want and tell us how it went.
 - **It starts from tested parts.** `VFXKit` has building blocks that already survived many review rounds (slash
   strokes with a dark rim, an impact frame, a lightning bolt, shock rings, ground cracks, debris, smoke, camera shake,
   character poses), so the first version starts at a higher level.
+- **Mesh slashes.** Sword and limb swings can use glowing mesh slashes that are fitted to the weapon's real path and
+  turn with it, the way the brightest slashes in the library are made, instead of a flat picture stamped once.
+- **Characters hold the weapon properly.** Two hands on the hilt, a step into each hit, guard poses between hits
+  instead of a T-pose; the checklist has four animation checks for it.
 - **It knows how professionals set their values.** A new pro guide covers brightness, dark outlines, flipbooks and
   timing, with numbers. The most common fault of AI-made effects (dim, matte, glow everywhere) is addressed first.
 - **It checks itself before it shows you anything:** 28 yes/no checks every round.

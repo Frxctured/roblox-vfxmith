@@ -1,9 +1,9 @@
 # VFXKit: start round 1 where earlier directed builds ended
 
 `kit/studio/VFXKit.luau` holds building blocks that survived many rounds of directed builds and blind reviews, with
-their proven values as defaults: a stroke with an ink rim, an impact frame, a bolt, shock and dust rings, ground crack
+their proven values as defaults: a stroke with an ink rim, a mesh slash fitted to the swing, an impact frame, a bolt, shock and dust rings, ground crack
 and scar, debris, smoke, flash, charge-up, one freeze-safe clock (`Timeline`: `fx:At`, `fx:OnUpdate`, `fx:Play(t)`),
-declared camera shake, R15 pose helpers, a stage with five review cameras, dense-still capture and `fx:Lint()`.
+declared camera shake, R15 pose helpers (step, stride, head, lean, two-handed grip, guard poses), a stage with five review cameras, dense-still capture and `fx:Lint()`.
 
 Use it for melee moves, abilities, impacts and strikes. For anything else (projectiles, beams, auras, loops, scenery)
 use its stage, caster, clock, cameras, capture and Lint, and build your own layers with `fx:E` / `fx:Part` /
@@ -26,9 +26,14 @@ Files: `kit/studio/VFXKit.luau` (the module), `kit/studio/VFXKitDemo.luau` (a sl
    user's own build (or ask where), and name everything `LAB_...` so it is easy to remove.
 3. **Pose first.** `fx:Pose{...}`: per hit an anticipation key (0.07 s, "out"), the swing ("fast", 0.12-0.18 s) and a
    held follow-through (0.13 s). Check `fx:Cam("player"); fx:Play(t)` and the bird's-eye before adding any effect:
-   limbs outside the silhouette, big moves over the top and on the look line.
+   limbs outside the silhouette, big moves over the top and on the look line. Keys also take `fz` (step forward),
+   `st` (stride), `hy` (head yaw), `rl` (lean) and `two = 1` (off hand on the handle by IK); start from and return to
+   a guard (`K.Key(t, K.Guard.Mid, { ... })`), never a T-pose. Pose sheet with the effects off:
+   `fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, lastKeyTime, 0.1))` (checklist A1-A4; `Lint()` warns too).
 4. **Effects from the pose.** `fx:Stroke{ t =, swing = { t0, t1 } }` reads plane, centre, middle and size from the
-   pose (for a punch or kick: `swing = { t0, t1, "RightHand" }`). Add `fx:Contact`, `fx:Crackle`, `fx:Needles`,
+   pose (for a punch or kick: `swing = { t0, t1, "RightHand" }`). `fx:MeshSlash{ swing = { t0, t1 } }` is the mesh
+   version (shines in daylight, turns with the blade, has height edge-on; `knowledge/mesh-slash.md` says when to use
+   which). The pose leads: fit the effect to the blade, never the arms to the effect. Add `fx:Contact`, `fx:Crackle`, `fx:Needles`,
    `fx:Dots` per hit; `fx:Charge` for a wind-up; for the payoff `fx:ImpactFrame`, then `fx:Strike` (or its parts:
    `Flash`, `Burst`, `Bolt`, `ShockRing`, `DustRing`, `GroundCrack`, `GroundScar`, `Debris`, `Smoke`) at impact + 0.07 s;
    `fx:Shake` per hit. Custom moving parts and lights go through `fx:OnUpdate(function(T) ... end)`, custom emitters
@@ -45,7 +50,10 @@ smoke 1.5-2. Combo spacing ~0.36 s; impact frame 5 frames.
 
 ## What the kit does not do
 - It does not design the move: which cut reads from behind is your choice (Lint only warns when a plane is edge-on).
-- Projectiles, beams (only `TrackBeam` for freezing), auras / loops, mesh effects and sounds are not covered.
+- Projectiles, beams (only `TrackBeam` for freezing), auras / loops, mesh effects other than slashes, and sounds are
+  not covered.
+- New in 1.2 and checked on one demo sheet only (a two-handed rising cut, five views): `MeshSlash` (the `tail`
+  sprite, punches / kicks and custom `layers` are untested), the pose channels, the off-hand IK and the pose Lint.
 - `K.Tex.Star` and `K.Tex.BoltTangle` were swapped for library textures in 1.1 and the Fire palette, `Burst`, the
   3-layer bolt widths, the inverted impact phase and the radial streaks were checked on one demo sheet only: look at
   them critically on your own sheet.

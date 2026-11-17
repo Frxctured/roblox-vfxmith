@@ -24,6 +24,10 @@ by frame.
   earlier builds ended: strokes with an ink rim, an impact frame, a bolt, shock and dust rings, ground cracks, debris,
   smoke, flash, charge-up, one clock that freezes exactly, camera shake, character poses, a stage with five review
   cameras and a `Lint()` that catches common faults.
+- **Mesh slashes and better poses** (VFXKit 1.2): `fx:MeshSlash` builds a slash from meshes fitted to the real blade
+  path (an invisible part + mesh + a decal brighter than white: it shines in daylight and turns with the blade;
+  [`knowledge/mesh-slash.md`](knowledge/mesh-slash.md) says when meshes beat sprites). Poses gained a step, stride,
+  head turn, lean, a two-handed grip and guard poses, and `Lint()` now warns about T-poses and arms through the body.
 - **Pro guide** ([`knowledge/pro-guide.md`](knowledge/pro-guide.md)): how professional Roblox effects are built, with
   values: brightness tiers (first drafts are 5-10x too dim), the three uses of LightEmission, dark partners,
   flipbooks, timing in frames, and what causes "matte", "sticker", "pencil" and "solid disk" complaints.

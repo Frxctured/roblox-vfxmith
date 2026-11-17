@@ -26,8 +26,8 @@ Where a note says "the vault" it cites the LihFolk Vault V2, an optional knowled
 
 For the directed loop (`skills/vfx-direct`): `pro-guide.md` (how professional effects are built, with values),
 `checklist.md` (28 yes/no checks before showing a version), `selfcheck.md` (the every-round routine: 5 cameras and
-dense stills, on every OS), `vfxkit.md` (the building blocks in `kit/studio/VFXKit.luau`) and `short-guide.md` (one
-page).
+dense stills, on every OS), `vfxkit.md` (the building blocks in `kit/studio/VFXKit.luau`), `mesh-slash.md` (slashes made of meshes: how they
+are built, when they beat sprites) and `short-guide.md` (one page).
 
 Also: `library-stats.md` (what values artists pick, over every emitter design in the pack),
 `knowledge/builder-notes.md` (what a builder reads instead of this whole folder),
