@@ -27,6 +27,10 @@ Read `ROOT/kit/studio/VFXKit.luau` only where you need a block's options (`grep 
 2. Everything in the caster's space (x right, y up, -z the look vector). Never turn, move, lengthen or brighten
    anything toward a camera so it reads better: that is the one hard rule, and it also applies to fixes you are sent.
    If a director fix would break it, do not apply it; say so in your reply.
+   Never redefine the review cameras `K.Cams.player / side / front / bird`: they are the shared yardstick (player =
+   behind the caster, 2.5 right, 6.5 up, 12 back). For a big effect, add extra cameras under NEW names (e.g.
+   `K.Cams.wide`) and show both; the player camera stays in every sheet (smoke test: a builder moved "player" to a
+   high far shot, so its self-check never saw the player's view).
 3. Build with VFXKit blocks where one fits the design (`knowledge/vfxkit.md`); build your own layers through
    `fx:E`, `fx:Part`, `fx:At` and `fx:OnUpdate` where none does, with values from the pro guide. Projectiles, beams,
    auras and loops have no blocks: use the kit's stage, clock, cameras, capture and Lint, and build the layers
