@@ -24,6 +24,11 @@ Where a note says "the vault" it cites the LihFolk Vault V2, an optional knowled
 | Projectile and orb VFX - craft notes from 7 open-source effects | [projectile.md](categories/projectile.md) | [projectile_recipe.luau](categories/projectile_recipe.luau) |
 | Slash and sword VFX - lessons from 6 open-source effects | [slash.md](categories/slash.md) | [slash_recipe.luau](categories/slash_recipe.luau) |
 
+For the directed loop (`skills/vfx-direct`): `pro-guide.md` (how professional effects are built, with values),
+`checklist.md` (28 yes/no checks before showing a version), `selfcheck.md` (the every-round routine: 5 cameras and
+dense stills, on every OS), `vfxkit.md` (the building blocks in `kit/studio/VFXKit.luau`) and `short-guide.md` (one
+page).
+
 Also: `library-stats.md` (what values artists pick, over every emitter design in the pack),
 `knowledge/builder-notes.md` (what a builder reads instead of this whole folder),
 `knowledge/design-brief.md` (the questionnaire and brief to start every effect with),
