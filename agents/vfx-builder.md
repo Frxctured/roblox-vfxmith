@@ -32,9 +32,16 @@ Read `ROOT/kit/studio/VFXKit.luau` only where you need a block's options (`grep 
    `K.Cams.wide`) and show both; the player camera stays in every sheet (smoke test: a builder moved "player" to a
    high far shot, so its self-check never saw the player's view).
 3. Build with VFXKit blocks where one fits the design (`knowledge/vfxkit.md`); build your own layers through
-   `fx:E`, `fx:Part`, `fx:At` and `fx:OnUpdate` where none does, with values from the pro guide. Projectiles, beams,
-   auras and loops have no blocks: use the kit's stage, clock, cameras, capture and Lint, and build the layers
-   yourself. The katana and the punch in the docs are examples, not targets.
+   `fx:E`, `fx:Part`, `fx:At` and `fx:OnUpdate` where none does, with values from the pro guide. Projectiles, single
+   beams, auras and loops have no blocks: use the kit's stage, clock, cameras, capture and Lint, and build the layers
+   yourself. Anything that flows across a surface (a wall, fall, pillar or sheet of fire, water, energy, wind) starts
+   from `fx:Curtain`; every impact gets an aftermath (`fx:Aftermath`). The katana and the punch in the docs are
+   examples, not targets.
+   **Every layer gets a reason** (`why = "<what it does for the read>; keep: <values that carry it>; free: <safe to
+   change>"` in its props; kit blocks fill theirs in). Write it as you add the layer, not afterwards: a layer whose
+   reason you cannot write is one you do not need. Tint only MASK textures (`K.TagOf`, `K.Tint`; `find_textures.py`
+   prints MASK / BAKED). Leave `fx.gain = "auto"`: it tames stacked additive layers; if Lint's gain is low or the
+   busiest moment is still a white blob, move body layers to LE 0 with a dark partner instead of adding glow.
 4. Textures: the kit's defaults are a start. Search per role with
    `python3 -I "ROOT/kit/scripts/find_textures.py" --roles "core=...; ring=...; smoke=..." -n 8 --sheet <effect>/textures.jpg`
    and look at the sheet (one image). Flipbooks need their grid.
@@ -48,7 +55,7 @@ bird's-eye and the dense strips has cost a whole director round every time.
 
 **Report:** write `<effect>/builder_reply<round>.md` and reply with the same text: what you built (beats, hero
 shapes, timeline), the sheet and strip paths (`<effect>/vN/sheet.jpg`, `<effect>/vN_dense/sheet_*.jpg`), the Lint
-output, the checklist lines still "no" with the reason, what changed since the last round, and how to play it
+output (with its gain line), the path of this version's layer table (`fx:Layers()`, pasted into `LOG.md`), the checklist lines still "no" with the reason, what changed since the last round, and how to play it
 (`_G.kitfx:Play()`). Keep `<effect>/LOG.md` current (versions, each director score and list, what you applied, what
 you refused and why) so a fresh builder could continue from it.
 

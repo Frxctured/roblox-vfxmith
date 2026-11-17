@@ -402,3 +402,20 @@ and hot area (2% > 4% > 10-14% of the frame). Shake values are recommendations, 
   blind AI reviews, and the person rated about 1.2 above them. Trust the person, then the checklist, then the score.
 - **The character sells the effect.** A stiff or tangled pose lowers the whole result: pose first (anticipation,
   swing, held follow-through), then effects read from the pose.
+- **Write the reason next to the value.** Every layer gets one line: what it does for the read, which values carry it
+  and which are free. Builders then change values for a reason, and a director can tell a load-bearing value from a
+  taste value (VFXKit `why`, `fx:Layers()`; `why` on VFXTimeline layers).
+- **Additive layers share one light budget.** LE > 0 layers add to each other AND to the background: on a light
+  floor or sky a stack of soft glows clips to a white disc long before each layer looks bright (measured: 12 glows at
+  a summed Br of ~2 still white against the sky). Normalise stacks with one per-effect gain (VFXKit does it at Build),
+  and above all keep the count of overlapping additive layers low: the body is LE 0 with a dark partner.
+- **Flowing surfaces are scrolling beam stacks, wrapped in 3D.** Liquid, fire, energy and wind sheets: several Beams
+  between the same attachments, each with its own TextureSpeed (spread about 0.3-2.5) and TextureLength (0.8-3.5) so
+  the pattern never repeats visibly, a dark low-value body layer under thin bright mask layers, and a flat layer where
+  the sheet meets the ground. Never one flat sheet: rows of overlapping panels for a wall, 6-8 panels round a ring for
+  a pillar (VFXKit `fx:Curtain`).
+- **Know which textures you can tint.** White / grey art is a mask: Color makes it any hue. Coloured art is baked:
+  Color only multiplies it (blue x orange = dark mud). Recolour masks; leave baked art untinted or pick a mask twin.
+- **Every hit leaves something behind.** For 1-2 s after an impact: faint dust rolling outward along the ground,
+  a few tiny glints skidding low, a cooling mark, residual arcs for energy hits. Low and radial, never a rising dome;
+  faint (Transparency >= 0.75 for haze). The same holds for the end of any effect: a designed residue, never a cut.

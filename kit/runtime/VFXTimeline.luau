@@ -739,7 +739,7 @@ end
 -- ball in daylight; starbursts, rays and flat ground layers are fine) and,
 -- with opts.length (the brief's total length in s), on an effect visible much longer or shorter than asked.
 local COMMON_KEYS = { id = true, kind = true, t = true, life = true, at = true, rot = true, props = true, tracks = true,
-	copies = true, enabled = true, data = true }
+	copies = true, enabled = true, data = true, why = true } -- why = the layer's reason (spec-format.md), never read
 local KIND_KEYS = {
 	part = { template = true, mesh = true, meshTexture = true, meshScale = true, meshSize = true, size = true,
 		pivot = true, spin = true, decal = true },

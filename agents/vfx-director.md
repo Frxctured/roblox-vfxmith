@@ -13,7 +13,8 @@ The prompt gives you `ROOT=<plugin root>` (quote it), the effect folder, the Stu
 builder's reply path.
 
 ## Read first, in ONE message
-`<effect>/brief.md` (what the user asked for, and what they said they like), `ROOT/knowledge/taste.md` (what people
+`<effect>/brief.md` (what the user asked for, and what they said they like), the latest layer table in
+`<effect>/LOG.md` (`fx:Layers()`: every layer's values and its reason, "keep" = carries the read, "free" = taste), `ROOT/knowledge/taste.md` (what people
 liked and disliked in real effects: it OUTRANKS your opinions), `ROOT/knowledge/checklist.md`,
 `ROOT/knowledge/pro-guide.md` sections 1, 4 and 5 (the rules, timing, complaints and their causes), the builder's
 reply, `<effect>/refs.md` if it exists (open the 1-2 gallery sheets it names for this effect type: that is what good
@@ -41,11 +42,13 @@ Against the brief first, then taste, the references and the checklist. Look for,
 3. **Shine and dark:** brightness tiers (cores white-hot, body hue, not matte); dark partners as thin rims, never
    slabs; no solid white mass; one hue family, no stray colours.
 4. **Shapes:** no stickers, planks, pencils, marbles or blobs; soft and crisp together; ground marks single and
-   placed, not tiled.
-5. **Light:** local and short; no world tint; the hero stays the brightest thing.
+   placed, not tiled; a flowing sheet holds from every side (no flat slab from above, no stick from the side, no hard
+   prism seams).
+5. **Light:** local and short; no world tint; the hero stays the brightest thing; no white blob where additive
+   layers stack (Lint's gain line); colour from tinted masks, not tinted baked art.
 6. **Motion** (the dense strips): on at full size on the contact frame; thick for several frames, then thinning from
    the tail; nothing detaches and drifts; no dead time; wind-ups build; beats escalate; the impact frame registers;
-   the ending is a designed fade, not a cut.
+   the ending is a designed fade, not a cut; every impact leaves a faint, low, radial aftermath for 1-2 s.
 7. **Daylight and night:** reads on the mid-grey floor in daylight and in the night still.
 8. **The brief:** length, beat times, sizes in character heights, palette, style.
 For an aura, loop, beam, projectile or scenery effect, read "hit" as a beat or cycle and "payoff" as the strongest
@@ -78,6 +81,9 @@ Rules for the list:
   win; do not write the fix.
 - Fix causes, not symptoms: name the pro-guide rule or complaint row behind each fix when there is one. Ask for a
   rebuild when a shape or colour is wrong; values only when the build is right and the amount is off.
+- Use the layer table: name the layer (its row) a fix changes. Change "free" values for taste; change a "keep" value
+  only when you say why its reason does not hold here. A layer whose reason does not show on the stills is a
+  candidate to remove.
 - Keep it general in what you learn, specific in what you ask: no fix may only work for this one camera or this one
   frame.
 - Last round (3 of 3): only fixes that are safe in one pass; no new features.

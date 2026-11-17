@@ -22,7 +22,8 @@ quality for "pixelated", "blurry", "jagged", text, logo, or a frame grid on a si
 machine, needs ~/.vfxmith/clipenv) adds a similarity bonus from the CLIP image index. --why prints the breakdown per hit. Without quality.json the search
 falls back to keyword + traits only (no numpy needed here).
 
-Prints one line per hit: rank, id, source, name, flipbook grid, traits (bg, colour, parts, eff, fill), keywords/roles.
+Prints one line per hit: rank, id, source, name, flipbook grid, traits (MASK / BAKED:<colour>, bg, colour, parts, eff,
+fill), keywords/roles. MASK = white / grey art, tint freely; BAKED = colour painted in, Color only multiplies it.
 --sheet writes one contact sheet of the hits (thumbnails from the traits cache, fetched if missing), labelled with the
 rank, so a builder looks at ONE image. Use a hit by its id (in a spec's `textures` table); a flipbook needs
 `FlipbookLayout = 4` (2, 4 or 8 = the grid), `FlipbookMode = "OneShot"` ("Loop", "PingPong", "Random") and
@@ -166,6 +167,14 @@ def load():
     return rows
 
 
+def tag_of(t):
+    """mask = white / grey / black art: tint it freely with Color. baked = colour painted in: Color only multiplies it."""
+    c = str(t.get("colour", "")) if t else ""
+    if not c:
+        return "tag?"
+    return "MASK" if c in ("white", "grey", "black", "black+white") else "BAKED:" + c.replace(" ", "-")
+
+
 def short(t):
     if not t:
         return "traits not measured"
@@ -174,7 +183,7 @@ def short(t):
     if parts.isdigit():
         parts = f"{parts} part" + ("" if parts == "1" else "s")
     approx = "~" if t.get("src") == "thumb" else ""
-    return " ".join(str(x) for x in (t.get("bg", "?"), t.get("colour", "?"), parts,
+    return " ".join(str(x) for x in (tag_of(t), t.get("bg", "?"), t.get("colour", "?"), parts,
                                      f"eff {approx}{eff}" if eff else "",
                                      f"fill {t.get('fill')}%" if t.get("fill") is not None else "") if x)
 

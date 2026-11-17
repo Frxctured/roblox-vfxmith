@@ -7,8 +7,11 @@ the Studio MCP (`execute_luau`, `screen_capture`); a live recording is an option
 
 `ROOT` = the plugin root. `fx` = your effect object, stored as `_G.kitfx`. Edit mode only.
 
-## 0. Lint (10 s)
-`return _G.kitfx:Lint()`. Fix every WARN or write one line why it is intended.
+## 0. Lint and the layer table (10 s)
+`return _G.kitfx:Lint()`. Fix every WARN or write one line why it is intended. Read the gain line: a gain below ~0.6
+means the effect leans on stacked additive glow; check the busiest moment for a white blob.
+Then `return _G.kitfx:Layers()` and paste the table into `<effect>/LOG.md` under the version (every layer with its
+values and its reason). A row whose `why` you cannot write is a layer you do not need.
 
 ## 1. Frozen contact sheet, 5 views
 Cameras (`fx:Cam(name)`; all are placed in caster space, and the effect never reads them):
@@ -43,7 +46,7 @@ python3 -I "ROOT/kit/scripts/kit_sheet.py" --out <effect>/vN --list <effect>/vN/
 If your Studio MCP's `screen_capture` names no file, look at the stills directly and take fewer (the 8 that matter).
 One frame by hand: `fx:Cam("bird"); fx:Play(1.05)`, wait a second, `screen_capture`.
 
-LOOK at the sheet and answer `knowledge/checklist.md` 1-19. To find what causes a bad shape: freeze the frame and
+LOOK at the sheet and answer `knowledge/checklist.md` 1-19 and 29-32. To find what causes a bad shape: freeze the frame and
 hide one group at a time (its emitters' `Enabled`, or the folder's Parent).
 
 ## 2. Dense strips: motion from consecutive stills

@@ -49,7 +49,7 @@ Take it with the effects off: `fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, l
 | 16 | Ground marks: ONE scar on the stroke's line + ONE crack at the hit; nothing tiled, no puddles; heat stays in the crack ~1 s. | `fx:GroundScar`, `fx:GroundCrack`. |
 | 17 | [L] Rocks are stone, not blobs: 3 sizes, unlit light grey with a hot first 15 %, <= 8 per size, spinning, gravity -90. | `fx:Debris`. |
 | 18 | The payoff has a ground burst: white-hot ball 3-4 frames, hard ring 2 -> 14 studs in 6 frames, radial streaks. | `fx:Strike` (Burst + ShockRing + streaks). |
-| 19 | Aftermath keeps heat for ~1.5 s: embers rising, crack glowing then dark, dark smoke ~2 s, a few residual arcs. | `fx:Smoke`, `fx:Strike` crackle list. |
+| 19 | [L] Every impact has an aftermath group for 1-2 s: FAINT (dust Transparency >= 0.75), LOW and RADIAL (thrown sideways along the ground, no upward acceleration, no dome), plus some heat (embers, a glowing crack, a few residual arcs). | `fx:Aftermath` (in `fx:Strike` by default), `fx:Smoke`. |
 
 ## Motion (dense consecutive stills around each beat show these; a live recording shows them best)
 | # | Check | Fix |
@@ -63,3 +63,11 @@ Take it with the effects off: `fx:PoseOnly(true); fx:Shots(fx:Dense("side", 0, l
 | 26 | [L] Camera shake is declared, small, decaying (0.15 / 0.1 s light, 0.6 / 0.35 s heavy), and the camera returns exactly. | `fx:Shake`. Off in freezes automatically. |
 | 27 | Frozen frame = live frame: every moving part, light and beam is driven by the effect clock. | `fx:At`, `fx:OnUpdate`, `fx:TrackBeam`. No task.delay, no tweens. |
 | 28 | Played live twice in a row: no errors, the same result, total length matches the brief (+-10 %). | `fx:Play()` twice; compare `fx.duration` and the beat times with the brief. |
+
+## Layers, light and surfaces (0.1.9-beta2; for every effect type)
+| # | Check | Fix |
+|---|---|---|
+| 29 | [L] Every layer has a reason: `fx:Layers()` shows a `why` on each row ("<reads because>; keep: ...; free: ..."), and the table is in `LOG.md` for this version. | `why = "..."` in the props of `fx:E`, `fx:Why(inst, text)` for beams and parts. |
+| 30 | [L] No white blob where additive layers stack: the hero shape stays visible at the busiest moment; Lint's gain line is below 1 when more than ~6 additive layers or a summed light over 2 overlap. | Leave `fx.gain = "auto"`; if it is still white, move body layers to LE 0 with a dark partner and drop additive ones. |
+| 31 | A flowing surface (wall, fall, pillar, sheet) holds from every side: rows or a ring of panels, not one flat sheet; no hard prism corners or seams; something flat reads from above. | `fx:Curtain{ line = ..., rows = 2 }` or `{ ring = ..., n = 8 }`; overlap, nested widths, halo; foot glow strip. |
+| 32 | [L] Colour comes from tinting MASK textures; baked-colour art is left untinted or swapped for a mask twin. | `K.TagOf`, `K.Tint`, `fx:Recolor`; `find_textures.py` prints MASK / BAKED. |

@@ -1,4 +1,4 @@
-# vfxmith 0.1.9-beta1 (beta channel)
+# vfxmith 0.1.9-beta2 (beta channel)
 
 A test build of the next version. The main change is a new way of building: the **directed loop**. Please try it on
 effects you actually want and tell us how it went.
@@ -17,11 +17,24 @@ effects you actually want and tell us how it went.
   instead of a T-pose; the checklist has four animation checks for it.
 - **It knows how professionals set their values.** A new pro guide covers brightness, dark outlines, flipbooks and
   timing, with numbers. The most common fault of AI-made effects (dim, matte, glow everywhere) is addressed first.
-- **It checks itself before it shows you anything:** 28 yes/no checks every round.
+- **It checks itself before it shows you anything:** 32 yes/no checks every round.
 - **Effects are built around the character, not the camera.** Nothing is tilted toward the screen to look better, so
   the effect holds up from every angle.
 - **No special model needed.** The builder and the director run on Opus.
 - The previous loop is still there: `/vfx classic <your effect>`.
+
+## New in beta2
+Five lessons from studying another agent's VFX research notes, rewritten for every effect type and tested in Studio
+(VFXKit 1.3):
+- **A reason next to every value.** Each layer says why it reads, which values carry that and which are free to
+  change. The builder writes it, the director sees what is safe to change.
+- **Glow that does not pile up into a white blob.** Overlapping glowing layers are turned down together by one
+  per-effect gain. It helps; it cannot save a heavy stack, so the guides now say to keep few glow layers.
+- **Flowing walls and pillars.** A new block builds fire, water, lava, energy or wind sheets from several scrolling
+  beams, in rows or a ring so it reads from the side and from above, not as one flat sheet.
+- **Textures you can and cannot recolour.** Every texture is marked as tintable (white art) or with its colour baked
+  in, and a recolour helper only tints the tintable ones.
+- **Something stays after every hit.** A faint, low, outward aftermath (dust, glints, small arcs) for 1-2 seconds.
 
 ## What we measured so far
 Early numbers from the maintainer's own tests (one run each, not a blind poll yet):

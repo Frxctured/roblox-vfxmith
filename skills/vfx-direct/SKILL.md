@@ -19,8 +19,8 @@ judge; keep your own context small (paths and scores, not images).
 | Role | Agent | Does |
 |---|---|---|
 | Lead | you | brief, hand-offs, round count, shows the user the result, runs `vfx-feedback` |
-| Builder | `vfxmith:vfx-builder` (Opus) | reads the kit guide, pro guide, checklist, self-check and taste; builds with VFXKit blocks; runs the self-check before EVERY report |
-| Director | `vfxmith:vfx-director` (Opus), fresh each round | watches the version from 5 views and in motion, judges against the brief, references and checklist, writes ONE ranked list of at most 8 fixes |
+| Builder | `vfxmith:vfx-builder` (Opus) | reads the kit guide, pro guide, checklist, self-check and taste; builds with VFXKit blocks; writes a reason on every layer (`fx:Layers()` into LOG.md); runs the self-check before EVERY report |
+| Director | `vfxmith:vfx-director` (Opus), fresh each round | watches the version from 5 views and in motion, reads the layer table (values + reasons), judges against the brief, references and checklist, writes ONE ranked list of at most 8 fixes |
 
 If the plugin's agents are not available (plain folder use), spawn general-purpose agents on an Opus-class model told
 to read and follow `ROOT/agents/vfx-builder.md` / `ROOT/agents/vfx-director.md`.

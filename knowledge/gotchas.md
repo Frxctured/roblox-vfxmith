@@ -60,6 +60,18 @@
   recipes; `C.check` flags it (no Lifetime / no Transparency). Put notes on their own line.
 
 ## Building
+- **Beam axes with FaceCamera off (measured 2026-11-17):** the ribbon's WIDTH follows the attachments' Y axis and
+  CurveSize bends along their X axis (`Attachment.Axis`). Default upright attachments put Y along the beam, so a
+  vertical sheet collapses to a line. For a vertical sheet build the attachments with
+  `CFrame.fromMatrix(pos, X = front, Y = across)`; positive TextureSpeed flows toward Attachment1. `fx:Curtain` does it.
+- **One flat sheet is camera-dependent:** a curved ribbon is a slab from above and a stick from the side. Three panels
+  in a triangle read from every side but show hard prism edges; five in a ring show a pentagon with bright overlap
+  corners from above; eight read round enough (`fx:Curtain` ring default).
+- **Additive light adds to the background:** 12 soft glows over a stroke stayed one white disc at gains 1, 0.76 and
+  0.28, and still clipped at a summed Br of ~2 against the sky; one glow at Br 0.3 was faint. Reduce the number of
+  overlapping LE > 0 layers; a gain alone does not fix it.
+- **The MeshSlash decals are baked colour** (Hot orange, Body blue): with a warm palette the Body tint goes dark.
+  `K.TagOf` lists them; `fx:Recolor` leaves them alone.
 - **Never create a Script or LocalScript from MCP `execute_luau` and set its `Source`**: it crashed Studio during the
   blind tests (and a command-bar error inside a just-created script crashed it again). Ship any script inside an
   `.rbxmx` written by `kit/scripts/rbx_assets.py local ...` and load it with `game:GetObjects("rbxasset://vfxlib/...")`,

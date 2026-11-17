@@ -24,6 +24,7 @@ return {
 | `tracks` | `{ Prop = { {time, value, ease}, ... } }`, time from the layer start; the ease belongs to the segment ENDING at that key; before the first key = first value, after the last = last value |
 | `copies` | `{ n, every, jitter, spread = {x,y,z}, rotSpread = {x,y,z}, yawEven }`: n instances, staggered, randomised by the seed |
 | `enabled = false` | skip the layer (A/B tests) |
+| `why` | one line: what the layer does for the read, the values that carry it, what is free to change (`"dark rim keeps the arc readable on light floors; keep: 0.9x, Tr 0.45; free: ZOffset"`). Never read by the runtime; write it on every layer so reviewers change values for a reason |
 
 Eases: `linear step quadIn quadOut quadInOut cubicIn cubicOut quartOut quintOut expoIn expoOut sineIn sineOut sineInOut backIn backOut elasticOut`. `step` holds the previous value until the key (colour-by-age swaps).
 

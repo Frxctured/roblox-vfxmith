@@ -189,3 +189,20 @@ analysis of the winner and the runner-up (effect values and both build processes
 17. **People reward bold colour.** The panel marked the runner-up down for vivid azure glow ("sapphire, not icy cyan";
    its hue was in fact on brief); people liked it. Saturation and glow in the asked hue family are a plus. Ground
    marks as Decals stay visible in daylight; flat particles wash out; grey smoke reads as dust.
+
+## 16. Reasons, light budget, curtains, masks, aftermath (study of another agent's VFX research log, 2026-11-17)
+A read-only study of a research log another person's agent wrote while building lightning, fire and liquid effects
+(its files are not in this plugin; only the general ideas, tested again in our own Studio scene):
+1. **Snapshot each finished effect with a reason per layer.** Their notes kept every value AND why it reads; ours kept
+   lessons per version. Now: `why` on every layer, `fx:Layers()` into LOG.md.
+2. **One gain over all additive layers per effect**, lower the more layers a variant stacks, so richer variants do not
+   burn whiter than lean ones. In our daylight test it is necessary but not enough: stacked glows clip against a light
+   backdrop anyway, so the count of overlapping additive layers must stay low.
+3. **Flowing surfaces as many scrolling Beams** with unrelated speeds and lengths, dark low-value body layers under
+   thin bright streaks, flat foam / glow where they meet the ground. Their single curved sheet failed the same way
+   every flat card does (slab from above, stick from the side): wrap it in rows or a ring.
+4. **Tag textures mask vs baked colour** before choosing a tint; recolour masks only.
+5. **An aftermath beat on every hit**: low, faint, radial residue for 1-2 s (arcs, glints, dust) emitted over ~0.5 s
+   after the hit.
+Not adopted: their brightness regime (LE 0.5-1, Br 1-5 everywhere, no dark partners), which washed to white in our
+daylight test, and camera-facing tall bolts as the only bolt (they vanish from above).

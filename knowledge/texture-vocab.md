@@ -57,6 +57,12 @@ Lifetime IS the timing); `Loop` uses `FlipbookFramerate` (max 30). Many sheets f
 leave the rest empty, so the particle vanishes before it dies: a built-in hard cut. A sheet on the wrong grid (or not
 1024x1024) shows as a mosaic or does not animate.
 
+**Mask or baked (tag every pick).** `mask` = white, grey or black art: `Color` tints it to any hue. `baked:<hue>` =
+colour painted into the art (the `pale <hue>`, `<hue>`, `dark <hue>` and `multicolour` traits): `Color` only multiplies
+it, so tinting it another hue gives mud. `find_textures.py` prints `MASK` or `BAKED:<colour>` on every hit; VFXKit has
+`K.TagOf(id)`, `K.Tint(tex, colour)` (white for baked art) and `fx:Recolor(palette)` (masks only). Every texture in
+the starter kit below and in `K.Tex` is a mask unless its traits name a colour.
+
 ## Traps (measured)
 
 What the `traits` column caught that the contact sheets did not (a blind test lost most of its first six versions to
