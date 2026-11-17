@@ -10,9 +10,31 @@ by frame.
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
 | **Knowledge** | 11 effect-type studies with anatomy tables, timing, technique recipes and mistakes, plus a starting recipe each; cross-effect rules; texture ids by role ([`knowledge/`](knowledge/)) |
-| **Skills** | `vfx` (router), `vfx-make` (build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
-| **Kit** | effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
+| **Skills** | `vfx` (router), `vfx-direct` (directed build loop, beta default), `vfx-make` (classic build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
+| **Kit** | tested building blocks (`VFXKit`), effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
+
+## What's new in 0.1.9-beta1 (beta channel: see [`BETA.md`](BETA.md))
+- **The directed loop** (`vfx-direct`, what `/vfx` now runs): two agents instead of one. A **builder** builds the
+  effect and checks every version itself; a separate **director** only watches (five views and consecutive frames)
+  and sends one ranked list of at most 8 fixes per round, for at most three rounds. Then you rate it.
+  In its first test a fire punch went from 6.0 to 6.8 in one director round, and a sword combo directed the same way
+  was rated 8/10 by a person.
+- **VFXKit** ([`kit/studio/VFXKit.luau`](kit/studio/VFXKit.luau)): tested building blocks so round 1 starts where
+  earlier builds ended: strokes with an ink rim, an impact frame, a bolt, shock and dust rings, ground cracks, debris,
+  smoke, flash, charge-up, one clock that freezes exactly, camera shake, character poses, a stage with five review
+  cameras and a `Lint()` that catches common faults.
+- **Pro guide** ([`knowledge/pro-guide.md`](knowledge/pro-guide.md)): how professional Roblox effects are built, with
+  values: brightness tiers (first drafts are 5-10x too dim), the three uses of LightEmission, dark partners,
+  flipbooks, timing in frames, and what causes "matte", "sticker", "pencil" and "solid disk" complaints.
+- **A checklist and a self-check** ([`checklist.md`](knowledge/checklist.md), [`selfcheck.md`](knowledge/selfcheck.md)):
+  28 yes/no checks and an every-round routine: player, side, front, bird's-eye and night views plus dense stills
+  around each hit. It works on Windows, macOS and Linux with only the Studio MCP; a live screen recording is an
+  optional extra.
+- **Everything in the caster's space:** nothing is turned toward a camera to look better. Builder and director both
+  follow it, and the bird's-eye view checks it.
+- **Works for everyone:** the builder, director and reviewers run on Opus; no agent needs a newer model.
+- The 0.1.8 loop is still there: `/vfx classic <effect>` (`vfx-make`).
 
 ## What's new in 0.1.6
 - **About a third of the cost of 0.1.5.** Helpers on a fast, cheap model find references and take the Studio

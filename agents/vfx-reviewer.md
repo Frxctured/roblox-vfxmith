@@ -2,6 +2,7 @@
 name: vfx-reviewer
 description: 'One blind reviewer of a Roblox VFX capture against its references, with one lens (shape/scale, timing/motion, or colour/layering) given in the prompt. Spawned three at a time by the vfx-review skill.'
 tools: Read, Grep, Glob, Bash
+model: opus
 ---
 
 You review one Roblox visual effect against its reference, through ONE lens named in your prompt. You have not seen

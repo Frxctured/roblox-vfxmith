@@ -1,9 +1,14 @@
 ---
 name: vfx-make
-description: Build a Roblox VFX effect end to end - from a description ("a cool light beam with an explosion", "ice slam", "purple aura") or a reference video - with library references, a data-driven spec, capture in Roblox Studio, comparison and blind review, iterated to a score bar. Use for "make a VFX", "make it look like this", "improve this effect", any new or reworked effect.
+description: The classic vfxmith build loop (vfx-direct is the default for new effects in this beta) - build a Roblox VFX effect end to end from a description ("a cool light beam with an explosion", "ice slam", "purple aura") or a reference video - with library references, a data-driven spec, capture in Roblox Studio, comparison and blind review, iterated to a score bar. Use for "make a VFX", "make it look like this", "improve this effect", any new or reworked effect.
 ---
 
-# Make a Roblox effect
+# Make a Roblox effect (classic loop)
+
+The default for a new effect is now the directed loop (`skills/vfx-direct/SKILL.md`). Use this one when the user asks
+for the classic loop, to recreate a reference video or still, or when the result must be a `VFXTimeline` spec. Its
+builder is `vfxmith:vfx-builder` with `mode classic`. The pro guide (`knowledge/pro-guide.md`) and the checklist
+(`knowledge/checklist.md`) help here too.
 
 `ROOT` = the plugin root: `<base directory>/../..` (also `${CLAUDE_PLUGIN_ROOT}`). All paths are relative to ROOT;
 resolve it to an absolute path first and quote it (it may contain spaces). Python 3 + Pillow (+ numpy, ffmpeg for
@@ -44,7 +49,7 @@ style, palette, lighting, budget, capture camera. Everything after this serves t
 
 **Then hand off.** If this conversation already holds other work, spawn ONE builder agent (`vfxmith:vfx-builder`, or a
 general-purpose agent told to read and follow `ROOT/agents/vfx-builder.md`) with `ROOT=<root>`, the effect folder, the
-Studio id and the mode, and wait for its report: it runs steps 1-7 in a fresh context. If the request opened the
+Studio id and `mode classic` plus full / quick / polish, and wait for its report: it runs steps 1-7 in a fresh context. If the request opened the
 conversation, or you are an agent spawned for this effect, run steps 1-7 yourself.
 
 ## 1-2. References as a guide, then ONE read of everything
