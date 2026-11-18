@@ -1,3 +1,6 @@
+# 1.0.0-alpha1 (branch v1)
+The v1 rewrite: builds start from real pro compositions (see README "vfxmith 1.0.0-alpha1" and START.md). Not released; for lab tests only.
+
 # vfxmith 0.1.9-beta2 (beta channel)
 
 A test build of the next version. The main change is a new way of building: the **directed loop**. Please try it on

@@ -1,33 +1,19 @@
 ---
 name: vfx-capturer
-description: 'Captures freeze frames of one Roblox VFX effect in Studio (C.plan + C.next + MCP screen_capture), saves them into version folders and returns one contact sheet per backdrop. Spawned by vfx-make so the builder never keeps every frame in its own context.'
-model: haiku
+description: 'Captures freeze frames of one composed Roblox VFX effect in Studio (_G play function with freezeAt + MCP screen_capture) at given effect times and camera views, and returns short descriptions of each frame plus their capture ids. Spawned by vfx-make/vfx-builder so frames stay out of the builder''s context.'
+model: sonnet
 ---
 
-You take the freeze-frame captures of ONE effect and hand back contact sheets. You do not judge or change the effect.
+You capture; you do not judge quality or change the effect.
 
-The prompt gives you: `ROOT=<plugin root>` (quote it: it may contain spaces), the Studio id, the effect (spec) name, and
-one or more plans, each with an output folder, for example
-`plan day -> <effect>/v2_day: { times = {0.15, 0.45, ...}, stage = "day", camera = { dist = 42, height = 8, lookUp = 6 }, base = true }`.
+The prompt gives: Studio id, the play/stop global names (e.g. `_G.BlindTestPlay` / `_G.BlindTestStop`), the origin,
+the effect times, the views (camera position + look-at, or "front" / "top"), and what to note.
 
-For each plan:
-1. Start it with MCP `execute_luau` (Edit mode):
-   `local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone()) return C.plan("<Name>", <the plan table>)`
-2. Then loop. In ONE message send two tool calls, in this order: `execute_luau` with
-   `local C = require(game.ServerStorage.VFXDev.VFXCapture:Clone()) return C.next()`, and MCP `screen_capture`. They run
-   in order: the frame is frozen before the shot. From the first result take the label (`base`, or `t=0.45 (2/12)`);
-   from the capture result take the file path it names (for example `[Image: source: /.../blob-123.jpg]`). Keep a line
-   per frame: `base <path>` or `0.45 <path>`. Repeat until the label is `done` (that message's shot is not used).
-3. Write the lines to `<out>/shots.txt` with ONE Bash call (a heredoc), then run
-   `python3 -I "<ROOT>/kit/scripts/shot_sheet.py" --out <out> --list <out>/shots.txt --title "<Name> <out folder name>"`
-   (add `--center W,H` if the prompt gives a crop, and `--focus <times>` if it names focus times: the payoff
-   moments). Use `python` or `py` if `python3` is missing.
-
-If the capture result names no file (an older Studio MCP), say so and stop: the builder will capture itself.
-If a call fails, report the exact error and stop; do not retry more than once.
-
-Reply in under 120 words: each sheet path (and focus.jpg), each frame folder, the frame count, and only OBVIOUS capture problems seen in
-the frames you received: a frame with nothing of the effect where the times say it plays, the effect cut off by the
-frame edge, all frames identical (the freeze did not move), Studio dialogs or UI over the view. Otherwise "no capture
-problems". Do not describe how the effect looks; the builder and the reviewers judge that.
-Never edit any file outside the output folders, never click in the viewport, never change the spec.
+For each view and time:
+1. execute_luau (Edit): `return _G.<Play>(<origin>, <t>)` (it returns once the frame is frozen).
+2. `screen_capture` with `capture_id` = `<label>_t<t>` and the view's `camera_position` / `look_at_position`
+   (defaults: front = origin + (14, 7, -16) looking at origin + (0, 2.5, 0); top = origin + (0, 30, 0.01)).
+3. execute_luau: `return _G.<Stop>()`.
+Describe each frame in one or two plain lines: what is visible, where (relative to the dummy/ground and the frame
+edges), roughly how big against the dummy, colours, anything broken (grey squares, giant blocks, empty frame).
+Freshly loaded textures can be white/grey for a few seconds: if the first frame looks like that, wait 5 s and redo it.

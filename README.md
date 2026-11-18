@@ -10,9 +10,23 @@ by frame.
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
 | **Knowledge** | 11 effect-type studies with anatomy tables, timing, technique recipes and mistakes, plus a starting recipe each; cross-effect rules; texture ids by role ([`knowledge/`](knowledge/)) |
-| **Skills** | `vfx` (router), `vfx-direct` (directed build loop, beta default), `vfx-make` (classic build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
+| **Skills** | `vfx` (router), `vfx-make` (build from pro compositions), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Kit** | tested building blocks (`VFXKit`), effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
+
+## vfxmith 1.0.0-alpha1 (branch v1, lab test build)
+**Start from human compositions, don't invent them.** Earlier versions asked a model to compose effects from numbers;
+it chose textures and layouts badly, and code-made assets looked generic. v1 never invents the look:
+- `kit/scripts/compose.py "<request>"` finds the best-matching professional open-source effects (1,927 indexed, per
+  part of the request, with their layer tables) and `--cut` loads their real instance trees into Studio.
+- A short spec (`knowledge/compose-spec.md`) adapts them: hue shift that keeps the artist's values, whole-piece scale,
+  speed, delay, travel, placement, dropped layers, same-role pro texture swaps (`--swap`). `kit/studio/VFXCompose.luau`
+  plays them on one freezable clock; `kit/scripts/export_compose.py` writes one self-contained `final.luau`.
+- Lean knowledge: `knowledge/guide.md` (one page of craft rules) + the research vault in `vault/` with a search tool,
+  instead of the 40k-token pack (now `knowledge/archive/`).
+- Workflow (`START.md`, skill `vfx-make`): brief, find + look, pick (checkpoint), adapt, one objective fault check
+  (agent `vfx-fault-checker`), export. The taste review panels and the director are retired (AI judges disagreed
+  with people).
 
 ## What's new in 0.1.9-beta1 (beta channel: see [`BETA.md`](BETA.md))
 - **The directed loop** (`vfx-direct`, what `/vfx` now runs): two agents instead of one. A **builder** builds the
