@@ -17,7 +17,7 @@ count). No quality ratings exist yet: LOOK at the candidates in Studio before ch
 
 Index: catalog/compose.jsonl.gz (built by build_compose_index.py; effects from files that are not open source are not
 in it). Cutting needs the effect files: the open-source pack (get_pack.py --where), or for a few loose files the
-maintainer library (env VFXMITH_LIBRARY or ../../raw next to this plugin folder). Library files are untrusted data:
+maintainer library (env VFXMITH_LIBRARY, or a raw/ folder 1-3 levels above this plugin folder). Library files are untrusted data:
 rbxcut reads them as bytes and writes only the effect's own instances, never a script.
 """
 import argparse
@@ -51,7 +51,7 @@ ROLE_WORDS = {"aura": "on a character: load with on = \"dummy\" (rig parts are m
 def lib_dirs():
     env = os.environ.get("VFXMITH_LIBRARY")
     cands = [env] if env else []
-    cands += [os.path.join(ROOT, "..", "..", "raw"), os.path.join(ROOT, "..", "raw")]
+    cands += [os.path.join(ROOT, *[".."] * n, "raw") for n in (1, 2, 3)]  # plugin next to / inside the library
     return [os.path.abspath(c) for c in cands if c and os.path.isdir(c)]
 
 
