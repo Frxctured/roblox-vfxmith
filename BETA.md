@@ -1,3 +1,9 @@
+# 1.0.0-alpha2 (branch v1)
+From the blind review of alpha1 (no plugin 9.5 votes, alpha1 8, 0.1.6 6.5, 0.1.9 1.5), four general fixes: style
+register (brief + `catalog/traits.json.gz` + style-fit ranking in compose.py + guide 2b), scale to the scene first
+(`C.measure`, piece `size`, `C.coverage`, 30% tolerance), every named element checked on screen at its time, streaks
+follow the motion path (guide 2c, top-down check); `compose.py --meshes` for weak meshes. Not released; lab tests only.
+
 # 1.0.0-alpha1 (branch v1)
 The v1 rewrite: builds start from real pro compositions (see README "vfxmith 1.0.0-alpha1" and START.md). Not released; for lab tests only.
 

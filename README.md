@@ -14,6 +14,20 @@ by frame.
 | **Kit** | tested building blocks (`VFXKit`), effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## vfxmith 1.0.0-alpha2 (branch v1, lab test build)
+Four general fixes from a blind human review of alpha1 (4 raters: alpha1 beat 0.1.6 and 0.1.9 but not "no plugin"):
+- **Style register**: the brief names a style (grounded, stylized, anime/battlegrounds, cute, sci-fi); every effect
+  has a style score (`catalog/traits.json.gz`, `build_style_index.py`: layer brightness/additive/flash/smoke/lit
+  shares, colours, materials, names, texture families) and `compose.py` ranks by type x style fit (`--style`).
+  `knowledge/guide.md` 2b says how to push a piece toward a style with values only.
+- **Scale to the scene first**: `C.measure()` and a per-piece `size` (studs) fit every piece to the brief before any
+  styling; `C.coverage()` flags a layer that fills the frame; compose.py prints each candidate's size and starting
+  scale (`--size`). More than 30% off the brief is a fault.
+- **Every named element on screen**: the brief lists each thing the request names with its time; the fault check
+  confirms each one in the frames.
+- **Streaks follow the motion path**: arcs for swirl/orbit/vortex, straight lines for bursts and dashes, checked
+  top-down (guide 2c, vault rule). Weak meshes: `compose.py --meshes "<role>"` instead of primitives.
+
 ## vfxmith 1.0.0-alpha1 (branch v1, lab test build)
 **Start from human compositions, don't invent them.** Earlier versions asked a model to compose effects from numbers;
 it chose textures and layouts badly, and code-made assets looked generic. v1 never invents the look:

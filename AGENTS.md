@@ -1,4 +1,4 @@
-# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha1)
+# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha2)
 
 **Making an effect? Read `START.md` and follow it.** That is the whole workflow; it works for any agent (as a Claude
 Code plugin the same steps are the `vfx-make` skill).
@@ -19,6 +19,7 @@ pieces, and `kit/scripts/export_compose.py` writes one self-contained Luau file.
 | `kit/scripts/export_compose.py`, `kit_push.py` | final.luau, and the one-line loader for Studio |
 | `agents/` | vfx-builder, vfx-capturer, vfx-fault-checker (objective faults only; no taste panels) |
 | `catalog/compose.jsonl.gz` | the composition index (effects from files that are not open source are excluded) |
+| `catalog/traits.json.gz` | style register (grounded, stylized, anime, cute, scifi) and size estimate per effect; built by `kit/scripts/build_style_index.py` (signals in its docstring) |
 | `knowledge/archive/` | the 0.1.x knowledge pack, kept for maintainers; not needed to build |
 | `kit/studio/VFXLibPlayer.luau`, `VFXCapture.luau`, `kit/runtime/VFXTimeline.luau` | earlier players, capture and runtime (still work) |
 

@@ -1,4 +1,4 @@
--- VFXCompose (vfxmith 1.0.0-alpha1, MIT): build an effect from REAL pro pieces instead of inventing it.
+-- VFXCompose (vfxmith 1.0.0-alpha2, MIT): build an effect from REAL pro pieces instead of inventing it.
 -- A piece is one open-source effect cut out with kit/scripts/compose.py --cut <id> (scripts removed) into Studio's
 -- content folder (rbxasset://vfxlib/fx_<id>.rbxmx). A spec lists the pieces and how each is adapted (colour, scale,
 -- speed, placement, delay, dropped or changed layers); VFXCompose loads them, adapts them once and plays them all on
@@ -8,17 +8,21 @@
 --   local C = loadstring(<this source>)()   (or require a ModuleScript copy)
 --   C.build(spec)                 load + adapt every piece (yields until textures are preloaded); returns a summary
 --   C.layers(i)                   piece i's layers (class, name, texture, colour, EmitCount): names to use in set/drop
+--   C.measure(i?)                 measured size of piece i (or all): width/height in studs and character heights,
+--                                 the largest single layer, light range, the fit factor used (scale to the scene FIRST)
+--   C.coverage(origin?, camPos?)  from camPos (or the current camera): how much of the frame the largest layer of each piece
+--                                 covers at its biggest (> 0.6 of the frame height is a fault unless the brief wants it)
 --   C.play(origin, freezeAt?)     play once with the base at origin; with freezeAt hold still at that effect time
 --                                 (returns once that frame is built) until C.stop(); a new play stops the old one
 --   C.stop()                      stop and remove the current play
---   C.camera(origin, {dist, yaw, pitch, height})   point the edit camera at the effect (for screen_capture)
+--   C.camera(origin, {dist, yaw, pitch, height, top})   point the edit camera at the effect (top = straight down)
 --
 -- Spec (a Luau table; full reference in knowledge/compose-spec.md):
 --   { name = "FrostNova", folder = "VFXCompose", length = 2.5, dummy = true, yaw = 0, speed = 1,
 --     pieces = { { file = "fx_8f69477f9552", at = Vector3.new(0, 0, 0), rot = Vector3.new(0, 0, 0), delay = 0,
 --                  scale = 1, speed = 1, tint = "#7FD8FF", tintMode = "shift", tintStrength = 1, glow = 1, count = 1,
 --                  drop = { "Name", "~substring" }, set = { ["LayerName"] = { Rate = 0, ["@EmitCount"] = 3 } },
---                  on = "dummy", anchor = "auto" } } }
+--                  on = "dummy", anchor = "auto", size = 10, sizeBy = "width" } } }
 --
 -- The driver below (how pro effects fire: EmitCount/EmitDelay/EmitDuration attributes, Forge-format beams and
 -- Start/End meshes) is a copy of VFXLibPlayer.luau's driver v2 (own code, see THIRD_PARTY.md), with a playback speed
@@ -671,6 +675,98 @@ local function speedRoot(root, sp)
 	end
 end
 
+-- ===================================================================================== measure (scale to the scene first)
+-- Pro pieces come at their artist's scale (battlegrounds moves are often 20-40 studs across); a brief says "knee
+-- high spikes" or "a 12 stud blast". Measure every piece, then scale it to the brief's size BEFORE any styling.
+-- The size is estimated from values (particles cannot be read back): per emitter its carrier position + the travel of
+-- a typical particle (mid Speed over mid Lifetime with Drag, + |Acceleration| t^2 / 2) along its emission direction
+-- (all round when the spread is wide) + half its largest Size; beams by their two attachments and width; visible parts
+-- by their size; lights by Range.
+local H = 5 -- studs per R15 character height
+
+local function nsMax(seq)
+	local m = 0
+	for _, k in ipairs(seq.Keypoints) do m = math.max(m, k.Value + k.Envelope) end
+	return m
+end
+
+local function travelOf(e)
+	local v = (e.Speed.Min + e.Speed.Max) / 2
+	local t = math.min((e.Lifetime.Min + e.Lifetime.Max) / 2, 6)
+	local dr = e.Drag
+	local dist = if dr > 1e-3 then v * (1 - 2 ^ (-dr * t)) / (dr * math.log(2)) else v * t
+	return math.abs(dist) + 0.5 * e.Acceleration.Magnitude * t * t
+end
+
+local function measureRoot(root)
+	local lo, hi = Vector3.one * math.huge, -Vector3.one * math.huge
+	local n = 0
+	local function add(p, r)
+		lo = lo:Min(p - Vector3.one * r)
+		hi = hi:Max(p + Vector3.one * r)
+		n += 1
+	end
+	local largest, largestName, light = 0, "", 0
+	local all = root:GetDescendants()
+	table.insert(all, root)
+	for _, d in ipairs(all) do
+		if d:IsA("ParticleEmitter") then
+			local c = d.Parent
+			local cf = if c and c:IsA("Attachment") then c.WorldCFrame elseif c and c:IsA("BasePart") then c.CFrame else nil
+			if cf then
+				local sz = nsMax(d.Size)
+				local tr = travelOf(d)
+				local vol = if c:IsA("BasePart") then math.max(c.Size.X, c.Size.Y, c.Size.Z) / 2 else 0
+				local spread = math.max(d.SpreadAngle.X, d.SpreadAngle.Y)
+				if spread < 45 then
+					local dir = cf:VectorToWorldSpace(Vector3.FromNormalId(d.EmissionDirection))
+					add(cf.Position, sz / 2 + vol)
+					add(cf.Position + dir * tr, sz / 2 + vol)
+				else
+					add(cf.Position, tr + sz / 2 + vol)
+				end
+				if sz > largest then largest, largestName = sz, d.Name end
+			end
+		elseif d:IsA("Beam") then
+			local a0, a1 = d.Attachment0, d.Attachment1
+			if a0 and a1 then
+				local w = math.max(d.Width0, d.Width1)
+				add(a0.WorldPosition, w / 2)
+				add(a1.WorldPosition, w / 2)
+				if w > largest then largest, largestName = w, d.Name end
+			end
+		elseif d:IsA("BasePart") and d.Transparency < 1 and not RIG[d.Name] then
+			local m = math.max(d.Size.X, d.Size.Y, d.Size.Z)
+			add(d.Position, m / 2)
+			if m > largest then largest, largestName = m, d.Name end
+		elseif d:IsA("Light") then
+			local ok, r = pcall(function() return (d :: any).Range end)
+			if ok and type(r) == "number" then light = math.max(light, r) end
+		end
+	end
+	if n == 0 then return nil end
+	local size = hi - lo
+	return { width = math.max(size.X, size.Z), height = size.Y, depth = math.min(size.X, size.Z),
+		largest = largest, largestName = largestName, light = light, layers = n }
+end
+
+-- never let a measurement break a build
+local function safeMeasure(root)
+	local ok, m = pcall(measureRoot, root)
+	if not ok then
+		warn("[VFXCompose] measure failed: " .. tostring(m))
+		return nil
+	end
+	return m
+end
+
+local function fmtMeasure(m)
+	if not m then return "nothing measurable (no emitters, beams or visible parts)" end
+	return string.format("width %.1f studs (%.1f H), height %.1f (%.1f H), largest layer '%s' %.1f studs (%.1f H)%s",
+		m.width, m.width / H, m.height, m.height / H, m.largestName, m.largest, m.largest / H,
+		if m.light > 0 then string.format(", light range %.0f", m.light) else "")
+end
+
 local function matches(d, key)
 	if key == "*" then return true end
 	if string.sub(key, 1, 1) == "~" then
@@ -705,8 +801,21 @@ local function adapt(root, pc)
 		end
 		if n == 0 then warn("[VFXCompose] set: nothing named " .. key .. " in " .. pc.file) end
 	end
+	-- scale to the scene first: size = the brief's studs for this piece's width (or sizeBy = "height" / "largest")
+	local sc = pc.scale or 1
+	if pc.size then
+		local m = safeMeasure(root)
+		local by = pc.sizeBy or "width"
+		local have = m and (m :: any)[by]
+		if type(have) == "number" and have > 1e-3 then
+			pc.__fit = math.clamp(pc.size / have, 0.01, 50)
+			sc *= pc.__fit
+		else
+			warn("[VFXCompose] size: could not measure " .. tostring(pc.file) .. " by " .. by .. "; scale left at " .. sc)
+		end
+	end
 	if pc.tint then tint(root, pc.tint, pc.tintMode, pc.tintStrength) end
-	scaleRoot(root, pc.scale or 1)
+	scaleRoot(root, sc)
 	speedRoot(root, pc.speed or 1)
 	local all = root:GetDescendants()
 	table.insert(all, root)
@@ -910,7 +1019,10 @@ function C.build(spec)
 			elseif d:IsA("Trail") then n.trails += 1
 			elseif d:IsA("BasePart") then n.parts += 1 end
 		end
-		summary.pieces[i] = { file = pc.file, n = n }
+		local m = safeMeasure(root)
+		summary.pieces[i] = { file = pc.file, n = n, fit = pc.__fit, size = m and {
+			width = math.floor(m.width * 10 + 0.5) / 10, height = math.floor(m.height * 10 + 0.5) / 10,
+			largest = math.floor(m.largest * 10 + 0.5) / 10, largestName = m.largestName } }
 	end
 	if spec.dummy then dummyTemplate() end
 	local pending = true
@@ -935,6 +1047,46 @@ function C.layers(i)
 				tostring(d:GetAttribute("EmitCount")), tostring(d:GetAttribute("EmitDelay"))))
 		elseif d:IsA("BasePart") and d.Transparency < 1 then
 			table.insert(out, string.format("%s %s | size %s", d.ClassName, d.Name, tostring(d.Size)))
+		end
+	end
+	return table.concat(out, "\n")
+end
+
+function C.measure(i)
+	assert(S.templates, "C.build(spec) first")
+	local out = {}
+	for k, root in ipairs(S.templates) do
+		if i == nil or i == k then
+			local pc = S.spec.pieces[k]
+			table.insert(out, string.format("piece %d %s: %s%s", k, tostring(pc.file), fmtMeasure(safeMeasure(root)),
+				if pc.__fit then string.format(" | fitted x%.3g to size %s by %s", pc.__fit, tostring(pc.size),
+					pc.sizeBy or "width") else ""))
+		end
+	end
+	table.insert(out, "dummy: 5 studs = 1 H. Fault: more than 30% off the brief's size (guide section 6).")
+	return table.concat(out, "\n")
+end
+
+-- how much of the frame the largest layer of each piece covers at its biggest, seen from camPos (default: the
+-- current camera; the standard capture camera is origin + (14, 7, -16))
+function C.coverage(origin, camPos)
+	assert(S.templates, "C.build(spec) first")
+	origin = origin or Vector3.zero
+	local cam = Workspace.CurrentCamera
+	local eye = camPos or cam.CFrame.Position
+	local tanh = math.tan(math.rad(if camPos then 70 else cam.FieldOfView) / 2)
+	local out = {}
+	for k, root in ipairs(S.templates) do
+		local pc = S.spec.pieces[k]
+		local m = safeMeasure(root)
+		if m then
+			local at = pc.at or Vector3.zero
+			local dist = math.max(1, (eye - (origin + at + Vector3.new(0, m.height / 2, 0))).Magnitude)
+			local frac = m.largest / (2 * dist * tanh)
+			local whole = math.max(m.width, m.height) / (2 * dist * tanh)
+			table.insert(out, string.format("piece %d %s: largest layer '%s' covers %.0f%% of the frame height, the piece %.0f%%%s",
+				k, tostring(pc.file), m.largestName, frac * 100, whole * 100,
+				if frac > 0.6 then "  <- FAULT unless the brief wants a screen-filling flash" else ""))
 		end
 	end
 	return table.concat(out, "\n")
@@ -1047,6 +1199,10 @@ function C.camera(origin, o)
 	local yaw = math.rad(o.yaw or 25)
 	local look = (origin or Vector3.zero) + Vector3.new(0, o.height or spec.viewHeight or 2.5, 0)
 	local pos = look + Vector3.new(math.sin(yaw) * dist, dist * (o.pitch or 0.28), -math.cos(yaw) * dist)
+	if o.top then -- straight down (motion-path and caster-space check)
+		look = origin or Vector3.zero
+		pos = look + Vector3.new(0, dist * 1.4, 0.01)
+	end
 	local cam = Workspace.CurrentCamera
 	cam.FieldOfView = 70
 	cam.CFrame = CFrame.lookAt(pos, look)

@@ -8,7 +8,8 @@ Every effect becomes one compact record: where it lives (pack file + referent), 
 table (one line per layer, identical layers merged as "xN"). Effects from files that PACK.md lists under "Left out"
 (ripped from live games, not open source) are never indexed. Texture roles = for every texture, the layer names,
 kinds, flipbook grids and LightEmission values pros used it with, so compose.py can offer same-role swaps.
-Reads JSON only (never a Roblox file).
+Reads JSON only (never a Roblox file). Afterwards run build_style_index.py (style register + size per effect,
+catalog/traits.json.gz) so compose.py's style ranking matches the new index.
 """
 import argparse
 import collections

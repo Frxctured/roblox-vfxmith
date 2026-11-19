@@ -66,6 +66,7 @@ def main():
 -- <Studio content>/vfxlib/ or run: python3 -I kit/scripts/compose.py --cut {" ".join(f[3:] if f.startswith("fx_") else f for f in files)}
 --   _G.{play}(origin: Vector3, freezeAt: number?)   play once with the base at origin (freezeAt: hold at that time)
 --   _G.{stop}()                                    stop and remove the current play
+--   _G.VFXCompose.measure() / .coverage(origin, cam)  measured piece sizes / frame coverage from camera position cam
 local __Compose = (function()
 {compose}
 end)()
@@ -75,6 +76,7 @@ local __Spec = (function()
 end)()
 
 print("[{name}] " .. __Compose.build(__Spec))
+_G.VFXCompose = __Compose
 _G.{play} = function(origin, freezeAt)
 	return __Compose.play(origin, freezeAt)
 end

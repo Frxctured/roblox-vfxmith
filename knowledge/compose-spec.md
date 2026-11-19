@@ -21,7 +21,11 @@ return {
 			                       -- "pivot": the piece's own pivot at the origin (beams between two points, etc.)
 			on = nil,              -- "dummy": layers on rig parts (Torso, Right Arm...) are snapped onto the dummy
 			delay = 0,             -- seconds after play start
-			scale = 1,             -- whole-piece size (parts, attachments, particle sizes and speeds, beam widths)
+			size = 10,             -- SCALE TO THE SCENE FIRST: fit the measured piece to this many studs (the brief's
+			                       -- size for this part; dummy = 5 studs). Measured after drop/set, before everything else
+			sizeBy = "width",      -- what size means: "width" (footprint, default), "height", or "largest" (the single
+			                       -- biggest layer, e.g. a flash)
+			scale = 1,             -- whole-piece size multiplier (after size; leave 1 when size is set)
 			speed = 1,             -- this piece's playback speed
 			tint = "#7FD8FF",      -- target hue; saturation and value stay as authored
 			tintMode = "shift",    -- "shift" (rotate all hues together, keeps colour travel) or "set" (all saturated
@@ -44,7 +48,7 @@ return {
 }
 ```
 
-Order of adaptation inside one piece: drop, set, tint, scale, speed, glow, count. `set` values are real Luau values
+Order of adaptation inside one piece: drop, set, size (measure + fit), tint, scale, speed, glow, count. `set` values are real Luau values
 (`NumberSequence.new(...)`, `ColorSequence.new(...)`, `Color3.fromHex(...)`, `Enum...`).
 
 ## How pieces are played
@@ -58,9 +62,14 @@ part) do not move: move them with `move` (and put the impact at the end point as
 ## API (in Studio)
 ```lua
 local C = <loadstring of VFXCompose>   -- export_compose's final.luau does this for you
-C.build(spec)            -- JSON summary: pieces with emitter/beam/trail/part counts
+C.build(spec)            -- JSON summary: pieces with emitter/beam/trail/part counts, measured size and fit
 C.layers(1)              -- piece 1's layer list: class, name, texture, first colour, Brightness, EmitCount
-C.camera(origin, { dist = 22, yaw = 25, pitch = 0.28, height = 2.5 })
+C.measure()              -- every piece's measured width/height (studs and H = 5 studs), its largest single layer,
+                         -- light range and the fit factor `size` applied. Run it before styling and compare with
+                         -- the brief: more than 30% off is a fault
+C.coverage(origin, cam)  -- from camera position cam (default the current camera; standard: origin + (14, 7, -16)): share of the frame height the largest layer of each piece
+                         -- covers at its biggest; over 60% is flagged (a flash that fills the camera)
+C.camera(origin, { dist = 22, yaw = 25, pitch = 0.28, height = 2.5 })   -- { top = true }: straight down
 C.play(origin, freezeAt) -- freezeAt: returns "frozen at t" once that frame is built
 C.stop()
 ```
