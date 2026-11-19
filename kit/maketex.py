@@ -6,6 +6,12 @@
     python3 -I kit/maketex.py glow ring --install my_fx        also copy into Studio's content folder and print
                                                               the rbxasset:// paths to use in Luau
     python3 -I kit/maketex.py --install my_fx --files a.png b.png   install PNGs you drew yourself
+    python3 -I kit/maketex.py flame_burst --set ragged=0.9 grain=0.4 --name burst2 --sheet tex/sheet.png
+                                                              shape parameters, a variant name, a contact sheet
+
+Detail shapes (for matching a reference's small elements; edges are hard on purpose): flame_burst, flame_shard, arc,
+swoosh, spark_streak, smoke_wisp, glint, crack_line, glitter. --list shows each one's parameters (ragged, taper,
+thickness, grain, wisp, length, ...).
 
 Your own shapes: write a small script that imports this file and uses the helpers (numpy arrays, values 0..1):
 
@@ -260,8 +266,213 @@ def petal(out):
     return save("petal", lum, a, out)
 
 
+# ---------------------------------------------------------------------------------- detail shapes (replicate mode)
+# Small elements get their look from the texture: raggedness, taper, thinness and grain live in the PNG, not in the
+# emitter. Each takes parameters (python3 -I maketex.py flame_burst --set ragged=0.9 grain=0.5 seed=4). Hard edges
+# are drawn hard on purpose: a soft round blob never stands in for a ragged, streaky or thin element.
+
+def _wrap(a):
+    return (a + math.pi) % (2 * math.pi) - math.pi
+
+
+def _grain(n, m, amount, seed, cell=1.5):
+    """fine speckle noise 0..1 (1 = no change) for texture grain."""
+    if amount <= 0:
+        return 1.0
+    r = np.random.default_rng(seed)
+    g = r.random((max(2, int(m / cell)), max(2, int(n / cell))))
+    g = np.asarray(Image.fromarray((g * 255).astype(np.uint8)).resize((n, m), Image.BILINEAR)).astype(np.float32) / 255
+    return 1 - amount * g
+
+
+def flame_burst(out, ragged=0.7, spikes=9, grain=0.3, seed=1, name="flame_burst"):
+    """ragged flame burst: fat, notched flame shards fanning from a hot core, hard cartoon edge (additive, tint it)."""
+    N = 512
+    u, v = grid(N)
+    r, th = np.hypot(u, v), np.arctan2(v, u)
+    rng = np.random.default_rng(seed)
+    edge = np.full_like(r, 0.3)
+    k = int(spikes)
+    for i in range(k):  # each shard: a pointed lobe with its own length, width and a little bend
+        c = (i + rng.uniform(-0.3, 0.3)) / k * 2 * math.pi - math.pi
+        L = rng.uniform(0.55, 0.97)
+        w = rng.uniform(0.6, 1.3) * math.pi / k
+        d = np.abs(_wrap(th - c - 0.35 * ragged * (r - 0.3) * rng.uniform(-1, 1)))
+        edge = np.maximum(edge, 0.3 + (L - 0.3) * np.clip(1 - d / w, 0, 1) ** rng.uniform(1.0, 1.8))
+    # notches: saw-tooth jaggies along the outline (bigger further out), plus a few bites out of the shards
+    saw = sum(((th * f / (2 * math.pi) + rng.random()) % 1.0 - 0.5) / f * 8 for f in (17, 29, 47))
+    edge = edge * (1 + 0.12 * ragged * saw * ss(0.3, 0.6, edge)) + 0.05 * ragged * (fbm(N, seed + 7, 3, 8) - 0.5)
+    a = ss(edge, edge - 0.012, r)  # hard edge (about 3 px at 512)
+    for _ in range(int(round(5 * ragged))):
+        c = rng.uniform(-math.pi, math.pi)
+        rr = rng.uniform(0.45, 0.75)
+        bx, by = rr * math.cos(c), rr * math.sin(c)
+        a = a * ss(0.0, 0.012, np.hypot(u - bx, v - by) - rng.uniform(0.04, 0.08))
+    lum = 0.85 + 0.15 * ss(0.7, 0.0, r / np.maximum(edge, 1e-3))  # white-hot core, slightly darker tips
+    a = a * _grain(N, N, grain * 0.4, seed + 3)
+    return save(name, lum, np.clip(a, 0, 1), out)
+
+
+def flame_shard(out, ragged=0.6, grain=0.2, seed=2, name="flame_shard"):
+    """one sharp flame shard / tongue along V (point at the top), notched hard edge: for flung burst pieces."""
+    W, H = 128, 512
+    u, v = grid(W, H)
+    t = (v + 1) / 2  # 0 = tip (top) .. 1 = base
+    rng = np.random.default_rng(seed)
+    width = 0.95 * t ** 0.7 * (1 - t ** 6)
+    width = width * (1 + 0.25 * ragged * np.sin(t * 40 + rng.uniform(0, 6)) * (t < 0.8))
+    bend = 0.15 * ragged * np.sin(t * 5 + seed)
+    a = ss(1.0, 0.92, np.abs(u - bend) / np.maximum(width, 1e-3))
+    lum = 0.6 + 0.4 * ss(0.8, 0.0, np.abs(u - bend) / np.maximum(width, 1e-3))
+    a = a * _grain(W, H, grain * 0.5, seed)
+    return save(name, lum, a, out)
+
+
+def arc(out, sweep=200, thickness=0.05, taper=1.0, curl=0.0, grain=0.0, halo=0.25, seed=3, name="arc"):
+    """thin arc / swoosh stroke with tapering ends (wind swirl arcs, slash trails). curl > 0 = spirals inward
+    (a hook / claw swoosh). thickness = half width at the middle (fraction of the image), taper 0 = blunt ends."""
+    N = 512
+    u, v = grid(N)
+    r, th = np.hypot(u, v), np.arctan2(-v, u)
+    sw = math.radians(sweep)
+    s = ((th + math.pi / 2 + sw / 2) % (2 * math.pi)) / sw  # 0..1 along the stroke where inside the sweep
+    inside = (s >= 0) & (s <= 1)
+    R = 0.82 * (1 - curl * np.clip(s, 0, 1))
+    w = thickness * np.where(inside, np.sin(np.clip(s, 0, 1) * math.pi) ** max(taper, 1e-3), 0)
+    dist = np.abs(r - R)
+    core = ss(1.0, 0.75, dist / np.maximum(w, 1e-4)) * inside
+    glow = halo * np.exp(-(dist / np.maximum(w * 3, 1e-4)) ** 2) * inside
+    a = np.clip(core + glow, 0, 1)
+    if grain > 0:  # streaks running along the stroke
+        a = a * (1 - grain * fbm(N, seed, 3, 16) * ss(0.2, 1.0, dist / np.maximum(w, 1e-4) + 0.3))
+    return save(name, np.ones_like(a), a, out)
+
+
+def swoosh(out, sweep=150, thickness=0.12, taper=1.4, curl=0.35, grain=0.45, seed=4, name="swoosh"):
+    """broad pale swoosh / claw stroke: thick middle, sharp tapered tips, streaky (wind cells, hook arcs)."""
+    return arc(out, sweep=sweep, thickness=thickness, taper=taper, curl=curl, grain=grain, halo=0.15, seed=seed,
+               name=name)
+
+
+def spark_streak(out, length=6.0, head=0.7, taper=2.5, name="spark_streak"):
+    """streaked spark along V: a hard bright head near the top and a thin tapering tail (sparks flung fast).
+    length = how many times longer than wide; use with VelocityParallel orientation."""
+    H = 256
+    W = max(16, int(H / max(1.0, length)) * 2)
+    u, v = grid(W, H)
+    t = (v + 1) / 2  # 0 = head end .. 1 = tail end
+    w = np.where(t < 0.1, np.sqrt(np.clip(t / 0.1, 0, 1)), np.clip(1 - (t - 0.1) / 0.9, 0, 1) ** taper) * 0.8
+    a = ss(1.0, 0.7, np.abs(u) / np.maximum(w, 1e-3)) * (t <= 1)
+    a = a * (head + (1 - head) * (1 - t))
+    lum = 0.75 + 0.25 * ss(0.5, 0.0, np.abs(u) / np.maximum(w, 1e-3))
+    return save(name, lum, a, out)
+
+
+def smoke_wisp(out, wisp=0.7, grain=0.5, lumps=0.6, seed=5, name="smoke_wisp"):
+    """smoke puff with wispy, torn edges and grain inside (not a solid ball): lumpy core, thin strands fraying
+    outward at the rim, see-through gaps near the edge."""
+    N = 256
+    u, v = grid(N)
+    r, th = np.hypot(u, v), np.arctan2(v, u)
+    n1 = fbm(N, seed, 5, 3)
+    n2 = fbm(N, seed + 10, 4, 6)
+    # strands: a noise looked up in polar coordinates, fast around the puff and slow outward = radial fibres
+    fn = fbm(N, seed + 20, 4, 8)
+    xi = ((th / (2 * math.pi) + 0.5) * 2 * N + 40 * (n2 - 0.5)).astype(int) % N
+    yi = np.clip((r * 0.12 + 0.3 * n1) * (N - 1), 0, N - 1).astype(int)
+    fibre = ss(0.42, 0.7, fn[yi, xi])
+    edge = 0.5 + lumps * 0.3 * (n1 - 0.5)
+    body = ss(edge + 0.04, edge - 0.22, r)
+    rim = ss(edge + 0.42 * wisp + 0.02, edge - 0.05, r) * (1 - body)
+    a = body * (0.55 + 0.45 * n2) * (1 - wisp * 0.45 * ss(edge - 0.22, edge, r) * (1 - fibre))
+    a = a + rim * fibre * 0.55
+    a = a * ss(1.0, 0.9, r) * _grain(N, N, grain * 0.45, seed + 4, 1.2)
+    lum = 0.55 + 0.45 * (0.6 * n1 + 0.4 * n2)
+    return save(name, lum, np.clip(a, 0, 1), out)
+
+
+def glint(out, rays=4, length=1.0, thin=0.02, diag=0.45, taper=1.5, name="glint"):
+    """star-shaped flash glint: long, very thin rays that taper to points, short diagonal rays, small hot core."""
+    N = 256
+    u, v = grid(N)
+    r, th = np.hypot(u, v), np.arctan2(v, u)
+    a = np.exp(-(r / 0.06) ** 2)
+    for k in range(int(rays) * 2):
+        major = k % 2 == 0
+        if not major and diag <= 0:
+            continue
+        ang = k * math.pi / int(rays)
+        L = length * (1.0 if major else diag)
+        along = u * math.cos(ang) + v * math.sin(ang)
+        across = np.abs(-u * math.sin(ang) + v * math.cos(ang))
+        w = thin * np.clip(1 - along / L, 0, 1) ** taper
+        a = np.maximum(a, (along > 0) * ss(1.0, 0.4, across / np.maximum(w, 1e-4)) * np.clip(1 - along / L, 0, 1))
+    return save(name, np.ones_like(a), np.clip(a, 0, 1), out)
+
+
+def crack_line(out, width=1.5, branches=0.5, jag=0.5, glow=0.25, count=8, seed=11, name="crack_line"):
+    """bright, thin, jagged crack lines (glowing ground cracks): hairline core, little glow, sharp kinks.
+    width in px at 512; branches 0..1; jag 0..1 = how sharp the kinks are; count = main cracks from the centre."""
+    N = 512
+    img, dr = canvas(N)
+    rng = np.random.default_rng(seed)
+    c = N / 2
+
+    def walk(x, y, ang, length, w, depth):
+        base, step = ang, 7
+        for i in range(int(length / step)):
+            ang += rng.normal(0, 0.15 + 0.6 * jag) + (base - ang) * 0.4
+            nx, ny = x + math.cos(ang) * step, y + math.sin(ang) * step
+            dr.line([(x, y), (nx, ny)], fill=255, width=max(1, int(round(w * (1 - 0.6 * i * step / length)))))
+            x, y = nx, ny
+            if math.hypot(x - c, y - c) > N * 0.47:
+                return
+            if depth < 2 and rng.random() < 0.09 * branches:
+                walk(x, y, ang + rng.choice([-1, 1]) * rng.uniform(0.5, 1.2), length * 0.4, w * 0.7, depth + 1)
+
+    for i in range(int(count)):
+        a0 = i / count * 2 * math.pi + rng.uniform(-0.3, 0.3)
+        walk(c + math.cos(a0) * 10, c + math.sin(a0) * 10, a0, rng.uniform(140, 230), width, 0)
+    core = arr(img)
+    a = np.clip(core + glow * blur(core, 4) * 2, 0, 1)
+    return save(name, np.ones_like(a), a, out)
+
+
+def glitter(out, density=0.012, size=1.5, grain=0.35, seed=6, name="glitter"):
+    """fine sparkly grain (tiny sharp specks over faint noise): the texture inside a glassy dome, dust or embers bed."""
+    N = 256
+    rng = np.random.default_rng(seed)
+    img, dr = canvas(N)
+    for _ in range(int(density * N * N / 4)):
+        x, y = rng.uniform(0, N, 2)
+        s = rng.uniform(0.4, 1.0) * size
+        dr.ellipse([x - s, y - s, x + s, y + s], fill=int(rng.uniform(140, 255)))
+    a = np.clip(arr(img) + grain * (fbm(N, seed, 3, 32) - 0.35), 0, 1)
+    return save(name, np.ones_like(a), a, out)
+
+
+def contact_sheet(files, path, cols=6, cell=200):
+    """all PNGs on a dark and a mid-grey card, labelled: check the shapes at a glance."""
+    rows = (len(files) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * cell, rows * (cell + 22) * 2), (18, 20, 26))
+    d = ImageDraw.Draw(sheet)
+    for i, f in enumerate(files):
+        im = Image.open(f).convert("RGBA")
+        im.thumbnail((cell - 12, cell - 12))
+        for k, bg in enumerate(((14, 16, 22), (120, 124, 132))):
+            x = (i % cols) * cell
+            y = ((i // cols) * 2 + k) * (cell + 22)
+            card = Image.new("RGBA", (cell - 6, cell - 6), bg + (255,))
+            card.alpha_composite(im, ((cell - 6 - im.width) // 2, (cell - 6 - im.height) // 2))
+            sheet.paste(card.convert("RGB"), (x + 3, y + 3))
+            d.text((x + 6, y + cell), os.path.basename(f), fill=(200, 204, 214))
+    sheet.save(path)
+    return path
+
+
 SHAPES = {f.__name__: f for f in (glow, dot, ring, ring_soft, shock, star4, streak, smoke, wisp, crack, scorch,
-                                  face_scream, face_calm, petal)}
+                                  face_scream, face_calm, petal, flame_burst, flame_shard, arc, swoosh, spark_streak,
+                                  smoke_wisp, glint, crack_line, glitter)}
 
 
 # ============================================================================================ Studio content folder
@@ -302,16 +513,34 @@ def main():
     ap.add_argument("--install", metavar="FOLDER")
     ap.add_argument("--files", nargs="+", default=[])
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--set", nargs="+", default=[], metavar="KEY=VALUE",
+                    help="shape parameters, e.g. ragged=0.9 taper=2 grain=0.5 seed=4 (each shape takes the ones it knows)")
+    ap.add_argument("--name", help="file name for a single shape (to keep several variants)")
+    ap.add_argument("--sheet", metavar="PNG", help="also write a contact sheet of everything written")
     a = ap.parse_args()
     if a.list or (not a.shapes and not a.files):
+        import inspect
         for k, f in SHAPES.items():
-            print(f"{k:12s} {(f.__doc__ or '').strip()}")
+            ps = [f"{p.name}={p.default}" for p in inspect.signature(f).parameters.values()
+                  if p.default is not inspect.Parameter.empty and p.name != "name"]
+            print(f"{k:12s} {' '.join((f.__doc__ or '').split())}" + (f"\n{'':12s} params: {' '.join(ps)}" if ps else ""))
         return
+    import inspect
+    params = {}
+    for kv in a.set:
+        k, _, v = kv.partition("=")
+        params[k] = int(float(v)) if float(v).is_integer() else float(v)
     files = list(a.files)
     for s in a.shapes:
         if s not in SHAPES:
             sys.exit(f"unknown shape {s}; --list shows them")
-        files.append(SHAPES[s](a.out))
+        known = inspect.signature(SHAPES[s]).parameters
+        kw = {k: v for k, v in params.items() if k in known}
+        if a.name and len(a.shapes) == 1 and "name" in known:
+            kw["name"] = a.name
+        files.append(SHAPES[s](a.out, **kw))
+    if a.sheet:
+        print("wrote", contact_sheet(files, a.sheet))
     for f in files:
         print("wrote", f) if f not in a.files else None
     if a.install:

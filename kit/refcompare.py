@@ -25,8 +25,24 @@ Writes into --out (default ./refcompare):
   sheet.png     reference row over ours, same crop and size, one column per time (actual frame times in the labels)
   curves.png    energy (how much the frame differs from the empty stage), added light and coverage over time, both
   metrics.json  every number below
+  detail.png    (numpy) ZOOMED: the same box cut from both sides at 3 key moments, large, with a "fine detail" row
+                under each (only the high-frequency part: sparks, thin lines, ragged outlines, grain show up white).
+                --crop x,y,w,h (fractions of the frame, or reference pixels) | auto (default: around the reference's
+                brightest region) | none;  --detail-at 0.03,0.1,0.35 picks the moments (default: first, peak, middle)
 and prints a table per time plus a short list of the biggest measured differences. The numbers inform the eye; they
-are not a pass/fail gate. Look at sheet.png first.
+are not a pass/fail gate. Look at sheet.png first, then detail.png.
+
+Small details (numpy; both sides measured at the same width, the smaller source's, max 960 px; a 400 px gallery sheet
+loses most fine detail, so use a video or big stills of the reference when the details matter):
+  specks    small bright specks that stand out from their surroundings (sparks, embers, glints): count, median
+            diameter (1/1000 of the frame width), size spread (p90 / p10), streaked = share stretched 2.5:1 or more
+  dark      small dark specks (debris chips)
+  lines     thin-line pixels (Hessian ridge filter: long thin bright ridges = swirl arcs, cracks, glint rays) as a
+            share of the effect area, and the number of separate line pieces
+  grain     high-frequency energy inside the effect (texture inside smoke, a dome, a burst); edges = share of the
+            effect area on a sharp edge
+  ragged    outline of the brightest blob at half its peak vs a round disc (1.0 = round; flame shards ~3)
+  edgew     edge width of that blob (1/1000 of the frame width): small = crisp, large = soft
 
 Per frame:
   effect%   share of the frame that differs from the empty stage
@@ -549,6 +565,380 @@ def differences(R, O, fr, fo, times):
                     "%.2f x %.2f (ours)." % (a2, a, b2, b)))
     return sorted(out, key=lambda kv: -kv[0])
 
+# ----------------------------------------------------------------------------------------------------- small details
+# Everything below needs numpy. It looks at the SMALL elements the big numbers above miss: fine sparks and specks,
+# thin lines (swirl arcs, cracks, glint rays), grain inside a mass, and how ragged and crisp the bright burst is.
+# Both sides are measured at the same width DW = the smaller of the two sources' own widths (max 960 px), so a
+# low-resolution reference sheet does not look "smoother" only because it has fewer pixels.
+
+def gblur(x, s):
+    """separable Gaussian blur of a 2-D float array (numpy only)."""
+    if s <= 0:
+        return x
+    r = max(1, int(math.ceil(3 * s)))
+    k = np.exp(-0.5 * (np.arange(-r, r + 1) / s) ** 2)
+    k /= k.sum()
+    p = np.pad(x, ((0, 0), (r, r)), mode="edge")
+    y = sum(k[i] * p[:, i:i + x.shape[1]] for i in range(2 * r + 1))
+    p = np.pad(y, ((r, r), (0, 0)), mode="edge")
+    return sum(k[i] * p[i:i + x.shape[0], :] for i in range(2 * r + 1))
+
+
+def dilate(m, n=1):
+    for _ in range(n):
+        p = np.pad(m, 1)
+        m = p[1:-1, 1:-1] | p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
+    return m
+
+
+def erode(m):
+    p = np.pad(m, 1)
+    return p[1:-1, 1:-1] & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+
+
+def label(mask):
+    """connected components (8-neighbour) without scipy: min-label propagation with pointer jumping.
+    Returns (labels HxW int, -1 = background; n)."""
+    H, W = mask.shape
+    big = H * W
+    lab = np.where(mask, np.arange(big).reshape(H, W), big)
+    while True:
+        p = np.pad(lab, 1, constant_values=big)
+        nb = np.minimum.reduce([p[1:-1, 1:-1], p[:-2, 1:-1], p[2:, 1:-1], p[1:-1, :-2], p[1:-1, 2:],
+                                p[:-2, :-2], p[:-2, 2:], p[2:, :-2], p[2:, 2:]])
+        nb = np.where(mask, nb, big)
+        flat = np.append(nb.ravel(), big)
+        for _ in range(6):  # pointer jumping: follow each label to its own label
+            flat = flat[np.minimum(flat, big)]
+        new = flat[:-1].reshape(H, W)
+        if np.array_equal(new, lab):
+            break
+        lab = new
+    ids, inv = np.unique(lab[mask], return_inverse=True)
+    out = np.full((H, W), -1, np.int64)
+    out[mask] = inv
+    return out, len(ids)
+
+
+def blob_stats(lab, n):
+    """per component: area, elongation (major / minor axis), length (major axis, px)."""
+    if n == 0:
+        return np.zeros(0), np.zeros(0), np.zeros(0)
+    ys, xs = np.nonzero(lab >= 0)
+    L = lab[ys, xs]
+    area = np.bincount(L, minlength=n).astype(np.float64)
+    mx, my = np.bincount(L, xs, n) / area, np.bincount(L, ys, n) / area
+    dx, dy = xs - mx[L], ys - my[L]
+    cxx = np.bincount(L, dx * dx, n) / area + 1 / 12
+    cyy = np.bincount(L, dy * dy, n) / area + 1 / 12
+    cxy = np.bincount(L, dx * dy, n) / area
+    tr, det = cxx + cyy, cxx * cyy - cxy ** 2
+    disc = np.sqrt(np.maximum(tr * tr / 4 - det, 0))
+    l1, l2 = tr / 2 + disc, np.maximum(tr / 2 - disc, 1e-6)
+    return area, np.sqrt(l1 / l2), 4 * np.sqrt(l1)
+
+
+def detail_measure(im, base):
+    """Small-detail numbers for one frame (same-size RGB images at the detail width). See the module docstring."""
+    a = np.asarray(im, dtype=np.float32)
+    b = np.asarray(base, dtype=np.float32)
+    H, W = a.shape[:2]
+    lw = np.array([0.299, 0.587, 0.114], np.float32)
+    la, lb = a @ lw, b @ lw
+    d = la - lb
+    eff = dilate(np.abs(a - b).max(axis=2) > 30, 2)
+    ne = int(eff.sum())
+    if ne < 0.005 * H * W:
+        return None
+    u = W / 1000.0  # 1 unit = 1/1000 of the frame width
+    out = {"area": ne / (H * W)}
+    # grain: high-frequency energy of the effect's own picture (its luma change) inside the effect area
+    hp = d - gblur(d, max(0.8, 1.5 * u))
+    out["grain"] = float(np.abs(hp)[eff].mean())
+    g = gblur(d, max(0.6, 0.7 * u))
+    gy, gx = np.gradient(g)
+    out["edges"] = float(((np.hypot(gx, gy) > 12) & eff).sum() / ne)
+    # specks: small bright (or dark) dots that stand out from their surroundings
+    s_top = max(1.5, 5 * u)
+    top = d - gblur(d, s_top)
+    amax = max(6.0, (12 * u) ** 2)
+    res = {}
+    for kind, sg in (("bright", 1), ("dark", -1)):
+        # hysteresis: a speck is a small island of the low threshold that holds a high-threshold pixel, so a crack
+        # web or a flame outline (one big connected island) does not break up into "specks"
+        low = (sg * top > 12) & (sg * d > 8) & eff
+        lab, n = label(low)
+        area, el, ln = blob_stats(lab, n)
+        hi = (sg * top > 28) & (sg * d > 15) & low
+        strong = np.bincount(lab[hi], minlength=n) > 0 if n else np.zeros(0, bool)
+        keep = strong & (area >= (2 if W >= 700 else 1)) & (area <= amax)
+        res[kind] = (area[keep], el[keep])
+    ab, eb = res["bright"]
+    out["specks"] = int(len(ab))
+    out["dark_specks"] = int(len(res["dark"][0]))
+    if len(ab):
+        dia = 2 * np.sqrt(ab / math.pi) / u  # equivalent diameter in 1/1000 of the frame width
+        out["speck_size"] = float(np.median(dia))
+        out["speck_spread"] = float(np.percentile(dia, 90) / max(1e-6, np.percentile(dia, 10)))
+        big_enough = ab >= max(4, (2.5 * u) ** 2)
+        out["streaked"] = float((eb[big_enough] >= 2.5).mean()) if big_enough.any() else 0.0
+    else:
+        out.update(speck_size=None, speck_spread=None, streaked=None)
+    # thin lines: Hessian ridge filter at a small scale; long, thin ridges only (arcs, cracks, glint rays)
+    sr = max(1.0, 1.5 * u)
+    gs = gblur(d, sr) * sr * sr
+    dyy, dyx = np.gradient(np.gradient(gs, axis=0))
+    dxy, dxx = np.gradient(np.gradient(gs, axis=1))
+    half = (dxx + dyy) / 2
+    root = np.sqrt(((dxx - dyy) / 2) ** 2 + dxy ** 2)
+    l1, l2 = half - root, half + root  # l1 most negative = across a bright line
+    ridge = (-l1 > 6) & (np.abs(l2) < 0.4 * np.abs(l1)) & eff
+    lab, n = label(ridge)
+    area, el, ln = blob_stats(lab, n)
+    keep = (el >= 4) & (ln >= 12 * u)
+    out["lines"] = float(area[keep].sum() / ne)
+    out["line_count"] = int(keep.sum())
+    # the bright burst: how ragged its outline is (1.0 = a round disc) and how crisp its edge is
+    # the outline at half of the brightest change: a soft glow is round there, flame shards stay jagged
+    pk = float(np.percentile(d[eff], 99.5))
+    bright = (gblur(d, max(0.6, 0.7 * u)) > max(55.0, 0.5 * pk)) & eff
+    lab, n = label(bright)
+    if n:
+        area = np.bincount(lab[lab >= 0], minlength=n)
+        k = int(np.argmax(area))
+        if area[k] >= 0.0015 * H * W:
+            m = lab == k
+            per = (m & ~erode(m)).sum()
+            out["ragged"] = float(per / (2 * math.sqrt(math.pi * area[k])))
+            ring = dilate(m, 1) & ~erode(m)
+            gm = np.hypot(*np.gradient(gblur(d, 0.7)))
+            contrast = max(1.0, float(d[m].mean() - d[dilate(m, 4) & ~m].mean()))
+            out["edge_px"] = float(contrast / max(1e-3, gm[ring].mean()) / u)  # transition width, 1/1000 of width
+            out["burst_area"] = float(area[k] / (H * W))
+        else:
+            out.update(ragged=None, edge_px=None, burst_area=None)
+    else:
+        out.update(ragged=None, edge_px=None, burst_area=None)
+    return out
+
+
+def detail_view(im, base):
+    """grey picture of the fine detail only (high-pass of the effect's luma change), for the zoomed sheet."""
+    a = np.asarray(im, dtype=np.float32) @ np.array([0.299, 0.587, 0.114], np.float32)
+    b = np.asarray(base, dtype=np.float32) @ np.array([0.299, 0.587, 0.114], np.float32)
+    d = a - b
+    hp = np.abs(d - gblur(d, max(0.8, 1.5 * im.width / 1000.0)))
+    return Image.fromarray(np.clip(hp * 6, 0, 255).astype(np.uint8)).convert("RGB")
+
+
+def auto_crop(frames, bases):
+    """box (fractions x, y, w, h) around where the reference is brightest, summed over its frames; frame aspect."""
+    acc = None
+    for im, b in zip(frames, bases):
+        if im is None:
+            continue
+        a = np.asarray(im, dtype=np.float32).mean(axis=2) - np.asarray(b, dtype=np.float32).mean(axis=2)
+        acc = np.clip(a, 0, None) if acc is None else acc + np.clip(a, 0, None)
+    if acc is None or acc.sum() <= 0:
+        return (0.25, 0.25, 0.5, 0.5)
+    H, W = acc.shape
+    acc = np.where(acc > 0.25 * acc.max(), acc, 0)
+    ys, xs = np.mgrid[0:H, 0:W]
+    tot = acc.sum()
+    cx, cy = (acc * xs).sum() / tot / W, (acc * ys).sum() / tot / H
+    sx = math.sqrt((acc * (xs / W - cx) ** 2).sum() / tot)
+    sy = math.sqrt((acc * (ys / H - cy) ** 2).sum() / tot)
+    w = h = min(1.0, max(0.3, 5 * sx, 5 * sy))  # same fraction both ways keeps the frame aspect
+    x = min(max(0.0, cx - w / 2), 1 - w)
+    y = min(max(0.0, cy - h / 2), 1 - h)
+    return (x, y, w, h)
+
+
+def parse_crop(s, ref_size):
+    """'x,y,w,h' as fractions (all <= 1) or reference pixels -> fractions."""
+    v = floats(s)
+    if len(v) != 4:
+        raise SystemExit("--crop needs x,y,w,h or auto")
+    if max(v) > 1.0:
+        W, H = ref_size
+        v = [v[0] / W, v[1] / H, v[2] / W, v[3] / H]
+    return tuple(v)
+
+
+def crop_frac(im, box):
+    x, y, w, h = box
+    W, H = im.size
+    return im.crop((int(x * W), int(y * H), int((x + w) * W), int((y + h) * H)))
+
+
+def pick_detail_times(times, energy):
+    """three key moments: the first frame, and the middle and end of the stretch above 25 % of the peak energy."""
+    if not energy or max(energy) <= 0:
+        return times[:3]
+    pk = max(energy)
+    ip = energy.index(pk)
+    live = [t for t, e in zip(times, energy) if e >= 0.25 * pk] or times
+    after = times[min(len(times) - 1, max(ip, 1))]  # the peak, or the frame after the first one
+    picks = [times[0], after, live[len(live) // 2]]
+    if len(set(picks)) < 3:
+        picks.append(live[-1])
+    out = []
+    for t in picks:
+        if t not in out:
+            out.append(t)
+    return sorted(out[:3])
+
+
+def draw_detail_sheet(path, dts, cells, labels, notes, title, cw, ch):
+    """cells[row][col] = image; rows: ref, ours, ref fine detail, ours fine detail."""
+    lw, top, gap = 190, 74, 8
+    names = [labels[0], labels[1], labels[0] + " fine detail", labels[1] + " fine detail"]
+    W = lw + len(dts) * (cw + gap)
+    H = top + len(cells) * (ch + gap + 22) + 10
+    sheet = Image.new("RGB", (W, H), (18, 20, 26))
+    d = ImageDraw.Draw(sheet)
+    d.text((W // 2, 24), title, font=font(22), fill=(240, 242, 246), anchor="mm")
+    for i, t in enumerate(dts):
+        d.text((lw + i * (cw + gap) + 6, top - 26), "+%.2f s" % t, font=font(18), fill=(255, 196, 64))
+    for r, row in enumerate(cells):
+        y = top + r * (ch + gap + 22)
+        d.multiline_text((12, y + ch // 2 - 30), "\n".join(textwrap.wrap(names[r], 15)), font=font(17),
+                         fill=(240, 242, 246))
+        for i, im in enumerate(row):
+            x = lw + i * (cw + gap)
+            if im is None:
+                d.rectangle([x, y, x + cw, y + ch], outline=(90, 90, 90))
+            else:
+                sheet.paste(im.resize((cw, ch), Image.LANCZOS), (x, y))
+            if r < 2:
+                d.text((x + 4, y + ch + 3), notes[r][i], font=font(13, False), fill=(150, 156, 170))
+    sheet.save(path)
+
+
+def detail_note(m):
+    if not m:
+        return "-"
+    return "specks %d (%s)  streaked %s  lines %s  grain %.1f  ragged %s" % (
+        m["specks"], num(m["speck_size"], "%.1f"), pct(m["streaked"]), pct(m["lines"]), m["grain"],
+        num(m["ragged"], "%.1f"))
+
+
+DETAIL_KEYS = (("specks", "FINE SPARKS/SPECKS", "small bright specks per frame", "%.0f"),
+               ("dark_specks", "DARK SPECKS", "small dark specks (debris) per frame", "%.0f"),
+               ("streaked", "STREAKING", "share of the larger specks stretched 2.5:1 or more", None),
+               ("speck_size", "SPECK SIZE", "median speck diameter (1/1000 of the frame width)", "%.1f"),
+               ("lines", "THIN LINES", "thin-line pixels (arcs, cracks, glint rays) as a share of the effect area",
+                None),
+               ("line_count", "LINE COUNT", "separate thin line pieces per frame", "%.0f"),
+               ("grain", "GRAIN", "fine texture inside the effect (high-frequency energy, 0-255)", "%.1f"),
+               ("edges", "EDGE DENSITY", "share of the effect area on a sharp edge", None),
+               ("ragged", "RAGGED BURST", "outline of the brightest blob vs a round disc (1.0 = round)", "%.2f"),
+               ("edge_px", "EDGE SOFTNESS", "edge width of the bright blob (1/1000 of the frame width; small = crisp)",
+                "%.1f"))
+
+
+def detail_differences(DR, DO):
+    """Small-detail gaps, biggest first: (size, text). Averaged over the reference's visible life (the frames where
+    the reference shows something); where ours shows nothing then, counts and shares count as 0."""
+    out = []
+    live = [i for i, m in enumerate(DR) if m]
+    for key, lab, hint, f in DETAIL_KEYS:
+        additive = f == "%.0f" or f is None
+        vr = [DR[i][key] for i in live if DR[i].get(key) is not None]
+        vo = [DO[i][key] if DO[i] else 0 for i in live
+              if (DO[i] and DO[i].get(key) is not None) or (not DO[i] and additive)]
+        if not vr and not vo:
+            continue
+        a = sum(vr) / len(vr) if vr else None
+        b = sum(vo) / len(vo) if vo else None
+        if a is None or b is None:
+            have = "the reference" if a is not None else "ours"
+            out.append((1.0, "%s: only %s has it (%s)." % (lab, have, hint)))
+            continue
+        eps = 3.0 if f == "%.0f" else (0.005 if f is None else 0.1)
+        r = abs(math.log((b + eps) / (a + eps)))
+        fa = (lambda v: pct(v).strip()) if f is None else (lambda v: f % v)
+        out.append((r, "%s: %s: %s (ref) vs %s (ours), ours has %s." % (
+            lab, hint, fa(a), fa(b), "more" if b > a else "less")))
+    return sorted(out, key=lambda kv: -kv[0])
+
+
+def run_detail(a, srcs, fitted, times, series, labels, aspect):
+    """small-detail measures for every frame + the zoomed detail sheet (detail.png)."""
+    widths = [im.width for side in fitted for im, _ in fitted[side][0] if im is not None]
+    DW = min(960, min(widths))
+    DH = int(round(DW / aspect))
+    per, small, bases = {}, {}, {}
+    for side, s in srcs.items():
+        imgs = fitted[side][0]
+        sm = [im.resize((DW, DH), Image.LANCZOS) if im is not None else None for im, _ in imgs]
+        if s.base == "black":
+            base = Image.new("RGB", (DW, DH))
+        elif s.base is not None:
+            base = fit(s.base, aspect, s.crop).resize((DW, DH), Image.LANCZOS)
+        else:
+            base = min_base([im for im in sm if im is not None])
+        if s.kind == "sheet" and s.mask:  # blank the gallery labels on both the frame and the base
+            k = DW / (s.frames[next(iter(s.frames))].width)
+            sm = [im if im is None else im.copy() for im in sm]
+            for im in sm:
+                if im is not None:
+                    for r in s.mask:
+                        im.paste(base.crop(tuple(int(v * k) for v in r)), (int(r[0] * k), int(r[1] * k)))
+        small[side], bases[side] = sm, base
+        per[side] = [detail_measure(im, base) if im is not None else None for im in sm]
+    # the zoomed sheet: same box on both sides
+    if a.crop != "none":
+        if a.crop == "auto":
+            box = auto_crop(small["ref"], [bases["ref"]] * len(small["ref"]))
+        else:
+            ref_im = next(im for im, _ in fitted["ref"][0] if im is not None)
+            box = parse_crop(a.crop, ref_im.size)
+        if a.detail_at:
+            dts = floats(a.detail_at)
+        else:
+            dts = pick_detail_times(times, [m["energy"] if m else 0 for m in series[0]])
+        cells, notes = [[], [], [], []], [[], []]
+        for t in dts:
+            i = min(range(len(times)), key=lambda k: abs(times[k] - t))
+            for r, side in enumerate(("ref", "ours")):
+                im = fitted[side][0][i][0]
+                cells[r].append(crop_frac(im, box) if im is not None else None)
+                sm = small[side][i]
+                cells[r + 2].append(crop_frac(detail_view(sm, bases[side]), box) if sm is not None else None)
+                notes[r].append(detail_note(per[side][i]))
+        cw = 600
+        ch = int(round(cw * (box[3] * DH) / max(1e-6, box[2] * DW)))
+        draw_detail_sheet(os.path.join(a.out, "detail.png"), [times[min(range(len(times)),
+                          key=lambda k: abs(times[k] - t))] for t in dts], cells, labels, notes,
+                          "Zoomed: reference over ours, same box (x %.2f y %.2f w %.2f h %.2f of the frame)" % box,
+                          cw, ch)
+    else:
+        box, dts = None, []
+    diffs = detail_differences(per["ref"], per["ours"])
+    return {"width": DW, "crop": box, "times": dts, "ref": per["ref"], "ours": per["ours"],
+            "differences": [txt for _, txt in diffs]}
+
+
+def print_detail(detail, times):
+    print("\nsmall details (measured at %d px wide; specks: count (median diameter, 1/1000 of the width); lines and "
+          "edges: share of the effect area; ragged: 1.0 = round)" % detail["width"])
+    print("%-7s %-5s %6s %5s %5s %6s %7s %6s %6s %6s %6s %6s" % (
+        "t", "side", "specks", "size", "dark", "streak", "lines", "pieces", "grain", "edges", "ragged", "edgew"))
+    for i, t in enumerate(times):
+        for side in ("ref", "ours"):
+            m = detail[side][i]
+            if not m:
+                print("%+6.2f  %-5s (no effect)" % (t, side))
+                continue
+            print("%+6.2f  %-5s %6d %5s %5d %6s %7s %6d %6.1f %6s %6s %6s" % (
+                t, side, m["specks"], num(m["speck_size"], "%.1f"), m["dark_specks"], pct(m["streaked"]),
+                pct(m["lines"]), m["line_count"], m["grain"], pct(m["edges"]), num(m["ragged"], "%.2f"),
+                num(m["edge_px"], "%.1f")))
+    print("\nbiggest small-detail differences (inform, not a gate; check them on detail.png):")
+    for k, txt in enumerate(detail["differences"][:6], 1):
+        print(" %d. %s" % (k, txt))
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -564,6 +954,10 @@ def main():
     ap.add_argument("--labels", default="Reference,Ours")
     ap.add_argument("--title", default="Reference over ours, aligned on the anchor")
     ap.add_argument("--cell", type=int, default=400, help="cell width on the sheet (px)")
+    ap.add_argument("--crop", default="auto",
+                    help="zoomed detail sheet box: x,y,w,h (fractions, or reference pixels) | auto (around the "
+                         "reference's brightest region) | none")
+    ap.add_argument("--detail-at", help="times for the zoomed detail sheet (default: 3 key moments)")
     ap.add_argument("--out", default="refcompare")
     a = ap.parse_args()
 
@@ -594,7 +988,7 @@ def main():
 
     os.makedirs(a.out, exist_ok=True)
     rows, metrics = [], {"times": times, "labels": a.labels.split(","), "sources": {}}
-    series = []
+    series, fitted = [], {}
     for side, s in srcs.items():
         imgs = [(fit(im, aspect, s.crop) if im is not None else None, act) for im, act in raw[side]]
         small = [im.resize((AW, ah), Image.LANCZOS) if im is not None else None for im, _ in imgs]
@@ -607,6 +1001,7 @@ def main():
         sx = AW / (s.frames[next(iter(s.frames))].width if s.kind == "sheet" else 1)
         mask = [tuple(int(round(v * sx)) for v in r) for r in s.mask] if s.kind == "sheet" else []
         ms = [measure(im, base, mask, s.base not in (None, "black")) if im is not None else None for im in small]
+        fitted[side] = (imgs, mask, sx)
         series.append(ms)
         row = []
         for t, (im, act) in zip(times, imgs):
@@ -622,6 +1017,10 @@ def main():
                                     "fade": fade_points(times, [m["energy"] if m else 0 for m in ms])}
 
     labels = a.labels.split(",")
+    detail = None
+    if np is not None:
+        detail = run_detail(a, srcs, fitted, times, series, labels, aspect)
+        metrics["detail"] = detail
     draw_sheet(os.path.join(a.out, "sheet.png"), times, rows, labels, a.title, cw, ch)
     draw_curves(os.path.join(a.out, "curves.png"), times, series, labels)
 
@@ -657,6 +1056,10 @@ def main():
     print("\nbiggest measured differences (a hint for the eye, not a verdict):")
     for k, (_, txt) in enumerate(diffs[:5], 1):
         print(" %d. %s" % (k, txt))
+    if detail:
+        print_detail(detail, times)
+    else:
+        print("\n(small-detail measures and detail.png need numpy)")
 
     def clean(o):
         if isinstance(o, float) and (math.isinf(o) or math.isnan(o)):
@@ -672,7 +1075,7 @@ def main():
     with open(os.path.join(a.out, "metrics.json"), "w") as f:
         json.dump(clean(metrics), f, indent=1)
     print("\nwrote", os.path.join(a.out, "sheet.png"), os.path.join(a.out, "curves.png"),
-          os.path.join(a.out, "metrics.json"))
+          os.path.join(a.out, "metrics.json"), *([os.path.join(a.out, "detail.png")] if detail and detail["crop"] else []))
 
 
 if __name__ == "__main__":

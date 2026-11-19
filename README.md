@@ -13,6 +13,23 @@ by frame.
 | **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## vfxmith 1.0.0-alpha5 (branch v1, lab test build)
+**Replicate mode matches the small details.** In the alpha4 test the replica had the right timing, colours and layers
+but not the small things: a soft glow and a needle where the reference had a ragged burst of sharp flame shards, one
+blurry crescent for its thin tapering swirl arcs, a few round dots for dozens of fine streaked sparks, a smooth fog
+bank for its wispy, grainy smoke, and no star glint.
+- `skills/vfx-replicate`: a detail stage from about pass 3: zoomed crops of the reference and yours at the same box
+  and moments, a detail table (count, size, edge, texture, shape, motion per small element), the 3 biggest detail
+  gaps fixed per pass, mostly through the texture; a soft round blob never stands in for a ragged, streaky or thin
+  element.
+- `kit/refcompare.py`: `detail.png` (the zoomed side by side plus a fine-detail view; `--crop x,y,w,h | auto`,
+  `--detail-at`) and small-detail measures per frame: specks (count, size, streaking), dark specks, thin lines,
+  grain, edge density, how ragged and how crisp the bright burst is, with the differences vs the reference (numpy).
+- `kit/maketex.py`: detail shapes with parameters (`--set ragged=.. taper=.. grain=..`, `--name`, `--sheet`):
+  `flame_burst`, `flame_shard`, `arc`, `swoosh`, `spark_streak`, `smoke_wisp`, `glint`, `crack_line`, `glitter`.
+- **Cost:** the one measured replicate run took 5 points of the 5-hour window and 21 minutes for 6 passes; the detail
+  stage adds about 3-4 passes, so very roughly 8-15 points and 35-60 minutes (an estimate from one run).
+
 ## vfxmith 1.0.0-alpha4 (branch v1, lab test build)
 **Replicate mode.** Given a reference effect ("/vfx replicate <reference>", or "copy/match this"), the agent now copies
 it as closely as it can instead of going its own way: in the alpha3 test it saw the reference once and built a heavy
