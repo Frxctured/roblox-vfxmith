@@ -1,6 +1,6 @@
 ---
 name: vfx-feedback
-description: Ask the person who wanted a Roblox VFX effect what they liked and disliked about it, save their answers in their own words, and turn them into general rules the plugin learns from (knowledge/archive/taste.md) and house examples (library/house). Use at the end of vfx-make when the user is present, or when the user says "rate this effect", "feedback", "here's what I think of it", "I liked / didn't like ...".
+description: Ask the person who wanted a Roblox VFX effect what they liked and disliked about it, save their answers in their own words, and turn them into general rules the plugin learns from (archive/knowledge/archive/taste.md) and house examples (library/house). Use at the end of vfx-make when the user is present, or when the user says "rate this effect", "feedback", "here's what I think of it", "I liked / didn't like ...".
 ---
 
 # Learn from the person's opinion
@@ -30,7 +30,7 @@ glow, how long marks stay), then **Lessons (general, for any effect)**: 2-5 line
 (the effect is only the evidence).
 
 ## 3. Update the taste file
-Merge the lessons into `ROOT/knowledge/archive/taste.md`:
+Merge the lessons into `ROOT/archive/knowledge/archive/taste.md`:
 - Strengthen an existing rule (add the new evidence in its brackets) or add a new one under the right heading.
 - Phrase it generally and give numbers where you have them (durations, LightEmission, screen shares).
 - If it contradicts an existing rule, keep both pieces of evidence and write the rule that fits both (for example

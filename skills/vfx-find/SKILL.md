@@ -1,6 +1,6 @@
 ---
 name: vfx-find
-description: Find real Roblox VFX examples for a description in the library of 1,927 open-source pro effects ("light beam with an explosion", "dark purple slash", "how do pros make a shockwave ring") - returns the closest effects per part of the request with their exact layer tables and a command to load each into Studio. Use before building any effect, or to answer "how is X usually made".
+description: Find real Roblox VFX examples for a description in the library of 1,927 open-source pro effects ("light beam with an explosion", "dark purple slash", "how do pros make a shockwave ring") - returns the closest effects per part of the request with their exact layer tables, as references. Use before building any effect, or to answer "how is X usually made".
 ---
 
 # Find pro compositions
@@ -16,5 +16,4 @@ python3 -I "ROOT/kit/scripts/compose.py" --swap <texture id>  # same-role pro te
 ```
 The first line says which style register it read from the description (grounded, stylized, anime, cute, scifi;
 `--style any` = type only). Report per part: the top ids, their style and estimated size, what their primary element, ground layer, dark partner and flash are (read off the
-table), and the frames if `gallery/effects/` has them. For "how is X made" questions also search the research vault:
-`python3 -I "ROOT/vault/_tools/vault.py" "<question>"`.
+table), and the frames if `gallery/effects/` has them. These are references for how artists layer an effect; nothing needs to be loaded.

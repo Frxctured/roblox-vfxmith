@@ -1,7 +1,7 @@
 {
   "name": "vfxmith",
-  "version": "1.0.0-alpha2",
-  "description": "Make Roblox VFX by starting from real professional compositions: finds the best-matching of 1,927 open-source pro effects, loads their real instance trees into Studio, adapts colour, scale, timing and placement to your request, combines pieces, checks frames for objective faults and exports one self-contained Luau file.",
+  "version": "1.0.0-alpha3",
+  "description": "A thin, optional kit for making Roblox VFX with your own judgement: one effect clock with an exact freeze and a posable R15 dummy, textures drawn in code, a short texture list, and 1,927 open-source pro effects as read-only references.",
   "author": {
     "name": "Frxctured"
   },

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Composition finder: the professional open-source effects that best match a request, with their layer tables and
-a ready way to load each one into Studio as the starting point of a build.
+an optional way to load one into Studio to look at it.
 
     python3 -I kit/scripts/compose.py "frost nova that bursts from the ground"      top 3 per part of the request
     python3 -I kit/scripts/compose.py "..." -k 5 [--lines 18]                         more candidates / layer lines
@@ -22,7 +22,7 @@ count), then x (0.5 + style fit) when the request names a style register (or --s
 percentile for that style in catalog/traits.json.gz (build_style_index.py documents the signals), so a "realistic"
 request gets the most grounded matches of the right type instead of the battlegrounds majority. Every candidate also
 shows its estimated size (studs and character heights H = 5 studs) and, with --size, the starting scale. No quality
-ratings exist yet: LOOK at the candidates in Studio before choosing (START.md step 3).
+ratings exist yet.
 
 Index: catalog/compose.jsonl.gz (built by build_compose_index.py; effects from files that are not open source are not
 in it). Cutting needs the effect files: the open-source pack (get_pack.py --where), or for a few loose files the
@@ -53,7 +53,7 @@ MORE = {
     "rune": ["rune", "sigil", "circle", "magic"], "pillar": ["pillar", "beam", "column"],
     "flash": ["flash", "glint", "burst"], "poison": ["poison", "toxic", "acid", "green"],
 }
-# style register of a request: explicit words first (weight 2), leaning words (weight 1). knowledge/guide.md section 2b.
+# style register of a request: explicit words first (weight 2), leaning words (weight 1). (signals in build_style_index.py).
 STYLE_QUERY = {
     "grounded": ({"realistic", "realism", "grounded", "photoreal", "photorealistic", "natural", "believable", "real",
                   "physical", "cinematic", "gritty", "lifelike", "naturalistic", "subtle"},
@@ -142,7 +142,7 @@ def size_note(tr, want):
         t += " -> start scale %.2f for %s studs" % (sc, want)
         if z["largest"] * sc > 1.5 * want:
             t += "; largest layer would still be %.0f studs: shrink or drop '%s'" % (z["largest"] * sc, z["largestName"])
-    t += " (rough; measure with C.measure in Studio)"
+    t += " (rough estimate)"
     return t
 
 
@@ -201,7 +201,6 @@ def show(rec, lines, tr=None, style=None, want=None):
     zn = size_note(tr, want)
     if zn:
         print("      " + zn)
-    print("      load: python3 -I kit/scripts/compose.py --cut %s   then piece file = \"fx_%s\"" % (rec["id"], rec["id"]))
     for c in ("gallery/effects/%s/%s.jpg",):
         for cat in os.listdir(os.path.join(ROOT, "gallery", "effects")) if os.path.isdir(os.path.join(ROOT, "gallery", "effects")) else []:
             p = os.path.join(ROOT, c % (cat, rec["id"]))
@@ -216,8 +215,8 @@ def show(rec, lines, tr=None, style=None, want=None):
 
 
 def find(recs, query, k, lines, style_arg=None, want=None):
-    print("Library: %d open-source pro effects. Candidates are starting points to LOAD AND LOOK AT, not to copy blindly.\n"
-          % len(recs))
+    print("Library: %d open-source pro effects. These are references: how artists layered this kind of effect. "
+          "Optional; nothing needs loading or copying.\n" % len(recs))
     traits = load_traits()
     if style_arg == "any":
         style, why = None, []
@@ -226,7 +225,7 @@ def find(recs, query, k, lines, style_arg=None, want=None):
     else:
         style, why = detect_style(query)
     if style:
-        print("Style register: %s (from: %s). Ranking = type match x (0.5 + %s fit). Adapt toward it: guide.md 2b." %
+        print("Style register: %s (from: %s). Ranking = type match x (0.5 + %s fit)." %
               (style, ", ".join(why), style))
     else:
         print("Style register: none named (ranking by type only; the library leans battlegrounds/anime). If the brief "
@@ -268,7 +267,7 @@ def find(recs, query, k, lines, style_arg=None, want=None):
         if not shown:
             print("  (no match: try other words for this part, e.g. the element or the shape)")
         print()
-    print("Next: cut the 2-3 most promising, load each in Studio and capture 3 frames of it (START.md step 3).")
+    print("More: --show <id> for a full layer table. To see one in Studio (optional, needs the pack): --cut <id>.")
 
 
 def cut(recs, ids):
@@ -298,7 +297,7 @@ def cut(recs, ids):
         out = os.path.join(dest, "fx_%s.rbxmx" % eid)
         open(out, "w").write(xml)
         print("%s: %d instances, %d scripts dropped -> %s" % (eid, n, dropped, out))
-        print('    Studio: game:GetObjects("rbxasset://vfxlib/fx_%s.rbxmx")[1]   (VFXCompose piece file = "fx_%s")' % (eid, eid))
+        print('    Studio: game:GetObjects("rbxasset://vfxlib/fx_%s.rbxmx")[1]' % eid)
 
 
 def swap(tex, k):

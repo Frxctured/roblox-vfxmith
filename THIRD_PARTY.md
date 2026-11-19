@@ -4,7 +4,7 @@ This repository has two kinds of content:
 
 | Part | Whose | Terms |
 |---|---|---|
-| `skills/`, `agents/`, `commands/`, `kit/`, `knowledge/`, `library/` (cards = our layout of the creators' values), `catalog/`, the docs | made for this project | MIT (`LICENSE`) |
+| `skills/`, `agents/`, `commands/`, `kit/`, `archive/`, `library/` (cards = our layout of the creators' values), `catalog/`, the docs | made for this project | MIT (`LICENSE`) |
 | The open-source pack (release download) | the creators of each file | as shared by them (see below) |
 | `gallery/` images | screenshots of the pack's effects (effects/), thumbnails of public Roblox images (textures/) | the effects and images belong to their creators; shown for study and reference |
 
@@ -29,7 +29,7 @@ These files are marked "ships VFX Forge runtime" in `PACK.md`. Another 41 files 
 (effects authored with the plugin); they need the emit module, or a compatible player, to animate, and they carry no
 Forge code. This project does **not** contain or load any VFX Forge code: `VFXLibPlayer.luau` replays the attribute
 format with its own implementation, written from the behaviour described in
-`knowledge/os-conventions.md`.
+`archive/knowledge/os-conventions.md`.
 
 ## Libraries inside pack files
 Some pack files include community libraries with their own licences (e.g. HD Admin, TopbarPlus, HyperText, Chrono,

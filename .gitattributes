@@ -1,0 +1,6 @@
+# lab snapshots (git archive) leave out what the kit does not use
+/archive export-ignore
+/feedback export-ignore
+/site export-ignore
+/index.html export-ignore
+/.nojekyll export-ignore
