@@ -244,6 +244,7 @@ local DEFAULTS = {
 	Model = function() return {} end,
 	Decal = function() return { Transparency = 0 } end,
 	Beam = function() return { TextureSpeed = 1 } end,
+	Lighting = function() return { ClockTime = 14.5, Brightness = 3, Ambient = "amb", OutdoorAmbient = "out", ExposureCompensation = 0 } end,
 }
 local Inst = {}
 local function isInst(v) return type(v) == "table" and getmetatable(v) == Inst end
@@ -409,7 +410,8 @@ local playersApi = setmetatable({}, { __index = function(_, k)
 	return Players[k]
 end })
 local RunService = { Heartbeat = Heartbeat }
+local Lighting = new("Lighting"); Lighting.Parent = game
 rawset(game, "_services", {
 	Workspace = workspace, RunService = RunService, Players = playersApi, ServerStorage = ServerStorage,
-	ReplicatedStorage = ReplicatedStorage,
+	ReplicatedStorage = ReplicatedStorage, Lighting = Lighting,
 })

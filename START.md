@@ -1,4 +1,4 @@
-# vfxmith 1.0.0-alpha3: a thin, optional kit for Roblox VFX
+# vfxmith 1.0.0-alpha4: a thin, optional kit for Roblox VFX
 
 You have Roblox Studio through the Studio MCP and your own judgement. That is the real toolset. This folder only
 adds a few helpers that save time. Use any of them, change them, or ignore them all. The effect is yours to design.
@@ -22,6 +22,7 @@ adds a few helpers that save time. Use any of them, change them, or ignore them 
 | `kit/stage.luau` | the effect clock: `_G.BlindTestPlay(origin, freezeAt?)` / `_G.BlindTestStop()` with an exact freeze, driven sprites, a posable grey R15 dummy. Paste it at the top of your `final.luau`. Header comments = the full API. |
 | `kit/maketex.py` | PNG textures from code (glow, ring, shock, smoke, crack, scorch, faces, petal ... or your own with its helpers) and `--install` into Studio's content folder. |
 | `kit/TEXTURES.md` | a short list of textures that work: Studio built-ins and some pro library ids. |
+| `kit/refcompare.py` | reference vs yours: one sheet with the reference row over yours at the same times (sheet, video, stills or gallery id; aligned on an anchor such as the hit) and measured differences (coverage, added light, opaque mass, colour, fade). Pure Python + Pillow. |
 | `kit/scripts/compose.py` | pro effects as references: `python3 -I kit/scripts/compose.py "<description>"` shows how artists layered similar effects (layer tables, sometimes frames). Read-only; nothing to load. |
 
 ## stage.luau at a glance
@@ -58,3 +59,12 @@ local stage = Stage.define({
   --install` does this).
 - `screen_capture` takes `camera_position` / `look_at_position`. AlwaysOnTop BillboardGuis do not show in Edit-mode
   captures.
+
+## Replicate mode (copy a given reference)
+When the user gives a reference effect and asks to copy, match or replicate it (`/vfx replicate <reference>`), the
+goal changes: look like the reference, not like your own idea. Follow `skills/vfx-replicate/SKILL.md`: warn about the
+cost first, list the reference's layers by eye (time span, shape, colour, additive or opaque, size, motion), build
+to that list, then capture at the reference's times and compare with `kit/refcompare.py`, fixing the three biggest
+differences per pass (about 6 passes). Match the lighting while comparing (`Stage.light("dark")` /
+`Stage.light("day")`). **Cost:** an estimated 2-4 times a normal run (a normal run is about 4-7 points of the 5-hour
+window and about 20 minutes).

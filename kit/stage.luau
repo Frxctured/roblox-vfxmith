@@ -1,5 +1,5 @@
 --!nocheck
--- vfxmith stage (1.0.0-alpha3): one effect clock for a whole scene, BlindTestPlay/BlindTestStop with an exact
+-- vfxmith stage (1.0.0-alpha4): one effect clock for a whole scene, BlindTestPlay/BlindTestStop with an exact
 -- freeze, driven sprites (particles that hold any moment, even where Edit-mode particles never age) and a posable
 -- grey R15 dummy. Optional: use any part of it, change it, or ignore it.
 --
@@ -17,6 +17,7 @@
 --   S:part(props), S:add(class, props, parent?), S:on(function(t) end), S:at(time, function(t) end),
 --   S:emitter(parent, props) (a normal ParticleEmitter), S:sprite(texture, opts) (driven), S:decal(texture, opts),
 --   S:dummy(opts) (rig with :pose and :keys), S.rng (Random seeded per play, same every play).
+-- Outside build: Stage.cleanLab(keep?), Stage.camera(from, at, fov?), Stage.light("dark" | "day", opts?).
 -- Every value you compute from t is exact at any freezeAt. Normal emitters freeze with TimeScale 0 (their particles
 -- are as old as real time made them); driven sprites and parts are exact.
 
@@ -82,6 +83,38 @@ local Stage = (function()
 		end
 		return n
 	end
+	-- Lighting: the place's own day scene or a dark stage. Match the reference's lighting before comparing (the
+	-- gallery sheets were shot on a dark stage, which flatters additive layers); check the final in daylight after.
+	-- Stage.light("dark", opts?) saves the place's Lighting once and sets ClockTime 21 (opts.clock, opts.brightness,
+	-- opts.ambient, opts.exposure override); Stage.light("day") puts the saved values back. Survives re-running final.luau.
+	local LIGHT_PROPS = { "ClockTime", "Brightness", "Ambient", "OutdoorAmbient", "ExposureCompensation" }
+	function M.light(mode, opts)
+		opts = opts or {}
+		local Lighting = game:GetService("Lighting")
+		if mode == "dark" then
+			if not _G.__vfxmithDayLight then
+				local saved = {}
+				for _, k in ipairs(LIGHT_PROPS) do saved[k] = Lighting[k] end
+				_G.__vfxmithDayLight = saved
+			end
+			Lighting.ClockTime = opts.clock or 21
+			if opts.brightness then Lighting.Brightness = opts.brightness end
+			if opts.ambient then
+				Lighting.Ambient = opts.ambient
+				Lighting.OutdoorAmbient = opts.ambient
+			end
+			if opts.exposure then Lighting.ExposureCompensation = opts.exposure end
+			return "dark stage (ClockTime " .. Lighting.ClockTime .. ")"
+		elseif mode == "day" then
+			local saved = _G.__vfxmithDayLight
+			if not saved then return "day: already the place's own lighting" end
+			for k, v in pairs(saved) do Lighting[k] = v end
+			_G.__vfxmithDayLight = nil
+			return "day: place lighting restored"
+		end
+		error("Stage.light: mode is \"dark\" or \"day\"")
+	end
+
 	-- point the Edit camera (screen_capture also takes camera_position / look_at_position directly)
 	function M.camera(from, at, fov)
 		local cam = workspace.CurrentCamera

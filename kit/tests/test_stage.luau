@@ -107,5 +107,15 @@ ok(#child(workspace, "LAB_mock_live"):GetChildren() == 0, "stop after redefine l
 local n = Stage.cleanLab("LAB_mock_live")
 ok(workspace:FindFirstChild("LAB_mock_effect") == nil and workspace:FindFirstChild("LAB_mock_live") ~= nil, "cleanLab removed other LAB_ folders (" .. n .. ")")
 
+-- 8. light: dark stage and back; a second "dark" (re-run final.luau) keeps the place's own values
+local L = game:GetService("Lighting")
+Stage.light("dark")
+ok(L.ClockTime == 21, "dark stage sets ClockTime 21")
+Stage.light("dark", { brightness = 1 })
+ok(L.Brightness == 1, "dark opts applied")
+Stage.light("day")
+ok(L.ClockTime == 14.5 and L.Brightness == 3 and L.Ambient == "amb", "day restores the place's own lighting")
+ok(Stage.light("day"):find("already") ~= nil, "day twice is harmless")
+
 print(fails == 0 and "ALL OK" or (fails .. " FAILED"))
 if fails > 0 then error("stage tests failed") end

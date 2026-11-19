@@ -1,11 +1,13 @@
-# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha3)
+# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha4)
 
 **Making an effect? Read `START.md`.** It is short: an invitation and a thin, optional kit (an effect clock with an
 exact freeze and a posable dummy, a PNG texture generator, a texture shortlist, pro effects as read-only references).
 
 | Path | What |
 |---|---|
-| `START.md` | what the kit offers |
+| `START.md` | what the kit offers (and replicate mode: copy a given reference) |
+| `skills/vfx-replicate/SKILL.md` | replicate mode: cost warning, layer list, build-capture-compare loop |
+| `kit/refcompare.py` | reference row over yours at the same times, plus measured differences |
 | `kit/stage.luau` | effect clock, BlindTestPlay/Stop, driven sprites, R15 dummy with poses (tests: `kit/tests/run.sh`) |
 | `kit/maketex.py` | textures drawn in code, installed into Studio's content folder |
 | `kit/TEXTURES.md` | a few textures that work, by role |

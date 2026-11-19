@@ -9,9 +9,22 @@ by frame.
 |---|---|
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
-| **Kit** | an effect clock with an exact freeze and a posable dummy, a texture generator, a texture shortlist ([`kit/`](kit/)) |
-| **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
+| **Kit** | an effect clock with an exact freeze and a posable dummy, a texture generator, a texture shortlist, a reference-vs-yours comparison ([`kit/`](kit/)) |
+| **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
+
+## vfxmith 1.0.0-alpha4 (branch v1, lab test build)
+**Replicate mode.** Given a reference effect ("/vfx replicate <reference>", or "copy/match this"), the agent now copies
+it as closely as it can instead of going its own way: in the alpha3 test it saw the reference once and built a heavy
+opaque fireball with thick smoke lasting 1.8 s against a light additive star flash that is over by about 0.8 s.
+- `skills/vfx-replicate`: a cost warning first, then the reference's timeline and a layer list by eye, a build to
+  that list and a compare-and-fix loop (3 biggest differences per pass, about 6 passes).
+- `kit/refcompare.py`: reference row over yours at the same times (frame sheet, video, stills or gallery id, aligned
+  on an anchor) with measured differences per frame: coverage, added light, opaque mass, warmth and hues, centre and
+  spread, and the fade curve. Pure Python + Pillow (numpy optional).
+- `kit/stage.luau`: `Stage.light("dark" | "day")` to compare on the reference's lighting.
+- **Cost:** replicate mode takes many build-capture-compare passes: an estimated 2-4 times a normal run (a normal run
+  is about 4-7 points of the 5-hour window, about 20 minutes). The skill says so and asks before it starts.
 
 ## vfxmith 1.0.0-alpha3 (branch v1, lab test build)
 **No plugin, plus a thin, optional kit.** Blind tests kept showing that a model with no plugin made the effects
@@ -33,6 +46,7 @@ The alpha1/alpha2 pipeline, guide, rules and vault are in `archive/`. Older note
 /plugin install vfxmith@vfxmith
 ```
 Then ask for an effect ("make a purple ground slam", "a light beam with an explosion"), or use `/vfx <request>`.
+To copy an effect you have frames or a video of: `/vfx replicate <path>` (costs several normal runs; it asks first).
 For the build loop, connect Roblox Studio through the Studio MCP server (the agent builds, captures and reworks the
 effect in Studio); without it you still get references.
 
