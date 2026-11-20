@@ -94,6 +94,9 @@ To copy an effect you have frames or a video of: `/vfx replicate <path>` (**expe
 For the build loop, connect Roblox Studio through the Studio MCP server (the agent builds, captures and reworks the
 effect in Studio); without it you still get references.
 
+**Updating from 0.1.x:** in a terminal run `claude plugin marketplace update vfxmith`, then
+`claude plugin update vfxmith@vfxmith`, and restart Claude Code.
+
 **Older versions** stay available: 0.1.6 (the previous stable version) is on branch
 [`stable-0.1.6`](https://github.com/Frxctured/roblox-vfxmith/tree/stable-0.1.6) and tag `v0.1.6`; betas are tagged
 `v0.1.6-beta2`, `v0.1.9-beta1` and `v0.1.9-beta2`. To install 0.1.6 instead of the current version:
