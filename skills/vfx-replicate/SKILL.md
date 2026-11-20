@@ -69,6 +69,14 @@ so a lifted piece often has a bit of its neighbours in it; pick a moment and a b
 look at the sheet before using it. A lifted flipbook can replace a whole layer that is hard to rebuild (a flame burst,
 a crackle web) while you build the moving parts around it.
 
+**Lifted pieces live in 3D, where the element really is.** A recording is one view of a 3D effect; in a game the
+camera moves. Put each lifted texture on the part that carries it, at that element's real place: the burst on a
+sprite at the impact point, smoke on particles spread around it, a crackle on a beam or a sprite along the bolt, a
+ground ring flat on the ground. Placing pictures along the reference camera's line of sight (so they land on the right
+pixels) makes a perfect match from that one camera and a floating cutout from everywhere else; in our tests that is
+what lifting led to, so it is worth watching for. Size and depth come from the scene (the character for scale, the
+ground plane, where the hit is), not from the screen position alone.
+
 Build each row of the table with the kit (one clock, `S:sprite` / parts / beams / decals). Put the anchor at a fixed
 effect time (e.g. `HIT = 0.2`). Match the lighting: if the reference was shot on a dark stage, compare on one too:
 `Stage.light("dark")` (ClockTime 21) and `Stage.light("day")` to go back. Use the reference's camera framing as well
@@ -86,6 +94,10 @@ Each pass:
 1. Capture your effect frozen at `HIT + t` for every reference time t (`_G.BlindTestPlay(origin, HIT + t)`,
    `screen_capture`, `_G.BlindTestStop()`); save as `captures/pN/t<effect time>.png`, plus `base.png` = the empty stage
    from the same camera (it makes the numbers better).
+   Also capture two other views at a couple of key moments, e.g. top-down and from the side (90 degrees around), and
+   look at them: does it still read as the same effect, centred where it should be, with depth? The reference shows
+   only one view, so here you judge by eye; anything that turns into a flat card or drifts away from the impact
+   point needs to move into 3D.
 2. Run
    ```
    python3 -I "ROOT/kit/refcompare.py" --ref <reference> [--ref-times ...] --ours captures/pN --ours-at <HIT> \
@@ -137,8 +149,9 @@ dots, and wispy, grainy smoke where ours was a smooth fog bank. Each pass from h
 
 Stop after about 3-4 detail passes (about 9-10 passes in all), or earlier when the user says it is close enough, or
 when the zoomed crops show no clear difference left. After the dark-stage match, check the final once in the place's
-daylight (`Stage.light("day")`) and say how it reads there.
+daylight (`Stage.light("day")`) and say how it reads there, and once from a few other angles (top-down, side, low
+behind) and say how it reads from each.
 
 ## 6. Deliver
 `final.luau` as in the normal mode (with any lifted textures installed next to it), `NOTES.md` (layer table, detail table, the differences per pass, what still
-differs, small details included) and the last `compare/pN/sheet.png` and `detail.png`.
+differs, small details included, how it looks from other angles) and the last `compare/pN/sheet.png` and `detail.png`.

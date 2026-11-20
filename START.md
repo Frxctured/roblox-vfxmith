@@ -1,4 +1,4 @@
-# vfxmith 1.0.0-alpha6: a thin, optional kit for Roblox VFX
+# vfxmith 1.0.0-alpha7: a thin, optional kit for Roblox VFX
 
 You have Roblox Studio through the Studio MCP and your own judgement. That is the real toolset. This folder only
 adds a few helpers that save time. Use any of them, change them, or ignore them all. The effect is yours to design.
@@ -69,6 +69,7 @@ to that list, then capture at the reference's times and compare with `kit/refcom
 differences per pass until shapes and timing are right (about 3 passes), then a detail stage on zoomed crops
 (sparks, thin arcs, ragged flames, smoke edges, grain, matched mostly through the textures). `refcompare.py
 --region` measures each element on its own (colours, timing, how neat or organic), and `kit/reflift.py` can lift
-textures straight from the recording when the user says the effect may be copied. Match the lighting while
+textures straight from the recording when the user says the effect may be copied; lifted pieces go on parts at the
+element's real 3D place (not on the reference camera's line of sight), checked from other angles each pass. Match the lighting while
 comparing (`Stage.light("dark")` / `Stage.light("day")`). **Cost:** two measured full runs took about 8-10 points of the 5-hour window and 26-28 minutes each (a normal run is
 about 4-7 points and 20 minutes).

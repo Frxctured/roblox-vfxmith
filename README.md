@@ -13,6 +13,12 @@ by frame.
 | **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## vfxmith 1.0.0-alpha7 (branch v1, lab test build)
+**Lifted textures in 3D.** With alpha6 both fair replicas matched the originals almost perfectly from the test camera,
+by placing every lifted picture on that camera's line of sight: from above or the side they were floating cutouts.
+alpha7: lifted pieces go on the parts that carry them at the element's real place, and every compare pass also
+looks from the top and the side.
+
 ## vfxmith 1.0.0-alpha6 (branch v1, lab test build)
 **Replicate mode: organic, not drawn.** Fair tests (built from the recording only) got composition, timing and size
 right, but every element looked drawn: a neat star where the reference had a messy flame burst, string where it had a
