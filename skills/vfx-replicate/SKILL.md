@@ -1,6 +1,6 @@
 ---
 name: vfx-replicate
-description: Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain). Use for "/vfx replicate <reference>", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice, estimated from one test); warns first.
+description: Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, per-element comparison (colours, timing, how neat or organic), then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain), optionally with textures lifted straight from the recording. Use for "/vfx replicate <reference>", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice); warns first.
 ---
 
 # Replicate a reference effect
@@ -16,16 +16,20 @@ thing that looks the same in the frames.
 Send this to the user, then wait for the answer:
 
 > Replicate mode copies the reference as closely as it can, which takes many build-capture-compare passes. That uses
-> more of your plan than a normal `/vfx` run (about 4-7 points of the 5-hour window, about 20 minutes). Our one
-> measured replicate run took 5 points and 21 minutes for 6 passes; it matched the big shapes and timing but not the
-> small details. The detail passes added since then (zoomed crops, textures redrawn for sparks, arcs, flames and
-> smoke edges) add about 3-4 more passes (about 0.8 points and 3-4 minutes each in that run, likely more with texture
-> work), so expect very roughly 8-15 points and 35-60 minutes. That is a guess from a single test run, not a promise;
-> a busy reference can take more. Go ahead, or use the normal mode instead (one look at the reference, then the
-> effect is built its own way)?
+> more of your plan than a normal `/vfx` run (about 4-7 points of the 5-hour window, about 20 minutes). In our two
+> measured full replicate runs (a ground slam and a busier lightning slam) it took about 8-10 points of the 5-hour
+> window and 26-28 minutes each; a busy reference can take more. Go ahead, or use the normal mode instead (one look
+> at the reference, then the effect is built its own way)?
+>
+> And one question: is this effect yours, or free to copy (open-source, licensed to you)? If so I can cut textures
+> straight out of the recording (its real flame edges, crackles and smoke), which gets much closer. If not, I'll only
+> use it as a guide and draw my own.
+
+Lifting pixels from someone else's protected effect is copying their art: only lift when the user says the effect is
+theirs or free to copy. Otherwise draw your own textures.
 
 If they choose the normal mode, use `vfx-make` and treat the reference as inspiration. In auto/headless mode (nobody
-to ask), print the warning and continue.
+to ask), print the warning and continue; lift textures only if the request already says the effect may be copied.
 
 ## 1. Get the reference frames and their timeline
 | Reference | How |
@@ -42,19 +46,40 @@ reference times as seconds after it. Note how the reference was lit (dark stage,
 ## 2. Break it into layers (by eye, written down)
 Look at every frame large. List each visible element in a table in `NOTES.md`:
 
-| element | from - to (s after anchor) | shape | colour | blend (additive glow / opaque) | size vs character | motion |
-|---|---|---|---|---|---|---|
+| element | from - to (s after anchor) | shape | colour | blend (additive glow / opaque) | size vs character | motion | region (x,y,w,h of the frame) |
+|---|---|---|---|---|---|---|---|
 
 Typical: flash/star, dome or sphere, shock ring, swirl arcs, smoke ring, sparks, embers, cracks, decal, light.
 Say what is NOT there too (no fireball, no rocks, no lingering smoke) - leaving things out matters as much as adding.
+The region column is a rough box where that element sits; refcompare can then measure each element on its own.
 Use the biggest frames you can get: a 400 px gallery sheet hides most small details (for a library effect, replay it
 in Studio or record it; for a video, cut full-size stills).
 
 ## 3. Build to the list
+If lifting is allowed, start here: `kit/reflift.py` keys an element out of a dark-stage frame (the difference from
+the empty stage becomes the picture and its alpha), so a texture has the reference's own edges and grain:
+```
+python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.45 --auto 6 --sheet tex/lift_sheet.png       # biggest separate pieces
+python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.40 --box 0.42,0.35,0.16,0.2 --name crackle   # one element
+python3 -I "ROOT/kit/reflift.py" ref.mp4 --flipbook 0.35,1.0 --grid 4 --box ... --name dome  # a moving element as a Grid4x4 flipbook
+python3 -I "ROOT/kit/maketex.py" --install my_fx --files tex/*.png
+```
+`--mode dark` for smoke in daylight, `--grey` for a white version to tint with Color. A frame shows elements stacked,
+so a lifted piece often has a bit of its neighbours in it; pick a moment and a box where the element is alone, and
+look at the sheet before using it. A lifted flipbook can replace a whole layer that is hard to rebuild (a flame burst,
+a crackle web) while you build the moving parts around it.
+
 Build each row of the table with the kit (one clock, `S:sprite` / parts / beams / decals). Put the anchor at a fixed
 effect time (e.g. `HIT = 0.2`). Match the lighting: if the reference was shot on a dark stage, compare on one too:
 `Stage.light("dark")` (ClockTime 21) and `Stage.light("day")` to go back. Use the reference's camera framing as well
 as you can.
+
+Some things that often make a pro effect look organic rather than drawn (tips, not rules; use what fits):
+- a mass (a burst, a flame, a smoke cloud) built from many overlapping semi-transparent pieces, each rotated, sized
+  and timed a little differently, instead of one clean centred shape;
+- additive glow mixed with normal-blend dark smoke or debris, with the dark parts inside and behind the fire as well
+  as around it;
+- textures with uneven edges and grain, colours that vary within one element (hot core, darker edges).
 
 ## 4. Compare and fix (the loop)
 Each pass:
@@ -64,11 +89,15 @@ Each pass:
 2. Run
    ```
    python3 -I "ROOT/kit/refcompare.py" --ref <reference> [--ref-times ...] --ours captures/pN --ours-at <HIT> \
-       --labels "Reference,Pass N" --out compare/pN
+       --labels "Reference,Pass N" --region burst=0.4,0.35,0.2,0.3 --region smoke=0.1,0.6,0.8,0.3 --out compare/pN
    ```
    Look at `compare/pN/sheet.png` (reference row over yours, same crop and time) and `curves.png`. The printed
    numbers (coverage, added light, opaque mass, warmth and hues, centre and spread, the fade) are hints for the eye,
-   not a score.
+   not a score. With `--region name=x,y,w,h` (one per element from your table) it also measures each element on its
+   own: its peak and fade times, its main colours (hex, with `regions.png` showing them as swatches next to the
+   crops), how symmetric its outline is (`sym`: neat stars, rings and discs score high, torn bursts low) and how much
+   its brightness varies inside (`tone`: flat fills low, layered fire and smoke high). A good overall number can hide
+   one wrong element; these show which. The hex colours can go straight into your ColorSequences.
 3. Write the **3 biggest differences** in `NOTES.md` in plain words ("ours fades at 1.5 s, theirs by 0.9 s"; "ours is
    an opaque orange ball, theirs is a thin additive star"; "their swirl arcs are missing").
 4. Fix those three. Tell the user "pass N of about 9-10: <the three things>" and show the sheet if they are around.
@@ -93,14 +122,17 @@ dots, and wispy, grainy smoke where ours was a smooth fog bank. Each pass from h
    e.g. "sparks: ref ~40 at +0.1 s, 3-8 px, streaked 4:1 with a white head, flung radially; ours 5 round dots".
    The printed small-detail numbers (specks and their size and streaking, thin lines, grain, edge density, how
    ragged and how crisp the bright burst is) point at where to look; they inform, they do not gate.
-3. Fix the **3 biggest detail gaps**. Many details come from the **texture**, not the emitter: pick a library texture
-   that already has the right grain, raggedness, taper or thinness, or draw it with `kit/maketex.py` (`flame_burst`,
+3. Fix the **3 biggest detail gaps**. Many details come from the **texture**, not the emitter: lift it from the
+   reference with `kit/reflift.py` when that is allowed, pick a library texture that already has the right grain,
+   raggedness, taper or thinness, or draw it with `kit/maketex.py` (`flame_burst`,
    `flame_shard`, `arc`, `swoosh`, `spark_streak`, `smoke_wisp`, `glint`, `crack_line`, `glitter`, with
    `--set ragged=.. taper=.. thickness=.. grain=..`; `--sheet` shows them). Then the emitter: count (Rate / burst),
    Size spread, Squash or VelocityParallel for streaks, Rotation, LightEmission, Transparency curves.
-4. **A soft round blob never stands in for a ragged, streaky or thin element.** If the reference has jagged flame
-   shards, thin tapering arcs, streaked sparks, wispy torn smoke edges, star glints or hairline cracks, yours must
-   have that shape too, even small. A glow or puff of the right colour and size is not a match.
+4. A soft round blob of the right colour and size rarely reads like a ragged, streaky or thin element. Where the
+   reference has jagged flame shards, thin tapering arcs, streaked sparks, wispy torn smoke edges, star glints or
+   hairline cracks, giving yours that shape too (even small) usually closes the gap. The reverse happens as well:
+   when ours is neater than the reference (a clean star where it has a messy burst, crisp arcs where it has soft
+   ones), roughen and overlap it.
 5. Tell the user "pass N (detail): <the three things>" and show `detail.png` if they are around.
 
 Stop after about 3-4 detail passes (about 9-10 passes in all), or earlier when the user says it is close enough, or
@@ -108,5 +140,5 @@ when the zoomed crops show no clear difference left. After the dark-stage match,
 daylight (`Stage.light("day")`) and say how it reads there.
 
 ## 6. Deliver
-`final.luau` as in the normal mode, `NOTES.md` (layer table, detail table, the differences per pass, what still
+`final.luau` as in the normal mode (with any lifted textures installed next to it), `NOTES.md` (layer table, detail table, the differences per pass, what still
 differs, small details included) and the last `compare/pN/sheet.png` and `detail.png`.

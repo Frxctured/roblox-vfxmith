@@ -1,4 +1,4 @@
-# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha5)
+# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha6)
 
 **Making an effect? Read `START.md`.** It is short: an invitation and a thin, optional kit (an effect clock with an
 exact freeze and a posable dummy, a PNG texture generator, a texture shortlist, pro effects as read-only references).

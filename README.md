@@ -13,6 +13,18 @@ by frame.
 | **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## vfxmith 1.0.0-alpha6 (branch v1, lab test build)
+**Replicate mode: organic, not drawn.** Fair tests (built from the recording only) got composition, timing and size
+right, but every element looked drawn: a neat star where the reference had a messy flame burst, string where it had a
+crackle, separate clumps where it had a soft haze. alpha6 adds:
+- `kit/reflift.py`: cut an element (or a short flipbook of it) out of a dark-stage recording into a texture with alpha,
+  so it keeps the reference's own edges and grain. Only when the user says the effect is theirs or free to copy; the
+  skill asks.
+- `refcompare.py --region name=x,y,w,h`: each element measured on its own: peak and fade times, main colours (hex,
+  swatches in `regions.png`), outline symmetry (neat vs torn) and tone (flat vs layered).
+- Optional tips in the replicate skill on what makes pro effects look organic (many overlapping varied pieces, mixed
+  additive and normal blend, dark smoke inside the fire). Tips only; no rules or gates.
+
 ## vfxmith 1.0.0-alpha5 (branch v1, lab test build)
 **Replicate mode matches the small details.** In the alpha4 test the replica had the right timing, colours and layers
 but not the small things: a soft glow and a needle where the reference had a ragged burst of sharp flame shards, one

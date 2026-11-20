@@ -29,6 +29,10 @@ Writes into --out (default ./refcompare):
                 under each (only the high-frequency part: sparks, thin lines, ragged outlines, grain show up white).
                 --crop x,y,w,h (fractions of the frame, or reference pixels) | auto (default: around the reference's
                 brightest region) | none;  --detail-at 0.03,0.1,0.35 picks the moments (default: first, peak, middle)
+  regions.png   (numpy) per element (--region name=x,y,w,h, fractions; default one region = the whole frame): its crop at
+                its own peak and its main colours as swatches; the printout adds per element: peak and fade times,
+                main colours (hex), sat/value, sym (outline symmetry 0..1: neat stars, rings, discs high; torn bursts
+                low) and tone (brightness variation inside: flat fills low, layered fire and smoke high)
 and prints a table per time plus a short list of the biggest measured differences. The numbers inform the eye; they
 are not a pass/fail gate. Look at sheet.png first, then detail.png.
 
@@ -940,6 +944,196 @@ def print_detail(detail, times):
         print(" %d. %s" % (k, txt))
 
 
+
+# ------------------------------------------------------------------------------------------- regions (per element)
+def regularity(im, base):
+    """how drawn vs organic the effect looks: sym = how symmetric its outline is around its centre (mirror or
+    rotational, 0..1; neat stars, rings and discs are high, torn bursts low); tone = brightness variation inside it
+    (std / mean; flat cartoon fills low, layered fire and smoke high)."""
+    a = np.asarray(im, dtype=np.float32)
+    b = np.asarray(base, dtype=np.float32)
+    e = np.abs(a - b).mean(axis=2)
+    eff = e > 20
+    if eff.sum() < 60:
+        return None
+    H, W = e.shape
+    ys, xs = np.nonzero(eff)
+    wts = e[eff]
+    cx, cy = float((xs * wts).sum() / wts.sum()), float((ys * wts).sum() / wts.sum())
+    ang = np.arctan2(ys - cy, xs - cx)
+    rad = np.hypot(ys - cy, xs - cx)
+    nb = 72
+    bins = ((ang + math.pi) / (2 * math.pi) * nb).astype(int) % nb
+    prof = np.zeros(nb)
+    for k in range(nb):  # outline radius per direction (90th percentile, weighted by presence)
+        r = rad[bins == k]
+        prof[k] = np.percentile(r, 90) if len(r) else 0.0
+    m = prof.mean()
+    if m <= 0:
+        return None
+    z = prof - m
+    cv = float(prof.std() / m)
+    if cv < 0.08:
+        sym = 1.0  # round: as regular as it gets
+    else:
+        den = float((z * z).sum()) or 1.0
+        rot = max(float((z * np.roll(z, nb // k)).sum()) / den for k in (3, 4, 5, 6, 8))
+        mir = np.array([prof[(nb // 2 - 1 - i) % nb] for i in range(nb)]) - m  # mirror about the vertical axis
+        mirror = float((z * mir).sum()) / den
+        sym = max(0.0, max(rot, mirror))
+    tone = float(wts.std() / max(1e-3, wts.mean()))
+    return {"sym": sym, "tone": tone, "outline_cv": cv}
+
+
+def palette(im, base, k=4):
+    """main colours of the effect pixels: [(hex, share)], plus mean saturation and value."""
+    a = np.asarray(im, dtype=np.float32)
+    b = np.asarray(base, dtype=np.float32)
+    eff = np.abs(a - b).max(axis=2) > 30
+    if eff.sum() < 40:
+        return None
+    px = a[eff]
+    px = px[:: max(1, len(px) // 6000)]
+    q = Image.fromarray(px.reshape(1, -1, 3).astype(np.uint8)).quantize(colors=k, method=Image.Quantize.MEDIANCUT)
+    pal = q.getpalette()[: 3 * k]
+    cnt = np.bincount(np.asarray(q).ravel(), minlength=k)
+    tot = cnt.sum() or 1
+    cols = []
+    for i in np.argsort(-cnt):
+        if cnt[i] == 0:
+            continue
+        r, g, bb = pal[3 * i:3 * i + 3]
+        cols.append(["#%02x%02x%02x" % (r, g, bb), round(float(cnt[i] / tot), 2)])
+    rgb = px / 255.0
+    mx, mn = rgb.max(axis=1), rgb.min(axis=1)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    return {"colours": cols, "sat": float(sat.mean()), "value": float(mx.mean())}
+
+
+def parse_regions(specs):
+    out = []
+    for sp in specs or []:
+        name, _, box = sp.partition("=")
+        v = floats(box)
+        if not name or len(v) != 4 or max(v) > 1.0:
+            raise SystemExit("--region name=x,y,w,h with fractions of the frame (got %r)" % sp)
+        out.append((name.strip(), tuple(v)))
+    return out
+
+
+def run_regions(a, srcs, fitted, times, labels, aspect):
+    """per named region: energy over time (its own fade), palette, regularity; regions.png = palettes and crops."""
+    regs = parse_regions(a.region)
+    if not regs:
+        return None
+    RW = 640
+    RH = int(round(RW / aspect))
+    small, bases = {}, {}
+    for side, s in srcs.items():
+        sm = [im.resize((RW, RH), Image.LANCZOS) if im is not None else None for im, _ in fitted[side][0]]
+        if s.base == "black":
+            base = Image.new("RGB", (RW, RH))
+        elif s.base is not None:
+            base = fit(s.base, aspect, s.crop).resize((RW, RH), Image.LANCZOS)
+        else:
+            base = min_base([im for im in sm if im is not None])
+        small[side], bases[side] = sm, base
+    res = {}
+    for name, box in regs:
+        r = {"box": box}
+        for side in ("ref", "ours"):
+            bb = crop_frac(bases[side], box)
+            fr = [crop_frac(im, box) if im is not None else None for im in small[side]]
+            en = []
+            for im in fr:
+                if im is None:
+                    en.append(0.0)
+                    continue
+                en.append(float(np.abs(np.asarray(im, np.float32) - np.asarray(bb, np.float32)).mean()))
+            fade = fade_points(times, en)
+            pk = max(range(len(times)), key=lambda i: en[i])
+            # palette and regularity at the region's own peak and at the moment halfway down its fade
+            pal = palette(fr[pk], bb) if fr[pk] is not None else None
+            reg = regularity(fr[pk], bb) if fr[pk] is not None else None
+            r[side] = {"energy": en, "fade": fade, "peak_i": pk, "palette": pal, "regular": reg}
+        res[name] = r
+    draw_regions(os.path.join(a.out, "regions.png"), res, small, times, labels)
+    return res
+
+
+def draw_regions(path, res, small, times, labels):
+    cw, sw = 220, 26
+    rows = len(res)
+    W = 2 * (cw + 4 * sw + 24) + 220
+    im = Image.new("RGB", (W, rows * (cw + 40) + 40), (22, 22, 26))
+    d = ImageDraw.Draw(im)
+    d.text((10, 10), "Per region at its own peak: crop, main colours (share), %s left, %s right" % tuple(labels[:2]),
+           fill=(235, 235, 235), font=font(15))
+    for r, (name, info) in enumerate(res.items()):
+        y = 40 + r * (cw + 40)
+        d.text((10, y + 4), name, fill=(255, 220, 120), font=font(16))
+        for c, side in enumerate(("ref", "ours")):
+            x = 220 + c * (cw + 4 * sw + 24)
+            sd = info[side]
+            src = small[side][sd["peak_i"]]
+            if src is not None:
+                cr = crop_frac(src, info["box"])
+                cr.thumbnail((cw, cw))
+                im.paste(cr, (x, y + 24))
+            d.text((x, y + 4), "%s  t %+.2f" % (labels[c], times[sd["peak_i"]]), fill=(200, 200, 200), font=font(12))
+            if sd["palette"]:
+                for j, (hx, share) in enumerate(sd["palette"]["colours"][:4]):
+                    col = tuple(int(hx[i:i + 2], 16) for i in (1, 3, 5))
+                    yy = y + 24 + j * (cw // 4)
+                    d.rectangle([x + cw + 6, yy, x + cw + 6 + 3 * sw, yy + cw // 4 - 4], fill=col)
+                    d.text((x + cw + 10, yy + 4), "%d%%" % (100 * share), fill=(0, 0, 0) if sum(col) > 380 else
+                           (255, 255, 255), font=font(11))
+    im.save(path)
+
+
+def print_regions(res, times):
+    print("\nper region (each element on its own; sym: outline symmetry 0..1, high = neat/drawn; tone: brightness "
+          "variation inside, low = flat fill; sat/value: mean saturation and brightness of its pixels)")
+    fmt = lambda v: "-" if v is None else ("end" if math.isinf(v) else "%+.2f" % v)
+    print("%-14s %-5s %7s %7s %7s %5s %5s %5s %5s  %s" % ("region", "side", "peak", "fade50", "fade25", "sym", "tone",
+                                                           "sat", "val", "colours"))
+    for name, info in res.items():
+        for side in ("ref", "ours"):
+            sd = info[side]
+            f, rg, pl = sd["fade"], sd["regular"] or {}, sd["palette"] or {}
+            cols = " ".join("%s %d%%" % (h, 100 * s) for h, s in pl.get("colours", [])[:4])
+            print("%-14s %-5s %7s %7s %7s %5s %5s %5s %5s  %s" % (
+                name, side, fmt(f["peak_t"]), fmt(f["t50"]), fmt(f["t25"]), num(rg.get("sym"), "%.2f"),
+                num(rg.get("tone"), "%.2f"), num(pl.get("sat"), "%.2f"), num(pl.get("value"), "%.2f"), cols))
+    print("region hints (inform, not a gate):")
+    for name, info in res.items():
+        R, O = info["ref"], info["ours"]
+        tips = []
+        if R["fade"]["t25"] is not None and O["fade"]["t25"] is not None and not (
+                math.isinf(R["fade"]["t25"]) or math.isinf(O["fade"]["t25"])):
+            dt = O["fade"]["t25"] - R["fade"]["t25"]
+            if abs(dt) >= 0.08:
+                tips.append("fades %.2f s %s" % (abs(dt), "later" if dt > 0 else "sooner"))
+        rr, ro = R["regular"], O["regular"]
+        if rr and ro:
+            if ro["sym"] - rr["sym"] >= 0.15:
+                tips.append("more symmetric/neat (%.2f vs %.2f): break the shape up, rotate and vary pieces"
+                            % (ro["sym"], rr["sym"]))
+            if rr["tone"] - ro["tone"] >= 0.12:
+                tips.append("flatter inside (tone %.2f vs %.2f): overlap more varied, semi-transparent layers"
+                            % (ro["tone"], rr["tone"]))
+        pr, po = R["palette"], O["palette"]
+        if pr and po:
+            if pr["sat"] - po["sat"] >= 0.08:
+                tips.append("paler (sat %.2f vs %.2f)" % (po["sat"], pr["sat"]))
+            elif po["sat"] - pr["sat"] >= 0.08:
+                tips.append("more saturated (sat %.2f vs %.2f)" % (po["sat"], pr["sat"]))
+            if abs(pr["value"] - po["value"]) >= 0.1:
+                tips.append("%s (value %.2f vs %.2f)" % ("darker" if po["value"] < pr["value"] else "brighter",
+                                                         po["value"], pr["value"]))
+        print("  %-14s %s" % (name, "; ".join(tips) if tips else "close"))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     for side in ("ref", "ours"):
@@ -958,6 +1152,9 @@ def main():
                     help="zoomed detail sheet box: x,y,w,h (fractions, or reference pixels) | auto (around the "
                          "reference's brightest region) | none")
     ap.add_argument("--detail-at", help="times for the zoomed detail sheet (default: 3 key moments)")
+    ap.add_argument("--region", action="append", metavar="NAME=x,y,w,h",
+                    help="measure one element on its own (fractions of the frame), e.g. --region "
+                         "burst=0.35,0.45,0.3,0.3 --region smoke=0.1,0.6,0.8,0.3; repeat for each element")
     ap.add_argument("--out", default="refcompare")
     a = ap.parse_args()
 
@@ -1021,6 +1218,12 @@ def main():
     if np is not None:
         detail = run_detail(a, srcs, fitted, times, series, labels, aspect)
         metrics["detail"] = detail
+    regions = None
+    if np is not None:
+        if not a.region:
+            a.region = ["whole=0,0,1,1"]
+        regions = run_regions(a, srcs, fitted, times, labels, aspect)
+        metrics["regions"] = regions
     draw_sheet(os.path.join(a.out, "sheet.png"), times, rows, labels, a.title, cw, ch)
     draw_curves(os.path.join(a.out, "curves.png"), times, series, labels)
 
@@ -1060,6 +1263,8 @@ def main():
         print_detail(detail, times)
     else:
         print("\n(small-detail measures and detail.png need numpy)")
+    if regions:
+        print_regions(regions, times)
 
     def clean(o):
         if isinstance(o, float) and (math.isinf(o) or math.isnan(o)):
