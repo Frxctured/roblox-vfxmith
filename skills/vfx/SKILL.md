@@ -14,7 +14,7 @@ design is the builder's own, except in replicate mode, where the reference is th
 | Request | Skill |
 |---|---|
 | make / build / remake an effect | `vfx-make` |
-| `/vfx replicate <reference path or description>`, or "copy / match / replicate this" with a reference | `vfx-replicate` (closeness to the reference is the goal; costs several normal runs, warns first) |
+| `/vfx replicate <reference path or description>`, or "copy / match / replicate this" with a reference | `vfx-replicate`, experimental (closeness to the reference is the goal; costs several normal runs, warns first) |
 | "how do pros make X", find examples | `vfx-find` (`kit/scripts/compose.py "<description>"`, read-only) |
 | a downloaded pack: is it safe, add it | `vfx-study-pack` |
 | the user gives their opinion of an effect | `vfx-feedback` |

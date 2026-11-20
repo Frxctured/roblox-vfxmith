@@ -61,7 +61,11 @@ local stage = Stage.define({
 - `screen_capture` takes `camera_position` / `look_at_position`. AlwaysOnTop BillboardGuis do not show in Edit-mode
   captures.
 
-## Replicate mode (copy a given reference)
+## Replicate mode (experimental: copy a given reference)
+> **Experimental.** In our fair tests the replicas matched the reference closely from the recording's own camera
+> but not from other angles, or (when built from real 3D elements) lost detail such as the bolt shape and the
+> fire texture. Expect a rough copy, not a match, and a higher cost than a normal run.
+
 When the user gives a reference effect and asks to copy, match or replicate it (`/vfx replicate <reference>`), the
 goal changes: look like the reference, not like your own idea. Follow `skills/vfx-replicate/SKILL.md`: warn about the
 cost first, list the reference's layers by eye (time span, shape, colour, additive or opaque, size, motion), build

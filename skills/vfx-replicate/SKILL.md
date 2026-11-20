@@ -1,9 +1,13 @@
 ---
 name: vfx-replicate
-description: Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, per-element comparison (colours, timing, how neat or organic), then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain), optionally with textures lifted straight from the recording. Use for "/vfx replicate <reference>", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice); warns first.
+description: EXPERIMENTAL. Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, per-element comparison (colours, timing, how neat or organic), then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain), optionally with textures lifted straight from the recording. Use for "/vfx replicate <reference>", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice); warns first.
 ---
 
-# Replicate a reference effect
+# Replicate a reference effect (experimental)
+
+> **Experimental.** In our fair tests the replicas matched the reference closely from the recording's own camera
+> but not from other angles, or (when built from real 3D elements) lost detail such as the bolt shape and the
+> fire texture. Expect a rough copy, not a match, and a higher cost than a normal run.
 
 `ROOT` = `<base directory>/../..` (`${CLAUDE_PLUGIN_ROOT}`); quote it. Read `ROOT/START.md` for the kit
 (`kit/stage.luau`, `kit/maketex.py`, `kit/TEXTURES.md`).
@@ -15,7 +19,8 @@ thing that looks the same in the frames.
 ## 0. Cost warning (first, before any work)
 Send this to the user, then wait for the answer:
 
-> Replicate mode copies the reference as closely as it can, which takes many build-capture-compare passes. That uses
+> Replicate mode is experimental: it gets the timing, size and layout close, but the result is a rough copy,
+> not a match. It copies the reference as closely as it can, which takes many build-capture-compare passes. That uses
 > more of your plan than a normal `/vfx` run (about 4-7 points of the 5-hour window, about 20 minutes). In our two
 > measured full replicate runs (a ground slam and a busier lightning slam) it took about 8-10 points of the 5-hour
 > window and 26-28 minutes each; a busy reference can take more. Go ahead, or use the normal mode instead (one look

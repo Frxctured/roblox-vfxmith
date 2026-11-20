@@ -10,10 +10,13 @@ by frame.
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
 | **Kit** | an effect clock with an exact freeze and a posable dummy, a texture generator, a texture shortlist, a reference-vs-yours comparison ([`kit/`](kit/)) |
-| **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
+| **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (experimental: copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
 ## vfxmith 1.0.0-alpha8 (branch v1, lab test build)
+**Replicate mode is marked experimental.** Fair tests (alpha6-alpha8, built from recordings only) never matched the
+originals well enough: close from the recording's camera but flat from other angles, or real 3D but missing detail.
+
 **One texture per element.** alpha7 placed its lifted pictures at the right height, but each was still a slice of a
 whole moment of the recording (everything in one picture), so it showed the same picture from every angle. alpha8:
 each element (smoke, sparks, crackle, flame) gets its own texture, lifted as a single small piece, found among the pro
@@ -87,7 +90,7 @@ The alpha1/alpha2 pipeline, guide, rules and vault are in `archive/`. Older note
 /plugin install vfxmith@vfxmith
 ```
 Then ask for an effect ("make a purple ground slam", "a light beam with an explosion"), or use `/vfx <request>`.
-To copy an effect you have frames or a video of: `/vfx replicate <path>` (costs several normal runs; it asks first).
+To copy an effect you have frames or a video of: `/vfx replicate <path>` (**experimental**: a rough copy, not a match; costs several normal runs; it asks first).
 For the build loop, connect Roblox Studio through the Studio MCP server (the agent builds, captures and reworks the
 effect in Studio); without it you still get references.
 
