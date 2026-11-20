@@ -1,6 +1,6 @@
 {
   "name": "vfxmith",
-  "version": "1.0.0-alpha7",
+  "version": "1.0.0-alpha8",
   "description": "A thin, optional kit for making Roblox VFX with your own judgement: one effect clock with an exact freeze and a posable R15 dummy, textures drawn in code, a short texture list, 1,927 open-source pro effects as read-only references, and a replicate mode that copies a given reference effect.",
   "author": {
     "name": "Frxctured"

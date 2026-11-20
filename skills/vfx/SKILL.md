@@ -7,7 +7,7 @@ description: Roblox VFX router - use for ANY Roblox visual effect request (explo
 
 `ROOT` = two folders above this skill's base directory (`${CLAUDE_PLUGIN_ROOT}`); quote it (spaces).
 
-vfxmith 1.0.0-alpha7 is a thin, optional kit (`ROOT/START.md`): an effect clock with an exact freeze and a
+vfxmith 1.0.0-alpha8 is a thin, optional kit (`ROOT/START.md`): an effect clock with an exact freeze and a
 posable R15 dummy, textures drawn in code, a short texture list and pro effects as read-only references. The
 design is the builder's own, except in replicate mode, where the reference is the target.
 

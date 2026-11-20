@@ -56,26 +56,37 @@ Use the biggest frames you can get: a 400 px gallery sheet hides most small deta
 in Studio or record it; for a video, cut full-size stills).
 
 ## 3. Build to the list
-If lifting is allowed, start here: `kit/reflift.py` keys an element out of a dark-stage frame (the difference from
-the empty stage becomes the picture and its alpha), so a texture has the reference's own edges and grain:
-```
-python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.45 --auto 6 --sheet tex/lift_sheet.png       # biggest separate pieces
-python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.40 --box 0.42,0.35,0.16,0.2 --name crackle   # one element
-python3 -I "ROOT/kit/reflift.py" ref.mp4 --flipbook 0.35,1.0 --grid 4 --box ... --name dome  # a moving element as a Grid4x4 flipbook
-python3 -I "ROOT/kit/maketex.py" --install my_fx --files tex/*.png
-```
-`--mode dark` for smoke in daylight, `--grey` for a white version to tint with Color. A frame shows elements stacked,
-so a lifted piece often has a bit of its neighbours in it; pick a moment and a box where the element is alone, and
-look at the sheet before using it. A lifted flipbook can replace a whole layer that is hard to rebuild (a flame burst,
-a crackle web) while you build the moving parts around it.
+**One texture per element, the way the reference was made.** A pro effect is many emitters, each with its own small
+texture: a smoke puff, a spark streak, a crackle, a flame tongue, a ring. Particles of that texture, spread through
+space, are what give it volume: walk round it and the cloud changes shape. So for each row of the table, get one
+texture for that element alone, by whichever of these gets closest:
+1. **Lift a single piece** from the recording (only when the user says the effect is theirs or free to copy): one
+   crackle, one flame tongue, one smoke puff, a few sparks, where it sits alone on a dark-stage frame.
+   `kit/reflift.py` keys it out (the difference from the empty stage becomes the picture and its alpha), so it keeps
+   the reference's own edges and grain:
+   ```
+   python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.45 --auto 8 --sheet tex/lift_sheet.png       # separate pieces
+   python3 -I "ROOT/kit/reflift.py" ref.mp4 --at 0.40 --box 0.42,0.35,0.05,0.06 --name crackle --grey
+   python3 -I "ROOT/kit/maketex.py" --install my_fx --files tex/*.png
+   ```
+   `--grey` gives a white version to tint per particle with Color; `--mode dark` for smoke in daylight. A small box
+   around one piece is the goal; a box around half the effect is a screenshot, not a texture.
+2. **Find the closest existing texture**: `python3 -I "ROOT/kit/scripts/find_textures.py" "red lightning crackle"
+   --sheet tex/find_crackle.jpg` searches the pro textures by name and look (one contact sheet; ids load in Studio as
+   `rbxassetid://<id>`). Put it next to a crop of the reference element and pick by eye.
+3. **Redraw it as accurately as you can**: `kit/maketex.py` shapes with parameters (flame_burst, flame_shard, arc,
+   spark_streak, smoke_wisp, glint, crack_line, glitter, ...) or your own drawing code, compared side by side with a
+   crop of the reference element until the edge, grain, taper and thickness match.
 
-**Lifted pieces live in 3D, where the element really is.** A recording is one view of a 3D effect; in a game the
-camera moves. Put each lifted texture on the part that carries it, at that element's real place: the burst on a
-sprite at the impact point, smoke on particles spread around it, a crackle on a beam or a sprite along the bolt, a
-ground ring flat on the ground. Placing pictures along the reference camera's line of sight (so they land on the right
-pixels) makes a perfect match from that one camera and a floating cutout from everywhere else; in our tests that is
-what lifting led to, so it is worth watching for. Size and depth come from the scene (the character for scale, the
-ground plane, where the hit is), not from the screen position alone.
+Then build that element the way the reference does: usually an emitter (or several) of that texture, with the count,
+size spread, rotation, speed, spread and lifetime that make the same mass on screen, placed where the element really
+is (the burst at the impact, the cloud at its height, a ring flat on the ground; size and depth from the scene, not
+from screen position alone). Check it from the top and the
+side too: a crowd of particles holds up from every angle.
+
+Lifting a whole moment of the recording (a box around everything, or the full frame in strips) gives a near-perfect
+match from that one camera and the same flat picture from every other angle; our tests did exactly that twice. It
+can still be a quick first look at timing, but it doesn't stand in for the elements.
 
 Build each row of the table with the kit (one clock, `S:sprite` / parts / beams / decals). Put the anchor at a fixed
 effect time (e.g. `HIT = 0.2`). Match the lighting: if the reference was shot on a dark stage, compare on one too:

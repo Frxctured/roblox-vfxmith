@@ -13,6 +13,12 @@ by frame.
 | **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
+## vfxmith 1.0.0-alpha8 (branch v1, lab test build)
+**One texture per element.** alpha7 placed its lifted pictures at the right height, but each was still a slice of a
+whole moment of the recording (everything in one picture), so it showed the same picture from every angle. alpha8:
+each element (smoke, sparks, crackle, flame) gets its own texture, lifted as a single small piece, found among the pro
+textures (`find_textures.py`) or redrawn accurately, and is built as emitters with volume, like the reference.
+
 ## vfxmith 1.0.0-alpha7 (branch v1, lab test build)
 **Lifted textures in 3D.** With alpha6 both fair replicas matched the originals almost perfectly from the test camera,
 by placing every lifted picture on that camera's line of sight: from above or the side they were floating cutouts.
