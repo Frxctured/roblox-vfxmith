@@ -13,7 +13,7 @@ by frame.
 | **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (experimental: copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
-## vfxmith 1.0.0-alpha8 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha8 (lab test build)
 **Replicate mode is marked experimental.** Fair tests (alpha6-alpha8, built from recordings only) never matched the
 originals well enough: close from the recording's camera but flat from other angles, or real 3D but missing detail.
 
@@ -22,13 +22,13 @@ whole moment of the recording (everything in one picture), so it showed the same
 each element (smoke, sparks, crackle, flame) gets its own texture, lifted as a single small piece, found among the pro
 textures (`find_textures.py`) or redrawn accurately, and is built as emitters with volume, like the reference.
 
-## vfxmith 1.0.0-alpha7 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha7 (lab test build)
 **Lifted textures in 3D.** With alpha6 both fair replicas matched the originals almost perfectly from the test camera,
 by placing every lifted picture on that camera's line of sight: from above or the side they were floating cutouts.
 alpha7: lifted pieces go on the parts that carry them at the element's real place, and every compare pass also
 looks from the top and the side.
 
-## vfxmith 1.0.0-alpha6 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha6 (lab test build)
 **Replicate mode: organic, not drawn.** Fair tests (built from the recording only) got composition, timing and size
 right, but every element looked drawn: a neat star where the reference had a messy flame burst, string where it had a
 crackle, separate clumps where it had a soft haze. alpha6 adds:
@@ -40,7 +40,7 @@ crackle, separate clumps where it had a soft haze. alpha6 adds:
 - Optional tips in the replicate skill on what makes pro effects look organic (many overlapping varied pieces, mixed
   additive and normal blend, dark smoke inside the fire). Tips only; no rules or gates.
 
-## vfxmith 1.0.0-alpha5 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha5 (lab test build)
 **Replicate mode matches the small details.** In the alpha4 test the replica had the right timing, colours and layers
 but not the small things: a soft glow and a needle where the reference had a ragged burst of sharp flame shards, one
 blurry crescent for its thin tapering swirl arcs, a few round dots for dozens of fine streaked sparks, a smooth fog
@@ -57,7 +57,7 @@ bank for its wispy, grainy smoke, and no star glint.
 - **Cost:** the one measured replicate run took 5 points of the 5-hour window and 21 minutes for 6 passes; the detail
   stage adds about 3-4 passes, so very roughly 8-15 points and 35-60 minutes (an estimate from one run).
 
-## vfxmith 1.0.0-alpha4 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha4 (lab test build)
 **Replicate mode.** Given a reference effect ("/vfx replicate <reference>", or "copy/match this"), the agent now copies
 it as closely as it can instead of going its own way: in the alpha3 test it saw the reference once and built a heavy
 opaque fireball with thick smoke lasting 1.8 s against a light additive star flash that is over by about 0.8 s.
@@ -70,7 +70,7 @@ opaque fireball with thick smoke lasting 1.8 s against a light additive star fla
 - **Cost:** replicate mode takes many build-capture-compare passes: an estimated 2-4 times a normal run (a normal run
   is about 4-7 points of the 5-hour window, about 20 minutes). The skill says so and asks before it starts.
 
-## vfxmith 1.0.0-alpha3 (branch v1, lab test build)
+## vfxmith 1.0.0-alpha3 (lab test build)
 **No plugin, plus a thin, optional kit.** Blind tests kept showing that a model with no plugin made the effects
 people preferred: it authored a whole little scene (a moving character, props, code-made shapes and textures) on one
 effect clock and kept reworking it by eye. alpha1 and alpha2 forbade exactly that. alpha3 drops the rules and the
@@ -93,6 +93,14 @@ Then ask for an effect ("make a purple ground slam", "a light beam with an explo
 To copy an effect you have frames or a video of: `/vfx replicate <path>` (**experimental**: a rough copy, not a match; costs several normal runs; it asks first).
 For the build loop, connect Roblox Studio through the Studio MCP server (the agent builds, captures and reworks the
 effect in Studio); without it you still get references.
+
+**Older versions** stay available: 0.1.6 (the previous stable version) is on branch
+[`stable-0.1.6`](https://github.com/Frxctured/roblox-vfxmith/tree/stable-0.1.6) and tag `v0.1.6`; betas are tagged
+`v0.1.6-beta2`, `v0.1.9-beta1` and `v0.1.9-beta2`. To install 0.1.6 instead of the current version:
+```
+/plugin marketplace add Frxctured/roblox-vfxmith@stable-0.1.6
+/plugin install vfxmith@vfxmith
+```
 
 **Any other agent, or no install:** clone or download this folder and tell the agent "use this folder to make
 <effect>". It starts at [`AGENTS.md`](AGENTS.md).
