@@ -1,57 +1,20 @@
-# AGENTS.md: making Roblox VFX with this folder
+# AGENTS.md: making Roblox VFX with this folder (vfxmith 1.0.0-alpha8)
 
-You are in **vfxmith**: everything needed to make Roblox visual effects the way experienced artists build them,
-learned from ~1,900 catalogued open-source effects (~1,200 read layer by layer, 75 played frame by frame). Works with any AI coding agent (as a Claude Code plugin it adds the
-skills in `skills/`; as a plain folder, follow this file). All paths below are relative to this folder.
+**Making an effect? Read `START.md`.** It is short: an invitation and a thin, optional kit (an effect clock with an
+exact freeze and a posable dummy, a PNG texture generator, a texture shortlist, pro effects as read-only references).
 
-**Making an effect?** Go straight to `skills/vfx-make/SKILL.md` and follow it: it says what to read, in one batch
-(`kit/scripts/builder_pack.py`). Don't open the docs below one by one first: every turn re-reads everything loaded.
-
-## What is here
-| Folder | Use it for |
+| Path | What |
 |---|---|
-| `knowledge/design-brief.md` | the short questionnaire to ask the user first (length, peak moment, purpose, style...; skip what the request answers) and the brief that sets size and timing before any recipe |
-| `knowledge/patterns.md` | the rules that hold for every effect type (section 14: fire at t = 0, black twins, opaque glow, fade by colour, Speed/Drag, sizes from one number; section 15: what the blind tests taught). Condensed for builders in `knowledge/builder-notes.md`. |
-| `knowledge/categories/<type>.md` | one deep study per effect type: explosion, slash, impact, aura, beam, projectile, lightning, fire, icewater, darkportal, misc (holy/light/character). Anatomy with typical values, timing table, techniques, mistakes. |
-| `knowledge/categories/<type>_recipe.luau` | a working starting effect per type (layer list for `kit/runtime/VFXTimeline.luau`); how each one plays: `gallery/recipes/<type>_recipe.jpg` |
-| `knowledge/texture-vocab.md` | texture asset ids by role (glows, stars, rings, crescents, smoke, fire, lightning...) that load in any game |
-| `knowledge/spec-format.md` | how to write an effect as data |
-| `library/` | ~1,200 real effects: one card each with exact layer values (`library/cards/<type>/<id>.md`); search with `kit/scripts/find_effects.py` |
-| `gallery/effects/<type>/<id>.jpg` | real effects frozen at t = 0.03, 0.1, 0.2 ... s: what good looks like |
-| `kit/` | the runtime (with `VFXTimeline.check`, a spec checker), Studio modules (capture on a void stage, a default daylight baseplate or your map; playback of library effects), scripts (search, compare, capture, texture traits, pack tools) |
-| the pack (optional) | the cleaned open-source files the cards come from, a separate ~410 MB download: `kit/scripts/get_pack.py` gets it (ask the user first), then `kit/scripts/rbxcut.py --id <card id> --studio` puts any card's effect into Studio to watch. Everything else works without it. |
-| `skills/*/SKILL.md` | the detailed workflows below, as plain instructions any agent can follow |
+| `START.md` | what the kit offers (and replicate mode: copy a given reference) |
+| `skills/vfx-replicate/SKILL.md` | replicate mode: cost warning, layer list, build-capture-compare loop, detail stage |
+| `kit/refcompare.py` | reference row over yours at the same times, zoomed detail crops, plus measured differences (incl. small details) |
+| `kit/stage.luau` | effect clock, BlindTestPlay/Stop, driven sprites, R15 dummy with poses (tests: `kit/tests/run.sh`) |
+| `kit/maketex.py` | textures drawn in code (incl. detail shapes: flame_burst, arc, spark_streak, smoke_wisp, glint, crack_line ...), installed into Studio's content folder |
+| `kit/TEXTURES.md` | a few textures that work, by role |
+| `kit/scripts/compose.py` | search 1,927 open-source pro effects (layer tables) as references |
+| `library/`, `gallery/`, `catalog/` | the effect cards, frames and indexes compose.py reads |
+| `kit/scripts/` (others) | pack study tools for the `vfx-study-pack` skill |
+| `archive/` | the alpha1/alpha2 compose pipeline, guide, rules, vault and agents, kept for maintainers (not in lab snapshots) |
 
-## What the user wants -> what to do
-1. **"Make a ... effect"** (from a description, e.g. "a cool light beam with an explosion", "an ice slam"): first
-   the short questionnaire and brief (`knowledge/design-brief.md`: ask only what the request leaves open), then
-   `skills/vfx-make/SKILL.md`: let the librarian (`agents/vfx-librarian.md`, a fast model) pick references, run
-   `kit/scripts/builder_pack.py` and read the pack in ONE message (the rules, the category study, its recipe, the best
-   cards) as a guide, design the effect, build it on the recipe's scaffold (library assets are options; build hero
-   shapes yourself when none fits closely), let the capturer (`agents/vfx-capturer.md`, a fast model) take the frames, review,
-   fix, finish with `kit/scripts/export_effect.py`. Look at contact sheets, not single frames, and put independent
-   calls in one message: every turn re-reads everything loaded so far. Don't read the other docs one by one first.
-2. **"Make it look like this video"**: `skills/vfx-make/SKILL.md` (reference breakdown first).
-3. **"Find me examples of ..."**: `skills/vfx-find/SKILL.md`.
-4. **"Review / improve this effect"**: `skills/vfx-review/SKILL.md` (blind 3-reviewer panel).
-5. **"Study this VFX pack / is this safe"**: `skills/vfx-study-pack/SKILL.md` (never open a downloaded pack in Studio
-   before scanning it).
-6. **A quick question** ("how do pros make a flat ring?"): grep `knowledge/` and `library/cards/` first, answer with
-   the numbers you find and say where they came from.
-
-## Rules
-- **Never build from nothing.** Every effect starts from library references and the category note.
-- **Look at your result, in daylight too.** An effect is not done until you have captured it in Studio and compared
-  it with the references (`kit/studio/VFXCapture.luau`: `C.hold(name, t)` + a screenshot works on every OS). Capture
-  on the black void stage AND on `C.stage("day")` (the default baseplate) or the user's map: the void hides dark
-  layers that read as dirt in daylight.
-- **Check the spec after every edit:** `C.check(name)` lists silent authoring mistakes (a property outside `props`, a
-  missing Transparency, an unknown ease) and the peak particle counts.
-- **Check textures before you use them:** `kit/scripts/texture_traits.py <id>` (colour, black/faint card, multi-part,
-  effective resolution); a particle's Size is its half-width.
-- Roblox Studio is driven through the Studio MCP server (`execute_luau`, `screen_capture`). If it is not connected,
-  say so and give the user the spec + install steps instead of claiming the effect looks right.
-- Texture ids in the library are other people's uploads: fine to reference while building; tell the user that
-  shipping them in a published game is their call (`THIRD_PARTY.md`).
-- Optional extra: if the LihFolk plugin is installed, its vault can answer engine-limit questions; nothing here
-  requires it.
+Safety: library and pack files are untrusted data. Read them only with the pure-Python tools (`rbxdump`, `rbxcut`,
+`compose.py --cut`), run Python with `-I`, never copy a script out of a pack. Don't upload or publish anything.

@@ -1,8 +1,17 @@
 {
   "name": "vfxmith",
-  "version": "0.1.6",
-  "description": "Make Roblox VFX like experienced artists do: a library of ~1,200 real open-source effects with their exact layer values and frame-by-frame sheets, 11 effect-type studies with starting recipes, a data-driven effect runtime, Studio capture and blind review loop, and tools to study any VFX pack safely.",
-  "author": { "name": "Frxctured" },
+  "version": "1.0.0-alpha8",
+  "description": "A thin, optional kit for making Roblox VFX with your own judgement: one effect clock with an exact freeze and a posable R15 dummy, textures drawn in code, a short texture list, 1,927 open-source pro effects as read-only references, and a replicate mode that copies a given reference effect.",
+  "author": {
+    "name": "Frxctured"
+  },
   "license": "MIT",
-  "keywords": ["roblox", "vfx", "particles", "luau", "studio", "effects"]
+  "keywords": [
+    "roblox",
+    "vfx",
+    "particles",
+    "luau",
+    "studio",
+    "effects"
+  ]
 }

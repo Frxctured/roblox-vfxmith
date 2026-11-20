@@ -9,25 +9,80 @@ by frame.
 |---|---|
 | **Library** | ~1,200 real effects, one card each with every layer's values ([`library/`](library/)), searchable by description |
 | **Gallery** | real effects frozen at t = 0.03, 0.1, 0.2 ... s ([`gallery/effects/`](gallery/effects/)) and the most-shared textures ([`gallery/textures/`](gallery/textures/)) |
-| **Knowledge** | 11 effect-type studies with anatomy tables, timing, technique recipes and mistakes, plus a starting recipe each; cross-effect rules; texture ids by role ([`knowledge/`](knowledge/)) |
-| **Skills** | `vfx` (router), `vfx-make` (build loop), `vfx-find` (references), `vfx-review` (blind panel), `vfx-study-pack` (safe pack study) |
-| **Kit** | effect runtime (`VFXTimeline`), Studio capture and playback modules, scripts to search, capture, compare and study packs ([`kit/`](kit/)) |
+| **Kit** | an effect clock with an exact freeze and a posable dummy, a texture generator, a texture shortlist, a reference-vs-yours comparison ([`kit/`](kit/)) |
+| **Skills** | `vfx` (router), `vfx-make` (START.md), `vfx-replicate` (experimental: copy a given reference, compare loop), `vfx-find` (compose.py search), `vfx-feedback`, `vfx-study-pack` (safe pack study) |
 | **Pack** | the cleaned open-source pack itself: [release download](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1) (~580 files, ~410 MB, optional), contents in [`PACK.md`](PACK.md), safety in [`SECURITY.md`](SECURITY.md). Agents fetch it with `kit/scripts/get_pack.py` and cut any card's effect into Studio with `rbxcut.py --id <id> --studio` |
 
-## What's new in 0.1.6
-- **About a third of the cost of 0.1.5.** Helpers on a fast, cheap model find references and take the Studio
-  screenshots, the builder reads everything it needs in one go, and it stops after two review panels. A full build
-  cost $15.47 at API prices in blind test 6, against $40-57 for 0.1.5 and $26.44 for the same agent with no plugin.
-- **The library is a guide, not a template.** The builder designs the effect first and borrows techniques, timing and
-  values from real effects; it builds the hero shape itself when nothing in the library fits.
-- **Shapes built in code:** `ctx.Crystal` makes faceted solids (rocks, debris, crystals, gems, shards) with their own
-  light-to-dark colours, no upload needed.
-- **~10,000 textures to choose from:** one search over the open-source library and the free VFX Studio catalogue,
-  ~2,750 animated flipbooks, each with measured traits.
-- **Reviewers calibrated on people:** an Appeal score, bold colour counts as a plus, and real human poll results as
-  the reference.
-- Tested blind: in test 6 (a fire tornado) people picked the 0.1.6 effect over the same agent without the plugin by a
-  wide margin. Update: `/plugin marketplace update vfxmith`, then `/plugin update vfxmith@vfxmith`.
+## vfxmith 1.0.0-alpha8 (branch v1, lab test build)
+**Replicate mode is marked experimental.** Fair tests (alpha6-alpha8, built from recordings only) never matched the
+originals well enough: close from the recording's camera but flat from other angles, or real 3D but missing detail.
+
+**One texture per element.** alpha7 placed its lifted pictures at the right height, but each was still a slice of a
+whole moment of the recording (everything in one picture), so it showed the same picture from every angle. alpha8:
+each element (smoke, sparks, crackle, flame) gets its own texture, lifted as a single small piece, found among the pro
+textures (`find_textures.py`) or redrawn accurately, and is built as emitters with volume, like the reference.
+
+## vfxmith 1.0.0-alpha7 (branch v1, lab test build)
+**Lifted textures in 3D.** With alpha6 both fair replicas matched the originals almost perfectly from the test camera,
+by placing every lifted picture on that camera's line of sight: from above or the side they were floating cutouts.
+alpha7: lifted pieces go on the parts that carry them at the element's real place, and every compare pass also
+looks from the top and the side.
+
+## vfxmith 1.0.0-alpha6 (branch v1, lab test build)
+**Replicate mode: organic, not drawn.** Fair tests (built from the recording only) got composition, timing and size
+right, but every element looked drawn: a neat star where the reference had a messy flame burst, string where it had a
+crackle, separate clumps where it had a soft haze. alpha6 adds:
+- `kit/reflift.py`: cut an element (or a short flipbook of it) out of a dark-stage recording into a texture with alpha,
+  so it keeps the reference's own edges and grain. Only when the user says the effect is theirs or free to copy; the
+  skill asks.
+- `refcompare.py --region name=x,y,w,h`: each element measured on its own: peak and fade times, main colours (hex,
+  swatches in `regions.png`), outline symmetry (neat vs torn) and tone (flat vs layered).
+- Optional tips in the replicate skill on what makes pro effects look organic (many overlapping varied pieces, mixed
+  additive and normal blend, dark smoke inside the fire). Tips only; no rules or gates.
+
+## vfxmith 1.0.0-alpha5 (branch v1, lab test build)
+**Replicate mode matches the small details.** In the alpha4 test the replica had the right timing, colours and layers
+but not the small things: a soft glow and a needle where the reference had a ragged burst of sharp flame shards, one
+blurry crescent for its thin tapering swirl arcs, a few round dots for dozens of fine streaked sparks, a smooth fog
+bank for its wispy, grainy smoke, and no star glint.
+- `skills/vfx-replicate`: a detail stage from about pass 3: zoomed crops of the reference and yours at the same box
+  and moments, a detail table (count, size, edge, texture, shape, motion per small element), the 3 biggest detail
+  gaps fixed per pass, mostly through the texture; a soft round blob never stands in for a ragged, streaky or thin
+  element.
+- `kit/refcompare.py`: `detail.png` (the zoomed side by side plus a fine-detail view; `--crop x,y,w,h | auto`,
+  `--detail-at`) and small-detail measures per frame: specks (count, size, streaking), dark specks, thin lines,
+  grain, edge density, how ragged and how crisp the bright burst is, with the differences vs the reference (numpy).
+- `kit/maketex.py`: detail shapes with parameters (`--set ragged=.. taper=.. grain=..`, `--name`, `--sheet`):
+  `flame_burst`, `flame_shard`, `arc`, `swoosh`, `spark_streak`, `smoke_wisp`, `glint`, `crack_line`, `glitter`.
+- **Cost:** the one measured replicate run took 5 points of the 5-hour window and 21 minutes for 6 passes; the detail
+  stage adds about 3-4 passes, so very roughly 8-15 points and 35-60 minutes (an estimate from one run).
+
+## vfxmith 1.0.0-alpha4 (branch v1, lab test build)
+**Replicate mode.** Given a reference effect ("/vfx replicate <reference>", or "copy/match this"), the agent now copies
+it as closely as it can instead of going its own way: in the alpha3 test it saw the reference once and built a heavy
+opaque fireball with thick smoke lasting 1.8 s against a light additive star flash that is over by about 0.8 s.
+- `skills/vfx-replicate`: a cost warning first, then the reference's timeline and a layer list by eye, a build to
+  that list and a compare-and-fix loop (3 biggest differences per pass, about 6 passes).
+- `kit/refcompare.py`: reference row over yours at the same times (frame sheet, video, stills or gallery id, aligned
+  on an anchor) with measured differences per frame: coverage, added light, opaque mass, warmth and hues, centre and
+  spread, and the fade curve. Pure Python + Pillow (numpy optional).
+- `kit/stage.luau`: `Stage.light("dark" | "day")` to compare on the reference's lighting.
+- **Cost:** replicate mode takes many build-capture-compare passes: an estimated 2-4 times a normal run (a normal run
+  is about 4-7 points of the 5-hour window, about 20 minutes). The skill says so and asks before it starts.
+
+## vfxmith 1.0.0-alpha3 (branch v1, lab test build)
+**No plugin, plus a thin, optional kit.** Blind tests kept showing that a model with no plugin made the effects
+people preferred: it authored a whole little scene (a moving character, props, code-made shapes and textures) on one
+effect clock and kept reworking it by eye. alpha1 and alpha2 forbade exactly that. alpha3 drops the rules and the
+compose pipeline and keeps only helpers ([`START.md`](START.md)):
+- `kit/stage.luau`: one effect clock with an exact freeze (`BlindTestPlay` / `BlindTestStop`), driven sprites that
+  hold any moment in Edit mode, a grey R15 dummy with keyframed poses. Tested offline (`kit/tests/run.sh`).
+- `kit/maketex.py`: textures drawn in code (faces, soft shapes, cracks, rings ...) installed into Studio's content
+  folder with versioned names.
+- `kit/TEXTURES.md`: a short optional list of built-ins and pro textures by role.
+- `kit/scripts/compose.py`: the 1,927 pro effects as read-only references.
+
+The alpha1/alpha2 pipeline, guide, rules and vault are in `archive/`. Older notes: `archive/README-history.md`.
 
 ## Install (Claude Code)
 ```
@@ -35,58 +90,15 @@ by frame.
 /plugin install vfxmith@vfxmith
 ```
 Then ask for an effect ("make a purple ground slam", "a light beam with an explosion"), or use `/vfx <request>`.
-For the build loop, connect Roblox Studio through the Studio MCP server (the agent places, captures and reviews the
-effect in Studio); without it you still get references and a ready spec.
+To copy an effect you have frames or a video of: `/vfx replicate <path>` (**experimental**: a rough copy, not a match; costs several normal runs; it asks first).
+For the build loop, connect Roblox Studio through the Studio MCP server (the agent builds, captures and reworks the
+effect in Studio); without it you still get references.
 
 **Any other agent, or no install:** clone or download this folder and tell the agent "use this folder to make
 <effect>". It starts at [`AGENTS.md`](AGENTS.md).
 
-## How an agent makes an effect
-1. **Find references**: `kit/scripts/find_effects.py "light beam with an explosion"` splits the request into parts and
-   returns, per part, the closest real effects (cards with exact values, frames), the effect-type study and its recipe.
-2. **Start from recipes**: one spec with both recipes' layers (the explosion shifted to the beam's impact), adapted to
-   the request with values from the cards ([`knowledge/spec-format.md`](knowledge/spec-format.md)); every texture
-   checked for traps (`texture_traits.py`: coloured, black or faint card, multi-part, low resolution).
-   Fresh textures per role come from one search over ~10,000 textures (`find_textures.py`): the library's own and
-   the free VFX Studio plugin's catalogue (~2,750 animated flipbooks), each with measured traits.
-3. **Check it, play it in Studio and look**: the kit installs without Rojo or uploads; `C.check(name)` catches silent
-   spec mistakes; `C.hold(name, t)` + a screenshot captures frozen frames on any OS, on a black stage AND a default
-   daylight baseplate (dark layers that vanish on black can read as dirt in daylight).
-4. **Compare and review**: side by side with the references (`compare.py`), three blind reviewer agents (shape, timing,
-   colour) list concrete fixes, scoring absolute quality for a description or resemblance for a video; at most two
-   review rounds by default (a faster draft mode and a third "polish" round exist for when you ask for them).
-   Helpers keep it cheap: a fast librarian agent reads the library, a fast capturer agent takes the frames and hands
-   back one contact sheet per backdrop, so the builder never re-reads dozens of screenshots on every turn.
-5. **Ship**: copy `kit/runtime/VFXTimeline.luau` + the spec into your game and play it on the client.
-
-## What the pack taught us
-Eleven category studies (75 effects frame by frame in the gallery, plus statistics over every emitter in the pack) agree on these.
-Details, numbers and sources: [`knowledge/patterns.md`](knowledge/patterns.md) section 14 and the
-category studies in [`knowledge/categories/`](knowledge/categories/).
-
-1. **Fire everything at t = 0 and let lifetimes make the timeline**: flash 0.015-0.16 s, rings 0.1-1.1 s, smoke
-   0.35-2.5 s, ground marks 0.5-2.5 s. Size-from-0 curves, flipbooks and fade-ins do the staging, not delays.
-2. **`Brightness = 0` turns any texture black.** Give every bright shape a black twin (same texture and motion,
-   1.0-1.6x bigger, slightly lower `ZOffset`). Effects without an ink layer read as white blobs.
-3. **Opaque glow beats additive stacks**: 44% of all emitters use `LightEmission` 0 or less. `LightEmission 0` with
-   `Brightness` 5-75 stays saturated and covers instead of summing to white; a dark colour at high `Brightness`
-   (e.g. `#721A00` at 60) gives a white-hot centre with a coloured edge from ONE layer.
-4. **Fade by colour, not transparency**: colour ramps that end at black fade additive layers cleanly; one shared ramp
-   on every layer ties the effect into one look.
-5. **Pop, then settle**: flashes appear at full size and shrink to 0; rings grow from 0 and reach a quarter to half
-   of their size within the first 10% of their life.
-6. **Burst and stop**: a particle travels about `Speed / Drag` studs (sparks 66-350 studs/s with `Drag` 5-30).
-7. **Flat rings**: `Orientation = VelocityPerpendicular`, `Speed` ~0.005, `SpreadAngle` 0-15 (flat) or 3333 (a shell of
-   random tilts); spin with `RotSpeed` in one direction per layer.
-8. **Size everything from one number** (the main ring's size D: glow 0.8-1.9 D, smoke 0.3-0.75 D, sparks 0.04-0.13 D)
-   and set `Brightness` by screen area (veils 0.05-0.16, rings 1-3, sparks 15-35, tiny embers 50-200).
-9. **One particle can do several things**: multi-key `Size` curves pulse or blink, `Squash` keys stretch sparks into
-   streaks, all without scripts.
-10. **Avoid**: thousands of particles per second, layers held at 85-98% transparency (invisible), fractional
-    `EmitCount` below 1 (emits nothing), stacked additive cards (white-out with visible card edges), no white core.
-
 ## For people (no AI)
-- Browse [`gallery/effects/`](gallery/effects/) and read [`knowledge/categories/`](knowledge/categories/) for your
+- Browse [`gallery/effects/`](gallery/effects/) and read [`archive/knowledge/categories/`](archive/knowledge/categories/) for your
   effect type; the cards in [`library/cards/`](library/cards/) list every value of each effect.
 - [Download the pack](https://github.com/Frxctured/roblox-vfxmith/releases/tag/pack-v1), read [`SECURITY.md`](SECURITY.md), and drag a `.rbxm` into Studio. Most effects play with:
 ```lua
@@ -107,7 +119,7 @@ local function play(effect: Instance)
 end
 ```
 VFX Forge-style effects (models with `Start`/`End` parts, beams with `Width0_Start` ...) are documented in
-[`knowledge/os-conventions.md`](knowledge/os-conventions.md).
+[`archive/knowledge/os-conventions.md`](archive/knowledge/os-conventions.md).
 
 ## Limits, honestly
 - Frames come from effects replayed **without their own scripts**: motion an effect's code made (moving meshes, paths,

@@ -38,11 +38,11 @@ padding before code, `InsertService`/`GetObjects`, outside URLs, `TeleportServic
 ## 3. Look and learn
 - Texture vocabulary: `kit/scripts/texture_sheets.py --catalog <out> --out <dir>` (contact sheets of the most shared
   textures; LOOK at them). Layer list of one effect: `kit/scripts/layer_table.py <out> <effect id>`.
-- See effects: cut them into Studio's content folder and replay them with `kit/studio/VFXLibPlayer.luau`
+- See effects: cut them into Studio's content folder and replay them with `archive/kit/studio/VFXLibPlayer.luau`
   (`prepare`, `calibrate`, `batch`; stills with `kit/scripts/stills.py --follow`, framing measured with
   `kit/scripts/framing.py`; sheets with `kit/scripts/still_sheet.py`). Check ONE effect's frames before any batch.
-  The player follows `knowledge/os-conventions.md`; motion made by an effect's own scripts is missing.
+  The player follows `archive/knowledge/archive/os-conventions.md`; motion made by an effect's own scripts is missing.
 - Study per effect type with analyst agents (sheets + layer tables + conventions + texture vocabulary); write what you
-  learn into `knowledge/categories/<type>.md` and cross-type rules into `knowledge/patterns.md`.
+  learn into `archive/knowledge/archive/categories/<type>.md` and cross-type rules into `archive/knowledge/archive/patterns.md`.
 - To add the pack to this library: catalogue the cleaned copy and rebuild the cards (`library/`) and search index the
   same way (`library/README.md`).
