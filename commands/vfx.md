@@ -1,6 +1,6 @@
 ---
 description: 'Make or find a Roblox VFX effect with vfxmith (e.g. /vfx a frost nova that bursts from the ground)'
-argument-hint: <what you want, e.g. "a purple ground slam" | find <description> | replicate <reference path or description>>
+argument-hint: [what you want, e.g. "a purple ground slam" | find (description) | replicate (reference path or description)]
 ---
 
 Use the `vfx` skill (vfxmith plugin) for: $ARGUMENTS

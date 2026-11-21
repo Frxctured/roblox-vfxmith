@@ -84,6 +84,12 @@ compose pipeline and keeps only helpers ([`START.md`](START.md)):
 
 The alpha1/alpha2 pipeline, guide, rules and vault are in `archive/`. Older notes: `archive/README-history.md`.
 
+## Install (Claude Desktop)
+1. Download **vfxmith-plugin.zip** from the [latest release](https://github.com/Frxctured/roblox-vfxmith/releases/latest)
+   (not GitHub's green "Code > Download ZIP" button).
+2. In Claude Desktop, add a plugin from a file and pick that zip. Do not unzip it first.
+3. Ask for an effect ("make a purple ground slam"), or use `/vfx [request]`.
+
 ## Install (Claude Code)
 ```
 /plugin marketplace add Frxctured/roblox-vfxmith

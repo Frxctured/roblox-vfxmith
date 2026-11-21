@@ -1,6 +1,6 @@
 ---
 name: vfx-replicate
-description: EXPERIMENTAL. Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, per-element comparison (colours, timing, how neat or organic), then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain), optionally with textures lifted straight from the recording. Use for "/vfx replicate <reference>", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice); warns first.
+description: EXPERIMENTAL. Copy a given reference Roblox effect as closely as possible (replicate mode) - from a frame sheet, a video, several stills or a gallery/library effect id - with a build-capture-compare loop against the reference at the same times, per-element comparison (colours, timing, how neat or organic), then a detail stage on zoomed crops (sparks, thin arcs, ragged flames, smoke edges, grain), optionally with textures lifted straight from the recording. Use for "/vfx replicate [reference]", "copy this effect", "match this", "replicate this", "make it exactly like this". Costs more than a normal /vfx run (roughly twice); warns first.
 ---
 
 # Replicate a reference effect (experimental)
